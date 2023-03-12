@@ -83,7 +83,7 @@
                             <img src="{{ $gs->footerLogoUrl }}" alt="Our company logo" class="img-fluide"
                                 style="max-width:400px; max-height:400px;" />
                             <h1>
-                                Em breve... <br> ...novo site!
+                                Em breve... <br> ...DevOps!
                             </h1>
                             <p class="on-home">Estamos trabalhando muito para oferecer a você a melhor experiência!
                             </p>
