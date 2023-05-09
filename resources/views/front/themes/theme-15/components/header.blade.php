@@ -1,0 +1,469 @@
+<!-- Logo Header Area Start -->
+<div class="menufixed">
+    <section class="logo-header">
+        <div class="container">
+            <div class="row justify-content-between align-items-end py-4" style="position: relative;">
+
+                <div class="col-lg-1 col-2" style="position: static;">
+                    <div class="button-open-search">
+                        <input type="checkbox">
+                        <i class="icofont-search-1"></i>
+                    </div>
+                    <div class="search-box-wrapper">
+                        <div class="search-box">
+                            <form id="searchForm" class="search-form" action="{{ route('front.category') }}"
+                                method="GET">
+
+                                <button type="submit"><i class="icofont-search-1"></i></button>
+
+                                @if (!empty(request()->input('sort')))
+                                    <input type="hidden" name="sort" value="{{ request()->input('sort') }}">
+                                @endif
+
+                                @if (!empty(request()->input('minprice')))
+                                    <input type="hidden" name="minprice" value="{{ request()->input('minprice') }}">
+                                @endif
+
+                                @if (!empty(request()->input('maxprice')))
+                                    <input type="hidden" name="maxprice" value="{{ request()->input('maxprice') }}">
+                                @endif
+
+                                <input type="text" id="prod_name" name="searchHttp"
+                                    placeholder="{{ __('What are you looking for?') }}"
+                                    value="{{ request()->input('searchHttp') }}" autocomplete="off">
+                                <div class="autocomplete">
+                                    <div id="myInputautocomplete-list" class="autocomplete-items"></div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-5">
+                    <div class="logo">
+                        <a href="{{ route('front.index') }}">
+                            <img src="{{ $gs->logoUrl }}" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-5">
+                    <div class="helpful-links">
+                        <ul class="helpful-links-inner">
+
+                            <li>
+                                @if (!Auth::guard('web')->check())
+                                    <a href="{{ route('user.login') }}" class="profile carticon">
+                                        <i class="saxicons-header" data-feather="user"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('user-dashboard') }}" class="profile carticon">
+                                        <i class="saxicons-header" data-feather="user"></i>
+                                    </a>
+                                @endif
+                            </li>
+
+                            <li class="wishlist" data-toggle="tooltip" data-placement="top"
+                                title="{{ __('Wish') }}">
+                                @if (Auth::guard('web')->check())
+                                    <a href="{{ route('user-wishlists') }}" class="wish">
+                                        <i class="saxicons-header" data-feather="heart"></i>
+                                        <span id="wishlist-count">{{ count(Auth::user()->wishlists) }}</span>
+                                    </a>
+                                @else
+                                    <a href="javascript:;" data-toggle="modal" id="wish-btn"
+                                        data-target="#comment-log-reg" class="wish">
+                                        <i class="saxicons-header" data-feather="heart"></i>
+                                        <span id="wishlist-count">0</span>
+                                    </a>
+                                @endif
+                            </li>
+
+                            @if ($gs->is_cart)
+                                <li class="my-dropdown">
+                                    <a href="javascript:;" class="cart carticon">
+                                        <div class="icon">
+                                            <i class="saxicons-header" data-feather="shopping-bag"></i>
+                                            <span class="cart-quantity" id="cart-count">
+                                                {{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <div class="my-dropdown-menu" id="cart-items">
+                                        @include('load.cart')
+                                    </div>
+                                </li>
+                            @endif
+
+                            {{-- <li class="compare" data-toggle="tooltip" data-placement="top"
+                                title="{{ __('Compare') }}">
+                                <a href="{{ route('product.compare') }}" class="wish compare-product">
+                                    <div class="icon">
+                                        <svg class="img-fluid icons-header" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M20 17.5L13.75 11.25L20 5L21.75 6.78125L18.5313 10H27.5V12.5H18.5313L21.75 15.7188L20 17.5ZM10 25L16.25 18.75L10 12.5L8.25 14.2813L11.4688 17.5H2.5V20H11.4688L8.25 23.2188L10 25Z"
+                                                fill="#333333" />
+                                        </svg>
+
+                                        <span id="compare-count">
+                                            {{ Session::has('compare') ? count(Session::get('compare')->items) : '0' }}
+                                        </span>
+                                    </div>
+                                </a>
+                            </li> --}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Logo Header Area End -->
+
+    <section class="saxnavigation">
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="{{ route('front.index') }}">
+                        {{ __('Home') }}
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="{{ route('front.categories') }}">
+                        {{ __('Categories') }}
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="https://saxdepartment.com/">
+                        {{ __('Institutional') }}
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="https://saxdepartment.com/sax-palace">
+                        {{ __('Sax Palace') }}
+                    </a>
+                </li>
+    
+                <li>
+                    <a href="https://saxdepartment.com/bridal-word">
+                        {{ __('Sax Bridal World') }}
+                    </a>
+                </li>
+    
+            
+                @if ($gs->is_contact == 1)
+                    <li>
+                        <a href="{{ route('front.contact') }}">
+                            {{ __('Contact Us') }}
+    
+                        </a>
+                    </li>
+                @endif
+    
+    
+            </ul>
+        </div>
+    </section>
+
+    <!--Main-Menu Area Start-->
+    {{-- <div class="mainmenu-area mainmenu-bb">
+        <div class="container">
+            <div class="row mainmenu-area-innner">
+                <div class="col-6 col-lg-10 d-flex justify-content-center align-items-center">
+                    <!--categorie menu start-->
+                    <div class="categories_menu vertical">
+                        <div class="categories_title">
+                            <h2 class="categori_toggle"><i class="fas fa-layer-group"></i> {{ __('Categories') }}
+                                <i class="fa fa-angle-down arrow-down"></i>
+                            </h2>
+                        </div>
+                        <div class="categories_menu_inner">
+                            <ul style="width:100%;">
+                                @php
+                                    $i = 1;
+                                @endphp
+
+                                @foreach ($categories as $category)
+                                    @php
+                                        $count = count($category->subs_order_by);
+                                    @endphp
+                                    <li
+                                        class="{{ $count ? 'dropdown_list' : '' }}
+                                        {{ $i >= 15 ? 'rx-child' : '' }} qntd">
+
+                                        @if ($count)
+                                            @if ($category->photo)
+                                                <div class="img">
+                                                    <img src="{{ asset('storage/images/categories/' . $category->photo) }}"
+                                                        alt="">
+                                                </div>
+                                            @endif
+                                            <div class="link-area">
+                                                <span><a href="{{ route('front.category', $category->slug) }}">
+                                                        {{ $category->name }}</a>
+                                                </span>
+
+                                                @if ($count)
+                                                    <a href="javascript:;">
+                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        @else
+                                            <a href="{{ route('front.category', $category->slug) }}">
+                                                @if ($category->photo)
+                                                    <img
+                                                        src="{{ asset('storage/images/categories/' . $category->photo) }}">
+                                                @endif
+                                                {{ $category->name }}
+                                            </a>
+                                        @endif
+
+                                        @if ($count)
+                                            @php
+                                                $ck = 0;
+
+                                                foreach ($category->subs_order_by as $subcat):
+                                                    if (count($subcat->childs_order_by) > 0):
+                                                        $ck = 1;
+                                                        break;
+                                                    endif;
+                                                endforeach;
+
+                                            @endphp
+
+                                            <ul
+                                                class="{{ $ck == 1 ? 'categories_mega_menu' : 'categories_mega_menu column_1' }}">
+
+                                                @foreach ($category->subs_order_by as $subcat)
+                                                    <li>
+                                                        <a
+                                                            href="{{ route('front.subcat', ['slug1' => $category->slug, 'slug2' => $subcat->slug]) }}">
+                                                            {{ $subcat->name }}
+                                                        </a>
+
+                                                        @if (count($subcat->childs_order_by) > 0)
+                                                            <div class="categorie_sub_menu">
+                                                                <ul>
+                                                                    @foreach ($subcat->childs_order_by as $childcat)
+                                                                        <li>
+                                                                            <a
+                                                                                href="{{ route('front.childcat', ['slug1' => $category->slug, 'slug2' => $subcat->slug, 'slug3' => $childcat->slug]) }}">
+                                                                                {{ $childcat->name }}
+                                                                            </a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+
+                                            </ul>
+                                        @endif
+
+                                    </li>
+
+                                    @php
+                                        $i++;
+                                    @endphp
+
+                                    @if ($i == 15)
+                                        <li>
+                                            <a href="{{ route('front.categories') }}"><i class="fas fa-plus"></i>
+                                                {{ __('See All Categories') }}
+                                            </a>
+                                        </li>
+                                    @break
+                                @endif
+                            @endforeach
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="categories_menu horizontal">
+                    <div class="categories_title_horizontal">
+                        <h2 class="categori_toggle"><i class="fa fa-bars"></i> {{ __('Categories') }}
+                            <i class="fa fa-angle-down arrow-down"></i>
+                        </h2>
+                    </div>
+                    <div class="categories_menu_inner_horizontal">
+                        <ul>
+                            @php
+                                $i = 1;
+                            @endphp
+
+                            @foreach ($categories as $category)
+                                @php
+                                    $count = count($category->subs_order_by);
+                                @endphp
+                                <li
+                                    class="{{ $count ? 'dropdown_list' : '' }}
+                                        {{ $i >= 15 ? 'rx-child' : '' }}">
+
+                                    @if ($count)
+                                        @if ($category->photo)
+                                            <div class="img">
+                                                <img src="{{ asset('storage/images/categories/' . $category->photo) }}"
+                                                    alt="">
+                                            </div>
+                                        @endif
+                                        <div class="link-area">
+                                            <span><a href="{{ route('front.category', $category->slug) }}">
+                                                    {{ $category->name }}</a>
+                                            </span>
+
+                                            @if ($count)
+                                                <a href="javascript:;">
+                                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                </a>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <a href="{{ route('front.category', $category->slug) }}">
+                                            @if ($category->photo)
+                                                <img
+                                                    src="{{ asset('storage/images/categories/' . $category->photo) }}">
+                                            @endif
+                                            {{ $category->name }}
+                                        </a>
+                                    @endif
+
+                                    @if ($count)
+                                        @php
+                                            $ck = 0;
+
+                                            foreach ($category->subs_order_by as $subcat):
+                                                if (count($subcat->childs_order_by) > 0):
+                                                    $ck = 1;
+                                                    break;
+                                                endif;
+                                            endforeach;
+
+                                        @endphp
+
+                                        <ul
+                                            class="{{ $ck == 1 ? 'categories_mega_menu' : 'categories_mega_menu column_1' }}">
+
+                                            @foreach ($category->subs_order_by as $subcat)
+                                                <li>
+                                                    <a
+                                                        href="{{ route('front.subcat', ['slug1' => $category->slug, 'slug2' => $subcat->slug]) }}">
+                                                        {{ $subcat->name }}
+                                                    </a>
+
+                                                    @if (count($subcat->childs_order_by) > 0)
+                                                        <div class="categorie_sub_menu">
+                                                            <ul>
+                                                                @foreach ($subcat->childs_order_by as $childcat)
+                                                                    <li>
+                                                                        <a
+                                                                            href="{{ route('front.childcat', ['slug1' => $category->slug, 'slug2' => $subcat->slug, 'slug3' => $childcat->slug]) }}">
+                                                                            {{ $childcat->name }}
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+                                                </li>
+                                            @endforeach
+
+                                        </ul>
+                                    @endif
+
+                                </li>
+
+                                @php
+                                    $i++;
+                                @endphp
+
+                                @if ($i == 6)
+                                    <li>
+                                        <a href="{{ route('front.categories') }}"><i class="fas fa-plus"></i>
+                                            {{ __('See All Categories') }}
+                                        </a>
+                                    </li>
+                                @break
+                            @endif
+                        @endforeach
+
+                    </ul>
+                </div>
+            </div>
+            <!--categorie menu end-->
+        </div>
+
+        <div class="col-6 col-lg-2">
+            <div class="box-button-site" data-menu-toggle-main="#menu-browse-site">
+                <i class="fas fa-bars"></i>
+                <p>{{ __('Browse the site') }}</p>
+                <div id="menu-browse-site" class="container-menu">
+                    
+                </div>
+            </div>
+
+        </div>
+    </div> --}}
+</div>
+</div>
+</div>
+<!--Main-Menu Area End-->
+
+
+{{-- @if ($gs->is_blog == 1)
+<li>
+    <a href="{{ route('front.blog') }}">
+        {{ __('Blog') }}
+
+    </a>
+</li>
+@endif
+
+@if ($gs->is_faq == 1)
+<li>
+    <a href="{{ route('front.faq') }}">
+        {{ __('Faq') }}
+
+    </a>
+</li>
+@endif
+@if ($gs->policy)
+<li>
+    <a href="{{ route('front.policy') }}">
+        {{ __('Buy & Return Policy') }}
+
+    </a>
+</li>
+@endif
+
+@foreach ($pheader as $data)
+<li>
+    <a href="{{ route('front.page', $data->slug) }}">
+        {{ $data->title }}
+
+    </a>
+</li>
+@endforeach
+
+@if ($gs->is_cart)
+<li>
+    <a href="javascript:;" data-toggle="modal" data-target="#track-order-modal">
+        {{ __('Track Order') }}
+
+    </a>
+</li>
+@endif
+
+@if ($gs->team_show_header == 1)
+<li>
+    <a href="{{ route('front.team_member') }}">
+        {{ __('Team') }}
+
+    </a>
+</li>
+@endif --}}
