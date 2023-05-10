@@ -889,8 +889,12 @@ color: <?php echo $theme_color_1; ?>;
     border: 1px solid <?php echo $text_color_1; ?>;
 }
 
-.section-top .section-title {
-    color:<?php echo $theme_color_1; ?>;
+.item .info .price {
+    color: <?php echo $theme_color_2; ?>;
+}
+
+.section-top .section-title::before, .section-top .section-title::after {
+    background-color:<?php echo $theme_color_1; ?>;
 }
 
 .item:hover .extra-list {

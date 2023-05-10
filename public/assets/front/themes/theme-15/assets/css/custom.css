@@ -3,7 +3,7 @@
     height: 28px;
 }
 
-.saxnavigation ul {
+.saxnavigation .menu-navigation {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,4 +46,87 @@
 .slick-dots li.slick-active button::before {
     opacity: 1;
     color: #333;
+}
+
+.saxnavigation {
+    background-color: #fff;
+    position: relative;
+}
+
+.logo-header .helpful-links ul li.wishlist .wish span, 
+.logo-header .helpful-links ul li.compare .compare-product .icon span, 
+.logo-header .helpful-links ul li.my-dropdown .cart .icon span {
+    z-index: 2;
+}
+
+.icone-menu-nav, .saxnavigation .menu-navigation li a svg {
+    display: none;
+}
+
+@media (max-width:992px) {
+    .logo-header .helpful-links ul li.loginbutton {
+        display: none;
+    }
+    
+    .saxnavigation .icone-menu-nav {
+        display: block;
+        margin: 1rem 0;
+    }
+
+    .saxnavigation .menu-navigation {
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #fff;
+        box-shadow: 0 0 20px #6464643b;
+        z-index: 99;
+        min-width: 340px;
+        padding: 1rem;
+    }
+
+    .saxnavigation .menu-navigation.showNav {
+        display: flex;
+        animation: showNav .5s;
+    }
+
+    .saxnavigation .menu-navigation li {
+        width: 100%;
+    }
+
+    .saxnavigation .menu-navigation li a {
+        padding: 0 0 15px;
+        display: flex;
+        font-size: 1.4rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .saxnavigation .menu-navigation li a svg {
+        display: block;
+    }
+
+    .saxnavigation .menu-navigation .menudrop {
+        
+    }
+}
+
+@keyframes showNav {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.aside-review-slider .slide-item .img-testimonials {
+    width: 100px;
+    border-radius: 200px;
+}
+
+.aside-review-slider .name {
+    margin: 0;
+    padding: 10px 0 0;
+    text-transform: uppercase;
 }

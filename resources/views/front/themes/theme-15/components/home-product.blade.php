@@ -18,7 +18,7 @@ if ($gs->switch_highlight_currency) {
 
             @if ($prod->vendorPrice() <= $_GET['max'])
 
-                <div class="col-lg-3 col-md-3 col-6 remove-padding">
+                <div class="col-lg-3 col-6 ">
                     <a href="{{ route('front.product', $prod->slug) }}" class="item">
                         @if (!is_null($prod->discount_percent))
                             <span class="badge badge-danger descont-card">
@@ -29,11 +29,11 @@ if ($gs->switch_highlight_currency) {
                             </span>
                         @endif
                         <div class="info">
+                            <h5 class="name">{{ $prod->showName() }}</h5>
                             <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                                     <small><span id="originalprice">{{ $small }}</span></small>
                                 @endif
                             </h4>
-                            <h5 class="name">{{ $prod->showName() }}</h5>
                         </div>
 
                         <div
@@ -170,7 +170,7 @@ if ($gs->switch_highlight_currency) {
 
             @endif
         @else
-            <div class="col-lg-3 col-md-3 col-6 remove-padding">
+            <div class="col-lg-3 col-6">
 
                 <a href="{{ route('front.product', $prod->slug) }}" class="item">
                     @if (!is_null($prod->discount_percent))
@@ -275,13 +275,12 @@ if ($gs->switch_highlight_currency) {
                     </div>
 
                     <div class="info">
-
+                        <h5 class="name">{{ $prod->showName() }}</h5>
                         <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                                 <small><span id="originalprice">{{ $small }}</span></small>
                             @endif
                         </h4>
-                        <h5 class="name">{{ $prod->showName() }}</h5>
-
+                        
                     </div>
 
                     @if ($gs->is_cart)
@@ -331,7 +330,7 @@ if ($gs->switch_highlight_currency) {
 
     {{-- If This product belongs admin and apply this --}}
 @else
-    <div class="col-lg-3 col-md-3 col-6 remove-padding">
+    <div class="col-lg-3 col-6">
 
         <a href="{{ route('front.product', $prod->slug) }}" class="item">
             @if (!is_null($prod->discount_percent))
@@ -426,11 +425,12 @@ if ($gs->switch_highlight_currency) {
                 @endif
             </div>
             <div class="info">
+                <h5 class="name">{{ $prod->showName() }}</h5>
                 <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                         <small><span id="originalprice">{{ $small }}</span></small>
                     @endif
                 </h4>
-                <h5 class="name">{{ $prod->showName() }}</h5>
+                
 
             </div>
 

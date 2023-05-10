@@ -399,7 +399,7 @@ $(function ($) {
         // trending item  slider
         var $trending_slider = $('.trending-item-slider');
         $trending_slider.owlCarousel({
-            items: 5,
+            items: 4,
             autoplay: false,
             margin: 0,
             loop: true,
@@ -423,7 +423,7 @@ $(function ($) {
                     items: 4
                 },
                 1200: {
-                    items: 5
+                    items: 4
                 }
             }
         });
@@ -713,7 +713,7 @@ $(function ($) {
                 items: 3
             },
             993: {
-                items: 5
+                items: 6
             }
         }
     });
