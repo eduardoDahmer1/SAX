@@ -55,6 +55,7 @@ class Product extends LocalizedModel
         'best',
         'top',
         'hot',
+        'show_in_navbar',
         'latest',
         'big',
         'trending',
