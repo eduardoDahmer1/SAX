@@ -22,7 +22,7 @@
             </div>
 
         </div>
-        <div class="row justify-content-center pt-4">
+        <div class="row justify-content-center pt-5">
             <div class="col-md-3">
                 <a class="btn btn-style-1" href="{{ route('front.category') }}">{{ __('See all')}}</a>
             </div>

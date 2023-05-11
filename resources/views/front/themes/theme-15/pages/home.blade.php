@@ -4,18 +4,18 @@
     @include('front.themes.theme-15.components.header-slider')
     @include('front.themes.theme-15.components.featured-products')
     @include('front.themes.theme-15.components.featured-categories')
-    @include('front.themes.shared.components.small-banners-1')
+    @include('front.themes.theme-15.components.small-banners-1')
     @include('front.themes.theme-15.components.small-banners-2')
     @include('front.themes.theme-15.components.best-sellers')
     @include('front.themes.theme-15.components.logo-slider')
     @include('front.themes.theme-15.components.testimonials')
     @include('front.themes.shared.components.large-banners')
-    @include('front.themes.theme-15.components.services')
-    @include('front.themes.theme-15.components.blog')
-
     @include('front.themes.shared.components.flash-deals')
     @include('front.themes.shared.components.top-rated')
     @include('front.themes.shared.components.big-save')
     @include('front.themes.shared.components.hot-sales')
-    
+    @include('front.themes.theme-15.components.services')
+    @include('front.themes.theme-15.components.blog')
+    @include('front.themes.theme-15.components.topheader')
+
 @endsection

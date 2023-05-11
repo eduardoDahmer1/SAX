@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    padding: 3rem 0 10px;
 }
 
 .saxnavigation ul li a { 
@@ -153,4 +153,25 @@
     padding: 15px ;
     border-radius: 0;
     display: block
+}
+
+.slider-banners-excluse .owl-nav :is(.owl-prev, .owl-next) {
+    position: absolute;
+    top: 40%;
+    font-size: 32px;
+    color: #acacac;
+}
+
+.slider-banners-excluse .owl-nav .owl-prev {
+    left: 30px;
+}
+
+.slider-banners-excluse .owl-nav .owl-next {
+    right: 30px;
+}
+
+@media only screen and (max-width: 991px) {
+    .item .info .name {
+        font-size: 18px !important;
+      }
 }

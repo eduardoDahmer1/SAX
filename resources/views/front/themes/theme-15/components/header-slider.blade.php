@@ -10,23 +10,29 @@
     <section class="main-slider">
         <!-- social-networks of the page -->
         <ul class="list-unstyled social-network">
+            @if ($socials->f_status == 1)
             <li class="facebook">
-                <a href="#" class="icon-facebook">
+                <a href="{{ $socials->facebook }}" class="icon-facebook">
                     <i class="fab fa-facebook"></i>
                 </a>
             </li>
-
+            @endif
+            
+            @if ($socials->t_status == 1)
             <li>
-                <a href="#" class="icon-twitter">
+                <a href="{{ $socials->twitter }}" class="icon-twitter">
                     <i class="fab fa-twitter"></i>
                 </a>
             </li>
+            @endif
 
+            @if ($socials->i_status == 1)
             <li class="instagram">
-                <a href="#">
+                <a href="{{ $socials->twitter }}">
                     <i class="fab fa-instagram"></i>
                 </a>
             </li>
+            @endif
         </ul>
         <!-- Main Slider of the page -->
         <div id="main-slider">

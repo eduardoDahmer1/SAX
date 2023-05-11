@@ -607,7 +607,7 @@ background: <?php echo $theme_color_1; ?>;
 background-color: <?php echo $theme_color_1; ?>;
 }
 .logo-header .helpful-links ul li.wishlist .wish span {
-color: <?php echo $theme_color_2; ?>;
+color: #fff;
 background: <?php echo $text_color_2; ?>;
 }
 
@@ -852,7 +852,7 @@ font-weight: 600;
 }
 
 .logo-header .helpful-links ul li.my-dropdown .cart .icon span {
-    color: <?php echo $theme_color_2; ?>;
+    color: #fff;
     background: <?php echo $text_color_2; ?>;
 }
 
@@ -895,12 +895,6 @@ color: <?php echo $theme_color_1; ?>;
     background-color: #fff;
 }
 
-@media (max-width:768px){
-    .item .extra-list {
-        background-color: <?php echo $text_color_2; ?>b8;
-    }
-}
-
 .item .item-img .extra-list ul li span {
     color: <?php echo $theme_color_2; ?>;
     transition: .3s all;
@@ -926,25 +920,27 @@ color: <?php echo $theme_color_1; ?>;
 .recent-post-widget .post-list li .post .post-details .post-title,
 .recent-post-widget .post-list li .post .post-details .date,
 .footer .footer-widget .title,
-.footer .footer-widget ul li
+.footer .footer-widget ul li,
+.footer .title
 {
-color:  <?php echo $theme_color_2; ?>;
-}
-
-
-.footer .title {
-    color: <?php echo $theme_color_2; ?>;
+color: #fff;
 }
 
 .footer .copy-bg .content .content p {
-    color: <?php echo $theme_color_2; ?>;
+    color: #fff;
     opacity: .7;
+}
+
+@media (min-width: 732px){
+    .item:hover .item-cart-area  {
+        background-color: <?php echo $theme_color_2; ?>;
+    }
 }
 
 .footer .fotter-social-links ul li a {
     color: <?php echo $text_color_2; ?>;
-    background-color: <?php echo $theme_color_2; ?>;
-    border-color: <?php echo $theme_color_2; ?>;
+    background-color: #fff;
+    border-color: transparent;
 }
 .footer .fotter-social-links ul li a:hover {
     color: <?php echo $text_color_1; ?>;
@@ -1020,7 +1016,7 @@ color:  <?php echo $theme_color_2; ?>;
 }
 
 .top-header {
-    background-color: <?php echo $theme_color_1; ?>;
+    background-color: <?php echo $text_color_1; ?>;
 }
 
 .top-header .left-content .list ul li .nice-select,
@@ -1030,13 +1026,13 @@ color:  <?php echo $theme_color_2; ?>;
 .top-header .content .right-content .list li .nice-select,
 .top-header .left-content .list ul li .language-selector i
 {
-    color: <?php echo $text_color_1; ?>;
+    color: #fff;
 }
 
 .top-header .left-content .list ul li .nice-select::after,
 .right-content .nice-select::after {
-    border-bottom: 2px solid <?php echo $text_color_1; ?>;
-    border-right: 2px solid <?php echo $text_color_1; ?>;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
 }
 
 #profile-icon, .logo-header .search-box .search-form button  {

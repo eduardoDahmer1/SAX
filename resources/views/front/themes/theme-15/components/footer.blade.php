@@ -83,8 +83,8 @@
 
                     </ul>
                 </div>
-                <div class="fotter-social-links">
-                    <h4 class="title mb-1">
+                <div class="fotter-social-links pt-2">
+                    <h4 class="title mb-2">
                         {{ __('Social networks') }}
                     </h4>
                     <ul>
@@ -184,15 +184,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="content">
-                        <div class="content">
-                            <p>COPYRIGHT {{ $gs->title }} © {{ date('Y') }}.
-                                {{ $gs->company_document ? '| ' . $gs->document_name . ' - ' . $gs->company_document . ' |' : '' }}
-                                {{ __('All Rights Reserved') }}.</p>
-                            <p>{{ __('Developed By') }} <a id="agcrow" href="https://crowtech.digital/">CrowTech</a>
-                            </p>
-                        </div>
-                    </div>
+                    <p class="text-center m-0">
+                        <small class="text-white">
+                            COPYRIGHT {{ $gs->title }} © {{ date('Y') }}.
+                        {{ $gs->company_document ? '| ' . $gs->document_name . ' - ' . $gs->company_document . ' |' : '' }}
+                        {{ __('All Rights Reserved') }}.
+                        </small>
+                    </p>
+                    <p class="text-center m-0">
+                        <small class="text-white">
+                            {{ __('Developed By') }} <a id="agcrow" href="https://crowtech.digital/">CrowTech</a>
+                        </small>
+                    </p>
                 </div>
             </div>
         </div>
