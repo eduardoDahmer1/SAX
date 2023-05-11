@@ -1,0 +1,46 @@
+@if ($ps->reviews_store == 1)
+    <section class="blog-area">
+        <div class="container">
+            <div class="row">
+            
+                <div class="col-lg-12">
+                    <div class="section-top">
+                        <h2 class="section-title">
+                            {{ __('Blog of the week') }}
+                        </h2>
+                        <h5>{{__("Stay on top of all the news")}}</h5>
+                    </div>
+                    <div class="py-4">
+                        <div class="row">
+                            @foreach ($extra_blogs->take(4) as $post)
+                                <div class="col-md-3 blog-box">
+                                    <img src="{{ $post->photo ? asset('storage/images/blogs/' . $post->photo) : asset('assets/images/noimage.png') }}"
+                                            class="img-fluid" alt="">
+                                  
+                                    <div class="box-infos">
+                                        <p class="date-blog">
+                                            <i class="fa fa-calendar-days"></i>
+                                            {{$post->created_at->format('d M, Y')}}
+                                        </p>
+
+                                        <a href='{{ route('front.blogshow', $post->id) }}'>
+                                            <h4 class="blog-title">
+                                                {{ str($post->title)->limit(55,'...') }}
+                                            </h4>
+                                        </a>
+                                        <div class="details">
+                                           
+                                            <a class="read-more-btn"
+                                                href="{{ route('front.blogshow', $post->id) }}">{{ __('Check it out on our blog') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endif

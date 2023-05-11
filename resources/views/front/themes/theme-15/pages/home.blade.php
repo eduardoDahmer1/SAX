@@ -9,13 +9,13 @@
     @include('front.themes.theme-15.components.best-sellers')
     @include('front.themes.theme-15.components.logo-slider')
     @include('front.themes.theme-15.components.testimonials')
-
-
     @include('front.themes.shared.components.large-banners')
+    @include('front.themes.theme-15.components.services')
+    @include('front.themes.theme-15.components.blog')
+
     @include('front.themes.shared.components.flash-deals')
-    @include('front.themes.theme-11.components.services')
     @include('front.themes.shared.components.top-rated')
     @include('front.themes.shared.components.big-save')
     @include('front.themes.shared.components.hot-sales')
-    @include('front.themes.theme-11.components.reviews')
+    
 @endsection

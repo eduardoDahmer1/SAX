@@ -130,3 +130,27 @@
     padding: 10px 0 0;
     text-transform: uppercase;
 }
+
+.aside-review-slider .owl-nav :is(.owl-prev, .owl-next) {
+    position: absolute;
+    top: 40%;
+    font-size: 24px;
+    color: #acacac;
+}
+
+.aside-review-slider .owl-nav .owl-prev {
+    left: -30px;
+}
+
+.aside-review-slider .owl-nav .owl-next {
+    right: -30px;
+}
+
+.btn-style-1 {
+    text-transform: uppercase;
+    border: 1px solid #333;
+    color: #333;
+    padding: 15px ;
+    border-radius: 0;
+    display: block
+}

@@ -426,13 +426,13 @@ background: <?php echo $theme_color_1; ?>;
 }
 .item .add-to-cart-btn{
 background: <?php echo $theme_color_2; ?>;
-border: 1px solid <?php echo $text_color_2; ?>;
-color: <?php echo $text_color_2; ?>;
+border: 1px solid <?php echo $theme_color_2; ?>;
+color: #fff;
 }
 .item .add-to-cart-btn:hover {
-color: <?php echo $theme_color_2; ?>;
+color: #fff;
 background: <?php echo $text_color_2; ?>;
-border: 1px solid <?php echo $theme_color_2; ?>;
+border: 1px solid <?php echo $text_color_2; ?>;
 }
 
 .flash-deals .flas-deal-slider .item .price .new-price {
@@ -624,9 +624,9 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .blog-area .blog-box .details .read-more-btn {
-    color: <?php echo $text_color_1; ?>;
-    background: <?php echo $theme_color_1; ?>;
-    border:1px solid <?php echo $theme_color_1; ?>;
+    color: #fff;
+    background: <?php echo $text_color_1; ?>;
+    border:1px solid <?php echo $text_color_1; ?>;
 }
 
 .blog-area .blog-box .details .read-more-btn:hover {
@@ -635,9 +635,6 @@ color: <?php echo $theme_color_1; ?>;
     border:1px solid <?php echo $text_color_1; ?>;
 }
 
-.info-area > .container  {
-    background-color: <?php echo $text_color_2; ?>;
-}
 <!--Alterado do dinâmico $theme_color_1 com uma variável inexistente pois foi a melhor forma que encontrei de estilizar sem quebrar o resto do layout-->
 
 .info-area .info-box .info .title {
@@ -645,7 +642,7 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .info-area .info-box .info .details .text {
-    color: <?php echo $theme_color_2; ?>;
+    color: <?php echo $text_color_2; ?>;
 }
 
 .blogpagearea .blog-box .details .read-more-btn {
@@ -873,12 +870,9 @@ color: <?php echo $theme_color_1; ?>;
     background: <?php echo $theme_color_1; ?>;
 }
 
-.blog-area .blog-box {
-    background-color: <?php echo $text_color_2; ?>;
-}
 
 .blog-area .blog-box .blog-title, .blog-area .blog-box .details .blog-text {
-    color: <?php echo $theme_color_2; ?>;
+    color: <?php echo $text_color_1; ?>;
 }
 
 .blog-area .blog-box .blog-images .img .date p {
@@ -898,7 +892,7 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .item:hover .extra-list {
-    background-color: <?php echo $text_color_2; ?>;
+    background-color: #fff;
 }
 
 @media (max-width:768px){

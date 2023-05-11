@@ -407,7 +407,7 @@ $(function ($) {
             nav: true,
             center: false,
             autoplayHoverPause: true,
-            navText: ["<i class='fas fa-caret-left'></i>", "<i class='fas fa-caret-right'></i>"],
+            navText:["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
             smartSpeed: 800,
             responsive: {
                 0: {
@@ -497,8 +497,8 @@ $(function ($) {
 
             $aside_review_slider.owlCarousel({
                 loop: true,
-                nav: false,
-                navText: ["<i class='fas fa-caret-left'></i>", "<i class='fas fa-caret-right'></i>"],
+                nav: true,
+                navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
                 dots: false,
                 margin: 30,
                 autoplay: true,
