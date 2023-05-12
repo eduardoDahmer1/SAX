@@ -426,13 +426,13 @@ background: <?php echo $theme_color_1; ?>;
 }
 .item .add-to-cart-btn{
 background: <?php echo $theme_color_2; ?>;
-border: 1px solid <?php echo $text_color_2; ?>;
-color: <?php echo $text_color_2; ?>;
+border: 1px solid <?php echo $theme_color_2; ?>;
+color: #fff;
 }
 .item .add-to-cart-btn:hover {
-color: <?php echo $theme_color_2; ?>;
+color: #fff;
 background: <?php echo $text_color_2; ?>;
-border: 1px solid <?php echo $theme_color_2; ?>;
+border: 1px solid <?php echo $text_color_2; ?>;
 }
 
 .flash-deals .flas-deal-slider .item .price .new-price {
@@ -607,7 +607,7 @@ background: <?php echo $theme_color_1; ?>;
 background-color: <?php echo $theme_color_1; ?>;
 }
 .logo-header .helpful-links ul li.wishlist .wish span {
-color: <?php echo $theme_color_2; ?>;
+color: #fff;
 background: <?php echo $text_color_2; ?>;
 }
 
@@ -624,9 +624,9 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .blog-area .blog-box .details .read-more-btn {
-    color: <?php echo $text_color_1; ?>;
-    background: <?php echo $theme_color_1; ?>;
-    border:1px solid <?php echo $theme_color_1; ?>;
+    color: #fff;
+    background: <?php echo $text_color_1; ?>;
+    border:1px solid <?php echo $text_color_1; ?>;
 }
 
 .blog-area .blog-box .details .read-more-btn:hover {
@@ -635,9 +635,6 @@ color: <?php echo $theme_color_1; ?>;
     border:1px solid <?php echo $text_color_1; ?>;
 }
 
-.info-area > .container  {
-    background-color: <?php echo $text_color_2; ?>;
-}
 <!--Alterado do dinâmico $theme_color_1 com uma variável inexistente pois foi a melhor forma que encontrei de estilizar sem quebrar o resto do layout-->
 
 .info-area .info-box .info .title {
@@ -645,7 +642,7 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .info-area .info-box .info .details .text {
-    color: <?php echo $theme_color_2; ?>;
+    color: <?php echo $text_color_2; ?>;
 }
 
 .blogpagearea .blog-box .details .read-more-btn {
@@ -855,7 +852,7 @@ font-weight: 600;
 }
 
 .logo-header .helpful-links ul li.my-dropdown .cart .icon span {
-    color: <?php echo $theme_color_2; ?>;
+    color: #fff;
     background: <?php echo $text_color_2; ?>;
 }
 
@@ -873,12 +870,9 @@ color: <?php echo $theme_color_1; ?>;
     background: <?php echo $theme_color_1; ?>;
 }
 
-.blog-area .blog-box {
-    background-color: <?php echo $text_color_2; ?>;
-}
 
 .blog-area .blog-box .blog-title, .blog-area .blog-box .details .blog-text {
-    color: <?php echo $theme_color_2; ?>;
+    color: <?php echo $text_color_1; ?>;
 }
 
 .blog-area .blog-box .blog-images .img .date p {
@@ -898,13 +892,7 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .item:hover .extra-list {
-    background-color: <?php echo $text_color_2; ?>;
-}
-
-@media (max-width:768px){
-    .item .extra-list {
-        background-color: <?php echo $text_color_2; ?>b8;
-    }
+    background-color: #fff;
 }
 
 .item .item-img .extra-list ul li span {
@@ -932,25 +920,27 @@ color: <?php echo $theme_color_1; ?>;
 .recent-post-widget .post-list li .post .post-details .post-title,
 .recent-post-widget .post-list li .post .post-details .date,
 .footer .footer-widget .title,
-.footer .footer-widget ul li
+.footer .footer-widget ul li,
+.footer .title
 {
-color:  <?php echo $theme_color_2; ?>;
-}
-
-
-.footer .title {
-    color: <?php echo $theme_color_2; ?>;
+color: #fff;
 }
 
 .footer .copy-bg .content .content p {
-    color: <?php echo $theme_color_2; ?>;
+    color: #fff;
     opacity: .7;
+}
+
+@media (min-width: 732px){
+    .item:hover .item-cart-area  {
+        background-color: <?php echo $theme_color_2; ?>;
+    }
 }
 
 .footer .fotter-social-links ul li a {
     color: <?php echo $text_color_2; ?>;
-    background-color: <?php echo $theme_color_2; ?>;
-    border-color: <?php echo $theme_color_2; ?>;
+    background-color: #fff;
+    border-color: transparent;
 }
 .footer .fotter-social-links ul li a:hover {
     color: <?php echo $text_color_1; ?>;
@@ -1026,7 +1016,7 @@ color:  <?php echo $theme_color_2; ?>;
 }
 
 .top-header {
-    background-color: <?php echo $theme_color_1; ?>;
+    background-color: <?php echo $text_color_1; ?>;
 }
 
 .top-header .left-content .list ul li .nice-select,
@@ -1036,13 +1026,13 @@ color:  <?php echo $theme_color_2; ?>;
 .top-header .content .right-content .list li .nice-select,
 .top-header .left-content .list ul li .language-selector i
 {
-    color: <?php echo $text_color_1; ?>;
+    color: #fff;
 }
 
 .top-header .left-content .list ul li .nice-select::after,
 .right-content .nice-select::after {
-    border-bottom: 2px solid <?php echo $text_color_1; ?>;
-    border-right: 2px solid <?php echo $text_color_1; ?>;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
 }
 
 #profile-icon, .logo-header .search-box .search-form button  {

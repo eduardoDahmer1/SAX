@@ -11,7 +11,7 @@
                         <div class="info-big-box">
                             <div id="services-carousel">
                                 @foreach ($chunk as $service)
-                                    <div class="item-slide">
+                                    <div class="item-slide d-flex align-items-center">
                                         <a target="_blank" href="{{ $service->link }}">
                                             <div class="info-box">
                                                 <div class="icon">
@@ -21,13 +21,16 @@
                                                 <div class="info">
                                                     <h4 class="title">{{ $service->title }}</h4>
                                                     <div class="details">
-                                                        <p class="text">
+                                                        <h6 class="text">
                                                             {!! $service->details !!}
-                                                        </p>
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             </div>
                                         </a>
+                                        @if ( !$loop->last)
+                                        <div class="border-left d-block h-100"></div>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>

@@ -327,7 +327,7 @@ $(function ($) {
             $flas_deal_slider.owlCarousel({
                 loop: true,
                 nav: true,
-                navText: ['<i class="fas fa-caret-left"></i>', '<i class="fas fa-caret-right"></i>'],
+                navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
                 dots: false,
                 margin: 10,
                 autoplay: true,
@@ -407,7 +407,7 @@ $(function ($) {
             nav: true,
             center: false,
             autoplayHoverPause: true,
-            navText: ["<i class='fas fa-caret-left'></i>", "<i class='fas fa-caret-right'></i>"],
+            navText:["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
             smartSpeed: 800,
             responsive: {
                 0: {
@@ -497,8 +497,8 @@ $(function ($) {
 
             $aside_review_slider.owlCarousel({
                 loop: true,
-                nav: false,
-                navText: ["<i class='fas fa-caret-left'></i>", "<i class='fas fa-caret-right'></i>"],
+                nav: true,
+                navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
                 dots: false,
                 margin: 30,
                 autoplay: true,
@@ -523,11 +523,11 @@ $(function ($) {
                         autoplay: true,
                         margin: 0,
                         loop: true,
-                        dots: true,
+                        dots: false,
                         nav: true,
                         center: false,
                         autoplayHoverPause: true,
-                        navText: ["<i class='fas fa-caret-left'></i>", "<i class='fas fa-caret-right'></i>"],
+                        navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
                         smartSpeed: 800,
                         responsive: {
                             0: {
@@ -559,7 +559,7 @@ $(function ($) {
                 nav: true,
                 center: false,
                 autoplayHoverPause: true,
-                navText: ["<i class='fas fa-caret-left'></i>", "<i class='fas fa-caret-right'></i>"],
+                navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
                 smartSpeed: 800,
             })
         }
@@ -784,6 +784,24 @@ $(function ($) {
             }
         }
     });
+
+    // flas_deal_slider
+    var $slider_banners_excluse = $('.slider-banners-excluse');
+
+    if ($slider_banners_excluse.children().length > 1) {
+        $slider_banners_excluse.owlCarousel({
+            loop: true,
+            nav: true,
+            navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+            dots: false,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 6000,
+            smartSpeed: 1000,
+            items: 1
+        });
+
+    }
 
 
 });
