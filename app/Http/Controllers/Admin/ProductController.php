@@ -103,6 +103,8 @@ class ProductController extends Controller
             $datas = $datas->where('category_id', '=', null)->orWhere('category_id', '=', 0)->orderBy('id', 'desc');
         } elseif ($status == 'active_without_image') {
             $datas = $datas->whereRaw('(photo is null or photo = "")')->where('status', '=', 1)->orderBy('id', 'desc');
+        } elseif ($status == 'with_image') {
+            $datas = $datas->whereNotNull('photo')->where('photo', '<>', '')->orderBy('id', 'desc');
         } elseif ($status == 'system_name') {
             $query1 = DB::table('products')
                 ->select('products.id as id1')
@@ -267,6 +269,7 @@ class ProductController extends Controller
             "latest" => __('Latest'),
             "without_category" => __('Without Category'),
             "system_name" => __('With System Name'),
+            "with_image" => __('With Image')
         ];
 
         $cats = Category::all();
