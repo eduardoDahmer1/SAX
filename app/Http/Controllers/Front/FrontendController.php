@@ -194,13 +194,13 @@ class FrontendController extends Controller
         $products = $prepareProducts->get();
 
         $feature_products = $products->where('featured', 1)->take(10);
-        $categories = Category::orderBy('slug')->orderBy('presentation_position')->where('is_featured', 1)->get();
 
-        $nav_products = Category::whereHas('products', function ($query) {
-            $query->where('show_in_navbar', 1);
-        })->with(['products' => function ($query) {
-            $query->where('show_in_navbar', 1);
-        }])->get();
+        $categories = Category::orderBy('slug')->orderBy('presentation_position')->where('is_featured', 1)->with([
+            'products' => function ($query) {
+                $query->where('show_in_navbar', 1);
+            }
+        ])->get();
+
         /**
          * Extra index - former ajax request
          */
@@ -225,7 +225,7 @@ class FrontendController extends Controller
         $trending_products = $products->where('trending', 1)->take(10);
         $sale_products = $products->where('sale', 1)->take(10);
         $extra_blogs = Blog::orderBy('created_at', 'desc')->limit(5)->get();
-        return view('front.index', compact(
+        return view('front.index', dd(compact(
             'sliders',
             'top_small_banners',
             'feature_products',
@@ -243,8 +243,7 @@ class FrontendController extends Controller
             'discount_products',
             'partners',
             'extra_blogs',
-            'nav_products'
-        ));
+        )));
     }
 
     public function extraIndex()
