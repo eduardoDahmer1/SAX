@@ -225,7 +225,7 @@ class FrontendController extends Controller
         $trending_products = $products->where('trending', 1)->take(10);
         $sale_products = $products->where('sale', 1)->take(10);
         $extra_blogs = Blog::orderBy('created_at', 'desc')->limit(5)->get();
-        return view('front.index', dd(compact(
+        return view('front.index', compact(
             'sliders',
             'top_small_banners',
             'feature_products',
@@ -243,7 +243,7 @@ class FrontendController extends Controller
             'discount_products',
             'partners',
             'extra_blogs',
-        )));
+        ));
     }
 
     public function extraIndex()
