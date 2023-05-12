@@ -285,6 +285,6 @@
     
     .menu-navigation.drop_open .submenu-cat {
         position: absolute;
-        bottom: 0;
+        top: 100%;
     }
 }
