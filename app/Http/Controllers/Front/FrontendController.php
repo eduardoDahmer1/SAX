@@ -195,7 +195,11 @@ class FrontendController extends Controller
 
         $feature_products = $products->where('featured', 1)->take(10);
 
-        $categories = Category::orderBy('slug')->orderBy('presentation_position')->where('is_featured', 1)->get();
+        $categories = Category::orderBy('slug')->orderBy('presentation_position')->where('is_featured', 1)->with([
+            'products' => function ($query) {
+                $query->where('show_in_navbar', 1);
+            }
+        ])->get();
 
         /**
          * Extra index - former ajax request
@@ -220,10 +224,7 @@ class FrontendController extends Controller
         $latest_products = $products->where('latest', 1)->take(10);
         $trending_products = $products->where('trending', 1)->take(10);
         $sale_products = $products->where('sale', 1)->take(10);
-
         $extra_blogs = Blog::orderBy('created_at', 'desc')->limit(5)->get();
-
-
         return view('front.index', compact(
             'sliders',
             'top_small_banners',
@@ -241,7 +242,7 @@ class FrontendController extends Controller
             'sale_products',
             'discount_products',
             'partners',
-            'extra_blogs'
+            'extra_blogs',
         ));
     }
 

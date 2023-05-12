@@ -1798,6 +1798,9 @@ class ProductController extends Controller
             $input['is_discount'] = 0;
             $input['discount_date'] = null;
         }
+        if ($request->show_in_navbar == "") {
+            $input['show_in_navbar'] = 0;
+        }
 
         $data->update($input);
         //-- Logic Section Ends
