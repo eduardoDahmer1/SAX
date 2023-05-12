@@ -157,13 +157,13 @@
                                                 <div class="d-flex">
                                                     @foreach ( $category->products as $product)
                                                     @if ($product->show_in_navbar)
-                                                        <div class="mr-2 py-1">
+                                                        <a href="{{ route('front.product', $product->slug ) }}" class="mr-2 py-1 d-block">
                                                             <div class="box-img">
                                                                 <img src="{{ asset('storage/images/thumbnails/' . $product->thumbnail) }}" class="img-fluid" alt="">
                                                             </div>
                                                             <p class="brand-name">{{str($product->brand->name)->limit(8,'...')}}</p>
                                                             <p class="product-name">{{str($product->name)->limit(25,'...')}}</p>
-                                                        </div>
+                                                        </a>
                                                     @endif
                                                     @endforeach
                                                 </div>
@@ -171,6 +171,7 @@
                                             </div>
                                         </li>
                                     @endforeach
+                                    <li><a class="navlink py-2" href="{{ route('front.categories')}}">{{__('See al categories')}}</a></li>
                                 </ul>
                             </div>
                 
