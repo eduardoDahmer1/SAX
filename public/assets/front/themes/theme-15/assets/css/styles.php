@@ -1060,3 +1060,7 @@ color: #fff;
 [data-menu-toggle-main] .container-menu li a{
     color: <?php echo $theme_color_2; ?>;
 }
+
+.menu-navigation.drop_open li.menudrop > a, .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open {
+    color: <?php echo $theme_color_1; ?>;
+}

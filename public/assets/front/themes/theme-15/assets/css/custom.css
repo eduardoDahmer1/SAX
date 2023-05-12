@@ -10,7 +10,7 @@
     padding: 3rem 0 10px;
 }
 
-.saxnavigation ul li a { 
+.saxnavigation .menu-navigation li .navlink { 
     padding: 0 20px;
     text-transform: uppercase;
     font-size: 1.1rem;
@@ -94,7 +94,7 @@
         width: 100%;
     }
 
-    .saxnavigation .menu-navigation li a {
+    .saxnavigation .menu-navigation li .navlink {
         padding: 0 0 15px;
         display: flex;
         font-size: 1.4rem;
@@ -174,4 +174,50 @@
     .item .info .name {
         font-size: 18px !important;
       }
+}
+
+/* Estilo para menu mobile */
+
+.menu-navigation.drop_open > li {
+    display: none;
+}
+
+.menu-navigation.drop_open li.menudrop {
+    display: block;   
+}
+
+.menu-navigation.drop_open li.menudrop a {
+    flex-direction: row-reverse;
+    justify-content: start;
+}
+
+.menu-navigation.drop_open li.menudrop a svg {
+    transform: rotate(180deg);
+    margin-right: 10px;
+}
+
+.menu-navigation.drop_open .submenu-cat {
+    display: block;
+    width: 100%;
+}
+
+.menu-navigation .submenu-cat {
+    display: none;
+}
+
+.submenu-cat .subcat-link {
+    font-family: 'Cormorant', serif;
+    font-size: 22px;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.saxnavigation .menu-navigation .submenu-cat .subcat-link .boxsubcat {
+    display: none;
+}
+
+.saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open .boxsubcat {
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid #e8e8e8;
 }
