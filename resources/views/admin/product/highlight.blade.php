@@ -128,9 +128,16 @@
                                                 </div>
 
                                             </div>
-
-
-
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="input-form input-form-center">
+                                                <h4 class="heading">{{ __('Highlight in') }} {{ __('Navbar') }} *</h4>
+                                                <label class="switch">
+                                                    <input type="checkbox" name="show_in_navbar" value="1"
+                                                        {{ $data->show_in_navbar == 1 ? 'checked' : '' }}>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
                                         </div>
 
                                     </div>
