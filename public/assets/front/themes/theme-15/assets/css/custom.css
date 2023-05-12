@@ -221,3 +221,29 @@
     padding: 10px 0;
     border-bottom: 1px solid #e8e8e8;
 }
+
+
+.boxsubcat .brand-name {
+    font: 13px 'Montserrat';
+    font-weight: 500;
+    padding-top: 3px;
+    margin: 2px;
+}
+
+.boxsubcat .product-name {
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.boxsubcat .box-img {
+    height: 120px;
+    background: #F6F6F6;
+    display: flex;
+    align-items: center;
+}
+
+.boxsubcat .link-seemore {
+    font-weight: 500;
+    padding: 5px;
+    display: block;
+}

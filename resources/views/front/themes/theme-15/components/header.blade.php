@@ -154,7 +154,20 @@
                                         <li class="subcat-link">
                                             <div>{{ $category->name }}</div>
                                             <div class="boxsubcat">
-                                                <a href="{{ route('front.categories')}}">Ver todos {{ $category->name }}</a>
+                                                <div class="d-flex">
+                                                    @foreach ( $category->products as $product)
+                                                    @if ($product->show_in_navbar)
+                                                        <div class="mr-2 py-1">
+                                                            <div class="box-img">
+                                                                <img src="{{ asset('storage/images/thumbnails/' . $product->thumbnail) }}" class="img-fluid" alt="">
+                                                            </div>
+                                                            <p class="brand-name">{{str($product->brand->name)->limit(8,'...')}}</p>
+                                                            <p class="product-name">{{str($product->name)->limit(25,'...')}}</p>
+                                                        </div>
+                                                    @endif
+                                                    @endforeach
+                                                </div>
+                                                <a class="link-seemore" href="{{ route('front.category', $category->slug )}}"> Ver todos {{ $category->name }}</a>
                                             </div>
                                         </li>
                                     @endforeach
@@ -512,7 +525,6 @@
 
     linkSubCategories.forEach(element => {
         element.addEventListener('click', event => {
-            event.preventDefault()
             linkSubCategories.forEach(element => element.classList.remove('subcat_open'))
             event.currentTarget.classList.toggle('subcat_open')
         })
