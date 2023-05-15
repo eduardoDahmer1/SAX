@@ -1062,5 +1062,5 @@ color: #fff;
 }
 
 .menu-navigation.drop_open li.menudrop > a, .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open {
-    color: <?php echo $theme_color_1; ?>;
+    color: <?php echo $theme_color_2; ?>;
 }

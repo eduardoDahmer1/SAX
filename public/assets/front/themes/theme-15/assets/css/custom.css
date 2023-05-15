@@ -261,6 +261,10 @@
     justify-content: center;
 }
 
+.boxsubcat a {
+    margin-right: 5px;
+}
+
 .boxsubcat .link-seemore {
     font-weight: 500;
     padding: 5px;
@@ -286,5 +290,62 @@
     .menu-navigation.drop_open .submenu-cat {
         position: absolute;
         top: 100%;
+        overflow: visible;
+        box-shadow: 0 0 5px #cccccc8f;
+    }
+    .menu-navigation .submenu-cat ul {
+        display: flex;
+        background-color: #fff;
+        padding: 1rem;
+        position: relative;
+        z-index: 9;
+        justify-content: space-around;
+    }
+    
+    .submenu-cat .subcat-link {
+        text-transform: uppercase;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+    .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open {
+        text-decoration: underline;
+    }
+
+    .saxnavigation .menu-navigation .submenu-cat .subcat-link .boxsubcat {
+        width: 0;
+    }
+
+    .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open .boxsubcat {
+        position: absolute;
+        height: auto;
+        z-index: 9;
+        top: 100%;
+        background-color: #fff;
+        padding: 15px;
+        left: 0;
+        width: 100%;
+        border-bottom: none;
+        box-shadow: 0 3px 5px #cccccc8f;
+        border-top: 1px solid #ececec;
+    }
+
+    .boxsubcat .link-seemore {
+        text-align: center;
+        width: 100%;
+        text-transform: none;
+    }
+
+    .boxsubcat .box-img {
+        height: auto;
+    }
+
+    .boxsubcat a {
+        width: 150px;
+        margin-right: 1rem;
+    }
+
+    .boxsubcat .brand-name {
+        margin-top: 1rem;
     }
 }
