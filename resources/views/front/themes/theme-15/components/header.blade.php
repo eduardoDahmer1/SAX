@@ -154,10 +154,10 @@
                                         <li class="subcat-link">
                                             <div>{{ $category->name }}</div>
                                             <div class="boxsubcat">
-                                                <div class="d-flex">
+                                                <div class="d-flex justify-content-center">
                                                     @foreach ($category->products as $product)
                                                         @if ($product->show_in_navbar)
-                                                            <a href="{{ route('front.product', $product->slug ) }}" class="py-1 d-block">
+                                                            <a href="{{ route('front.product', $product->slug ) }}">
                                                                 <div class="box-img">
                                                                     <img src="{{ asset('storage/images/thumbnails/' . $product->thumbnail) }}" class="img-fluid" alt="">
                                                                 </div>
@@ -456,73 +456,19 @@
 </div>
 <!--Main-Menu Area End-->
 
-
-{{-- @if ($gs->is_blog == 1)
-<li>
-    <a href="{{ route('front.blog') }}">
-        {{ __('Blog') }}
-
-    </a>
-</li>
-@endif
-
-@if ($gs->is_faq == 1)
-<li>
-    <a href="{{ route('front.faq') }}">
-        {{ __('Faq') }}
-
-    </a>
-</li>
-@endif
-@if ($gs->policy)
-<li>
-    <a href="{{ route('front.policy') }}">
-        {{ __('Buy & Return Policy') }}
-
-    </a>
-</li>
-@endif
-
-@foreach ($pheader as $data)
-<li>
-    <a href="{{ route('front.page', $data->slug) }}">
-        {{ $data->title }}
-
-    </a>
-</li>
-@endforeach
-
-@if ($gs->is_cart)
-<li>
-    <a href="javascript:;" data-toggle="modal" data-target="#track-order-modal">
-        {{ __('Track Order') }}
-
-    </a>
-</li>
-@endif
-
-@if ($gs->team_show_header == 1)
-<li>
-    <a href="{{ route('front.team_member') }}">
-        {{ __('Team') }}
-
-    </a>
-</li>
-@endif --}}
-
-
 <script>
+
+    const linkSubCategories = document.querySelectorAll('.subcat-link');
+
     document.querySelector(".icone-menu-nav").addEventListener('click', () =>  {
         document.querySelector(".menu-navigation").classList.toggle("showNav")
     })
 
     document.querySelector('.menudrop').addEventListener('click', event => {
         event.preventDefault()
-        let linksList = document.querySelector('.menu-navigation').classList.toggle('drop_open')
+        document.querySelector('.menu-navigation').classList.toggle('drop_open')
         event.target.classList.toggle('submenu_open')
     })
-
-    const linkSubCategories = document.querySelectorAll('.subcat-link');
 
     linkSubCategories.forEach(element => {
         element.addEventListener('click', event => {
@@ -530,5 +476,27 @@
             event.currentTarget.classList.toggle('subcat_open')
         })
     });
+
+    if (window.matchMedia("(min-width:992px)").matches) {
+
+        document.querySelector('.menudrop').addEventListener('mouseover', event => {
+            event.preventDefault()
+            document.querySelector('.menu-navigation').classList.add('drop_open')
+            event.target.classList.add('submenu_open')
+        })
+
+        linkSubCategories.forEach(element => {
+            element.addEventListener('mouseover', event => {
+                linkSubCategories.forEach(element => element.classList.remove('subcat_open'))
+                event.currentTarget.classList.toggle('subcat_open')
+            })
+        });
+
+        //Remove as classes
+        document.querySelector(".submenu-cat").addEventListener('mouseleave', () => {
+            document.querySelector('.menu-navigation').classList.toggle('drop_open')
+        })        
+
+    }
 
 </script>

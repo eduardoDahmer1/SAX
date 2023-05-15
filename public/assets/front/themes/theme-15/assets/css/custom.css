@@ -166,12 +166,6 @@
     right: 30px;
 }
 
-@media only screen and (max-width: 991px) {
-    .item .info .name {
-        font-size: 18px !important;
-      }
-}
-
 /* Estilo para menu mobile */
 
 .menu-navigation.drop_open > li {
@@ -263,6 +257,8 @@
 
 .boxsubcat a {
     margin-right: 5px;
+    display: block;
+    padding: 10px 0;
 }
 
 .boxsubcat .link-seemore {
@@ -296,7 +292,7 @@
     .menu-navigation .submenu-cat ul {
         display: flex;
         background-color: #fff;
-        padding: 1rem;
+        padding: 5px;
         position: relative;
         z-index: 9;
         justify-content: space-around;
@@ -322,7 +318,7 @@
         z-index: 9;
         top: 100%;
         background-color: #fff;
-        padding: 15px;
+        padding: 10px ;
         left: 0;
         width: 100%;
         border-bottom: none;
@@ -347,5 +343,14 @@
 
     .boxsubcat .brand-name {
         margin-top: 1rem;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .item .info .name {
+        font-size: 18px !important;
+      }
+      .boxsubcat a:nth-child(4), .boxsubcat a:nth-child(5), .boxsubcat a:nth-child(6) {
+        display: none;
     }
 }
