@@ -10,7 +10,7 @@
     padding: 3rem 0 10px;
 }
 
-.saxnavigation ul li a { 
+.saxnavigation .menu-navigation li .navlink { 
     padding: 0 20px;
     text-transform: uppercase;
     font-size: 1.1rem;
@@ -94,7 +94,7 @@
         width: 100%;
     }
 
-    .saxnavigation .menu-navigation li a {
+    .saxnavigation .menu-navigation li .navlink {
         padding: 0 0 15px;
         display: flex;
         font-size: 1.4rem;
@@ -104,10 +104,6 @@
 
     .saxnavigation .menu-navigation li a svg {
         display: block;
-    }
-
-    .saxnavigation .menu-navigation .menudrop {
-        
     }
 }
 
@@ -170,8 +166,191 @@
     right: 30px;
 }
 
+/* Estilo para menu mobile */
+
+.menu-navigation.drop_open > li {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: -1;
+    transition: all .1s;
+}
+
+.menu-navigation.drop_open li.menudrop {
+    display: block;
+    opacity: 1;
+    height: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.menu-navigation.drop_open li.menudrop a {
+    flex-direction: row-reverse;
+    justify-content: start;
+    transition: all .3s;
+}
+
+.menu-navigation.drop_open li.menudrop a svg {
+    transform: rotate(180deg);
+    margin-right: 10px;
+    transition: all .3s;
+}
+
+.menu-navigation .submenu-cat {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.menu-navigation.drop_open .submenu-cat {
+    height: auto;
+    width: 100%;
+    transition: all .3s;
+}
+
+.submenu-cat .subcat-link {
+    font-family: 'Cormorant', serif;
+    font-size: 22px;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.saxnavigation .menu-navigation .submenu-cat .subcat-link .boxsubcat {
+    height: 0;
+    opacity: 0;
+    position: relative;
+    z-index: -1;
+}
+
+.saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open .boxsubcat {
+    padding: 10px 0;
+    border-bottom: 1px solid #e8e8e8;
+    height: auto;
+    overflow: hidden;
+    opacity: 1;
+    position: relative;
+    z-index: 1;
+    transition: all .5s;
+}
+
+
+.boxsubcat .brand-name {
+    font: 13px 'Montserrat';
+    font-weight: 500;
+    padding-top: 3px;
+    margin: 2px;
+}
+
+.boxsubcat .product-name {
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.boxsubcat .box-img {
+    height: 120px;
+    background: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boxsubcat a {
+    margin-right: 5px;
+    display: block;
+    padding: 10px 0;
+}
+
+.boxsubcat .link-seemore {
+    font-weight: 500;
+    padding: 5px;
+    display: block;
+}
+
+@media ( min-width:992px ){
+    .menu-navigation.drop_open > li {
+        height: 100%;
+        opacity: 1;
+        overflow: inherit;
+        z-index: 1;
+        transition: all .1s;
+    }
+    .saxnavigation .menu-navigation li .navlink {
+        display: block;
+    }
+
+    .saxnavigation .menu-navigation {
+        position: relative;
+    }
+    
+    .menu-navigation.drop_open .submenu-cat {
+        position: absolute;
+        top: 100%;
+        overflow: visible;
+        box-shadow: 0 0 5px #cccccc8f;
+    }
+    .menu-navigation .submenu-cat ul {
+        display: flex;
+        background-color: #fff;
+        padding: 5px;
+        position: relative;
+        z-index: 9;
+        justify-content: space-around;
+    }
+    
+    .submenu-cat .subcat-link {
+        text-transform: uppercase;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+    .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open {
+        text-decoration: underline;
+    }
+
+    .saxnavigation .menu-navigation .submenu-cat .subcat-link .boxsubcat {
+        width: 0;
+    }
+
+    .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open .boxsubcat {
+        position: absolute;
+        height: auto;
+        z-index: 9;
+        top: 100%;
+        background-color: #fff;
+        padding: 10px ;
+        left: 0;
+        width: 100%;
+        border-bottom: none;
+        box-shadow: 0 3px 5px #cccccc8f;
+        border-top: 1px solid #ececec;
+    }
+
+    .boxsubcat .link-seemore {
+        text-align: center;
+        width: 100%;
+        text-transform: none;
+    }
+
+    .boxsubcat .box-img {
+        height: auto;
+    }
+
+    .boxsubcat a {
+        width: 150px;
+        margin-right: 1rem;
+    }
+
+    .boxsubcat .brand-name {
+        margin-top: 1rem;
+    }
+}
+
 @media only screen and (max-width: 991px) {
     .item .info .name {
         font-size: 18px !important;
       }
+      .boxsubcat a:nth-child(4), .boxsubcat a:nth-child(5), .boxsubcat a:nth-child(6) {
+        display: none;
+    }
 }
