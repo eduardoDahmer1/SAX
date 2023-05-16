@@ -2326,20 +2326,21 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-.sub-categori .right-area .item-filter {
+.item-filter {
     justify-content: flex-start;
 }
 
-.sub-categori .right-area .item-filter .filter-list li {
+ .item-filter .filter-list li {
     display: flex;
+    align-items: center;
 }
 
-.sub-categori .right-area .item-filter .filter-list li p {
+.item-filter .filter-list li p {
     margin: 0;
     font-weight: 300;
 }
 
-.sub-categori .right-area .item-filter .filter-list li select {
+.item-filter .filter-list li select {
     margin: 0 15px;
     font-weight: 300;
     width: auto;
