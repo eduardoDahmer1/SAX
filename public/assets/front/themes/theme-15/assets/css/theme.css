@@ -338,7 +338,7 @@ a {
 }
 
 .item .info .name {
-    height: 40px;
+    height: 37px;
     font-weight: 300;
     margin-bottom: 10px;
     font-size: 18px;
@@ -2261,6 +2261,10 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-box-orient: vertical;
   }
 
+.section-top {
+    padding: 0 15px;
+}
+
   @media (max-width:768px) {
     .item .add-to-cart-btn {
         opacity: 1;
@@ -2273,6 +2277,8 @@ h1, h2, h3, h4, h5, h6 {
 
     .item .item-img .extra-list {
         opacity: 1;
+        background-color: #ffffff5e;
+        border-radius: 10px;
     }
 
 }
