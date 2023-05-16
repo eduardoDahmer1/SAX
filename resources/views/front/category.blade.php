@@ -1,8 +1,14 @@
 @extends('front.themes.' . env('THEME', 'theme-01') . '.layout')
 
 @section('content')
+
 <!-- Breadcrumb Area Start -->
 <div class="breadcrumb-area">
+    @if($banner)
+    <section>
+      <img src="{{ $banner }}" class="img-fluid">
+    </section>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -39,15 +45,6 @@
 </div>
 <!-- Breadcrumb Area End -->
 <!-- SubCategori Area Start -->
-@if($banner)
-<div class="row">
-    <div class="col-lg-12 text-center">
-        <div class="intro-content ">
-            <img src="{{ $banner }}">
-        </div>
-    </div>
-</div>
-@endif
 <section class="sub-categori">
     <div class="container">
         <div class="row">
