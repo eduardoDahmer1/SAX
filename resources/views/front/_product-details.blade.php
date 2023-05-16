@@ -15,9 +15,9 @@
 
                 @include('front._product-details-description')
             </div>
-            <div class="col-lg-2">
+            {{-- <div class="col-lg-2">
                 @include('front._product-details-sidebar')
-            </div>
+            </div> --}}
         </div>
         <div class="row">
             <div class="col-lg-12">

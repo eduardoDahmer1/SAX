@@ -1633,13 +1633,21 @@ h1, h2, h3, h4, h5, h6 {
     color: #555;
 }
 
+.product-details-page .right-area .product-info .product-price {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
 .product-details-page .right-area .product-info .product-price .price {
     font-size:30px;
+    font-weight: 300;
 }
 
 .product-details-page .right-area .product-info .product-name {
     font-size:35px;
-    font-weight: 300;
+    font-weight: 600;
+    color: #333;
 }
 
 .blog-area .blog-box .details .blog-title {
@@ -1804,6 +1812,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .seller-info .view-stor {
     border-radius: 0;
+}
+
+.product-details-page .right-area .product-info .info-meta-3 {
+    padding: 0;
+}
+
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.count .qty {
+    margin: 0;
 }
 
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a {
