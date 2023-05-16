@@ -29,6 +29,24 @@ a {
     color: #333;
 }
 
+.breadcrumb-area {
+    padding: 10px;
+    background-color: transparent;
+}
+
+.breadcrumb-area .pages li a {
+    font-family: 'Cormorant', serif;
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.breadcrumb-area .pages li a::after {
+    content:'\ea94';
+    position: static;
+    margin-left: 5px;
+}
+
 .section-top h5 {
     margin: 0;
     font-style: italic;
