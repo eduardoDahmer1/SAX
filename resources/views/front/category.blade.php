@@ -8,6 +8,10 @@
     <section>
       <img src="{{ $banner }}" class="img-fluid">
     </section>
+    @else
+    <section>
+			<img src="{{ asset('assets/front/themes/theme-15/assets/images/Banner_Sax.png') }}" class="img-fluid w-100">
+		</section>
     @endif
     <div class="container">
         <div class="row pt-3">

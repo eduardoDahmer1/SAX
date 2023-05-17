@@ -150,7 +150,7 @@
 
                             <div class="submenu-cat">
                                 <ul>
-                                    @foreach ($categories->take(6) as $category)
+                                    @foreach ($categories->sortBy('presentation_position')->take(6) as $category)
                                         <li class="subcat-link">
                                             <div>{{ $category->name }}</div>
                                             <div class="boxsubcat">
@@ -159,7 +159,9 @@
                                                         @if ($product->show_in_navbar)
                                                             <a href="{{ route('front.product', $product->slug ) }}">
                                                                 <div class="box-img">
-                                                                    <img src="{{ asset('storage/images/thumbnails/' . $product->thumbnail) }}" class="img-fluid" alt="">
+                                                                    <img src="{{ filter_var($product->photo, FILTER_VALIDATE_URL)
+                                                                        ? $product->photo
+                                                                        : asset('storage/images/products/' . $product->photo) }}" class="img-fluid" alt="">
                                                                 </div>
                                                                 <p class="brand-name">{{str($product->brand->name)->limit(8,'...')}}</p>
                                                                 <p class="product-name">{{str($product->name)->limit(25,'...')}}</p>

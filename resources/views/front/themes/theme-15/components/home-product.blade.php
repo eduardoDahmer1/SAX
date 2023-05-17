@@ -29,6 +29,7 @@ if ($gs->switch_highlight_currency) {
                             </span>
                         @endif
                         <div class="info">
+                            <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                             <h5 class="name">{{ $prod->showName() }}</h5>
                             <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                                     <small><span id="originalprice">{{ $small }}</span></small>
@@ -275,6 +276,7 @@ if ($gs->switch_highlight_currency) {
                     </div>
 
                     <div class="info">
+                        <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                         <h5 class="name">{{ $prod->showName() }}</h5>
                         <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                                 <small><span id="originalprice">{{ $small }}</span></small>
@@ -411,9 +413,9 @@ if ($gs->switch_highlight_currency) {
                     </ul>
                 </div>
                 <img class="img-fluid"
-                    src="{{ filter_var($prod->thumbnail, FILTER_VALIDATE_URL)
-                        ? $prod->thumbnail
-                        : asset('storage/images/thumbnails/' . $prod->thumbnail) }}"
+                    src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
+                        ? $prod->photo
+                        : asset('storage/images/products/' . $prod->photo) }}"
                     alt="">
                 @if ($gs->is_rating == 1)
                     <div class="stars">
@@ -425,6 +427,7 @@ if ($gs->switch_highlight_currency) {
                 @endif
             </div>
             <div class="info">
+                <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                 <h5 class="name">{{ $prod->showName() }}</h5>
                 <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                         <small><span id="originalprice">{{ $small }}</span></small>

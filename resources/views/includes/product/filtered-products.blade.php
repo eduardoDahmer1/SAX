@@ -70,9 +70,9 @@
                             </ul>
                         </div>
                         <img class="img-fluid"
-                            src="{{ filter_var($prod->thumbnail, FILTER_VALIDATE_URL)
-                                ? $prod->thumbnail
-                                : asset('storage/images/thumbnails/' . $prod->thumbnail) }}"
+                            src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
+                                ? $prod->photo
+                                : asset('storage/images/products/' . $prod->photo) }}"
                             alt="">
                         @if ($admstore->reference_code == 1)
                             <span class="badge badge-primary"
@@ -99,7 +99,7 @@
                                 $small = $prod->firstCurrencyPrice();
                             }
                         @endphp
-
+                        <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                         <h5 class="name">{{ $prod->showName() }}</h5>
 
                         @if (!config('features.marketplace'))
