@@ -10,7 +10,7 @@
     </section>
     @endif
     <div class="container">
-        <div class="row">
+        <div class="row pt-3">
             <div class="col-lg-3">
                 <ul class="pages">
                     <li>
@@ -54,10 +54,10 @@
     <div class="container">
         <div class="row">
             @include('includes.catalog')
-            <div class="col-lg-9 order-first order-lg-last ajax-loader-parent">
+            <div class="col-lg-9 ajax-loader-parent">
                 <div class="right-area" id="app">
                     <div class="categori-item-area">
-                        <div class="row" id="ajaxContent">
+                        <div class="row p-2" id="ajaxContent">
                             @if(!config("features.marketplace"))
                             @include('includes.product.filtered-products')
                             @else

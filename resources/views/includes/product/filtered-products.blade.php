@@ -78,8 +78,7 @@
                             <span class="badge badge-primary"
                                 style="background-color: {{ $admstore->ref_color }}">{{ $prod->ref_code }}</span>
                         @endif
-                    </div>
-                    <div class="info">
+
                         @if ($gs->is_rating == 1)
                             <div class="stars">
                                 <div class="ratings">
@@ -89,6 +88,8 @@
                                 </div>
                             </div>
                         @endif
+                    </div>
+                    <div class="info">
                         @php
                             if ($gs->switch_highlight_currency) {
                                 $highlight = $prod->firstCurrencyPrice();
@@ -98,6 +99,8 @@
                                 $small = $prod->firstCurrencyPrice();
                             }
                         @endphp
+
+                        <h5 class="name">{{ $prod->showName() }}</h5>
 
                         @if (!config('features.marketplace'))
                             <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
@@ -111,7 +114,7 @@
                                 @endif
                             </h4>
                         @endif
-                        <h5 class="name">{{ $prod->showName() }}</h5>
+                        
                         @if ($gs->is_cart)
                             <div class="item-cart-area">
                                 @if ($prod->product_type == 'affiliate')
@@ -128,16 +131,7 @@
                                         @if ($gs->is_cart_and_buy_available)
                                             <span class="add-to-cart add-to-cart-btn"
                                                 data-href="{{ route('product.cart.add', $prod->id) }}">
-                                                <svg width="25" height="23" viewBox="0 0 25 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <g clip-path="url(#clip0_305_10)">
-                                                    <path d="M1.04167 0C0.46441 0 0 0.46441 0 1.04167C0 1.61892 0.46441 2.08333 1.04167 2.08333H3.30295L5.92014 15.8203C6.01563 16.3108 6.44531 16.6667 6.94444 16.6667H21.1806C21.7578 16.6667 22.2222 16.2023 22.2222 15.625C22.2222 15.0477 21.7578 14.5833 21.1806 14.5833H7.80816L7.41319 12.5H21.1719C21.7925 12.5 22.3394 12.0877 22.5087 11.4887L24.8524 3.15538C25.0998 2.26997 24.4358 1.38889 23.5156 1.38889H5.29514L5.19097 0.846354C5.09549 0.355903 4.6658 0 4.16667 0H1.04167ZM7.63889 22.2222C8.78906 22.2222 9.72222 21.2891 9.72222 20.1389C9.72222 18.9887 8.78906 18.0556 7.63889 18.0556C6.48872 18.0556 5.55556 18.9887 5.55556 20.1389C5.55556 21.2891 6.48872 22.2222 7.63889 22.2222ZM22.2222 20.1389C22.2222 18.9887 21.2891 18.0556 20.1389 18.0556C18.9887 18.0556 18.0556 18.9887 18.0556 20.1389C18.0556 21.2891 18.9887 22.2222 20.1389 22.2222C21.2891 22.2222 22.2222 21.2891 22.2222 20.1389ZM10.9375 6.94444C10.9375 6.46701 11.3281 6.07639 11.8056 6.07639H13.7153V4.16667C13.7153 3.68924 14.1059 3.29861 14.5833 3.29861C15.0608 3.29861 15.4514 3.68924 15.4514 4.16667V6.07639H17.3611C17.8385 6.07639 18.2292 6.46701 18.2292 6.94444C18.2292 7.42188 17.8385 7.8125 17.3611 7.8125H15.4514V9.72222C15.4514 10.1997 15.0608 10.5903 14.5833 10.5903C14.1059 10.5903 13.7153 10.1997 13.7153 9.72222V7.8125H11.8056C11.3281 7.8125 10.9375 7.42188 10.9375 6.94444Z" fill="currentColor"/>
-                                                    </g>
-                                                    <defs>
-                                                    <clipPath id="clip0_305_10">
-                                                    <rect width="25" height="22.2222" fill="white"/>
-                                                    </clipPath>
-                                                    </defs>
-                                                </svg>
+                                                <i class="fas fa-cart-plus"></i>
                                             </span>
                                             <span class="add-to-cart-quick add-to-cart-btn"
                                                 data-href="{{ route('product.cart.quickadd', $prod->id) }}">
@@ -161,6 +155,14 @@
                 </a>
             </div>
         @endif
+        @if ( $loop->index == 7 )
+            <div class="col-lg-4 py-1 pr-lg-2 remove-padding">
+                <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannermeio.png') }}" alt="Banner Bottom">
+            </div>
+            <div class="col-md-8 py-1 remove-padding">
+                <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannermeio2.png') }}" alt="Banner Bottom">
+            </div>
+        @endif
     @endforeach
     <div class="col-lg-12">
         <div class="page-center mt-5">
@@ -170,6 +172,11 @@
 @else
     @include('front.themes.shared.components.no-prod-found')
 @endif
+
+<div class="col-12 py-1 remove-padding">
+    <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannerbottom.png') }}" alt="Banner Bottom">
+</div>
+
 @if (isset($ajax_check))
     <script type="text/javascript">
         $('[data-toggle="tooltip"]').tooltip({});

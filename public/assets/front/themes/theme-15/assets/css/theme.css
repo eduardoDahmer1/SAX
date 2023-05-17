@@ -315,7 +315,6 @@ a {
 .item {
     position: relative;
     margin: 5px;
-    padding: 2rem 0 0;
     overflow: hidden;
     display: block;
     -webkit-transition: unset;
@@ -573,7 +572,12 @@ a {
 }
 
 .price-range-field {
-    width: 60px;
+    width: 80px;
+    text-align: start;
+    padding-left: 10px;
+    color: #737373;
+    border-radius: 3px;
+    border: 1px solid #e3e3e3;
 }
 
 .sub-categori .left-area .tags-area .body-area .taglist li a {
@@ -1407,7 +1411,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1rem 0;
 }
 
-.categori-item .item .item-img {
+.categori-item .item .item-img, .categori-item-area .item .item-img {
     background: #EDEFEF;
 }
 
@@ -1425,6 +1429,10 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
     background-color: #ad7c59;
     transition: all linear .2s;
+}
+
+.categori-item-area .item:hover .item-cart-area {
+    bottom: -25px;
 }
 
 .flash-deals .item:hover .item-cart-area {
@@ -2320,14 +2328,10 @@ h1, h2, h3, h4, h5, h6 {
 
     .item .item-img .extra-list {
         opacity: 1;
-        background-color: #ffffff5e;
+        background-color: #fff9;
         border-radius: 10px;
     }
 
-}
-
-.item-filter {
-    justify-content: flex-start;
 }
 
  .item-filter .filter-list li {
@@ -2338,6 +2342,7 @@ h1, h2, h3, h4, h5, h6 {
 .item-filter .filter-list li p {
     margin: 0;
     font-weight: 300;
+    font-size: 14px;
 }
 
 .item-filter .filter-list li select {
@@ -2345,4 +2350,89 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     width: auto;
     border: 1px solid #e8e8e8;
+    font-size: 14px;
+}
+
+.sub-categori .left-area {
+    margin: 0;
+}
+
+.sub-categori .left-area .filter-result-area .header-area, .sub-categori .left-area .tags-area .header-area {
+    border-bottom: none;
+    text-align: start;
+    padding: 10px 0;
+}
+
+.sub-categori .left-area .filter-result-area, .sub-categori .left-area .tags-area{
+    border: none;
+}
+
+.sub-categori .left-area .filter-result-area .header-area .title, .sub-categori .left-area .tags-area .header-area .title {
+    font-weight: 400;
+    text-transform: uppercase;
+    font-family: 'Montserrat';
+    color: #333;
+    margin: 0;
+}
+
+.sub-categori .left-area .filter-result-area .body-area .price-range-block {
+    text-align: start;
+    margin: 0;
+}
+
+.sub-categori .left-area .filter-result-area .body-area {
+    padding: 0;
+}
+
+.sub-categori .left-area .filter-result-area .body-area .price-range-block p {
+    font-weight: 300;
+    color: #606060;
+}
+
+.ui-widget.ui-widget-content {
+    margin: 0 10px;
+    border-radius: 10px;
+}
+
+.sub-categori .left-area .filter-result-area .body-area .price-range-block .livecount span {
+    margin: 0 15px;
+}
+
+.sub-categori .left-area .filter-result-area .body-area .filter-list li a {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: #555;
+    padding: 5px 0;
+    display: block;
+}
+
+.ui-slider .ui-slider-handle {
+    box-shadow: none;
+}
+
+.sub-categori .left-area .tags-area .body-area {
+    padding: 0 0 10px;
+}
+
+.btn-style-1.filter-style-btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+    border-color: #acacac;
+    margin-top: 15px;
+}
+
+.sub-categori .left-area .tags-area .body-area .sub-title {
+    font-size: 15px;
+    font-weight: 300;
+}
+
+@media (max-width: 991px) {
+    #filtermobile .bg-filter {
+        padding: 20px;
+    }
+    .item-filter {
+        padding: 5px 0;
+    }
 }

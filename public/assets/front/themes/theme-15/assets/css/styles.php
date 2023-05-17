@@ -958,7 +958,7 @@ color: #fff;
 }
 
 .sub-categori .left-area .tags-area .body-area .sub-title {
-    color: <?php echo $theme_color_1; ?>;
+    color: <?php echo $text_color_1; ?>;
 }
 .cookie-alert .bg-custom{
     background-color: <?php echo $theme_color_1; ?>;
