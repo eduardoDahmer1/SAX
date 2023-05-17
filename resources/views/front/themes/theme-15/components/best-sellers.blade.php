@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-lg-12 remove-padding">
                 <div class="section-top text-center">
-                    <h2 class="section-title">
+                    <h2 class="section-title" data-aos="fade-in">
                         {{ __("Best sellers") }}
                     </h2>
-                    <h5>{{__("Discover the next piece to add to your collection")}}</h5>
+                    <h5 data-aos="fade-in" data-aos-delay="100">{{__("Discover the next piece to add to your collection")}}</h5>
                 </div>
             </div>
         </div>

@@ -1,6 +1,5 @@
 <div class="info-meta-3">
     <ul class="meta-list">
-        @include('front._product-details-info-meta-3-vendor')
 
         @if(!empty($productt->attributes))
         @php

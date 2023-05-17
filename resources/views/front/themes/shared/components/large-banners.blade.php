@@ -1,6 +1,6 @@
 @if($ps->large_banner == 1)
 <!-- Banner Area One Start -->
-<section class="banner-section">
+<section class="banner-section" data-aos="fade-in" data-aos-delay="100">
     <div class="container">
         <div class="row">
             @foreach($large_banners->chunk(1) as $chunk)

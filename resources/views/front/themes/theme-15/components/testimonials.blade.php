@@ -1,7 +1,7 @@
 @if ($ps->reviews_store == 1)
 <section style="padding: 3rem 0;">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" data-aos="fade-in">
             <div class="col-md-6">
                 <div class="aside bg-section-items">
                     <div class="slider-wrapper">

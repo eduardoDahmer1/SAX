@@ -11,7 +11,7 @@
                         <div class="info-big-box">
                             <div id="services-carousel">
                                 @foreach ($chunk as $service)
-                                    <div class="item-slide d-flex align-items-center">
+                                    <div class="item-slide d-flex align-items-center" data-aos="fade-in" data-aos-delay="{{ $loop->index }}00">
                                         <a target="_blank" href="{{ $service->link }}">
                                             <div class="info-box">
                                                 <div class="icon">

@@ -1,8 +1,4 @@
 <div class="product-price">
-    @if($gs->show_product_prices)
-    <p class="title">{{ __("Price") }} :</p>
-    @endif
-
     @php
     if ($gs->switch_highlight_currency) {
     $highlight = $productt->firstCurrencyPrice();
@@ -44,4 +40,9 @@
         <i class="fas fa-play"></i>
     </a>
     @endif
+    <span class="info-meta-3 ml-4">
+        <ul class="meta-list">
+            @include('front._product-details-info-meta-3-vendor')
+        </ul>
+    </span>
 </div>

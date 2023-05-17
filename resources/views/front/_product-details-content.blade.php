@@ -1,4 +1,4 @@
-<div class="col-lg-7">
+<div class="col-lg-5">
     <div class="right-area">
         <div class="product-info">
 
@@ -7,6 +7,11 @@
                 {{ __('Viewing as Admin')}}
             </div>
             @endif
+            
+            <a href="{{ route('front.brand', $productt->brand->slug) }}" class="d-block mb-3">
+                <img src="{{$productt->brand->image ? asset('storage/images/brands/'.$productt->brand->image) : asset('assets/images/noimage.png') }}"
+                    alt="{{$productt->brand->name}}" width="75px">
+            </a>
 
             <h4 class="product-name">{{ $productt->name }}</h4>
 
@@ -19,11 +24,11 @@
             </h4>
             @endif
 
-            @include('front._product-details-info-meta-1')
-
             @if($productt->show_price)
             @include('front._product-details-show-price')
             @endif
+
+            @include('front._product-details-info-meta-1')
 
             @include('front._product-details-info-meta-2')
 

@@ -2,7 +2,7 @@
 <!-- Partners Area Start -->
 <section class="partners">
     <div class="container">
-        <div class="row">
+        <div class="row" data-aos="fade-in">
             <div class="col-lg-12 row-theme">
                 <div class="partner-slider">
                     @foreach($partners as $data)

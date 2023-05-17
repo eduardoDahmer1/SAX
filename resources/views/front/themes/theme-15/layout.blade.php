@@ -7,7 +7,7 @@
     <!-- Icons --> 
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
-    <!--Slick-->
+    <!--Slider Inicial Slick-->
     <link rel="stylesheet" href="{{ asset('assets/front/themes/theme-15/assets/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/themes/theme-15/assets/css/styleslider.css') }}">
     <script src="{{ asset('assets/front/themes/theme-15/assets/js/slick.min.js') }}"></script>

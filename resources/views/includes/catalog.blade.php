@@ -18,11 +18,22 @@
                 @if (!empty(request()->input('sort')))
                   <input type="hidden" name="sort" value="{{ request()->input('sort') }}">
                 @endif
+
+                <div class="price-range-block">
+                  <p>{{ __("Price") }}</p>
+                  <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
+                  <div class="livecount">
+                    <input type="number" min=0  name="min"  id="min_price" class="price-range-field" />
+                    <span>{{ __("To") }}</span>
+                    <input type="number" min=0  name="max" id="max_price" class="price-range-field" />
+                  </div>
+                </div>
+
                 <ul class="filter-list">
                   @foreach ($categories as $element)
                   <li>
                     <div class="content">
-                        <a href="{{route('front.category', $element->slug)}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp') : ''}}{{ !empty(request()->input('brand')) ? '&brand='.request()->input('brand') : '' }}" class="category-link"> <i class="fas fa-angle-double-right"></i> {{$element->name}}</a>
+                        <a href="{{route('front.category', $element->slug)}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp') : ''}}{{ !empty(request()->input('brand')) ? '&brand='.request()->input('brand') : '' }}" class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
                         @if(!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
                             @foreach ($cat->subs as $key => $subelement)
                             <div class="sub-content open">
@@ -52,24 +63,14 @@
                   @foreach ($brands as $element)
                   <li>
                     <div class="content">
-                        <a href="{{route('front.category')}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp').'&' : '?'}}brand={{ $element->slug }}" class="category-link"> <i class="fas fa-angle-double-right"></i> {{$element->name}}</a>
+                        <a href="{{route('front.category')}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp').'&' : '?'}}brand={{ $element->slug }}" class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
                   </li>
                   @endforeach
                   @endif
 
                 </ul>
 
-
-                <div class="price-range-block">
-                    <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
-                    <div class="livecount">
-                      <input type="number" min=0  name="min"  id="min_price" class="price-range-field" />
-                      <span>{{ __("To") }}</span>
-                      <input type="number" min=0  name="max" id="max_price" class="price-range-field" />
-                    </div>
-                  </div>
-
-                  <button class="filter-btn" type="submit">{{ __("Search") }}</button>
+                  <button class="btn btn-style-1 filter-style-btn" type="submit">{{ __("Search") }}</button>
               </form>
             </div>
             </div>
@@ -90,7 +91,7 @@
                           @foreach ($cat->attributes as $key => $attr)
                             
                             <div class="my-2 sub-title">
-                              <span><i class="fas fa-arrow-alt-circle-right"></i> {{$attr->name}}</span>
+                              <span>- {{$attr->name}}</span>
                             </div>
                             @if (!empty($attr->attribute_options))
                               @foreach ($attr->attribute_options as $key => $option)
@@ -108,7 +109,7 @@
                           @foreach ($cat->subs as $key => $attr)
                             @foreach($attr->attributes as $key => $att)
                           <div class="my-2 sub-title">
-                            <span><i class="fas fa-arrow-alt-circle-right"></i> {{$att->name}}</span>
+                            <span>- {{$att->name}}</span>
                           </div>
                             @if (!empty($att->attribute_options))
                               @foreach ($att->attribute_options as $key => $option)
@@ -128,7 +129,7 @@
                           @foreach ($cat->childs as $key => $attr)
                             @foreach($attr->attributes as $key => $att)
                           <div class="my-2 sub-title">
-                            <span><i class="fas fa-arrow-alt-circle-right"></i> {{$att->name}}</span>
+                            <span>- {{$att->name}}</span>
                           </div>
                             @if (!empty($att->attribute_options))
                               @foreach ($att->attribute_options as $key => $option)
@@ -166,7 +167,7 @@
                         @if (!empty($cat) && empty($subcat) && !empty(json_decode($cat->attributes, true)))
                           @foreach ($cat->attributes as $key => $attr)
                             <div class="my-2 sub-title">
-                              <span><i class="fas fa-arrow-alt-circle-right"></i> {{$attr->name}}</span>
+                              <span>- {{$attr->name}}</span>
                             </div>
                             @if (!empty($attr->attribute_options))
                               @foreach ($attr->attribute_options as $key => $option)
@@ -183,7 +184,7 @@
                         @if (!empty($subcat) && empty($childcategory))
                           @foreach ($cat->attributes as $key => $attr)
                           <div class="my-2 sub-title">
-                            <span><i class="fas fa-arrow-alt-circle-right"></i> {{$attr->name}}</span>
+                            <span>- {{$attr->name}}</span>
                           </div>
                             @if (!empty($attr->attribute_options))
                               @foreach ($attr->attribute_options as $key => $option)
@@ -197,7 +198,7 @@
 
                           @foreach ($subcat->attributes as $key => $attr)
                           <div class="my-2 sub-title">
-                            <span><i class="fas fa-arrow-alt-circle-right"></i> {{$attr->name}}</span>
+                            <span>- {{$attr->name}}</span>
                           </div>
                             @if (!empty($attr->attribute_options))
                               @foreach ($attr->attribute_options as $key => $option)
@@ -214,7 +215,7 @@
                          @if (!empty($childcategory) && !empty(json_decode($childcategory->attributes, true)))
                          @foreach ($cat->attributes as $key => $attr)
                           <div class="my-2 sub-title">
-                            <span><i class="fas fa-arrow-alt-circle-right"></i> {{$attr->name}}</span>
+                            <span>- {{$attr->name}}</span>
                           </div>
                             @if (!empty($attr->attribute_options))
                               @foreach ($attr->attribute_options as $key => $option)
@@ -228,7 +229,7 @@
 
                           @foreach ($subcat->attributes as $key => $attr)
                           <div class="my-2 sub-title">
-                            <span><i class="fas fa-arrow-alt-circle-right"></i> {{$attr->name}}</span>
+                            <span>- {{$attr->name}}</span>
                           </div>
                             @if (!empty($attr->attribute_options))
                               @foreach ($attr->attribute_options as $key => $option)
@@ -242,7 +243,7 @@
 
                           @foreach ($childcategory->attributes as $key => $attr)
                           <div class="my-2 sub-title">
-                            <span><i class="fas fa-arrow-alt-circle-right"></i> {{$attr->name}}</span>
+                            <span>- {{$attr->name}}</span>
                           </div>
                             @if (!empty($attr->attribute_options))
                               @foreach ($attr->attribute_options as $key => $option)

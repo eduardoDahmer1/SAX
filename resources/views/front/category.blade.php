@@ -1,11 +1,21 @@
 @extends('front.themes.' . env('THEME', 'theme-01') . '.layout')
 
 @section('content')
+
 <!-- Breadcrumb Area Start -->
 <div class="breadcrumb-area">
+    @if($banner)
+    <section>
+      <img src="{{ $banner }}" class="img-fluid">
+    </section>
+    @else
+    <section>
+			<img src="{{ asset('assets/front/themes/theme-15/assets/images/Banner_Sax.png') }}" class="img-fluid w-100">
+		</section>
+    @endif
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
+        <div class="row pt-3">
+            <div class="col-lg-3">
                 <ul class="pages">
                     <li>
                         <a href="{{route('front.index')}}">{{ __("Home") }}</a>
@@ -34,32 +44,24 @@
 
                 </ul>
             </div>
+            <div class="col-lg-9">
+              @if(!config("features.marketplace"))
+                @include('includes.filter')
+              @endif
+            </div>
         </div>
     </div>
 </div>
 <!-- Breadcrumb Area End -->
 <!-- SubCategori Area Start -->
-@if($banner)
-<div class="row">
-    <div class="col-lg-12 text-center">
-        <div class="intro-content ">
-            <img src="{{ $banner }}">
-        </div>
-    </div>
-</div>
-@endif
 <section class="sub-categori">
     <div class="container">
         <div class="row">
             @include('includes.catalog')
-            <div class="col-lg-9 order-first order-lg-last ajax-loader-parent">
+            <div class="col-lg-9 ajax-loader-parent">
                 <div class="right-area" id="app">
-
-                    @if(!config("features.marketplace"))
-                    @include('includes.filter')
-                    @endif
                     <div class="categori-item-area">
-                        <div class="row" id="ajaxContent">
+                        <div class="row p-2" id="ajaxContent">
                             @if(!config("features.marketplace"))
                             @include('includes.product.filtered-products')
                             @else

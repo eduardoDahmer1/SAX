@@ -22,13 +22,16 @@
                         }
                     @endphp
 
+                    <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
+                    <h5 class="name">{{ $prod->showName() }}</h5>
+
                     <h4 class="price">{{ $highlight }}
                         <!-- <del><small>{{ $prod->showPreviousPrice() }}</small></del> -->
                         @if ($curr->id != $scurrency->id)
                             <small><span id="originalprice">{{ $small }}</span></small>
                         @endif
                     </h4>
-                    <h5 class="name">{{ $prod->showName() }}</h5>
+                    
                 </div>
 
                 <div
@@ -191,9 +194,9 @@
                         </ul>
                     </div>
                     <img class="img-fluid"
-                        src="{{ filter_var($prod->thumbnail, FILTER_VALIDATE_URL)
-                            ? $prod->thumbnail
-                            : asset('storage/images/thumbnails/' . $prod->thumbnail) }}"
+                        src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
+                            ? $prod->photo
+                            : asset('storage/images/products/' . $prod->photo) }}"
                         alt="">
                     @if ($gs->is_rating == 1)
                         <div class="stars">
