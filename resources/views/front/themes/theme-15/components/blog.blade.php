@@ -5,15 +5,15 @@
             
                 <div class="col-lg-12">
                     <div class="section-top">
-                        <h2 class="section-title">
+                        <h2 class="section-title" data-aos="fade-in" >
                             {{ __('Blog of the week') }}
                         </h2>
-                        <h5>{{__("Stay on top of all the news")}}</h5>
+                        <h5 data-aos="fade-in" data-aos-delay="100">{{__("Stay on top of all the news")}}</h5>
                     </div>
                     <div class="py-4">
                         <div class="row">
                             @foreach ($extra_blogs->take(4) as $post)
-                                <div class="col-md-3 blog-box">
+                                <div class="col-md-3 blog-box" data-aos="fade-in" data-aos-delay="{{ $loop->index }}00">
                                     <img src="{{ $post->photo ? asset('storage/images/blogs/' . $post->photo) : asset('assets/images/noimage.png') }}"
                                             class="img-fluid" alt="">
                                   

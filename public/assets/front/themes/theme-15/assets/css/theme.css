@@ -101,11 +101,11 @@ a {
 }
 
 .logo-header .search-box.open-search {
-    width: 90%;
+    width: 100%;
     display: block;
     position: absolute;
     left: 0;
-    bottom: -4rem;
+    bottom: 0;
     background-color: #fff;
     height: 55px;
     margin: 15px;
@@ -115,28 +115,24 @@ a {
 }
 
  @media (max-width:991px){
-
-
     #profile-icon i {
         font-size: 2rem;
     }
-
-    
-
     div#myInputautocomplete-list {
         margin-top: 15px;
     }
-
-
-
     @-webkit-keyframes showSearch {
         from { opacity: 0; }
         to { opacity: 1; }
     }
-
     @keyframes showSearch {
         from { opacity: 0; }
         to { opacity: 1; }
+    }
+
+    .logo-header .search-box.open-search {
+        width: 90%;
+        bottom: -4rem;
     }
 
  }

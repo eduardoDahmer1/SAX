@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-lg-12 remove-padding">
                 <div class="section-top">
-                    <h2 class="section-title">
+                    <h2 class="section-title" data-aos="fade-in" data-aos-delay="100">
                         {{ __("Top Rated") }}
                     </h2>
                 </div>

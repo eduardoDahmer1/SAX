@@ -18,8 +18,8 @@ if ($gs->switch_highlight_currency) {
 
             @if ($prod->vendorPrice() <= $_GET['max'])
 
-                <div class="col-lg-3 col-6 ">
-                    <a href="{{ route('front.product', $prod->slug) }}" class="item">
+                <div class="col-lg-3 col-6">
+                    <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                         @if (!is_null($prod->discount_percent))
                             <span class="badge badge-danger descont-card">
                                 {{ $prod->discount_percent . '%' }} &nbsp;
@@ -173,7 +173,7 @@ if ($gs->switch_highlight_currency) {
         @else
             <div class="col-lg-3 col-6">
 
-                <a href="{{ route('front.product', $prod->slug) }}" class="item">
+                <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                     @if (!is_null($prod->discount_percent))
                         <span class="badge badge-danger descont-card">
                             {{ $prod->discount_percent . '%' }} &nbsp;
@@ -333,8 +333,7 @@ if ($gs->switch_highlight_currency) {
     {{-- If This product belongs admin and apply this --}}
 @else
     <div class="col-lg-3 col-6">
-
-        <a href="{{ route('front.product', $prod->slug) }}" class="item">
+        <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
             @if (!is_null($prod->discount_percent))
                 <span class="badge badge-danger descont-card">
                     {{ $prod->discount_percent . '%' }} &nbsp;

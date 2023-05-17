@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-lg-12 remove-padding">
                 <div class="section-top text-center">
-                    <h2 class="section-title">
+                    <h2 class="section-title" data-aos="fade-in">
                         {{ __("Featured") }}
                     </h2>
-                    <h5>{{__("Discover the next piece to add to your collection")}}</h5>
+                    <h5 data-aos="fade-in" data-aos-delay="100">{{__("Discover the next piece to add to your collection")}}</h5>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
 
         </div>
         <div class="row justify-content-center pt-5">
-            <div class="col-md-3">
+            <div class="col-md-3" data-aos="fade-in">
                 <a class="btn btn-style-1" href="{{ route('front.category') }}">{{ __('See all')}}</a>
             </div>
         </div>

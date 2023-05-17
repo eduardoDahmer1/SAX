@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-lg-12 remove-padding">
                 <div class="section-top">
-                    <h2 class="section-title title-oferta">
+                    <h2 class="section-title title-oferta" data-aos="fade-in" data-aos-delay="100">
                         {{ __("Flash Deal") }}
                     </h2>
                 </div>

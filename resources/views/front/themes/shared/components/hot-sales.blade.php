@@ -10,14 +10,14 @@
                             <div class="col-lg-12 col-sm-6">
                                 <div class="categori">
                                     <div class="section-top">
-                                        <h2 class="section-title">
+                                        <h2 class="section-title" data-aos="fade-in">
                                             {{ __("Hot") }}
                                         </h2>
                                     </div>
                                     <div class="hot-and-new-item-slider row-theme">
                                         @foreach($hot_products as $prod)
                                         <div class="item-slide">
-                                            <ul class="item-list">
+                                            <ul class="item-list" data-aos="fade-in">
                                                 @include('includes.product.list-product')
                                             </ul>
                                         </div>
@@ -29,7 +29,7 @@
                             <div class="col-lg-12 col-sm-6">
                                 <div class="categori">
                                     <div class="section-top">
-                                        <h2 class="section-title">
+                                        <h2 class="section-title" data-aos="fade-in">
                                             {{ __("New") }}
                                         </h2>
                                     </div>
@@ -38,7 +38,7 @@
 
                                         @foreach($latest_products as $prod)
                                         <div class="item-slide">
-                                            <ul class="item-list">
+                                            <ul class="item-list" data-aos="fade-in">
                                                 @include('includes.product.list-product')
                                             </ul>
                                         </div>
@@ -50,7 +50,7 @@
                             <div class="col-lg-12 col-sm-6">
                                 <div class="categori">
                                     <div class="section-top">
-                                        <h2 class="section-title">
+                                        <h2 class="section-title" data-aos="fade-in">
                                             {{ __("Trending") }}
                                         </h2>
                                     </div>
@@ -60,7 +60,7 @@
 
                                         @foreach($trending_products as $prod)
                                         <div class="item-slide">
-                                            <ul class="item-list">
+                                            <ul class="item-list" data-aos="fade-in">
                                                 @include('includes.product.list-product')
                                             </ul>
                                         </div>
@@ -73,7 +73,7 @@
                             <div class="col-lg-12 col-sm-6">
                                 <div class="categori">
                                     <div class="section-top">
-                                        <h2 class="section-title">
+                                        <h2 class="section-title" data-aos="fade-in">
                                             {{ __("Sale") }}
                                         </h2>
                                     </div>
@@ -82,7 +82,7 @@
 
                                         @foreach($sale_products as $prod)
                                         <div class="item-slide">
-                                            <ul class="item-list">
+                                            <ul class="item-list" data-aos="fade-in">
                                                 @include('includes.product.list-product')
                                             </ul>
                                         </div>

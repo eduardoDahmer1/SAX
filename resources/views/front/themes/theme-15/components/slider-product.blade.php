@@ -12,7 +12,7 @@ if ($gs->switch_highlight_currency) {
 @if ($prod->user_id != 0)
     {{-- check  If This vendor status is active --}}
     @if ($prod->user->is_vendor == 2)
-        <a href="{{ route('front.product', $prod->slug) }}" class="item">
+        <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
             @if (!is_null($prod->discount_percent))
                 <span class="badge badge-danger descont-card">
                     {{ $prod->discount_percent . '%' }} &nbsp;
@@ -152,7 +152,7 @@ if ($gs->switch_highlight_currency) {
     @endif
     {{-- If This product belongs admin and apply this --}}
 @else
-    <a href="{{ route('front.product', $prod->slug) }}" class="item">
+    <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
         @if (!is_null($prod->discount_percent))
             <span class="badge badge-danger descont-card">
                 {{ $prod->discount_percent . '%' }} &nbsp;
