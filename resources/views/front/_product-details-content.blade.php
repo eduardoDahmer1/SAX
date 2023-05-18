@@ -36,13 +36,14 @@
             @include('front._product-details-size')
             @endif
 
-            @if(!empty($productt->color))
-            @include('front._product-details-color')
-            @endif
-
-            @if(!empty($productt->material) && $productt->stock > 0)
-            @include('front._product-details-material')
-            @endif
+            <div class="row">
+                <div class="col-lg-6">
+                    @if(!empty($productt->color))
+                        @include('front._product-details-color')
+                    @endif
+                </div>
+                @include('front._product-details-info-meta-3')
+            </div>
 
             @php
             $stck = (string) $productt->stock;
@@ -70,9 +71,6 @@
             <input type="hidden" id="first_sign" value="{{ $first_curr->sign }}">
             <input type="hidden" id="currency_value" value="{{ $product_curr->value }}">
             <input type="hidden" id="curr_value" value="{{ $product_curr->value }}">
-
-            @include('front._product-details-info-meta-3')
-
 
             @if($gs->is_back_in_stock && $productt->emptyStock())
             @include('front._product-details-back-in-stock')

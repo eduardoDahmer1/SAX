@@ -501,7 +501,7 @@ a {
 }
 
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite a, .product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare a {
-    font-size: 17px;
+    font-size: 20px;
     border-radius: 0;
     height: auto;
 }
@@ -1651,6 +1651,8 @@ h1, h2, h3, h4, h5, h6 {
 .product-details-page .right-area .product-info .product-price .price {
     font-size:30px;
     font-weight: 300;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-details-page .right-area .product-info .product-name {
@@ -1831,10 +1833,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
-.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a {
-    border-radius: 0;
-}
-
 .badge {
     border-radius: 0;
 }
@@ -1843,8 +1841,16 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 15px;
 }
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a {
-    font-size: 15px;
+    font-size: 16px;
     height: auto;
+    font-weight: 300;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+}
+
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a.qaddcrt {
+    margin-right: 20px;
 }
 
 .order-tracking-content .track-form .mybtn1 {
@@ -2431,4 +2437,30 @@ h1, h2, h3, h4, h5, h6 {
     .item-filter {
         padding: 5px 0;
     }
+}
+
+.product-details-page .right-area .product-info .product-color .title {
+    display: block;
+    position: static;
+    margin: 0;
+    margin-bottom: 10px;
+    color: #666;
+    transform: none;
+}
+
+.product-details-page .right-area .product-info .product-color .color-list {
+    padding-left: 0;
+}
+
+.product-details-page .right-area .product-info .product-color .color-list li .box {
+    border-radius: 0;
+}
+
+.product-details-page .right-area .product-info .product-color .color-list li {
+    margin-right: 5px;
+}
+
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a i {
+    font-size: inherit;
+
 }
