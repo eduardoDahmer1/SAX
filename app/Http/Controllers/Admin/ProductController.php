@@ -293,8 +293,8 @@ class ProductController extends Controller
         $brands = Brand::orderBy('slug')->get();
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
-
-        return view('admin.product.create.physical', compact('cats', 'sign', 'brands', 'storesList'));
+        $products = Product::all();
+        return view('admin.product.create.physical', compact('products', 'cats', 'sign', 'brands', 'storesList'));
     }
 
     //*** GET Request
@@ -727,6 +727,11 @@ class ProductController extends Controller
         $data->fill($input)->save();
 
         $prod = Product::find($data->id);
+        $associated_products = $request->input(
+            'associated_products',
+            []
+        );
+        $prod->associatedProducts()->sync($associated_products);
 
         # Validate Redplay
         if ($request->redplay_login && $request->redplay_password && $request->redplay_code) {
@@ -789,7 +794,6 @@ class ProductController extends Controller
                 }
             }
         }
-
         // Add To Gallery 360 If any
         $lastid = $data->id;
         if ($files = $request->file('gallery360')) {
@@ -1014,6 +1018,7 @@ class ProductController extends Controller
         $cats = Category::all();
         $brands = Brand::orderBy('slug')->get();
         $data = Product::findOrFail($id);
+
         $selectedAttrs = json_decode($data->attributes, true);
         $catAttributes = !empty($data->category->attributes) ? $data->category->attributes : '';
         $subAttributes = !empty($data->subcategory->attributes) ? $data->subcategory->attributes : '';
@@ -1021,7 +1026,7 @@ class ProductController extends Controller
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
         $currentStores = $data->stores()->pluck('id')->toArray();
-
+        $products = Product::where('id', '!=', $id)->get();
         $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $data->ref_code_int . '/');
         $ftp_gallery = [];
         if (File::exists($ftp_path)) {
@@ -1051,7 +1056,8 @@ class ProductController extends Controller
                 'brands',
                 'storesList',
                 'currentStores',
-                'ftp_gallery'
+                'ftp_gallery',
+                'products'
             ));
         }
     }
@@ -1200,6 +1206,7 @@ class ProductController extends Controller
         return response()->json($msg);
     }
     //*** POST Request
+
     public function update(Request $request, $id)
     {
         // return $request;
@@ -1211,7 +1218,6 @@ class ProductController extends Controller
         $customs = [
             "{$this->lang->locale}.name.required" => __('Product Name in :lang is required', ['lang' => $this->lang->language]),
         ];
-
         $validator = Validator::make($request->all(), $rules, $customs);
 
         if ($validator->fails()) {
@@ -1224,6 +1230,13 @@ class ProductController extends Controller
 
         //-- Logic Section
         $data = Product::findOrFail($id);
+        $associated_products = $request->input(
+            'associated_products',
+            []
+        );
+        $data->associatedProducts()->sync($associated_products);
+        $data->product_size = $request->input('product_size');
+        
         if ($this->storeSettings->is_back_in_stock && $data->stock == 0 && $request->stock > 0) {
             BackInStock::dispatch($data, $this->storeSettings);
         }

@@ -1188,7 +1188,19 @@
                                                 </span>
                                             </h4>
                                             <input name="stock" id="stock" type="text" class="input-field"
-                                                placeholder="e.g 20" value="{{ $data->stock }}">
+                                                placeholder="" value="{{ $data->stock }}">
+                                        </div>
+                                    </div>
+                                   <div class="col-xl-3">
+                                        <div class="input-form">
+                                            <h4 class="heading">Tamanho do Produto
+                                                <span>
+                                                    {{ __('(eg. S,M,L,XL,XXL,3XL,4XL)')}}
+                                                </span>
+                                            </h4>
+                                            <input name="product_size" id="product_size" type="text" class="input-field"
+                                            placeholder="{{ __('Size Name') }}" value="{{$data->product_size}}">
+
 
                                         </div>
                                     </div>
@@ -1478,7 +1490,20 @@
 
                                 </div>
                                 <!--FINAL DA ROW DE DADOS EXTRAS-->
-
+                                
+                                    <!-- Outros campos do formulário de edição -->
+                                    <div class="title-section-form">
+                                        <span>4</span>
+                                    <h3>Associar Produtos</h3>
+                                     </div>
+                                    @foreach ($products as $product)
+                                        <div>
+                                            <input type="checkbox" id="produto_{{ $product->id }}" name="associated_products[]" value="{{ $product->id }}" 
+                                            {{ $data->associatedProducts->contains($product->id) ? 'checked' : '' }}>
+                                            <label for="produto_{{ $product->id }}">{{ $product->name }}</label>
+                                        </div>
+                                    @endforeach
+                        
                                 <div class="row">
                                     <div class="col-xl-12 text-center">
                                         <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>

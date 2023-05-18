@@ -5,6 +5,7 @@ namespace App\Models;
 use stdClass;
 use App\Models\Currency;
 use App\Models\Generalsetting;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -45,6 +46,7 @@ class Product extends LocalizedModel
         'size',
         'size_qty',
         'size_price',
+        'product_size',
         'color',
         'price',
         'previous_price',
@@ -227,6 +229,10 @@ class Product extends LocalizedModel
         });
     }
 
+    public function associatedProducts(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'associated_products', 'product_id', 'associated_product_id');
+    }
     public function reports()
     {
         return $this->hasMany('App\Models\Report', 'user_id');

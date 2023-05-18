@@ -801,7 +801,19 @@
 
                                         </div>
                                     </div>
+                                    <div class="col-xl-3">
+                                        <div class="input-form">
+                                            <h4 class="heading">Tamanho do Produto
+                                                <span>
+                                                    {{ __('(eg. S,M,L,XL,XXL,3XL,4XL)')}}
+                                                </span>
+                                            </h4>
+                                            <input name="product_size" id="product_size" type="text" class="input-field"
+                                            placeholder="{{ __('Size Name') }}">
 
+
+                                        </div>
+                                    </div>
                                     <div class="col-xl-3">
 
                                         <div class="checkbox-wrapper list list-personalizada">
@@ -1041,6 +1053,16 @@
 
                                 </div>
                                 <!--FINAL DA ROW DE DADOS EXTRAS-->
+                                <div class="title-section-form">
+                                    <span>4</span>
+                                <h3>Associar Produtos</h3>
+                            </div>
+                                @foreach ($products as $product)
+                                    <div>
+                                        <input type="checkbox" id="produto_{{ $product->id }}" name="associated_products[]" value="{{ $product->id }}">
+                                        <label for="produto_{{ $product->id }}">{{ $product->name }}</label>
+                                    </div>
+                                @endforeach
 
                                 @if (config('mercadolivre.is_active'))
                                     <div class="title-section-form">
