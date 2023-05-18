@@ -39,8 +39,7 @@
                                         @endif
                                     </label>
                                     @else
-                                    <div style="margin-left: -1.5rem">
-                                        -
+                                    <div class="attribute-normal">
                                         {{App\Models\AttributeOption::find($optionVal)->name}}
                                     </div>
                                     @endif
@@ -59,8 +58,7 @@
                     @if (App\Models\AttributeOption::where('id',
                     $optionVal)->first())
                     <div class="custom-control custom-radio">
-                        <div style="margin-left: -1.5rem">
-                            -
+                        <div class="attribute-normal">
                             {{App\Models\AttributeOption::find($optionVal)->name}}
                         </div>
                     </div>

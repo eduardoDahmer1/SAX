@@ -1057,3 +1057,17 @@ color: #fff;
 .menu-navigation.drop_open li.menudrop > a, .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open {
     color: <?php echo $theme_color_2; ?>;
 }
+
+.product-attributes .form-group .custom-control-input:checked ~ .custom-control-label {
+    background-color: <?php echo $theme_color_2; ?>;
+    border: 1px solid <?php echo $theme_color_2; ?>;
+}
+
+.product-attributes .form-group .attribute-normal {
+    background-color: <?php echo $theme_color_2; ?>;
+    border: 1px solid <?php echo $theme_color_2; ?>;
+    transition: all .3s;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 15px;
+}

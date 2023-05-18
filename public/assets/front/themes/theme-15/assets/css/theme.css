@@ -1849,7 +1849,11 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
-.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a.qaddcrt {
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li {
+    padding-right: 5px;
+}
+
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a#qaddcrt {
     margin-right: 20px;
 }
 
@@ -2463,4 +2467,48 @@ h1, h2, h3, h4, h5, h6 {
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a i {
     font-size: inherit;
 
+}
+
+.product-details-page .right-area .product-info .info-meta-3 .list-attr p {
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 15px;
+}
+
+.product-attributes .form-group .custom-control-label {
+    font-size: 15px;
+    padding: 5px 10px;
+    border: 1px solid #dbdbdb;
+}
+
+.product-attributes .form-group .custom-control-input {
+    position: absolute;
+}
+
+.custom-control {
+    min-height: auto;
+    padding-left: 0;
+    margin: 5px;
+}
+.product-attributes .form-group .custom-control-label:hover {
+    cursor: pointer;
+}
+
+.product-attributes .form-group .custom-control-label::before, .product-attributes .form-group .custom-control-label::after {
+    display: none;
+}
+
+.product-attributes .form-group .custom-control-input:checked ~ .custom-control-label {
+    transition: all .3s;
+    color: #fff;
+}
+
+.p-sku {
+    margin-top: 10px;
+    color: #858585;
+    text-transform: uppercase;
+}
+
+.p-sku span {
+    font-weight: 400;
 }

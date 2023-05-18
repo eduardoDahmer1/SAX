@@ -76,6 +76,17 @@
             @include('front._product-details-back-in-stock')
             @endif
 
+            @if($productt->ship != null)
+            <p class="estimate-time">{{ __("Estimated Shipping Time") }}: <b>
+                    {{ $productt->ship }}</b></p>
+            @endif
+
+            @if($productt->sku != null)
+            <p class="p-sku">
+                {{ __("SKU") }}: <span class="idno">{{ $productt->sku }}</span>
+            </p>
+            @endif
+
             <div class="social-links social-sharing a2a_kit a2a_kit_size_32">
                 {{ __("Share on")}}:
                 <br>
@@ -104,17 +115,6 @@
             </div>
 
             <script async src="https://static.addtoany.com/menu/page.js"></script>
-
-            @if($productt->ship != null)
-            <p class="estimate-time">{{ __("Estimated Shipping Time") }}: <b>
-                    {{ $productt->ship }}</b></p>
-            @endif
-
-            @if($productt->sku != null)
-            <p class="p-sku">
-                {{ __("Product SKU") }}: <span class="idno">{{ $productt->sku }}</span>
-            </p>
-            @endif
 
             @if($gs->is_report)
 
