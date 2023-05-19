@@ -20,7 +20,7 @@
                     <div class="col-lg-6 col-6 remove-padding p-2">
                         <a href="{{ $ftp_image }}">
                             <img class="img-fluid" src="{{ $ftp_image }}"
-                                title="The description goes here">
+    >
                         </a>
                     </div>
                 @endif
@@ -29,8 +29,7 @@
         @foreach ($productt->galleries as $gal)
             <div class="col-lg-6 col-6 remove-padding p-2">
                 <a href="{{ $gal->photo_url }}">
-                    <img class="img-fluid" src="{{ $gal->photo_url }}"
-                        title="The description goes here">
+                    <img class="img-fluid" src="{{ $gal->photo_url }}">
                 </a>
             </div>
         @endforeach

@@ -976,5 +976,17 @@
   "Zip": "C\u00f3digo Postal",
   "Zip:": "C\u00f3digo Postal:",
   "{$this->name} Error": "Error de {$ this-> name}",
-  "Categories Highlight":"Destacado de categorías"
+  "Categories Highlight":"Destacado de categorías",
+  "Featured Categories":"Categorías Destacadas",
+  "+ Add to Bag":"El Bolso",
+  "Institutional":"Institucional",
+  "Product Details":"Detalles de producto",
+  "Complete the look":"Completa el look",
+  "Discover the next piece to add to your collection":"Descubre la próxima pieza para agregar a tu colección",
+  "See all":"Ver todo",
+  "Exclusive":"Exclusivo",
+  "Best sellers":"Los más vendidos",
+  "Blog of the week":"Blog de la semana",
+  "Stay on top of all the news":"Mantente al tanto de todas las novedades",
+  "See all categories":"Ver todas las categorías"
 }

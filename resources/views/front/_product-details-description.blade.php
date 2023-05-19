@@ -26,14 +26,8 @@
                                     @forelse ($productt->ratings as $review)
                                         <li>
                                             <div class="single-review">
-                                                <div class="left-area">
-                                                    <img src="{{ $review->user->photo
-                                                        ? asset('storage/images/users/' . $review->user->photo)
-                                                        : asset('assets/images/noimage.png') }}"
-                                                        alt="">                                                        
-                                                </div>
                                                 <div class="right-area">
-                                                    <h4 class="name">{{ $review->user->name }}
+                                                    <h3 class="name">{{ $review->user->name }}
                                                         <span class="header-area ml-2">
                                                             <span class="stars-area">
                                                                 <ul class="stars">
@@ -46,7 +40,7 @@
                                                                 </ul>
                                                             </span>
                                                         </span>
-                                                    </h4>
+                                                    </h3>
                                                     <p class="date">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->review_date)->diffForHumans() }}</p>
                                                     <div class="review-body">
                                                         <p class="m-0">

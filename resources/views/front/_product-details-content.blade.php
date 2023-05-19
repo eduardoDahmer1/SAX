@@ -8,9 +8,9 @@
             </div>
             @endif
             
-            <a href="{{ route('front.brand', $productt->brand->slug) }}" class="d-block mb-3">
+            <a href="{{ route('front.brand', $productt->brand->slug) }}" class="d-block mb-2">
                 <img src="{{$productt->brand->image ? asset('storage/images/brands/'.$productt->brand->image) : asset('assets/images/noimage.png') }}"
-                    alt="{{$productt->brand->name}}" width="75px">
+                    alt="{{$productt->brand->name}}" width="55px">
             </a>
 
             <h4 class="product-name">{{ $productt->name }}</h4>
