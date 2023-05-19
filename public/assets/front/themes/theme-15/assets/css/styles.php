@@ -452,28 +452,21 @@ background: <?php echo $theme_color_2; ?>!important;
 
 }
 
-.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a {
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a,
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart:hover a {
 color: <?php echo $text_color_2; ?>;
-border: 1px solid <?php echo $theme_color_2; ?>;
-background: <?php echo $theme_color_2; ?>;
+border: 1px solid <?php echo $text_color_2; ?>;
+background: transparent;
 }
 
-.product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a:hover {
-color: <?php echo $theme_color_1; ?>;
-border: 1px solid <?php echo $text_color_1; ?>;
-background-color: <?php echo $text_color_1; ?>;
-}
 
-.product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite a, .product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare a {
-border: 1px solid <?php echo $theme_color_2; ?>;
-background: <?php echo $theme_color_2; ?>;
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite a, 
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare a,
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite:hover a, 
+.product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare:hover a {
+border: 1px solid transparent;
+background: transparent;
 color: <?php echo $text_color_2; ?>;
-}
-
-.product-details-page .right-area .product-info .info-meta-3 .meta-list li.favorite a:hover, .product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare a:hover {
-    border: 1px solid <?php echo $text_color_1; ?>;
-    background: <?php echo $text_color_1; ?>;
-    color: <?php echo $theme_color_1; ?>;
 }
 
 .seller-info .content .title {
@@ -1063,4 +1056,23 @@ color: #fff;
 
 .menu-navigation.drop_open li.menudrop > a, .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open {
     color: <?php echo $theme_color_2; ?>;
+}
+
+.product-attributes .form-group .custom-control-input:checked ~ .custom-control-label {
+    background-color: <?php echo $theme_color_2; ?>;
+    border: 1px solid <?php echo $theme_color_2; ?>;
+}
+
+.product-attributes .form-group .attribute-normal {
+    background-color: <?php echo $theme_color_2; ?>;
+    border: 1px solid <?php echo $theme_color_2; ?>;
+    transition: all .3s;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 15px;
+}
+
+#product-details-tab #comment-area .all-comment li .single-comment,
+#product-details-tab #replay-area .all-replay li .single-review {
+    border: 1px solid <?php echo $theme_color_2; ?>63;
 }

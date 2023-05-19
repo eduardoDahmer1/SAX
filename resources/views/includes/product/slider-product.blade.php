@@ -89,6 +89,14 @@ if ($gs->switch_highlight_currency) {
                     <span class="badge badge-primary"
                         style="background-color: {{ $admstore->ref_color }} ">{{ $prod->ref_code }}</span>
                 @endif
+                @if ($gs->is_rating == 1)
+                    <div class="stars">
+                        <div class="ratings">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" style="width:{{ App\Models\Rating::ratings($prod->id) }}%"></div>
+                        </div>
+                    </div>
+                @endif
             </div>
             @if (config('features.marketplace'))
                 <div class="info">
@@ -99,19 +107,13 @@ if ($gs->switch_highlight_currency) {
                 </div>
             @endif
             <div class="info">
-                @if ($gs->is_rating == 1)
-                    <div class="stars">
-                        <div class="ratings">
-                            <div class="empty-stars"></div>
-                            <div class="full-stars" style="width:{{ App\Models\Rating::ratings($prod->id) }}%"></div>
-                        </div>
-                    </div>
-                @endif
+                
+                <h5 class="name">{{ $prod->showName() }}</h5>
                 <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                         <small>{{ $small }}</small>
                     @endif
                 </h4>
-                <h5 class="name">{{ $prod->showName() }}</h5>
+                
                 @if ($gs->is_cart)
                     <div class="item-cart-area">
                         @if ($prod->product_type == 'affiliate')
@@ -240,8 +242,6 @@ if ($gs->switch_highlight_currency) {
                 <span class="badge badge-primary"
                     style="background-color: {{ $admstore->ref_color }} ">{{ $prod->ref_code }}</span>
             @endif
-        </div>
-        <div class="info">
             @if ($gs->is_rating == 1)
                 <div class="stars">
                     <div class="ratings">
@@ -250,6 +250,9 @@ if ($gs->switch_highlight_currency) {
                     </div>
                 </div>
             @endif
+        </div>
+        <div class="info">
+            <h5 class="name">{{ $prod->showName() }}</h5>
             @if (!config('features.marketplace'))
                 <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                         <small>{{ $small }}</small>
@@ -262,7 +265,7 @@ if ($gs->switch_highlight_currency) {
                     @endif
                 </h4>
             @endif
-            <h5 class="name">{{ $prod->showName() }}</h5>
+            
             @if ($gs->is_cart)
                 <div class="item-cart-area">
                     @if ($prod->product_type == 'affiliate')

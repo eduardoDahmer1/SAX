@@ -31,10 +31,10 @@
                         <div class="left-area">
                             <img src="{{ $comment->user->photo != null ? asset('storage/images/users/' . $comment->user->photo) : asset('assets/images/noimage.png') }}"
                                 alt="">
-                            <h5 class="name">{{ $comment->user->name }}</h5>
-                            <p class="date">{{ $comment->created_at->diffForHumans() }}</p>
                         </div>
                         <div class="right-area">
+                            <h5 class="name">{{ $comment->user->name }}</h5>
+                            <p class="date">{{ $comment->created_at->diffForHumans() }}</p>
                             <div class="comment-body">
                                 <p>
                                     {{ $comment->text }}
@@ -75,10 +75,10 @@
                                 <div class="left-area">
                                     <img src="{{ $reply->user->photo != null ? asset('storage/images/users/' . $reply->user->photo) : asset('assets/images/noimage.png') }}"
                                         alt="">
-                                    <h5 class="name">{{ $reply->user->name }}</h5>
-                                    <p class="date">{{ $reply->created_at->diffForHumans() }}</p>
                                 </div>
                                 <div class="right-area">
+                                    <h5 class="name">{{ $reply->user->name }}</h5>
+                                    <p class="date">{{ $reply->created_at->diffForHumans() }}</p>
                                     <div class="comment-body">
                                         <p>
                                             {{ $reply->text }}
@@ -129,11 +129,12 @@
     </ul>
 @else
     <div class="row">
-        <div class="col-lg-12">
-            <br>
-            <h3 class="text-center"><a href="javascript:;" data-toggle="modal" data-target="#comment-log-reg"
-                    class="btn login-btn">{{ __('Login') }}</a> {{ __('To Comment') }} </h3>
-            <br>
+        <div class="col-lg-12 py-3">
+            <h3 class="text-center pb-2">{{__('To comment, log into your account')}}</h3>
+            <h3 class="text-center">
+                <a href="javascript:;" data-toggle="modal" data-target="#comment-log-reg"
+                    class="btn login-btn">{{ __('Login') }}</a>
+            </h3>
         </div>
     </div>
 
@@ -146,10 +147,10 @@
                         <div class="left-area">
                             <img src="{{ $comment->user->photo != null ? asset('storage/images/users/' . $comment->user->photo) : asset('assets/images/noimage.png') }}"
                                 alt="">
-                            <h5 class="name">{{ $comment->user->name }}</h5>
-                            <p class="date">{{ $comment->created_at->diffForHumans() }}</p>
                         </div>
                         <div class="right-area">
+                            <h5 class="name">{{ $comment->user->name }}</h5>
+                            <p class="date">{{ $comment->created_at->diffForHumans() }}</p>
                             <div class="comment-body">
                                 <p>
                                     {{ $comment->text }}
@@ -174,10 +175,10 @@
                                 <div class="left-area">
                                     <img src="{{ $reply->user->photo != null ? asset('storage/images/users/' . $reply->user->photo) : asset('assets/images/noimage.png') }}"
                                         alt="">
-                                    <h5 class="name">{{ $reply->user->name }}</h5>
-                                    <p class="date">{{ $reply->created_at->diffForHumans() }}</p>
                                 </div>
                                 <div class="right-area">
+                                    <h5 class="name">{{ $reply->user->name }}</h5>
+                                    <p class="date">{{ $reply->created_at->diffForHumans() }}</p>
                                     <div class="comment-body">
                                         <p>
                                             {{ $reply->text }}

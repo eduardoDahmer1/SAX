@@ -1,4 +1,4 @@
-<div class="col-lg-5">
+<div class="col-lg-5 pl-lg-5">
     <div class="right-area">
         <div class="product-info">
 
@@ -36,13 +36,14 @@
             @include('front._product-details-size')
             @endif
 
-            @if(!empty($productt->color))
-            @include('front._product-details-color')
-            @endif
-
-            @if(!empty($productt->material) && $productt->stock > 0)
-            @include('front._product-details-material')
-            @endif
+            <div class="row">
+                <div class="col-lg-6">
+                    @if(!empty($productt->color))
+                        @include('front._product-details-color')
+                    @endif
+                </div>
+                @include('front._product-details-info-meta-3')
+            </div>
 
             @php
             $stck = (string) $productt->stock;
@@ -71,14 +72,22 @@
             <input type="hidden" id="currency_value" value="{{ $product_curr->value }}">
             <input type="hidden" id="curr_value" value="{{ $product_curr->value }}">
 
-            @include('front._product-details-info-meta-3')
-
-
             @if($gs->is_back_in_stock && $productt->emptyStock())
             @include('front._product-details-back-in-stock')
             @endif
 
-            <div class="social-links social-sharing a2a_kit a2a_kit_size_32">
+            @if($productt->ship != null)
+            <p class="estimate-time">{{ __("Estimated Shipping Time") }}: <b>
+                    {{ $productt->ship }}</b></p>
+            @endif
+
+            @if($productt->sku != null)
+            <p class="p-sku">
+                {{ __("SKU") }}: <span class="idno">{{ $productt->sku }}</span>
+            </p>
+            @endif
+
+            {{-- <div class="social-links social-sharing a2a_kit a2a_kit_size_32">
                 {{ __("Share on")}}:
                 <br>
                 <ul class="link-list social-links">
@@ -103,24 +112,13 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
 
             <script async src="https://static.addtoany.com/menu/page.js"></script>
 
-            @if($productt->ship != null)
-            <p class="estimate-time">{{ __("Estimated Shipping Time") }}: <b>
-                    {{ $productt->ship }}</b></p>
-            @endif
-
-            @if($productt->sku != null)
-            <p class="p-sku">
-                {{ __("Product SKU") }}: <span class="idno">{{ $productt->sku }}</span>
-            </p>
-            @endif
-
             @if($gs->is_report)
 
-            {{-- PRODUCT REPORT SECTION --}}
+            {{-- PRODUCT REPORT SECTION 
             @if(Auth::guard('web')->check())
             <div class="report-area">
                 <a href="javascript:;" data-toggle="modal" data-target="#report-modal">
@@ -134,9 +132,13 @@
                 </a>
             </div>
             @endif
+            PRODUCT REPORT SECTION ENDS --}}
 
-            {{-- PRODUCT REPORT SECTION ENDS --}}
             @endif
         </div>
+    </div>
+    <div class="py-4">
+        <h3 style="text-transform: uppercase;font-weight: 300;">{{__('Product details')}}</h3>
+        <div style="color:#848484;font-weight:300;font-family:'Cormorant', serif;">{!! nl2br($productt->details) !!}</div>
     </div>
 </div>

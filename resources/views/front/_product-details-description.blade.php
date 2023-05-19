@@ -3,14 +3,13 @@
         <div id="product-details-tab">
             <div class="top-menu-area">
                 <ul class="tab-menu">
-                    <li><a href="#tabs-1">{{ __('DESCRIPTION') }}</a></li>
-                    <li><a href="#tabs-2">{{ __('BUY & RETURN POLICY') }}</a></li>
                     @if ($gs->is_rating == 1)
-                        <li><a href="#tabs-3">{{ __('Reviews') }}({{ count($productt->ratings) }})</a></li>
+                        <li><a href="#tabs-1">{{ __('Reviews') }}({{ count($productt->ratings) }})</a></li>
                     @endif
+                    <li><a href="#tabs-2">{{ __('BUY & RETURN POLICY') }}</a></li>
                     @if ($gs->is_comment == 1)
                         <li>
-                            <a href="#tabs-4">{{ __('Comment') }}
+                            <a href="#tabs-3">{{ __('Comment') }}
                                 (<span id="comment_count">{{ count($productt->comments) }}</span>)
                             </a>
                         </li>
@@ -18,49 +17,25 @@
                 </ul>
             </div>
             <div class="tab-content-wrapper">
-                <div id="tabs-1" class="tab-content-area">
-                    <p>{!! nl2br($productt->details) !!}</p>
-                </div>
-                <div id="tabs-2" class="tab-content-area">
-                    @if ($gs->policy)
-                        <p>{!! $gs->policy !!}</p>
-                    @elseif($productt->policy)
-                        <p>{!! $productt->policy !!}</p>
-                    @endif
-                </div>
+                
                 @if ($gs->is_rating == 1)
-                    <div id="tabs-3" class="tab-content-area">
-                        <div class="heading-area">
-                            <h4 class="title">
-                                {{ __('Ratings & Reviews') }}
-                            </h4>
-                            <div class="reating-area">
-                                <div class="stars">
-                                    <span id="star-rating">{{ App\Models\Rating::rating($productt->id) }}</span>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="tabs-1" class="tab-content-area">
                         <div id="replay-area">
                             <div id="reviews-section">
-                                @if (count($productt->ratings) > 0)
-                                    <ul class="all-replay">
-                                        @foreach ($productt->ratings as $review)
-                                            <li>
-                                                <div class="single-review">
-                                                    <div class="left-area">
-                                                        <img src="{{ $review->user->photo
-                                                            ? asset('storage/images/users/' . $review->user->photo)
-                                                            : asset('assets/images/noimage.png') }}"
-                                                            alt="">
-                                                        <h5 class="name">{{ $review->user->name }}</h5>
-                                                        <p class="date">
-                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->review_date)->diffForHumans() }}
-                                                        </p>
-                                                    </div>
-                                                    <div class="right-area">
-                                                        <div class="header-area">
-                                                            <div class="stars-area">
+                                <ul class="all-replay">
+                                    @forelse ($productt->ratings as $review)
+                                        <li>
+                                            <div class="single-review">
+                                                <div class="left-area">
+                                                    <img src="{{ $review->user->photo
+                                                        ? asset('storage/images/users/' . $review->user->photo)
+                                                        : asset('assets/images/noimage.png') }}"
+                                                        alt="">                                                        
+                                                </div>
+                                                <div class="right-area">
+                                                    <h4 class="name">{{ $review->user->name }}
+                                                        <span class="header-area ml-2">
+                                                            <span class="stars-area">
                                                                 <ul class="stars">
                                                                     <div class="ratings">
                                                                         <div class="empty-stars"></div>
@@ -69,21 +44,22 @@
                                                                         </div>
                                                                     </div>
                                                                 </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="review-body">
-                                                            <p>
-                                                                {{ $review->review }}
-                                                            </p>
-                                                        </div>
+                                                            </span>
+                                                        </span>
+                                                    </h4>
+                                                    <p class="date">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->review_date)->diffForHumans() }}</p>
+                                                    <div class="review-body">
+                                                        <p class="m-0">
+                                                            {{ $review->review }}
+                                                        </p>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <p>{{ __('No Review Found.') }}</p>
-                                @endif
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <p class="text-center" style="font-family:'Montserrat', sans-serif;">{{ __('No Review Found.') }}</p>
+                                    @endforelse
+                                </ul>
                             </div>
                             @if (Auth::guard('web')->check())
                                 <div class="review-area">
@@ -132,8 +108,7 @@
                                         <input type="hidden" name="product_id" value="{{ $productt->id }}">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <textarea name="review" placeholder="{{ __('Your Review') }}" required>
-                                            </textarea>
+                                                <textarea name="review" placeholder="{{ __('Your Review') }}" required></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -148,13 +123,12 @@
                             @else
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <br>
+                                        <h4 class="text-center">{{ __('To rate please login') }}</h4>
                                         <h5 class="text-center">
                                             <a href="javascript:;" data-toggle="modal" data-target="#comment-log-reg"
                                                 class="btn login-btn mr-1">
                                                 {{ __('Login') }}
                                             </a>
-                                            {{ __('To Review') }}
                                         </h5>
                                         <br>
                                     </div>
@@ -163,8 +137,15 @@
                         </div>
                     </div>
                 @endif
+                <div id="tabs-2" class="tab-content-area">
+                    @if ($gs->policy)
+                        <p>{!! $gs->policy !!}</p>
+                    @elseif($productt->policy)
+                        <p>{!! $productt->policy !!}</p>
+                    @endif
+                </div>
                 @if ($gs->is_comment == 1)
-                    <div id="tabs-4" class="tab-content-area">
+                    <div id="tabs-3" class="tab-content-area">
                         <div id="comment-area">
                             @include('includes.comment-replies')
                         </div>

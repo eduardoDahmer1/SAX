@@ -1,17 +1,17 @@
-<div class="product-attributes my-4">
+<div class="product-attributes my-3">
     <div class="row">
         @foreach($attrArr as $attrKey => $attrVal)
         @if(array_key_exists("details_status",$attrVal) &&
         $attrVal['details_status'] == 1)
         @if ($attr_search =
         App\Models\Attribute::where('input_name',$attrKey)->first())
-        <div class="col-lg-12">
+        <div class="col-lg-6 list-attr">
             <div class="form-group mb-2">
-                <strong for="" class="text-capitalize">
+                <p>
                     {{ App\Models\Attribute::where('input_name',
                     $attrKey)->first()->name }}:
-                </strong>
-                <div class="">
+                </p>
+                <div class="d-flex flex-wrap">
                     @if($gs->is_attr_cards)
                     @foreach ($attrVal['values'] as $optionKey => $optionVal)
                     <div class="row">
@@ -37,7 +37,7 @@
                                         @endif
                                     </label>
                                     @else
-                                    <div style="margin-left: -1.5rem">
+                                    <div class="attribute-normal">
                                         -
                                         {{App\Models\AttributeOption::find($optionVal)->name}}
                                     </div>
@@ -82,8 +82,7 @@
                             @endif
                         </label>
                         @else
-                        <div style="margin-left: -1.5rem">
-                            -
+                        <div class="attribute-normal">
                             {{App\Models\AttributeOption::find($optionVal)->name}}
                         </div>
                         @endif

@@ -1162,10 +1162,10 @@ $(function ($) {
                         '<div class="single-comment comment-section">' +
                         '<div class="left-area">' +
                         '<img src="' + data[0] + '" alt="">' +
-                        '<h5 class="name">' + data[1] + '</h5>' +
-                        '<p class="date">' + data[2] + '</p>' +
                         '</div>' +
                         '<div class="right-area">' +
+                        '<h5 class="name">' + data[1] + '</h5>' +
+                        '<p class="date">' + data[2] + '</p>' +
                         '<div class="comment-body">' +
                         '<p>' + data[3] + '</p>' +
                         '</div>' +
@@ -1227,10 +1227,10 @@ $(function ($) {
                     $this.before('<div class="single-comment replay-review">' +
                         '<div class="left-area">' +
                         '<img src="' + data[0] + '" alt="">' +
-                        '<h5 class="name">' + data[1] + '</h5>' +
-                        '<p class="date">' + data[2] + '</p>' +
                         '</div>' +
                         '<div class="right-area">' +
+                        '<h5 class="name">' + data[1] + '</h5>' +
+                        '<p class="date">' + data[2] + '</p>' +
                         '<div class="comment-body">' +
                         '<p>' + data[3] + '</p>' +
                         '</div>' +
@@ -1399,7 +1399,7 @@ $(function ($) {
 
         $(document).on("click", "#addcrt", function () {
             var qty = $('.qttotal').html();
-            var pid = $(this).parent().parent().parent().parent().find("#product_id").val();
+            var pid = $("#product_id").val();
             var customizable_gallery = $("#customizable_gallery").val();
             var customizable_name = $("#customizable_name").val();
             var customizable_number = $("#customizable_number").val();
@@ -1490,7 +1490,7 @@ $(function ($) {
 
         $(document).on("click", "#qaddcrt", function () {
             var qty = $('.qttotal').html();
-            var pid = $(this).parent().parent().parent().parent().find("#product_id").val();
+            var pid = $("#product_id").val();
             var customizable_gallery = $("#customizable_gallery").val();
             var customizable_name = $("#customizable_name").val();
             var customizable_number = $("#customizable_number").val();

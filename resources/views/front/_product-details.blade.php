@@ -3,7 +3,7 @@
     <div class="container">
         @include('front._product-details-validation')
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="row">
                     @include('front._product-details-photos')
                     @include('front._product-details-content')
@@ -19,10 +19,7 @@
                 @include('front._product-details-sidebar')
             </div> --}}
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-            </div>
-        </div>
+
     </div>
 
     @if(!config("features.marketplace"))
