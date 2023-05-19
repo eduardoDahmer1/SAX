@@ -94,6 +94,9 @@
 
     <!-- stylesheet crow -->
     <link rel="stylesheet" href="{{ asset('assets/front/themes/shared/assets/css/crow.css') }}">
+    
+    <!-- Simple LightBox -->
+    <link rel="stylesheet" href="{{ asset('assets/front/themes/shared/assets/css/simple-lightbox.min.css') }}">
 
     @if ($slocale->rtl == '1')
         <!-- stylesheet -->
@@ -230,6 +233,10 @@
     <script src="{{ asset('assets/front/themes/shared/assets/js/setup.js') }}"></script>
 
     <script src="{{ asset('assets/front/themes/shared/assets/js/toastr.js') }}"></script>
+
+    <!-- Simple LightBox -->
+    <script src="{{ asset('assets/front/themes/shared/assets/js/simple-lightbox.min.js') }}"></script>
+
     <!-- theme -->
     <script src="{{ asset('assets/front/themes/' . env('THEME', 'theme-01') . '/assets/js/theme.js') }}"></script>
     <!-- shared -->
@@ -241,7 +248,10 @@
     <script>
         AOS.init({
             duration: 1500,
+            offset: 120,
         });
+
+        var lightbox = new SimpleLightbox('.gallery-product a');
     </script>
 
     {!! $seo->google_analytics !!}

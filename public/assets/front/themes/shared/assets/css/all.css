@@ -40233,6 +40233,7 @@ nav button {
 #product-details-tab #replay-area .all-replay {
   margin-top: 18px;
   width: 100%;
+  list-style: none;
 }
 
 #product-details-tab #replay-area .all-replay li {

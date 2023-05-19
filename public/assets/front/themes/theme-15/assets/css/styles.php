@@ -1071,3 +1071,8 @@ color: #fff;
     padding: 5px 10px;
     font-size: 15px;
 }
+
+#product-details-tab #comment-area .all-comment li .single-comment,
+#product-details-tab #replay-area .all-replay li .single-review {
+    border: 1px solid <?php echo $theme_color_2; ?>63;
+}

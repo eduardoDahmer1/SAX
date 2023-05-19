@@ -29,7 +29,7 @@
 <div class="col-lg-12">
     <div class="info-meta-3">
         <ul class="meta-list">
-            <div class="d-flex">
+            <div class="d-flex flex-wrap">
                 @if($gs->is_cart)
                     @if($productt->product_type == "affiliate")
                     <li class="addtocart">

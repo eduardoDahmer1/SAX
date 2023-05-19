@@ -1,45 +1,42 @@
 @if ((empty($color_gallery) && empty($material_gallery)) || (!empty($color_gallery) && !empty($material_gallery)))
-    <div class="col-lg-5 col-md-12">
-        <div class="xzoom-container">
-            <img class="xzoom5" id="xzoom-magnific"
-                src="{{ filter_var($productt->photo, FILTER_VALIDATE_URL)
+
+<div class="col-lg-7">
+    <div class="row gallery-product">
+        <div class="col-12 col-6 remove-padding p-2">
+            <a href="{{ filter_var($productt->photo, FILTER_VALIDATE_URL)
+                ? $productt->photo
+                : asset('storage/images/products/' . $productt->photo) }}">
+                <img class="w-100" src="{{ filter_var($productt->photo, FILTER_VALIDATE_URL)
                     ? $productt->photo
                     : asset('storage/images/products/' . $productt->photo) }}"
                 xoriginal="{{ filter_var($productt->photo, FILTER_VALIDATE_URL)
                     ? $productt->photo
                     : asset('storage/images/products/' . $productt->photo) }}" />
-            <div class="xzoom-thumbs">
-                <div class="all-slider">
-                    <a
-                        href="{{ filter_var($productt->photo, FILTER_VALIDATE_URL)
-                            ? $productt->photo
-                            : asset('storage/images/products/' . $productt->photo) }}">
-                        <img class="xzoom-gallery5" width="80"
-                            src="{{ filter_var($productt->photo, FILTER_VALIDATE_URL)
-                                ? $productt->photo
-                                : asset('storage/images/products/' . $productt->photo) }}"
-                            title="The description goes here">
-                    </a>
-                    @if ($gs->ftp_folder)
-                        @foreach ($ftp_gallery as $ftp_image)
-                            @if ($ftp_image != $productt->photo)
-                                <a href="{{ $ftp_image }}">
-                                    <img class="xzoom-gallery5" width="80" src="{{ $ftp_image }}"
-                                        title="The description goes here">
-                                </a>
-                            @endif
-                        @endforeach
-                    @endif
-                    @foreach ($productt->galleries as $gal)
-                        <a href="{{ $gal->photo_url }}">
-                            <img class="xzoom-gallery5" width="80" src="{{ $gal->photo_url }}"
+            </a>
+        </div>
+        @if ($gs->ftp_folder)
+            @foreach ($ftp_gallery as $ftp_image)
+                @if ($ftp_image != $productt->photo)
+                    <div class="col-lg-6 col-6 remove-padding p-2">
+                        <a href="{{ $ftp_image }}">
+                            <img class="img-fluid" src="{{ $ftp_image }}"
                                 title="The description goes here">
                         </a>
-                    @endforeach
-                </div>
+                    </div>
+                @endif
+            @endforeach
+        @endif
+        @foreach ($productt->galleries as $gal)
+            <div class="col-lg-6 col-6 remove-padding p-2">
+                <a href="{{ $gal->photo_url }}">
+                    <img class="img-fluid" src="{{ $gal->photo_url }}"
+                        title="The description goes here">
+                </a>
             </div>
-        </div>
+        @endforeach
     </div>
+</div>
+
 @elseif(!empty($color_gallery) && empty($material_gallery))
     <div class="col-lg-5 col-md-12">
         <div class="xzoom-container">

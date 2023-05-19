@@ -1162,10 +1162,10 @@ $(function ($) {
                         '<div class="single-comment comment-section">' +
                         '<div class="left-area">' +
                         '<img src="' + data[0] + '" alt="">' +
-                        '<h5 class="name">' + data[1] + '</h5>' +
-                        '<p class="date">' + data[2] + '</p>' +
                         '</div>' +
                         '<div class="right-area">' +
+                        '<h5 class="name">' + data[1] + '</h5>' +
+                        '<p class="date">' + data[2] + '</p>' +
                         '<div class="comment-body">' +
                         '<p>' + data[3] + '</p>' +
                         '</div>' +
@@ -1227,10 +1227,10 @@ $(function ($) {
                     $this.before('<div class="single-comment replay-review">' +
                         '<div class="left-area">' +
                         '<img src="' + data[0] + '" alt="">' +
-                        '<h5 class="name">' + data[1] + '</h5>' +
-                        '<p class="date">' + data[2] + '</p>' +
                         '</div>' +
                         '<div class="right-area">' +
+                        '<h5 class="name">' + data[1] + '</h5>' +
+                        '<p class="date">' + data[2] + '</p>' +
                         '<div class="comment-body">' +
                         '<p>' + data[3] + '</p>' +
                         '</div>' +

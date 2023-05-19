@@ -1,4 +1,4 @@
-<div class="col-lg-5">
+<div class="col-lg-5 pl-lg-5">
     <div class="right-area">
         <div class="product-info">
 
@@ -87,7 +87,7 @@
             </p>
             @endif
 
-            <div class="social-links social-sharing a2a_kit a2a_kit_size_32">
+            {{-- <div class="social-links social-sharing a2a_kit a2a_kit_size_32">
                 {{ __("Share on")}}:
                 <br>
                 <ul class="link-list social-links">
@@ -112,13 +112,13 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
 
             <script async src="https://static.addtoany.com/menu/page.js"></script>
 
             @if($gs->is_report)
 
-            {{-- PRODUCT REPORT SECTION --}}
+            {{-- PRODUCT REPORT SECTION 
             @if(Auth::guard('web')->check())
             <div class="report-area">
                 <a href="javascript:;" data-toggle="modal" data-target="#report-modal">
@@ -132,9 +132,13 @@
                 </a>
             </div>
             @endif
+            PRODUCT REPORT SECTION ENDS --}}
 
-            {{-- PRODUCT REPORT SECTION ENDS --}}
             @endif
         </div>
+    </div>
+    <div class="py-4">
+        <h3 style="text-transform: uppercase;font-weight: 300;">{{__('Product details')}}</h3>
+        <div style="color:#848484;font-weight:300;font-family:'Cormorant', serif;">{!! nl2br($productt->details) !!}</div>
     </div>
 </div>
