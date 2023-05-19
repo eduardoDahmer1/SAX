@@ -173,7 +173,7 @@
                                             </div>
                                         </li>
                                     @endforeach
-                                    <li><a class="navlink py-2" href="{{ route('front.categories')}}">{{__('See al categories')}}</a></li>
+                                    <li><a class="navlink py-2" href="{{ route('front.categories')}}">{{__('See all categories')}}</a></li>
                                 </ul>
                             </div>
                 
@@ -197,13 +197,13 @@
 
                             @if (!Auth::guard('web')->check())
                                 <li class="login-button-menu">
-                                    <a class="navlink" href="{{ route('front.index') }}">
+                                    <a class="navlink" href="{{ route('user-dashboard') }}">
                                         {{ __('Profile') }}                                   
                                     </a>
                                 </li>
                             @else
                                 <li class="login-button-menu">
-                                    <a class="navlink" href="{{ route('front.index') }}">
+                                    <a class="navlink" href="{{ route('user.login') }}">
                                         {{ __('Login') }}                                   
                                     </a>
                                 </li>
