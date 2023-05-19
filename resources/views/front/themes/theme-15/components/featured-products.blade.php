@@ -29,5 +29,6 @@
         </div>
     </div>
 </section>
+
 <!-- Tranding Item Area End -->
 @endif

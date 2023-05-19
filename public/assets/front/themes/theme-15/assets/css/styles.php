@@ -277,7 +277,7 @@ color: <?php echo $theme_color_1; ?>; }
 background: <?php echo $theme_color_1; ?>;
 border-color: <?php echo $theme_color_1; ?>; }
 .product-details-page .right-area .product-info .product-price .price {
-color: <?php echo $theme_color_1; ?>;}
+color: <?php echo $theme_color_2; ?>;}
 .product-details-page .right-area .product-info .product-size .siz-list li.active .box {
 border: 1px solid <?php echo $theme_color_1; ?>; }
 
@@ -1072,7 +1072,6 @@ color: #fff;
     font-size: 15px;
 }
 
-#product-details-tab #comment-area .all-comment li .single-comment,
-#product-details-tab #replay-area .all-replay li .single-review {
+#product-details-tab #comment-area .all-comment li .single-comment {
     border: 1px solid <?php echo $theme_color_2; ?>63;
 }

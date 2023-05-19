@@ -26,4 +26,6 @@
     @include('front._product-details-trending')
     @endif
 
+    @include('front.themes.theme-15.components.services')
+
 </section>

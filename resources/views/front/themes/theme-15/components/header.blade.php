@@ -194,7 +194,20 @@
                                     {{ __('Sax Bridal World') }}
                                 </a>
                             </li>
-                
+
+                            @if (!Auth::guard('web')->check())
+                                <li class="login-button-menu">
+                                    <a class="navlink" href="{{ route('front.index') }}">
+                                        {{ __('Profile') }}                                   
+                                    </a>
+                                </li>
+                            @else
+                                <li class="login-button-menu">
+                                    <a class="navlink" href="{{ route('front.index') }}">
+                                        {{ __('Login') }}                                   
+                                    </a>
+                                </li>
+                            @endif
                         
                             @if ($gs->is_contact == 1)
                                 <li>

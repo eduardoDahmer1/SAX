@@ -16,6 +16,4 @@
     @include('front.themes.shared.components.hot-sales')
     @include('front.themes.theme-15.components.services')
     @include('front.themes.theme-15.components.blog')
-    @include('front.themes.theme-15.components.topheader')
-
 @endsection

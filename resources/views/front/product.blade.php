@@ -339,11 +339,4 @@
     });
 
 </script>
-
-
-<style>
-    .section-top .section-title {
-        font-size: 22px;
-    }
-</style>
 @endsection
