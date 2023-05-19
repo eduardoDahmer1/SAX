@@ -803,7 +803,7 @@
                                     </div>
                                     <div class="col-xl-3">
                                         <div class="input-form">
-                                            <h4 class="heading">Tamanho do Produto
+                                            <h4 class="heading">{{__('Size Name')}}
                                                 <span>
                                                     {{ __('(eg. S,M,L,XL,XXL,3XL,4XL)')}}
                                                 </span>
@@ -1055,7 +1055,7 @@
                                 <!--FINAL DA ROW DE DADOS EXTRAS-->
                                 <div class="title-section-form">
                                     <span>4</span>
-                                <h3>Associar Produtos</h3>
+                                <h3>{{__('Associate Products')}}</h3>
                             </div>
                                 @foreach ($products as $product)
                                     <div>
