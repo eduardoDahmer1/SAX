@@ -19,10 +19,7 @@
                 @include('front._product-details-sidebar')
             </div> --}}
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-            </div>
-        </div>
+
     </div>
 
     @if(!config("features.marketplace"))

@@ -7,6 +7,7 @@
                     <h2 class="section-title">
                         {{ __("Related Products") }}
                     </h2>
+                    <h5>{{__("Discover the next piece to add to your collection")}}</h5>
                 </div>
             </div>
         </div>
