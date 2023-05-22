@@ -1492,18 +1492,28 @@
                                 <!--FINAL DA ROW DE DADOS EXTRAS-->
                                 
                                     <!-- Outros campos do formulário de edição -->
-                                    <div class="title-section-form">
-                                        <span>4</span>
-                                    <h3>{{__('Associate Products')}}</h3>
-                                     </div>
-                                    @foreach ($products as $product)
-                                        <div>
-                                            <input type="checkbox" id="produto_{{ $product->id }}" name="associated_products[]" value="{{ $product->id }}" 
-                                            {{ $data->associatedProducts->contains($product->id) ? 'checked' : '' }}>
-                                            <label for="produto_{{ $product->id }}">{{ $product->name }}</label>
-                                        </div>
-                                    @endforeach
-                        
+
+                                <div class="title-section-form">
+                                <span>4</span>
+                                <h3>{{ __('Associate Colors') }}</h3>
+                                </div>
+                                @foreach ($products as $product)
+                                <div>
+                                    <input type="checkbox" id="produto_{{ $product->id }}_color" name="associated_colors[]" value="{{ $product->id }}" {{ in_array($product->id, $associatedColors) ? 'checked' : '' }}>
+                                    <label for="produto_{{ $product->id }}_color">{{ $product->name }}</label>
+                                </div>
+                                @endforeach
+                            
+                                <div class="title-section-form">
+                                <span>5</span>
+                                <h3>{{ __('Associate Size') }}</h3>
+                                </div>
+                                @foreach ($products as $product)
+                                <div>
+                                    <input type="checkbox" id="produto_{{ $product->id }}_size" name="associated_sizes[]" value="{{ $product->id }}" {{ in_array($product->id, $associatedSizes) ? 'checked' : '' }}>
+                                    <label for="produto_{{ $product->id }}_size">{{ $product->name }}</label>
+                                </div>
+                                @endforeach
                                 <div class="row">
                                     <div class="col-xl-12 text-center">
                                         <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>

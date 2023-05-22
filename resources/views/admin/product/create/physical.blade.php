@@ -1055,14 +1055,26 @@
                                 <!--FINAL DA ROW DE DADOS EXTRAS-->
                                 <div class="title-section-form">
                                     <span>4</span>
-                                <h3>{{__('Associate Products')}}</h3>
-                            </div>
+                                <h3>{{__('Associate Colors')}}</h3>
+                                </div>
                                 @foreach ($products as $product)
                                     <div>
-                                        <input type="checkbox" id="produto_{{ $product->id }}" name="associated_products[]" value="{{ $product->id }}">
+                                        <input type="checkbox" id="produto_{{ $product->id }}" name="associated_colors[]" value="{{ $product->id }}">
                                         <label for="produto_{{ $product->id }}">{{ $product->name }}</label>
                                     </div>
                                 @endforeach
+                          
+                                 <div class="title-section-form">
+                                    <span>5</span>
+                                 <h3>{{__('Associate Size')}}</h3>
+                                 </div>
+                               @foreach ($products as $product)
+                               <div>
+                                   <input type="checkbox" id="produto_{{ $product->id }}" name="associated_sizes[]" value="{{ $product->id }}">
+                                   <label for="produto_{{ $product->id }}">{{ $product->name }}</label>
+                               </div>
+                               @endforeach
+                            </div>
 
                                 @if (config('mercadolivre.is_active'))
                                     <div class="title-section-form">
@@ -1102,8 +1114,6 @@
                                         </div>
                                     </div>
                                 @endif
-
-
 
                                 <input type="hidden" name="type" value="Physical">
                                 <div class="row">

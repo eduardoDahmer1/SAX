@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('associated_product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('associated_product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->unsignedBigInteger('association_type');
         });
     }
 

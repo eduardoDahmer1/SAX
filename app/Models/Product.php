@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AssociationType;
 use stdClass;
 use App\Models\Currency;
 use App\Models\Generalsetting;
@@ -18,6 +19,9 @@ class Product extends LocalizedModel
 
 
     protected $storeSettings;
+    protected $casts = [
+        'association_type' => AssociationType::class
+    ];
 
     protected $with = ['translations'];
 
@@ -34,6 +38,7 @@ class Product extends LocalizedModel
 
     protected $fillable = [
         'user_id',
+        'association_type',
         'category_id',
         'product_type',
         'affiliate_link',
@@ -161,6 +166,15 @@ class Product extends LocalizedModel
                 $data[$dt] = __('Deleted');
             }
         });
+    }
+    public function associatedProductsByColor()
+    {
+        return $this->associatedProducts()->wherePivot('association_type', AssociationType::Color);
+    }
+
+    public function associatedProductsBySize()
+    {
+        return $this->associatedProducts()->wherePivot('association_type', AssociationType::Size);
     }
 
     public function category()

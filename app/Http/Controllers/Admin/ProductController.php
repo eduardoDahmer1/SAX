@@ -17,6 +17,7 @@ use App\Models\Language;
 use App\Models\Attribute;
 use League\Csv\Statement;
 use App\Classes\XMLHelper;
+use App\Enums\AssociationType;
 use App\Models\Gallery360;
 use App\Events\BackInStock;
 use App\Models\Subcategory;
@@ -727,11 +728,10 @@ class ProductController extends Controller
         $data->fill($input)->save();
 
         $prod = Product::find($data->id);
-        $associated_products = $request->input(
-            'associated_products',
-            []
-        );
-        $prod->associatedProducts()->sync($associated_products);
+        $associated_colors = $request->input('associated_colors', []);
+        $associated_sizes = $request->input('associated_sizes', []);
+        $prod->associatedProducts()->syncWithPivotValues($associated_colors, ['association_type' => AssociationType::Color]);
+        $prod->associatedProducts()->syncWithPivotValues($associated_sizes, ['association_type' => AssociationType::Size]);
 
         # Validate Redplay
         if ($request->redplay_login && $request->redplay_password && $request->redplay_code) {
@@ -1027,6 +1027,8 @@ class ProductController extends Controller
         $storesList = Generalsetting::all();
         $currentStores = $data->stores()->pluck('id')->toArray();
         $products = Product::where('id', '!=', $id)->get();
+        $associatedColors = $data->associatedProductsByColor->pluck('id')->toArray();
+        $associatedSizes = $data->associatedProductsBySize->pluck('id')->toArray();
         $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $data->ref_code_int . '/');
         $ftp_gallery = [];
         if (File::exists($ftp_path)) {
@@ -1057,7 +1059,9 @@ class ProductController extends Controller
                 'storesList',
                 'currentStores',
                 'ftp_gallery',
-                'products'
+                'products',
+                'associatedColors',
+                'associatedSizes'
             ));
         }
     }
@@ -1230,11 +1234,11 @@ class ProductController extends Controller
 
         //-- Logic Section
         $data = Product::findOrFail($id);
-        $associated_products = $request->input(
-            'associated_products',
-            []
-        );
-        $data->associatedProducts()->sync($associated_products);
+        $associated_colors = $request->input('associated_colors', []);
+        $associated_sizes = $request->input('associated_sizes', []);
+
+        $data->associatedProducts()->syncWithPivotValues($associated_colors, ['association_type' => AssociationType::Color]);
+        $data->associatedProducts()->syncWithPivotValues($associated_sizes, ['association_type' => AssociationType::Size]);
         $data->product_size = $request->input('product_size');
         
         if ($this->storeSettings->is_back_in_stock && $data->stock == 0 && $request->stock > 0) {
