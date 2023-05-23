@@ -730,8 +730,9 @@ class ProductController extends Controller
         $prod = Product::find($data->id);
         $associated_colors = $request->input('associated_colors', []);
         $associated_sizes = $request->input('associated_sizes', []);
-        $prod->associatedProducts()->syncWithPivotValues($associated_colors, ['association_type' => AssociationType::Color]);
-        $prod->associatedProducts()->syncWithPivotValues($associated_sizes, ['association_type' => AssociationType::Size]);
+        $prod->associatedProducts()->detach();
+        $prod->associatedProducts()->attach($associated_colors, ['association_type' => AssociationType::Color]);
+        $prod->associatedProducts()->attach($associated_sizes, ['association_type' => AssociationType::Size]);
 
         # Validate Redplay
         if ($request->redplay_login && $request->redplay_password && $request->redplay_code) {
@@ -1237,8 +1238,9 @@ class ProductController extends Controller
         $associated_colors = $request->input('associated_colors', []);
         $associated_sizes = $request->input('associated_sizes', []);
 
-        $data->associatedProducts()->syncWithPivotValues($associated_colors, ['association_type' => AssociationType::Color]);
-        $data->associatedProducts()->syncWithPivotValues($associated_sizes, ['association_type' => AssociationType::Size]);
+        $data->associatedProducts()->detach();
+        $data->associatedProducts()->attach($associated_colors, ['association_type' => AssociationType::Color]);
+        $data->associatedProducts()->attach($associated_sizes, ['association_type' => AssociationType::Size]);
         $data->product_size = $request->input('product_size');
         
         if ($this->storeSettings->is_back_in_stock && $data->stock == 0 && $request->stock > 0) {
