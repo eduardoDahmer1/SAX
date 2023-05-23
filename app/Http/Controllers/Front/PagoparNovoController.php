@@ -42,7 +42,7 @@ class PagoparNovoController extends Controller
         $this->apiUrl = "https://api.pagopar.com/api";
     }
 
-    protected function build_data_structure($items, $order_id, $amount, $token, $currency)
+    protected function build_data_structure($items, $order_id, $amount, $token, $currency, $shipping_cost)
     {
         $products = [];
         foreach ($items as $product) {
@@ -56,6 +56,21 @@ class PagoparNovoController extends Controller
                 "descripcion" => $product["item"]["details"] ?? "Producto sin descripción",
                 "id_producto" => $product["item"]["id"],
                 "precio_total" => intval($product["item"]["price"]*$product["qty"]*$currency->value),
+                "vendedor_telefono" => "",
+                "vendedor_direccion" => "",
+                "vendedor_direccion_referencia" => "",
+                "vendedor_direccion_coordenadas" => ""
+            ];
+            $products[] = [
+                "ciudad" => self::CITY,
+                "nombre" => "Flete",
+                "cantidad" => $product["qty"],
+                "categoria" => self::CATEGORY,
+                "public_key" => $this->credentials["publicKey"],
+                "url_imagen" => $product["item"]["photo"],
+                "descripcion" => "Costo Envio",
+                "id_producto" => $product["item"]["id"],
+                "precio_total" => $shipping_cost * $currency->value,
                 "vendedor_telefono" => "",
                 "vendedor_direccion" => "",
                 "vendedor_direccion_referencia" => "",
@@ -94,11 +109,12 @@ class PagoparNovoController extends Controller
         $amount = intval($this->cartTotalCurrency["after_costs"]);
         $token = sha1($this->credentials["privateKey"] . $order_id."{$amount}");
         $currency = Currency::where("name", $this->checkCurrency)->first();
-
+        $shipping_cost = $this->order["shipping_cost"];
+        
         $cart = new Cart($this->order->cart);
         $items = $cart->items;
 
-        $data = $this->build_data_structure($items, $order_id, $amount, $token, $currency);
+        $data = $this->build_data_structure($items, $order_id, $amount, $token, $currency, $shipping_cost);
 
         $request = $this->client->post($this->apiUrl."/comercios/1.1/iniciar-transaccion", [
             'json' => $data
