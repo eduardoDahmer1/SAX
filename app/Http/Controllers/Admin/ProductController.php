@@ -17,6 +17,7 @@ use App\Models\Language;
 use App\Models\Attribute;
 use League\Csv\Statement;
 use App\Classes\XMLHelper;
+use App\Enums\AssociationType;
 use App\Models\Gallery360;
 use App\Events\BackInStock;
 use App\Models\Subcategory;
@@ -293,8 +294,8 @@ class ProductController extends Controller
         $brands = Brand::orderBy('slug')->get();
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
-
-        return view('admin.product.create.physical', compact('cats', 'sign', 'brands', 'storesList'));
+        $products = Product::all();
+        return view('admin.product.create.physical', compact('products', 'cats', 'sign', 'brands', 'storesList'));
     }
 
     //*** GET Request
@@ -727,6 +728,10 @@ class ProductController extends Controller
         $data->fill($input)->save();
 
         $prod = Product::find($data->id);
+        $associated_colors = $request->input('associated_colors', []);
+        $associated_sizes = $request->input('associated_sizes', []);
+        $prod->associatedProducts()->syncWithPivotValues($associated_colors, ['association_type' => AssociationType::Color]);
+        $prod->associatedProducts()->syncWithPivotValues($associated_sizes, ['association_type' => AssociationType::Size]);
 
         # Validate Redplay
         if ($request->redplay_login && $request->redplay_password && $request->redplay_code) {
@@ -789,7 +794,6 @@ class ProductController extends Controller
                 }
             }
         }
-
         // Add To Gallery 360 If any
         $lastid = $data->id;
         if ($files = $request->file('gallery360')) {
@@ -1014,6 +1018,7 @@ class ProductController extends Controller
         $cats = Category::all();
         $brands = Brand::orderBy('slug')->get();
         $data = Product::findOrFail($id);
+
         $selectedAttrs = json_decode($data->attributes, true);
         $catAttributes = !empty($data->category->attributes) ? $data->category->attributes : '';
         $subAttributes = !empty($data->subcategory->attributes) ? $data->subcategory->attributes : '';
@@ -1021,7 +1026,9 @@ class ProductController extends Controller
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
         $currentStores = $data->stores()->pluck('id')->toArray();
-
+        $products = Product::where('id', '!=', $id)->get();
+        $associatedColors = $data->associatedProductsByColor->pluck('id')->toArray();
+        $associatedSizes = $data->associatedProductsBySize->pluck('id')->toArray();
         $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $data->ref_code_int . '/');
         $ftp_gallery = [];
         if (File::exists($ftp_path)) {
@@ -1051,7 +1058,10 @@ class ProductController extends Controller
                 'brands',
                 'storesList',
                 'currentStores',
-                'ftp_gallery'
+                'ftp_gallery',
+                'products',
+                'associatedColors',
+                'associatedSizes'
             ));
         }
     }
@@ -1200,6 +1210,7 @@ class ProductController extends Controller
         return response()->json($msg);
     }
     //*** POST Request
+
     public function update(Request $request, $id)
     {
         // return $request;
@@ -1211,7 +1222,6 @@ class ProductController extends Controller
         $customs = [
             "{$this->lang->locale}.name.required" => __('Product Name in :lang is required', ['lang' => $this->lang->language]),
         ];
-
         $validator = Validator::make($request->all(), $rules, $customs);
 
         if ($validator->fails()) {
@@ -1224,6 +1234,13 @@ class ProductController extends Controller
 
         //-- Logic Section
         $data = Product::findOrFail($id);
+        $associated_colors = $request->input('associated_colors', []);
+        $associated_sizes = $request->input('associated_sizes', []);
+
+        $data->associatedProducts()->syncWithPivotValues($associated_colors, ['association_type' => AssociationType::Color]);
+        $data->associatedProducts()->syncWithPivotValues($associated_sizes, ['association_type' => AssociationType::Size]);
+        $data->product_size = $request->input('product_size');
+        
         if ($this->storeSettings->is_back_in_stock && $data->stock == 0 && $request->stock > 0) {
             BackInStock::dispatch($data, $this->storeSettings);
         }
