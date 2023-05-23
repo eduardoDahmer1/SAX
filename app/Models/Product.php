@@ -19,9 +19,7 @@ class Product extends LocalizedModel
 
 
     protected $storeSettings;
-    protected $casts = [
-        'association_type' => AssociationType::class
-    ];
+  
 
     protected $with = ['translations'];
 
@@ -38,7 +36,6 @@ class Product extends LocalizedModel
 
     protected $fillable = [
         'user_id',
-        'association_type',
         'category_id',
         'product_type',
         'affiliate_link',

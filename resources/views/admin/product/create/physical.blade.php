@@ -12,6 +12,13 @@
             display: flex;
             align-items: baseline;
         }
+        .max-width-div{
+            max-height: 300px;
+            overflow: auto;
+        }
+        .product-wrapper {
+            padding: 10px;
+         }
     </style>
 
     <link href="{{ asset('assets/admin/css/product.css') }}" rel="stylesheet" />
@@ -1053,28 +1060,36 @@
 
                                 </div>
                                 <!--FINAL DA ROW DE DADOS EXTRAS-->
+                               
                                 <div class="title-section-form">
                                     <span>4</span>
-                                <h3>{{__('Associate Colors')}}</h3>
+                                    <h3>{{ __('Associate Colors') }}</h3>
                                 </div>
-                                @foreach ($products as $product)
-                                    <div>
-                                        <input type="checkbox" id="produto_{{ $product->id }}" name="associated_colors[]" value="{{ $product->id }}">
-                                        <label for="produto_{{ $product->id }}">{{ $product->name }}</label>
+                                <div class="max-width-div">
+                                    <div class="product-wrapper">
+                                        @foreach ($products as $product)
+                                        <div>
+                                            <input type="checkbox" id="produto_{{ $product->id }}_color" name="associated_colors[]" value="{{ $product->id }}">
+                                            <label for="produto_{{ $product->id }}_color">{{ $product->name }}</label>
+                                        </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
-                          
-                                 <div class="title-section-form">
+                                </div>
+                                
+                                <div class="title-section-form">
                                     <span>5</span>
-                                 <h3>{{__('Associate Size')}}</h3>
-                                 </div>
-                               @foreach ($products as $product)
-                               <div>
-                                   <input type="checkbox" id="produto_{{ $product->id }}" name="associated_sizes[]" value="{{ $product->id }}">
-                                   <label for="produto_{{ $product->id }}">{{ $product->name }}</label>
-                               </div>
-                               @endforeach
-                            </div>
+                                    <h3>{{ __('Associate Size') }}</h3>
+                                </div>
+                                <div class="max-width-div">
+                                    <div class="product-wrapper">
+                                        @foreach ($products as $product)
+                                        <div>
+                                            <input type="checkbox" id="produto_{{ $product->id }}_size" name="associated_sizes[]" value="{{ $product->id }}">
+                                            <label for="produto_{{ $product->id }}_size">{{ $product->name }}</label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
 
                                 @if (config('mercadolivre.is_active'))
                                     <div class="title-section-form">
