@@ -1,7 +1,6 @@
 <div class="col-lg-5 pl-lg-5">
     <div class="right-area">
         <div class="product-info">
-
             @if($isAdmin)
             <div class="mybadge1">
                 {{ __('Viewing as Admin')}}
@@ -37,10 +36,35 @@
             @endif
 
             <div class="row">
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     @if(!empty($productt->color))
                         @include('front._product-details-color')
                     @endif
+                </div> --}}
+                <div class="col-lg-6 list-attr">
+                    <div class="product-color">
+                        <p class="title">{{__("Colors :")}}</p>
+                        @foreach ($productt->associatedProductsByColor as $productColor)
+                            <a class="d-block custom-control" 
+                            href="{{ route('front.product', $productColor->slug) }}" 
+                            style="
+                                background-color: {{ $productColor->color[0] }};
+                                width:30px;
+                                height:30px;
+                                ">
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-lg-6 list-attr">
+                    <div class="product-color">
+                        <p class="title">{{__("Sizes :")}}</p>
+                        @foreach ($productt->associatedProductsBySize as $productSize)
+                            <a class="d-block custom-control" 
+                            href="{{ route('front.product', $productSize->slug) }}" >
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
                 @include('front._product-details-info-meta-3')
             </div>
