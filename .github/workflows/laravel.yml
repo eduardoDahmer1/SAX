@@ -1,6 +1,11 @@
 name: Laravel CI/CD Pipeline
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        default: v1.0.0
 
 jobs:
   build:
