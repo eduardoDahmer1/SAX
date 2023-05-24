@@ -31,7 +31,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Run Database Migrations
-        run: php artisan migrate --path=database/migrations/crow_empty
+        run: php artisan migrate 
 
       - name: Run Database Seed
         run: php artisan db:seed
