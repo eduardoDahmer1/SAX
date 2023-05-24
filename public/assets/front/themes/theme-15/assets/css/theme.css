@@ -358,10 +358,11 @@ a {
 }
 
 .item .info .name {
-    height: 37px;
+    height: 52px;
     font-weight: 300;
+    line-height: normal;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 20px;
     color: #333;
     overflow: hidden;
     text-overflow: ellipsis;
