@@ -42,7 +42,7 @@ class PagoparNovoController extends Controller
         $this->apiUrl = "https://api.pagopar.com/api";
     }
 
-    protected function build_data_structure($items, $order_id, $amount, $token, $currency)
+    protected function build_data_structure($items, $order_id, $amount, $token, $currency, $shipping_cost)
     {
         $products = [];
         foreach ($items as $product) {
@@ -62,7 +62,23 @@ class PagoparNovoController extends Controller
                 "vendedor_direccion_coordenadas" => ""
             ];
         }
-
+        if ($shipping_cost > 0) {
+            $products[] = [
+                "ciudad" => self::CITY,
+                "nombre" => "Flete",
+                "cantidad" => 1,
+                "categoria" => self::CATEGORY,
+                "public_key" => $this->credentials["publicKey"],
+                "url_imagen" => "",
+                "descripcion" => "Costo Envio",
+                "id_producto" => 0,
+                "precio_total" => $shipping_cost * $currency->value,
+                "vendedor_telefono" => "",
+                "vendedor_direccion" => "",
+                "vendedor_direccion_referencia" => "",
+                "vendedor_direccion_coordenadas" => ""
+            ];
+        }
         return [
             'token' => $token,
             'comprador' => [
@@ -94,11 +110,12 @@ class PagoparNovoController extends Controller
         $amount = intval($this->cartTotalCurrency["after_costs"]);
         $token = sha1($this->credentials["privateKey"] . $order_id."{$amount}");
         $currency = Currency::where("name", $this->checkCurrency)->first();
-
+        $shipping_cost = $this->order["shipping_cost"];
+        
         $cart = new Cart($this->order->cart);
         $items = $cart->items;
 
-        $data = $this->build_data_structure($items, $order_id, $amount, $token, $currency);
+        $data = $this->build_data_structure($items, $order_id, $amount, $token, $currency, $shipping_cost);
 
         $request = $this->client->post($this->apiUrl."/comercios/1.1/iniciar-transaccion", [
             'json' => $data
@@ -114,7 +131,7 @@ class PagoparNovoController extends Controller
 
             $this->paymentUrl = $this->baseUrl."/pagos/".$decoded_data->resultado[0]->data;
         }
-
+    
         Log::debug("Resposta pagopar", [$decoded_data, $data]);
     }
 
