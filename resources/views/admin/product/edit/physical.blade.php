@@ -12,6 +12,13 @@
             display: flex;
             align-items: baseline;
         }
+        .max-width-div{
+            max-height: 300px;
+            overflow: auto;
+        }
+        .product-wrapper {
+            padding: 10px;
+         }
     </style>
 
     <link href="{{ asset('assets/admin/css/product.css') }}" rel="stylesheet" />
@@ -1188,7 +1195,19 @@
                                                 </span>
                                             </h4>
                                             <input name="stock" id="stock" type="text" class="input-field"
-                                                placeholder="e.g 20" value="{{ $data->stock }}">
+                                                placeholder="" value="{{ $data->stock }}">
+                                        </div>
+                                    </div>
+                                   <div class="col-xl-3">
+                                        <div class="input-form">
+                                            <h4 class="heading">{{ __('Size Name') }}
+                                                <span>
+                                                    {{ __('(eg. S,M,L,XL,XXL,3XL,4XL)')}}
+                                                </span>
+                                            </h4>
+                                            <input name="product_size" id="product_size" type="text" class="input-field"
+                                            placeholder="{{ __('Size Name') }}" value="{{$data->product_size}}">
+
 
                                         </div>
                                     </div>
@@ -1478,7 +1497,40 @@
 
                                 </div>
                                 <!--FINAL DA ROW DE DADOS EXTRAS-->
+                                
+                                    <!-- Outros campos do formulário de edição -->
 
+                                    <div class="title-section-form">
+                                        <span>4</span>
+                                        <h3>{{ __('Associate Colors') }}</h3>
+                                    </div>
+                                    <div class="max-width-div">
+                                        <div class="product-wrapper">
+                                            @foreach ($products as $product)
+                                            <div>
+                                                <input type="checkbox" id="produto_{{ $product->id }}_color" name="associated_colors[]" value="{{ $product->id }}" {{ in_array($product->id, $associatedColors) ? 'checked' : '' }}>
+                                                <label for="produto_{{ $product->id }}_color">{{ $product->name }}</label>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="title-section-form">
+                                        <span>5</span>
+                                        <h3>{{ __('Associate Size') }}</h3>
+                                    </div>
+                                    <div class="max-width-div">
+                                        <div class="product-wrapper">
+                                            @foreach ($products as $product)
+                                            <div>
+                                                <input type="checkbox" id="produto_{{ $product->id }}_size" name="associated_sizes[]" value="{{ $product->id }}" {{ in_array($product->id, $associatedSizes) ? 'checked' : '' }}>
+                                                <label for="produto_{{ $product->id }}_size">{{ $product->name }}</label>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    
+                                    
                                 <div class="row">
                                     <div class="col-xl-12 text-center">
                                         <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
