@@ -61,15 +61,17 @@ class PagoparNovoController extends Controller
                 "vendedor_direccion_referencia" => "",
                 "vendedor_direccion_coordenadas" => ""
             ];
+        }
+        if ($shipping_cost > 0) {
             $products[] = [
                 "ciudad" => self::CITY,
                 "nombre" => "Flete",
-                "cantidad" => $product["qty"],
+                "cantidad" => 1,
                 "categoria" => self::CATEGORY,
                 "public_key" => $this->credentials["publicKey"],
                 "url_imagen" => $product["item"]["photo"],
                 "descripcion" => "Costo Envio",
-                "id_producto" => $product["item"]["id"],
+                "id_producto" => 0,
                 "precio_total" => $shipping_cost * $currency->value,
                 "vendedor_telefono" => "",
                 "vendedor_direccion" => "",
@@ -77,7 +79,6 @@ class PagoparNovoController extends Controller
                 "vendedor_direccion_coordenadas" => ""
             ];
         }
-
         return [
             'token' => $token,
             'comprador' => [
