@@ -69,7 +69,7 @@ class PagoparNovoController extends Controller
                 "cantidad" => 1,
                 "categoria" => self::CATEGORY,
                 "public_key" => $this->credentials["publicKey"],
-                "url_imagen" => $product["item"]["photo"],
+                "url_imagen" => "",
                 "descripcion" => "Costo Envio",
                 "id_producto" => 0,
                 "precio_total" => $shipping_cost * $currency->value,
@@ -131,7 +131,7 @@ class PagoparNovoController extends Controller
 
             $this->paymentUrl = $this->baseUrl."/pagos/".$decoded_data->resultado[0]->data;
         }
-
+    
         Log::debug("Resposta pagopar", [$decoded_data, $data]);
     }
 
