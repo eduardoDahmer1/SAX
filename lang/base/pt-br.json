@@ -2296,7 +2296,7 @@
     "Featured Categories":"Categorias em Destaque",
     "+ Add to Bag":"Sacola",
     "Institutional":"Institucional",
-    "Product Details":"Detalhes do produto",
+    "Product details":"Detalhes do produto",
     "Complete the look":"Complete o look",
     "Discover the next piece to add to your collection":"Descubra a próxima peça para adicionar à sua coleção",
     "See all":"Ver todos",
@@ -2304,5 +2304,7 @@
     "Best sellers":"Mais vendidos",
     "Blog of the week":"Blog da semana",
     "Stay on top of all the news":"Fique por dentro de todas as novidades",
-    "See all categories":"Ver todas as categorias"
+    "See all categories":"Ver todas as categorias",
+    "To rate please login":"Para avaliar por favor faça o login",
+    "To comment, log into your account":"Para comentar, entre na sua conta"
 }
