@@ -1,4 +1,4 @@
-      name: Laravel CI/CD Pipeline
+name: Laravel CI/CD Pipeline
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        uses: actions/checkout@v2
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -31,7 +31,22 @@ jobs:
         run: php artisan key:generate
 
       - name: Run Database Migrations
-        run: php artisan migrate --force
+        run: php artisan migrate --path=database/migrations/crow_empty
+
+      - name: Run Database Seed
+        run: php artisan db:seed
+
+      - name: Build PHP-FPM Docker Image
+        run: docker-compose build php-fpm
+
+      - name: Build Workspace Docker Image
+        run: docker-compose build workspace
+
+      - name: Start Docker Containers
+        run: docker-compose up -d php-fpm nginx phpmyadmin mysql workspace
+
+      - name: Migrate and Seed within Workspace
+        run: docker-compose exec workspace php artisan migrate --seed
 
       - name: Run Tests
         run: vendor/bin/phpunit
