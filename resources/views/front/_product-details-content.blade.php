@@ -44,7 +44,7 @@
                 <div class="col-lg-6 list-attr">
                     <div class="product-color">
                         @if ($productt->product_size)
-                        <p class="title">{{__("Sizes :")}}</p>
+                        <p class="title">{{__("Sizes")}} :</p>
                             <span class="boxassociatedProductSize">
                                 <input class="input-associatedProductSize" name="associatedProductsBySize" type="radio" id="associatedProductsBySize0" data-product-id="{{$productt->id}}" checked>
                                 <label for="associatedProductsBySize0">
