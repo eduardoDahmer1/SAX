@@ -49,7 +49,7 @@
                         <li class="addtocart">
                             <a href="javascript:;" id="addcrt">
                                 <img width="19px" class="mr-1" src="{{asset('assets/images/theme15/bagicone.png')}}" alt="">
-                                {{ __(" + Add to Bag") }}
+                                {{ __("+ Add to Bag") }}
                             </a>
                         </li>
                         <li class="addtocart">
