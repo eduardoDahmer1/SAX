@@ -25,5 +25,18 @@
         <input type="hidden" id="stock"
             value="{{ isset($productt->color_qty[$key]) ? $productt->color_qty[$key] : '' }}">
         @endforeach
+
+        @foreach ($productt->associatedProductsByColor as $productColor)
+            <li>
+                <a href="{{ route('front.product', $productColor->slug) }}" 
+                    style="
+                        background-color: {{ $productColor->color[0] }};
+                        width:30px;
+                        height:30px;
+                        display: inline-block;
+                        ">
+                </a>
+            </li>
+        @endforeach
     </ul>
 </div>

@@ -36,33 +36,29 @@
             @endif
 
             <div class="row">
-                {{-- <div class="col-lg-6">
+                <div class="col-lg-6">
                     @if(!empty($productt->color))
                         @include('front._product-details-color')
                     @endif
-                </div> --}}
-                <div class="col-lg-6 list-attr">
-                    <div class="product-color">
-                        <p class="title">{{__("Colors :")}}</p>
-                        @foreach ($productt->associatedProductsByColor as $productColor)
-                            <a class="d-block custom-control" 
-                            href="{{ route('front.product', $productColor->slug) }}" 
-                            style="
-                                background-color: {{ $productColor->color[0] }};
-                                width:30px;
-                                height:30px;
-                                ">
-                            </a>
-                        @endforeach
-                    </div>
                 </div>
                 <div class="col-lg-6 list-attr">
                     <div class="product-color">
+                        @if ($productt->product_size)
                         <p class="title">{{__("Sizes :")}}</p>
-                        @foreach ($productt->associatedProductsBySize as $productSize)
-                            <a class="d-block custom-control" 
-                            href="{{ route('front.product', $productSize->slug) }}" >
-                            </a>
+                            <span class="boxassociatedProductSize">
+                                <input class="input-associatedProductSize" name="associatedProductsBySize" type="radio" id="associatedProductsBySize0" data-product-id="{{$productt->id}}" checked>
+                                <label for="associatedProductsBySize0">
+                                    {{$productt->product_size}}
+                                </label>
+                            </span>
+                        @endif
+                        @foreach ($productt->associatedProductsBySize->sortByDesc('product_size') as $productSize)
+                            <span class="boxassociatedProductSize">
+                                <input class="input-associatedProductSize" name="associatedProductsBySize" type="radio" id="associatedProductsBySize{{$loop->index + 1}}" data-product-id="{{$productSize->id}}">
+                                <label for="associatedProductsBySize{{$loop->index+1}}">
+                                    {{$productSize->product_size}}
+                                </label>
+                            </span>
                         @endforeach
                     </div>
                 </div>
