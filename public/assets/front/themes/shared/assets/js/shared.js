@@ -1396,6 +1396,11 @@ $(function ($) {
 
         });
 
+        $('#rest_of').html($("[name='associatedProductsBySize']:checked").attr('data-product-stock'))
+
+        $("[name='associatedProductsBySize']").change(()=> {
+            $('#rest_of').html($("[name='associatedProductsBySize']:checked").attr('data-product-stock'))
+        })
 
         $(document).on("click", "#addcrt", function () {
             var qty = $('.qttotal').html();

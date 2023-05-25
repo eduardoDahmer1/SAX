@@ -5,8 +5,8 @@
         $is_selected = false;
         @endphp
         @foreach($productt->color as $key => $data1)
-        <li class="{{ (!$is_selected && (int)$productt->color_qty[$key] > 0) ? 'active' : '' }}">
-            <span class="box {{ ((int)$productt->color_qty[$key] == 0) ? 'disabled' : '' }}"
+        <li class="active">
+            <span class="box"
                 data-color="{{ $productt->color[$key] }}" style="background-color: {{ $productt->color[$key] }}">
                 <input type="hidden" class="color" value="{{ $data1 }}">
                 <input type="hidden" class="color_qty"

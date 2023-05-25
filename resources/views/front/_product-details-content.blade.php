@@ -45,16 +45,26 @@
                     <div class="product-color">
                         @if ($productt->product_size)
                         <p class="title">{{__("Sizes")}} :</p>
-                            <span class="boxassociatedProductSize">
-                                <input class="input-associatedProductSize" name="associatedProductsBySize" type="radio" id="associatedProductsBySize0" data-product-id="{{$productt->id}}" checked>
-                                <label for="associatedProductsBySize0">
-                                    {{$productt->product_size}}
-                                </label>
-                            </span>
+                        <span class="boxassociatedProductSize">
+                            <input class="input-associatedProductSize" @disabled($productt->stock == 0) @checked($productt->stock > 0) 
+                            name="associatedProductsBySize" 
+                            type="radio" 
+                            id="associatedProductsBySize0"
+                            data-product-stock="{{$productt->stock}}" 
+                            data-product-id="{{$productt->id}}">
+                            <label for="associatedProductsBySize0">
+                                {{$productt->product_size}}
+                            </label>
+                        </span>
                         @endif
                         @foreach ($productt->associatedProductsBySize->sortByDesc('product_size') as $productSize)
                             <span class="boxassociatedProductSize">
-                                <input class="input-associatedProductSize" name="associatedProductsBySize" type="radio" id="associatedProductsBySize{{$loop->index + 1}}" data-product-id="{{$productSize->id}}">
+                                <input class="input-associatedProductSize" @checked($productt->stock == 0 && $loop->index == 0 && $productSize->stock > 0) 
+                                name="associatedProductsBySize" 
+                                type="radio" 
+                                id="associatedProductsBySize{{$loop->index + 1}}"
+                                data-product-stock="{{$productSize->stock}}" 
+                                data-product-id="{{$productSize->id}}">
                                 <label for="associatedProductsBySize{{$loop->index+1}}">
                                     {{$productSize->product_size}}
                                 </label>

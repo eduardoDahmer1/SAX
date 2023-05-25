@@ -377,6 +377,10 @@
     cursor: pointer;
 }
 
+.boxassociatedProductSize .input-associatedProductSize:disabled ~ label {
+    opacity: .2;
+}
+
 .boxassociatedProductSize .input-associatedProductSize:checked ~ label {
     color: #fff;
     background-color: #333;

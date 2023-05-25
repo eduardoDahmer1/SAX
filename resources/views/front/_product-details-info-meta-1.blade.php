@@ -1,7 +1,7 @@
 <div class="info-meta-1">
     <ul>
       
-        @if($productt->emptyStock())
+        @if($productt->emptyStock() && !$productt->associatedProductsBySize->contains(fn($product) => $product->stock  ? true : false ))
             <li class="product-outstook">
                 <p>
                     <i class="icofont-close-circled"></i>
@@ -14,20 +14,16 @@
                     @if($gs->show_stock)
                         @if(empty($productt->size) && empty($productt->color) && empty($productt->material))
                             <i class="icofont-check-circled"></i>
-                            {{ $productt->stock }}
+                            <span id="rest_of"></span>
                             {{ __("In Stock") }}
                         @endif
 
                         @if(!empty($productt->color))
                             @if ($productt->stock < 4)
                                 <i class="icofont-check-circled"></i>
-                                <span id="stock_qty">{{ isset($productt->color_qty[0]) ?
-                                    $productt->color_qty[0] : $productt->stock }}</span>
-                                {{ __("There are only") }} {{$productt->stock}}
+                                {{ __("There are only") }} <span id="rest_of"></span>
                             @else
                                 <i class="icofont-check-circled"></i>
-                                <span id="stock_qty">{{ isset($productt->color_qty[0]) ?
-                                    $productt->color_qty[0] : $productt->stock }}</span>
                                 {{ __("In Stock") }}
                             @endif
                         @endif
@@ -35,15 +31,9 @@
                         @if(!empty($productt->material))
                             @if ($productt->stock < 4)
                                 <i class="icofont-check-circled"></i>
-                                <span id="stock_qty">
-                                    {{$material_stock}}
-                                </span>
-                                {{ __("There are only") }} {{$productt->stock}}
+                                {{ __("There are only") }} <span id="rest_of"></span>
                             @else
                                 <i class="icofont-check-circled"></i>
-                                <span id="stock_qty">
-                                    {{$material_stock}}
-                                </span>
                                 {{ __("In Stock") }}
                             @endif
                         @endif
@@ -51,13 +41,9 @@
                         @if(!empty($productt->size))
                             @if ($productt->stock < 4)
                                 <i class="icofont-check-circled"></i>
-                                <span id="stock_qty">{{ $gs->show_stock == 0 ? '' :
-                                    $productt->size_qty[0] }}</span>
-                                {{ __("There are only") }} {{$productt->stock}}
+                                {{ __("There are only") }} <span id="rest_of"></span>
                             @else 
                                 <i class="icofont-check-circled"></i>
-                                <span id="stock_qty">{{ $gs->show_stock == 0 ? '' :
-                                    $productt->size_qty[0] }}</span>
                                 {{ __("In Stock") }}
                             @endif
                         @endif

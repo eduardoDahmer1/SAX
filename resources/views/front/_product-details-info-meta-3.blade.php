@@ -39,7 +39,8 @@
                         </a>
                     </li>
                     @else
-                        @if($productt->emptyStock())
+
+                        @if($productt->emptyStock() && !$productt->associatedProductsBySize->contains(fn($product) => $product->stock  ? true : false ))
                         <li class="addtocart">
                             <a href="javascript:;" class="cart-out-of-stock">
                                 <i class="icofont-close-circled"></i>
