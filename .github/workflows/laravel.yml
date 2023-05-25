@@ -32,3 +32,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Comandos a serem executados no host remoto
+            echo "Comando 1"
+            echo "Comando 2"
+            echo "Comando 3"
