@@ -28,15 +28,9 @@ jobs:
       - name: Set Storage Permissions
         run: chmod -R 775 storage bootstrap/cache
 
-      - name: executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@v0.1.10
+      - name: SSH Deploy
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: 167.99.234.68
+          username: luiz
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ${{ secrets.WORK_DIR }}
-            git checkout ${{ secrets.MAIN_BRANCH }}
-            git pull
-            exit
