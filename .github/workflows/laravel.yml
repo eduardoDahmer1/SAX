@@ -39,3 +39,6 @@ jobs:
             echo "Comando 1"
             echo "Comando 2"
             echo "Comando 3"
+
+      - name: Run Migrations
+        run: php artisan migrate --force
