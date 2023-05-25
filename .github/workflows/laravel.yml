@@ -31,8 +31,8 @@ jobs:
       - name: SSH Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: 167.99.234.68
-          username: luiz
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # Comandos a serem executados no host remoto
