@@ -57,9 +57,11 @@
                             </label>
                         </span>
                         @endif
-                        @foreach ($productt->associatedProductsBySize->sortByDesc('product_size') as $productSize)
+                        @foreach ($productt->associatedProductsBySize->sortBy('product_size') as $productSize)
                             <span class="boxassociatedProductSize">
-                                <input class="input-associatedProductSize" @checked($productt->stock == 0 && $loop->index == 0 && $productSize->stock > 0) 
+                                <input class="input-associatedProductSize"
+                                @disabled($productSize->stock == 0)
+                                @checked($productt->stock == 0 && $productSize->stock != 0)
                                 name="associatedProductsBySize" 
                                 type="radio" 
                                 id="associatedProductsBySize{{$loop->index + 1}}"
