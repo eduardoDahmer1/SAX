@@ -1,7 +1,6 @@
 <div class="col-lg-5 pl-lg-5">
     <div class="right-area">
         <div class="product-info">
-
             @if($isAdmin)
             <div class="mybadge1">
                 {{ __('Viewing as Admin')}}
@@ -41,6 +40,39 @@
                     @if(!empty($productt->color))
                         @include('front._product-details-color')
                     @endif
+                </div>
+                <div class="col-lg-6 list-attr">
+                    <div class="product-color">
+                        @if ($productt->product_size)
+                        <p class="title">{{__("Sizes")}} :</p>
+                        <span class="boxassociatedProductSize">
+                            <input class="input-associatedProductSize" @disabled($productt->stock == 0) @checked($productt->stock > 0) 
+                            name="associatedProductsBySize" 
+                            type="radio" 
+                            id="associatedProductsBySize0"
+                            data-product-stock="{{$productt->stock}}" 
+                            data-product-id="{{$productt->id}}">
+                            <label for="associatedProductsBySize0">
+                                {{$productt->product_size}}
+                            </label>
+                        </span>
+                        @endif
+                        @foreach ($productt->associatedProductsBySize->sortBy('product_size') as $productSize)
+                            <span class="boxassociatedProductSize">
+                                <input class="input-associatedProductSize"
+                                @disabled($productSize->stock == 0)
+                                @checked($productt->stock == 0 && $productSize->stock != 0)
+                                name="associatedProductsBySize" 
+                                type="radio" 
+                                id="associatedProductsBySize{{$loop->index + 1}}"
+                                data-product-stock="{{$productSize->stock}}" 
+                                data-product-id="{{$productSize->id}}">
+                                <label for="associatedProductsBySize{{$loop->index+1}}">
+                                    {{$productSize->product_size}}
+                                </label>
+                            </span>
+                        @endforeach
+                    </div>
                 </div>
                 @include('front._product-details-info-meta-3')
             </div>

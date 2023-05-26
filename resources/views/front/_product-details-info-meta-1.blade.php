@@ -1,50 +1,41 @@
 <div class="info-meta-1">
     <ul>
-        @if($productt->type == 'Physical')
-            @if($productt->emptyStock())
-                <li class="product-outstook">
-                    <p>
-                        <i class="icofont-close-circled"></i>
-                        {{ __("Out of Stock!") }}
-                    </p>
-                </li>
-            @else
-                <li class="product-isstook">
-                    <p>
-                        @if($gs->show_stock)
-                        @if(empty($productt->size) && empty($productt->color) &&
-                        empty($productt->material))
-                        <i class="icofont-check-circled"></i>
-                        {{ $productt->stock }}
-                        {{ __("In Stock") }}
+      
+        @if($productt->emptyStock() && !$productt->associatedProductsBySize->contains(fn($product) => $product->stock  ? true : false ))
+            <li class="product-outstook">
+                <p>
+                    <i class="icofont-close-circled"></i>
+                    {{ __("Out of Stock!") }}
+                </p>
+            </li>
+        @else
+            <li class="product-isstook">
+                <p>
+                    @if($gs->show_stock)
+                        @if(empty($productt->size) && empty($productt->color) && empty($productt->material))
+                            <i class="icofont-check-circled"></i>
+                            {{ __("In Stock") }}: <span id="rest_of"></span>
                         @endif
 
                         @if(!empty($productt->color))
-                        <i class="icofont-check-circled"></i>
-                        <span id="stock_qty">{{ isset($productt->color_qty[0]) ?
-                            $productt->color_qty[0] : $productt->stock }}</span>
-                        {{ __("In Stock") }}
+                            <i class="icofont-check-circled"></i>
+                            {{ __("In Stock") }}: <span id="rest_of"></span>
                         @endif
 
                         @if(!empty($productt->material))
-                        <i class="icofont-check-circled"></i>
-                        <span id="stock_qty">
-                            {{$material_stock}}
-                        </span>
-                        {{ __("In Stock") }}
+                            <i class="icofont-check-circled"></i>
+                            {{ __("In Stock") }}: <span id="rest_of"></span>
                         @endif
 
                         @if(!empty($productt->size))
-                        <i class="icofont-check-circled"></i>
-                        <span id="stock_qty">{{ $gs->show_stock == 0 ? '' :
-                            $productt->size_qty[0] }}</span>
-                        {{ __("In Stock") }}
+                            <i class="icofont-check-circled"></i>
+                            {{ __("In Stock") }}: <span id="rest_of"></span>
                         @endif
-                        @endif
-                    </p>
-                </li>
-            @endif
+                    @endif
+                </p>
+            </li>
         @endif
+    
 
         @if($gs->is_rating == 1)
             @if (count($productt->ratings) > 0)

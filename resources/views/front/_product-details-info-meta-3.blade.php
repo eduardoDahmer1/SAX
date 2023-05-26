@@ -39,7 +39,8 @@
                         </a>
                     </li>
                     @else
-                        @if($productt->emptyStock())
+
+                        @if($productt->emptyStock() && !$productt->associatedProductsBySize->contains(fn($product) => $product->stock  ? true : false ))
                         <li class="addtocart">
                             <a href="javascript:;" class="cart-out-of-stock">
                                 <i class="icofont-close-circled"></i>
@@ -49,7 +50,7 @@
                         <li class="addtocart">
                             <a href="javascript:;" id="addcrt">
                                 <img width="19px" class="mr-1" src="{{asset('assets/images/theme15/bagicone.png')}}" alt="">
-                                {{ __(" + Add to Bag") }}
+                                {{ __("+ Add to Bag") }}
                             </a>
                         </li>
                         <li class="addtocart">

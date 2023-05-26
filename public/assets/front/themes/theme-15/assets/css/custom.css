@@ -358,3 +358,32 @@
 .product-details-page {
     padding: 10px 0 0;
 }
+
+.boxassociatedProductSize {
+    position: relative;
+}
+
+.boxassociatedProductSize .input-associatedProductSize {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.boxassociatedProductSize label {
+    padding: 4px 8px;
+    border: 1px solid #aeaeae;
+    margin: 0 3px;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.boxassociatedProductSize .input-associatedProductSize:disabled ~ label {
+    opacity: .2;
+}
+
+.boxassociatedProductSize .input-associatedProductSize:checked ~ label {
+    color: #fff;
+    background-color: #333;
+    border: 1px solid #333;
+    transition: all .3s;
+}

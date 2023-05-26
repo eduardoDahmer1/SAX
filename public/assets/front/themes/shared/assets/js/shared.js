@@ -1396,10 +1396,15 @@ $(function ($) {
 
         });
 
+        $('#rest_of').html($("[name='associatedProductsBySize']:checked").attr('data-product-stock'))
+
+        $("[name='associatedProductsBySize']").change(()=> {
+            $('#rest_of').html($("[name='associatedProductsBySize']:checked").attr('data-product-stock'))
+        })
 
         $(document).on("click", "#addcrt", function () {
             var qty = $('.qttotal').html();
-            var pid = $("#product_id").val();
+            var pid = $("[name='associatedProductsBySize']:checked").attr('data-product-id') ? $("[name='associatedProductsBySize']:checked").attr('data-product-id') : $("#product_id").val();
             var customizable_gallery = $("#customizable_gallery").val();
             var customizable_name = $("#customizable_name").val();
             var customizable_number = $("#customizable_number").val();
@@ -1444,7 +1449,6 @@ $(function ($) {
                 }).get();
 
             }
-            console.log(material_price);
             $.ajax({
                 type: "GET",
                 url: mainurl + "/addnumcart",
@@ -1490,7 +1494,7 @@ $(function ($) {
 
         $(document).on("click", "#qaddcrt", function () {
             var qty = $('.qttotal').html();
-            var pid = $("#product_id").val();
+            var pid = $("[name='associatedProductsBySize']:checked").attr('data-product-id') ? $("[name='associatedProductsBySize']:checked").attr('data-product-id') : $("#product_id").val();
             var customizable_gallery = $("#customizable_gallery").val();
             var customizable_name = $("#customizable_name").val();
             var customizable_number = $("#customizable_number").val();

@@ -3,7 +3,8 @@
 <!-- Marketplace Enabled && Product belongs to Vendor -->
 @if(( !config("features.marketplace") && $productt->product_type != "affiliate")
 || (config("features.marketplace") && $productt->user->isVendor()))
-@if(!$productt->emptyStock())
+
+@if( !$productt->emptyStock() || $productt->associatedProductsBySize->contains(fn($product) => $product->stock  ? true : false ) )
 <li class="d-block count {{ $productt->type == 'Physical' ? '' : 'd-none' }}">
     <div class="qty">
         <ul>
@@ -25,4 +26,5 @@
     </div>
 </li>
 @endif
+
 @endif
