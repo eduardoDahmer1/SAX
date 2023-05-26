@@ -24,9 +24,17 @@ jobs:
 
       - name: Generate Application Key
         run: php artisan key:generate
-        
+
       - name: Set Storage Permissions
         run: chmod -R 775 storage bootstrap/cache
+
+      - name: Set up MySQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-client
+
+      - name: Create Database
+        run: mysql -u ${{ secrets.MYSQL_USERNAME }} -p${{ secrets.MYSQL_PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS nome_do_banco_de_dados"
 
       - name: SSH Deploy
         uses: appleboy/ssh-action@master
