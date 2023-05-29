@@ -1,52 +1,43 @@
-name: Laravel CI/CD Pipeline
+
+name: Pipeline Stage2 SAX
 
 on:
-  workflow_dispatch:
-
+   workflow_dispatch:
+  
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+      with:
+        php-version: '8.1'
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      - name: Install Composer Dependencies
-        run: composer install --no-interaction --prefer-dist
+    - name: Instalar dependẽncias e pacotes
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Copy Environment File
-        run: cp .env.example .env
+    - name: Gerar chave artisan
+      run: php artisan key:generate
 
-      - name: Generate Application Key
-        run: php artisan key:generate
+    - name: Permissões do diretório
+      run: chmod -R 775 storage bootstrap/cache
+      
+  run_pull:
+    needs: Build
+    name: run pull
+    runs-on: ubuntu-latest
 
-      - name: Set Storage Permissions
-        run: chmod -R 775 storage bootstrap/cache
-
-      - name: Set up MySQL
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y mysql-client
-
-      - name: Create Database
-        run: mysql -u ${{ secrets.MYSQL_USERNAME }} -p${{ secrets.MYSQL_PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS nome_do_banco_de_dados"
-
-      - name: SSH Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # Comandos a serem executados no host remoto
-            echo "Comando 1"
-            echo "Comando 2"
-            echo "Comando 3"
-
-      - name: Run Migrations
-        run: php artisan migrate --force
+    steps:
+    - name: Executando Conexão SSH com o Servidor 
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        script: cd ${{ secrets.WORK_DIR }} && ./pipeline-sax-stage.sh
+    - name: Desconectando do servidor
+      run: exit
