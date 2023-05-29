@@ -6,15 +6,11 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Events\BackInStock;
-use App\Events\ProcessOrderEvent;
 use App\Events\WatchPix;
 use App\Listeners\HandleBackInStock;
 use App\Listeners\HandleWatchPix;
-use App\Listeners\ProcessOrderListener;
 use App\Models\Order;
 use App\Observers\OrderObserver;
-
-use function Illuminate\Events\queueable;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -48,9 +44,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Event::listen(
-            ProcessOrderEvent::class,
-            [ProcessOrderListener::class, 'handle'],
-        );
+        //
     }
 }
