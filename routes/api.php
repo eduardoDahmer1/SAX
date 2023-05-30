@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,6 @@ Route::group([
         Route::post('me', 'Api\AuthController@me');
     });
 
-    Route::apiResource('products', 'Api\ProductController');
     Route::apiResource('categories', 'Api\CategoryController');
     Route::apiResource('sub_categories', 'Api\SubCategoryController');
     Route::apiResource('child_categories', 'Api\ChildCategoryController');
@@ -56,3 +56,4 @@ Route::group([
     Route::post('billet-notifications','Front\Pay42BilletController@notify');
 });
 
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
