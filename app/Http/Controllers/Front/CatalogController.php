@@ -639,7 +639,7 @@ class CatalogController extends Controller
         if (!config("features.marketplace")) {
             foreach ($orders as $order) {
                 $cart = $order->cart;
-                foreach ($cart->items as $product) {
+                foreach ($cart['items'] as $product) {
                     if ($request->product_id == $product['item']['id']) {
                         $ck = 1;
                         break;
