@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
+use Illuminate\Database\Eloquent\Builder;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -18,20 +19,11 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = new Product();
-        if($request->input('date')){
-            $products = $products
-                ->Where(function($query) use ($request) {
-                    $query->Where('created_at','>=',$request->input('date'))
-                        ->orWhere('updated_at','>=',$request->input('date'));
-                });
-        };
-        if($request->input('ref_code')){
-            $products = $products
-                ->Where('ref_code','=',$request->input('ref_code'));
-        };
-        $products = $products->get();
-        return ProductResource::collection($products);
+        return ProductResource::collection(Product::when($request->query('q') ?? false, function ($query, $search) {
+            $query->whereHas('translations', function (Builder $query) use ($search) {
+                $query->where('name', 'LIKE', "%$search%");
+            });
+        })->paginate());
     }
 
     /**
@@ -57,11 +49,11 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        if(!empty($product)){
+        if (!empty($product)) {
             return new ProductResource($product);
-        }else{
-            return response()->json(array('errors' => ['Not found']),Response::HTTP_BAD_REQUEST);
-        }        
+        } else {
+            return response()->json(array('errors' => ['Not found']), Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -88,15 +80,15 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        if(!empty($product)){
+        if (!empty($product)) {
             $adminProduct = new AdminProductController();
             $msg = $adminProduct->destroy($id);
-            if($msg){
+            if ($msg) {
                 return response()->json(array('status' => 'ok'));
             }
-            return response()->json(array('errors' => ['Not found']),Response::HTTP_BAD_REQUEST);
-        }else{
-            return response()->json(array('errors' => ['Not found']),Response::HTTP_BAD_REQUEST);
+            return response()->json(array('errors' => ['Not found']), Response::HTTP_BAD_REQUEST);
+        } else {
+            return response()->json(array('errors' => ['Not found']), Response::HTTP_BAD_REQUEST);
         }
     }
 }
