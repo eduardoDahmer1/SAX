@@ -1510,7 +1510,7 @@
                                                 <label for="searchAssociatedColor">{{__('Look for the product')}}</label>
                                                 <div class="d-flex">
                                                     <input id="searchAssociatedColor" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
-                                                    <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">Search</button>
+                                                    <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">{{__("Search")}}</button>
                                                 </div>
                                                 <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
                                             </div>
@@ -1552,7 +1552,7 @@
                                                 <label for="searchAssociatedSize">{{__('Look for the product')}}</label>
                                                 <div class="d-flex">
                                                     <input id="searchAssociatedSize" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
-                                                    <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">Search</button>
+                                                    <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">{{__("Search")}}</button>
                                                 </div>
                                                 <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
                                             </div>
