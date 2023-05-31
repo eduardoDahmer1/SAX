@@ -1684,11 +1684,32 @@
             data.data.forEach(element => {
                 let div = document.createElement("div")
                 let checked = arrayChecks.includes(element.id) ? 'checked' : ''
+                let sizeOurColor;
+                if(sufixo == "size") {
+                    sizeOurColor = `<p class="text-muted"><small>{{__('Size')}}: ${element.product_size?? '{{__("No size")}}'}</small></p>`
+                } else {
+                    sizeOurColor = `
+                    <p class="text-muted">
+                        <small class="d-flex align-items-center">
+                            {{__('Color')}}:
+                            <span style="background-color:${element.color[0]};margin-left:5px;height:15px;width:15px;border-radius:100%;display:inline-block;"></span>
+                        </small>
+                    </p>
+                    `
+                }
                 div.classList.add('col-md-6')
                 let content = `
                 <div class="box-options-assoc">
                     <input type="checkbox" id="produto_${element.id}_${sufixo}" name="${inputName}" value="${element.id}" ${checked}>
-                    <label for="produto_${element.id}_${sufixo}">${element.es.name}</label>
+                    <label for="produto_${element.id}_${sufixo}">
+                        <img src="/storage/images/thumbnails/${element.thumbnail}" 
+                            class="img-circle mr-1"
+                            width="40px">
+                        <div>
+                            <h6 class="m-0">${element.es.name}</h6>
+                            ${sizeOurColor}
+                        </div>
+                    </label>
                 </div>
                 `
                 div.innerHTML = content

@@ -2294,7 +2294,7 @@ span .icofont-question-circle {
   padding: 10px;
   display: flex;
   align-items: center;
-  border: 1px solid transparent;
+  border: 1px solid #f0f0f0;
   border-radius: 10px;
 }
 
@@ -2309,4 +2309,9 @@ span .icofont-question-circle {
   background-color: #f5fdf37d;
   border: 1px solid #3cc131;
   transition: all .3s;
+}
+
+#boxAssociatedColor, #boxAssociatedSize {
+  max-height: 400px;
+  overflow: auto;
 }

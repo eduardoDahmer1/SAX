@@ -1504,43 +1504,41 @@
                                         <span>4</span>
                                         <h3>{{ __('Associate Colors') }}</h3>
                                     </div>
-                                    <div class="max-width-div">
-                                        <div class="product-wrapper">
-                                            <div class="container-fluid">
-                                                <div class="form-group">
-                                                    <label for="searchAssociatedColor">{{__('Look for the product')}}</label>
-                                                    <div class="d-flex">
-                                                        <input id="searchAssociatedColor" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
-                                                        <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">Search</button>
-                                                    </div>
-                                                    <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                    <div class="product-wrapper">
+                                        <div class="container-fluid">
+                                            <div class="form-group">
+                                                <label for="searchAssociatedColor">{{__('Look for the product')}}</label>
+                                                <div class="d-flex">
+                                                    <input id="searchAssociatedColor" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                    <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">Search</button>
                                                 </div>
-                                                <div class="row m-0">
-                                                    @foreach ($data->associatedProductsByColor as $associatedProduct)
-                                                        <div class="col-md-6">
-                                                            <div class="box-options-assoc">
-                                                                <input type="checkbox" id="produto_{{ $associatedProduct->id }}_color" name="associated_colors[]" value="{{ $associatedProduct->id }}" checked>
-                                                                <label for="produto_{{ $associatedProduct->id }}_color">
-                                                                    <img src="{{filter_var($associatedProduct->thumbnail, FILTER_VALIDATE_URL) ? $associatedProduct->thumbnail :
-                                                                        asset('storage/images/thumbnails/'.$associatedProduct->thumbnail)}}" 
-                                                                        class="img-circle mr-1"
-                                                                        width="40px">
-                                                                    <div>
-                                                                        <h6 class="m-0">{{ $associatedProduct->name }}</h6>
-                                                                        <p class="text-muted">
-                                                                            <small class="d-flex align-items-center">
-                                                                                {{__('Color')}}:
-                                                                                <span style="background-color:{{ $associatedProduct->color[0] }};margin-left:5px;height:15px;width:15px;border-radius:100%;display:inline-block;"></span>
-                                                                            </small>
-                                                                        </p>
-                                                                    </div>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <div id="boxAssociatedColor" class="row m-0"></div>
+                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
                                             </div>
+                                            <div class="row m-0">
+                                                @foreach ($data->associatedProductsByColor as $associatedProduct)
+                                                    <div class="col-md-6">
+                                                        <div class="box-options-assoc">
+                                                            <input type="checkbox" id="produto_{{ $associatedProduct->id }}_color" name="associated_colors[]" value="{{ $associatedProduct->id }}" checked>
+                                                            <label for="produto_{{ $associatedProduct->id }}_color">
+                                                                <img src="{{filter_var($associatedProduct->thumbnail, FILTER_VALIDATE_URL) ? $associatedProduct->thumbnail :
+                                                                    asset('storage/images/thumbnails/'.$associatedProduct->thumbnail)}}" 
+                                                                    class="img-circle mr-1"
+                                                                    width="40px">
+                                                                <div>
+                                                                    <h6 class="m-0">{{ $associatedProduct->name }}</h6>
+                                                                    <p class="text-muted">
+                                                                        <small class="d-flex align-items-center">
+                                                                            {{__('Color')}}:
+                                                                            <span style="background-color:{{ $associatedProduct->color[0]?? '#fff' }};margin-left:5px;height:15px;width:15px;border-radius:100%;display:inline-block;"></span>
+                                                                        </small>
+                                                                    </p>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div id="boxAssociatedColor" class="row m-0"></div>
                                         </div>
                                     </div>
                                     
@@ -1548,38 +1546,36 @@
                                         <span>5</span>
                                         <h3>{{ __('Associate Size') }}</h3>
                                     </div>
-                                    <div class="max-width-div">
-                                        <div class="product-wrapper">
-                                            <div class="container-fluid">
-                                                <div class="form-group">
-                                                    <label for="searchAssociatedSize">{{__('Look for the product')}}</label>
-                                                    <div class="d-flex">
-                                                        <input id="searchAssociatedSize" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
-                                                        <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">Search</button>
-                                                    </div>
-                                                    <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                    <div class="product-wrapper">
+                                        <div class="container-fluid">
+                                            <div class="form-group">
+                                                <label for="searchAssociatedSize">{{__('Look for the product')}}</label>
+                                                <div class="d-flex">
+                                                    <input id="searchAssociatedSize" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                    <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">Search</button>
                                                 </div>
-                                                <div class="row m-0">
-                                                    @foreach ($data->associatedProductsBySize as $associatedProduct)
-                                                        <div class="col-md-6">
-                                                            <div class="box-options-assoc">
-                                                                <input type="checkbox" id="produto_{{ $associatedProduct->id }}_size" name="associated_sizes[]" value="{{ $associatedProduct->id }}" checked>
-                                                                <label for="produto_{{ $associatedProduct->id }}_size">
-                                                                    <img src="{{filter_var($associatedProduct->thumbnail, FILTER_VALIDATE_URL) ? $associatedProduct->thumbnail :
-                                                                        asset('storage/images/thumbnails/'.$associatedProduct->thumbnail)}}" 
-                                                                        class="img-circle mr-1"
-                                                                        width="40px">
-                                                                    <div>
-                                                                        <h6 class="m-0">{{ $associatedProduct->name }}</h6>
-                                                                        <p class="text-muted"><small>Tamanho: {{ $associatedProduct->product_size }}</small></p>
-                                                                    </div>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <div id="boxAssociatedSize" class="row m-0"></div>
+                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
                                             </div>
+                                            <div class="row m-0">
+                                                @foreach ($data->associatedProductsBySize as $associatedProduct)
+                                                    <div class="col-md-6">
+                                                        <div class="box-options-assoc">
+                                                            <input type="checkbox" id="produto_{{ $associatedProduct->id }}_size" name="associated_sizes[]" value="{{ $associatedProduct->id }}" checked>
+                                                            <label for="produto_{{ $associatedProduct->id }}_size">
+                                                                <img src="{{filter_var($associatedProduct->thumbnail, FILTER_VALIDATE_URL) ? $associatedProduct->thumbnail :
+                                                                    asset('storage/images/thumbnails/'.$associatedProduct->thumbnail)}}" 
+                                                                    class="img-circle mr-1"
+                                                                    width="40px">
+                                                                <div>
+                                                                    <h6 class="m-0">{{ $associatedProduct->name }}</h6>
+                                                                    <p class="text-muted"><small>{{__('Size')}}: {{ $associatedProduct->product_size }}</small></p>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div id="boxAssociatedSize" class="row m-0"></div>
                                         </div>
                                     </div>
                                     
@@ -2334,8 +2330,21 @@
         
         async function monteHtml(data, inputName, sufixo, box, arrayChecks){
             data.data.forEach(element => {
-                console.log(element)
                 let div = document.createElement("div")
+                let sizeOurColor;
+                if(sufixo == "size") {
+                    sizeOurColor = `<p class="text-muted"><small>{{__('Size')}}: ${element.product_size?? '{{__("No size")}}'}</small></p>`
+                } else {
+                    sizeOurColor = `
+                    <p class="text-muted">
+                        <small class="d-flex align-items-center">
+                            {{__('Color')}}:
+                            <span style="background-color:${element.color[0]};margin-left:5px;height:15px;width:15px;border-radius:100%;display:inline-block;"></span>
+                        </small>
+                    </p>
+                    `
+                }
+
                 let checked = arrayChecks.includes(element.id) ? 'checked' : ''
                 div.classList.add('col-md-6')
                 let content = `
@@ -2347,7 +2356,7 @@
                             width="40px">
                         <div>
                             <h6 class="m-0">${element.es.name}</h6>
-                            <p class="text-muted"><small>Tamanho: ${element.product_size}</small></p>
+                            ${sizeOurColor}
                         </div>
                     </label>
                 </div>
