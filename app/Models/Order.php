@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Classes\MelhorEnvio;
+use App\Observers\OrderObserver;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -58,7 +59,9 @@ class Order extends CachedModel
         'puntoentrega',
         'puntoid'
     ];
-
+    protected $dispatchesEvents = [
+        'created' => OrderObserver::class,
+    ];
     protected $casts = [
         'cart' => 'array'
     ];
