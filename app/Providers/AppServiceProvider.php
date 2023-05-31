@@ -9,6 +9,7 @@ use App\Models\Currency;
 use App\Models\Language;
 use App\Models\Generalsetting;
 use App\Observers\OrderObserver;
+use App\View\Components\Header\Theme15;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::component('front.themes.theme-15.components.header', Theme15::class);
         if (!app()->runningInConsole()) {
             // use bootstrap instead of tailwind
             Paginator::useBootstrap();

@@ -174,10 +174,7 @@
 
     @yield('before-header')
 
-    @includeFirst([
-        'front.themes.' . env('THEME', 'theme-01') . '.components.header',
-        'front.themes.shared.components.header',
-    ])
+    <x-dynamic-component :component="'front.themes.' . env('THEME', 'theme-15') . '.components.header'" />
 
     @yield('after-header')
 
