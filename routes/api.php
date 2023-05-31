@@ -56,4 +56,4 @@ Route::group([
     Route::post('billet-notifications','Front\Pay42BilletController@notify');
 });
 
-Route::get('products', [ProductController::class, 'index'])->name('products.index');
+Route::get('products', [ProductController::class, 'index'])->name('api.products.index');

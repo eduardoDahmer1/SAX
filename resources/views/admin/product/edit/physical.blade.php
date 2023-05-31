@@ -1506,12 +1506,24 @@
                                     </div>
                                     <div class="max-width-div">
                                         <div class="product-wrapper">
-                                            @foreach ($products as $product)
-                                            <div>
-                                                <input type="checkbox" id="produto_{{ $product->id }}_color" name="associated_colors[]" value="{{ $product->id }}" {{ in_array($product->id, $associatedColors) ? 'checked' : '' }}>
-                                                <label for="produto_{{ $product->id }}_color">{{ $product->name }}</label>
+                                            <div class="container">
+                                                <div class="form-group">
+                                                    <label for="searchAssociatedColor">{{__('Look for the product')}}</label>
+                                                    <div class="d-flex">
+                                                        <input id="searchAssociatedColor" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                        <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">Search</button>
+                                                    </div>
+                                                    <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                                </div>
+                                                <div id="boxAssociatedColor" class="row">
+                                                    @foreach ($data->associatedProductsByColor as $associatedProduct)
+                                                        <div class="col-md-4">
+                                                            <input type="checkbox" id="produto_{{ $associatedProduct->id }}_color" name="associated_colors[]" value="{{ $associatedProduct->id }}">
+                                                            <label for="produto_{{ $associatedProduct->id }}_color">{{ $associatedProduct->name }}</label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                            @endforeach
                                         </div>
                                     </div>
                                     
@@ -1521,12 +1533,24 @@
                                     </div>
                                     <div class="max-width-div">
                                         <div class="product-wrapper">
-                                            @foreach ($products as $product)
-                                            <div>
-                                                <input type="checkbox" id="produto_{{ $product->id }}_size" name="associated_sizes[]" value="{{ $product->id }}" {{ in_array($product->id, $associatedSizes) ? 'checked' : '' }}>
-                                                <label for="produto_{{ $product->id }}_size">{{ $product->name }}</label>
+                                            <div class="container">
+                                                <div class="form-group">
+                                                    <label for="searchAssociatedSize">{{__('Look for the product')}}</label>
+                                                    <div class="d-flex">
+                                                        <input id="searchAssociatedSize" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                        <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">Search</button>
+                                                    </div>
+                                                    <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                                </div>
+                                                <div id="boxAssociatedSize" class="row">
+                                                    @foreach ($data->associatedProductsBySize as $associatedProduct)
+                                                        <div class="col-md-4">
+                                                            <input type="checkbox" id="produto_{{ $associatedProduct->id }}_color" name="associated_colors[]" value="{{ $associatedProduct->id }}">
+                                                            <label for="produto_{{ $associatedProduct->id }}_color">{{ $associatedProduct->name }}</label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                            @endforeach
                                         </div>
                                     </div>
                                     
@@ -2259,6 +2283,50 @@
                 }
             });
         }
+
+        const boxAssociatedColor = $('#boxAssociatedColor')
+        const boxAssociatedSize = $('#boxAssociatedSize')
+
+        const associeteColorCheck = {!! json_encode($associatedColors) !!}
+        const associeteSizeCheck = {!! json_encode($associatedSizes) !!}
+        let loading = document.createElement("h5")
+        loading.classList.add('text-center','col-12', 'py-2')
+        loading.innerHTML = 'Carregando...'
+
+
+        async function handleGetProducts(search, i, c, b, a) {
+            $(b).empty()
+            b.append(loading)
+            const response = await fetch(`/api/products?q=${search}`);
+            const json = await response.json();
+            $(b).empty()
+            await monteHtml(json, i, c, b, a)
+        }
+        
+        async function monteHtml(data, inputName, sufixo, box, arrayChecks){
+            data.data.forEach(element => {
+                let div = document.createElement("div")
+                let checked = arrayChecks.includes(element.id) ? 'checked' : ''
+                div.classList.add('col-md-4')
+                let content = `
+                    <input type="checkbox" id="produto_${element.id}_${sufixo}" name="${inputName}" value="${element.id}" ${checked}>
+                    <label for="produto_${element.id}_${sufixo}">${element.es.name}</label>
+                `
+                div.innerHTML = content
+                box.append(div)
+            });
+        }
+
+        $('#buttonSearchAssociatedColor').click( event => {
+            let searchColor = document.querySelector('#searchAssociatedColor').value
+            handleGetProducts(searchColor, 'associated_colors[]', 'color', boxAssociatedColor, associeteColorCheck, false)
+        });
+
+        $('#buttonSearchAssociatedSize').click( event => {
+            let searchSize = document.querySelector('#searchAssociatedSize').value
+            handleGetProducts(searchSize, 'associated_sizes[]', 'size', boxAssociatedSize, associeteSizeCheck, false)
+        });
+
     </script>
 
     <script src="{{ asset('assets/admin/js/product.js') }}"></script>
