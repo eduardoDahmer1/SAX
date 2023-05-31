@@ -66,6 +66,7 @@ class CatalogController extends Controller
       ->where('brand_id', $brand->id)
       ->where('status', '=', 1)
       ->orderByRaw("(stock > 0 or stock is null) DESC")
+      ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
       ->when($sort, function ($query, $sort) {
           if ($sort == 'date_desc') {
               return $query->orderBy('id', 'DESC');
@@ -342,6 +343,10 @@ class CatalogController extends Controller
         $range_max = ceil($range_max / 1000) * 1000;
         $data['range_max'] = $range_max;
 
+        if (!$this->storeSettings->show_products_without_stock) {
+            $prods->withStock();
+        }
+
         $prods = $prods->paginate(isset($qty) ? $qty : 25);
 
         $data['prods'] = $prods;
@@ -351,12 +356,12 @@ class CatalogController extends Controller
             $homeSettings = Pagesetting::where('store_id', $this->storeSettings->id)->first();
             if ($this->storeSettings->show_products_without_stock) {
                 $feature_products =  ($homeSettings->random_products == 1 ?
-          Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->inRandomOrder()->take(10)->get() :
-          Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get());
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->inRandomOrder()->take(10)->get() :
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get());
             } else {
                 $feature_products =  ($homeSettings->random_products == 1 ?
-          Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->whereRaw('(stock > 0 or stock is null)')->inRandomOrder()->take(10)->get() :
-          Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->whereRaw('(stock > 0 or stock is null)')->orderBy('id', 'desc')->take(10)->get());
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->withStock()->inRandomOrder()->take(10)->get() :
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->withStock()->orderBy('id', 'desc')->take(10)->get());
             }
             $data['feature_products'] = $feature_products;
         }
