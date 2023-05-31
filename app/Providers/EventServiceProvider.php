@@ -24,9 +24,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
 
-    protected $observers = [
-        Order::class => [OrderObserver::class],
-    ];
     protected $listen = [
         'App\Events\Event' => [
             'App\Listeners\EventListener',
@@ -48,5 +45,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
             Brand::observe(BrandObserver::class);
+            Order::observe(OrderObserver::class);
     }
 }
