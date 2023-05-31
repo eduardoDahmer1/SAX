@@ -150,23 +150,21 @@
 
                             <div class="submenu-cat">
                                 <ul>
-                                    @foreach ($categories->sortBy('presentation_position')->take(6) as $category)
+                                    @foreach ($nav_categories->sortBy('presentation_position')->take(6) as $category)
                                         <li class="subcat-link">
                                             <div>{{ $category->name }}</div>
                                             <div class="boxsubcat">
                                                 <div class="d-flex justify-content-center">
                                                     @foreach ($category->products as $product)
-                                                        @if ($product->show_in_navbar)
-                                                            <a href="{{ route('front.product', $product->slug ) }}">
-                                                                <div class="box-img">
-                                                                    <img src="{{ filter_var($product->photo, FILTER_VALIDATE_URL)
-                                                                        ? $product->photo
-                                                                        : asset('storage/images/products/' . $product->photo) }}" class="img-fluid" alt="">
-                                                                </div>
-                                                                <p class="brand-name">{{str($product->brand->name)->limit(8,'...')}}</p>
-                                                                <p class="product-name">{{str($product->name)->limit(25,'...')}}</p>
-                                                            </a>
-                                                        @endif
+                                                        <a href="{{ route('front.product', $product->slug ) }}">
+                                                            <div class="box-img">
+                                                                <img src="{{ filter_var($product->photo, FILTER_VALIDATE_URL)
+                                                                    ? $product->photo
+                                                                    : asset('storage/images/products/' . $product->photo) }}" class="img-fluid" alt="">
+                                                            </div>
+                                                            <p class="brand-name">{{str($product->brand->name)->limit(8,'...')}}</p>
+                                                            <p class="product-name">{{str($product->name)->limit(25,'...')}}</p>
+                                                        </a>
                                                     @endforeach
                                                 </div>
                                                 <a class="link-seemore" href="{{ route('front.category', $category->slug )}}"> Ver todos {{ $category->name }}</a>
