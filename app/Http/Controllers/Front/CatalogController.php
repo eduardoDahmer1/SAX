@@ -504,7 +504,12 @@ class CatalogController extends Controller
 
         /* Set related products by Child Category, if available. Then, by Sub Category, if available. Use Category as fallback. */
         $related_by = ($productt->childcategory_id ? $productt->childcategory : ($productt->subcategory_id ? $productt->subcategory : $productt->category));
-        $related_products = $related_by->products()->byStore()->where('status', '=', 1)->where('id', '!=', $productt->id)->whereRaw('(stock > 0 or stock is null)')->take(8)->get();
+
+
+        $related_products = $related_by->products()->byStore()->where('status', '=', 1)
+            ->where('id', '!=', $productt->id)
+            ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
+            ->take(8)->get();
 
         // Material stock
         if (!empty($productt->material_qty)) {
