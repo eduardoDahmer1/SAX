@@ -16,6 +16,8 @@ class BrandObserver
     public function saved(Brand $brand)
     {
         // disable all products from specific brand
-        Product::where('brand_id', $brand->id)->update(['status' => 0]);
+        if ($brand->status == 0) {
+            Product::where('brand_id', $brand->id)->update(['status' => 0]);
+        }
     }
 }
