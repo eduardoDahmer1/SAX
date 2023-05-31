@@ -30,7 +30,7 @@
             <li>
                 <a href="{{ route('front.product', $productColor->slug) }}" 
                     style="
-                        background-color: {{ $productColor->color[0] }};
+                        background-color: {{ $productColor->color[0]?? '#f0f0f0' }};
                         width:30px;
                         height:30px;
                         display: inline-block;
