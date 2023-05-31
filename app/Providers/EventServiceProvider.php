@@ -9,6 +9,8 @@ use App\Events\BackInStock;
 use App\Events\WatchPix;
 use App\Listeners\HandleBackInStock;
 use App\Listeners\HandleWatchPix;
+use App\Models\Brand;
+use App\Observers\BrandObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -37,7 +39,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
+            Brand::observe(BrandObserver::class);
     }
 }
