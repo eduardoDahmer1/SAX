@@ -1760,5 +1760,8 @@
   "Zip Code": "C\u00f3digo postal",
   "ZIP Code End": "Final del c\u00f3digo postal",
   "ZIP Code Start": "Inicio del c\u00f3digo postal",
-  "{$title}": "{$title}"
+  "{$title}": "{$title}",
+  "Look for the product":"Busca el producto",
+  "Products name":"Nombre del producto",
+  "Enter the name of the product you want to associate":"Introduzca el nombre del producto que desea asociar"
 }

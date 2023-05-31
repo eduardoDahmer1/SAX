@@ -1512,7 +1512,7 @@
                                                     <input id="searchAssociatedColor" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
                                                     <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">{{__("Search")}}</button>
                                                 </div>
-                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                                <small id="emailHelp" class="form-text text-muted">{{__('Enter the name of the product you want to associate')}}</small>
                                             </div>
                                             <div class="row m-0">
                                                 @foreach ($data->associatedProductsByColor as $associatedProduct)
@@ -1554,7 +1554,7 @@
                                                     <input id="searchAssociatedSize" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
                                                     <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">{{__("Search")}}</button>
                                                 </div>
-                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                                <small id="emailHelp" class="form-text text-muted">{{__('Enter the name of the product you want to associate')}}</small>
                                             </div>
                                             <div class="row m-0">
                                                 @foreach ($data->associatedProductsBySize as $associatedProduct)
