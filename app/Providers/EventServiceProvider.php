@@ -9,8 +9,12 @@ use App\Events\BackInStock;
 use App\Events\WatchPix;
 use App\Listeners\HandleBackInStock;
 use App\Listeners\HandleWatchPix;
+
 use App\Models\Order;
 use App\Observers\OrderObserver;
+
+use App\Models\Brand;
+use App\Observers\BrandObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,9 +24,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
 
-    protected $observers = [
-        Order::class => [OrderObserver::class],
-    ];
     protected $listen = [
         'App\Events\Event' => [
             'App\Listeners\EventListener',
@@ -43,7 +44,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
+            Brand::observe(BrandObserver::class);
+            Order::observe(OrderObserver::class);
     }
 }
