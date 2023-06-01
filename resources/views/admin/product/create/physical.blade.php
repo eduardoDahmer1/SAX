@@ -1682,6 +1682,7 @@
         
         async function monteHtml(data, inputName, sufixo, box, arrayChecks){
             data.data.forEach(element => {
+                console.log(element)
                 let div = document.createElement("div")
                 let checked = arrayChecks.includes(element.id) ? 'checked' : ''
                 let sizeOurColor;
@@ -1706,7 +1707,7 @@
                             class="img-circle mr-1"
                             width="40px">
                         <div>
-                            <h6 class="m-0">${element.es.name}</h6>
+                            <h6 class="m-0">${element.name}</h6>
                             ${sizeOurColor}
                         </div>
                     </label>

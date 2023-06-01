@@ -24,6 +24,7 @@ class ProductResource extends JsonResource
             "price" => $this->price,
             "previous_price" => $this->previous_price,
             "stock" => $this->stock,
+            "name" => $this->name,
             "size" => is_array($this->size) ? $this->size : [],
             "size_qty" => is_array($this->size_qty) ? $this->size_qty : [],
             "size_price" => is_array($this->size_price) ? $this->size_price : [],
