@@ -294,8 +294,7 @@ class ProductController extends Controller
         $brands = Brand::orderBy('slug')->get();
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
-        $products = Product::select('id')->with('translations')->get();
-        return view('admin.product.create.physical', compact('products', 'cats', 'sign', 'brands', 'storesList'));
+        return view('admin.product.create.physical', compact('cats', 'sign', 'brands', 'storesList'));
     }
 
     //*** GET Request
@@ -1037,7 +1036,6 @@ class ProductController extends Controller
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
         $currentStores = $data->stores()->pluck('id')->toArray();
-        $products = Product::where('id', '!=', $id)->select('id')->with('translations')->get();
         $associatedColors = $data->associatedProductsByColor->pluck('id')->toArray();
         $associatedSizes = $data->associatedProductsBySize->pluck('id')->toArray();
         $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $data->ref_code_int . '/');
@@ -1070,7 +1068,6 @@ class ProductController extends Controller
                 'storesList',
                 'currentStores',
                 'ftp_gallery',
-                'products',
                 'associatedColors',
                 'associatedSizes'
             ));

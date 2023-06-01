@@ -39,6 +39,9 @@ class ProductResource extends JsonResource
             "length" => $this->length,
             "external_name" => $this->external_name,
             "stores" => $this->stores()->get()->pluck('id')->toArray(),
+            "thumbnail" => $this->thumbnail,
+            "product_size" => $this->product_size,
+            "color" => is_array($this->color) ? $this->color : [],
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];
