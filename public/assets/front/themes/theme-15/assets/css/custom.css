@@ -10,6 +10,10 @@
     padding: 3rem 0 10px;
 }
 
+.nav-fixed .saxnavigation .menu-navigation {
+    padding: 10px;
+}
+
 .saxnavigation .menu-navigation li .navlink { 
     padding: 0 20px;
     text-transform: uppercase;

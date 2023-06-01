@@ -643,10 +643,10 @@ $(function ($) {
             }
         } else {
             if ($window.scrollTop() > 190) {
-                $(".mainmenu-area").addClass('nav-fixed');
+                $(".menufixed").addClass('nav-fixed');
 
             } else {
-                $(".mainmenu-area").removeClass('nav-fixed');
+                $(".menufixed").removeClass('nav-fixed');
             }
         }
 

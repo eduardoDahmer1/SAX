@@ -2,7 +2,7 @@
 <div class="menufixed">
     <section class="logo-header">
         <div class="container">
-            <div class="row justify-content-between align-items-center align-items-lg-end py-lg-3" style="position: relative;">
+            <div class="row justify-content-between align-items-center align-items-lg-end" style="position: relative;">
 
                 <div class="col-lg-2 col-2 order-2 order-lg-1" style="position: static;">
                     <div class="button-open-search">

@@ -173,7 +173,7 @@
     @include('front.themes.shared.components.no-prod-found')
 @endif
 
-<div class="col-12 py-1 remove-padding">
+<div class="col-12 mt-2 pt-4 remove-padding">
     <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannerbottom.png') }}" alt="Banner Bottom">
 </div>
 

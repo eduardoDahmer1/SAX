@@ -6,7 +6,7 @@
 <div class="breadcrumb-area">
     @if($banner)
     <section>
-      <img src="{{ $banner }}" class="img-fluid">
+      <img src="{{ $banner }}" class="img-fluid w-100">
     </section>
     @else
     <section>
