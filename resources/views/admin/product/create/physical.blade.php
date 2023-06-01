@@ -1706,7 +1706,7 @@
                             class="img-circle mr-1"
                             width="40px">
                         <div>
-                            <h6 class="m-0">${element.es.name}</h6>
+                            <h6 class="m-0">${element.name}</h6>
                             ${sizeOurColor}
                         </div>
                     </label>
