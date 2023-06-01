@@ -269,7 +269,7 @@ $small = $product->firstCurrencyPrice();
                                 <i class="icofont-shopping-cart"></i> {{ __("Buy Now") }}</a>
                         </li>
                         @else
-                        @if($product->stock === 0)
+                        @if($product->emptyStock())
                         <li class="addtocart">
                             <a href="javascript:;" class="cart-out-of-stock">
                                 <i class="icofont-close-circled"></i>

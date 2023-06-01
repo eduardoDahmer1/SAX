@@ -112,7 +112,7 @@ if ($gs->switch_highlight_currency) {
                                                 <i class="icofont-close-circled"></i> {{ __('Out of Stock!') }}
                                             </span>
                                         @else
-                                            @if ($gs->is_cart_and_buy_available)
+                                            @if ($prod->is_available_to_buy())
                                                 <span class="add-to-cart add-to-cart-btn"
                                                     data-href="{{ route('product.cart.add', $prod->id) }}">
                                                     <i class="icofont-shopping-cart"></i> {{ __('Add To Cart') }}
@@ -241,12 +241,12 @@ if ($gs->switch_highlight_currency) {
                                         {{ __('Buy Now') }}
                                     </span>
                                 @else
-                                    @if ($prod->stock === 0)
+                                    @if ($prod->emptyStock())
                                         <span class="add-to-cart-btn cart-out-of-stock">
                                             <i class="icofont-close-circled"></i> {{ __('Out of Stock!') }}
                                         </span>
                                     @else
-                                        @if ($gs->is_cart_and_buy_available)
+                                        @if ($prod->is_available_to_buy())
                                             <span class="add-to-cart add-to-cart-btn"
                                                 data-href="{{ route('product.cart.add', $prod->id) }}">
                                                 <i class="icofont-shopping-cart"></i> {{ __('Add To Cart') }}
@@ -382,12 +382,12 @@ if ($gs->switch_highlight_currency) {
                                 {{ __('Buy Now') }}
                             </span>
                         @else
-                            @if ($prod->stock === 0)
+                            @if ($prod->emptyStock())
                                 <span class="add-to-cart-btn cart-out-of-stock">
                                     <i class="icofont-close-circled"></i> {{ __('Out of Stock!') }}
                                 </span>
                             @else
-                                @if ($gs->is_cart_and_buy_available)
+                                @if ($prod->is_available_to_buy())
                                     <span class="add-to-cart add-to-cart-btn"
                                         data-href="{{ route('product.cart.add', $prod->id) }}">
                                         <i class="icofont-shopping-cart"></i> {{ __('Add To Cart') }}

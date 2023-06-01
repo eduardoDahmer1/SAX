@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends LocalizedModel
 {
@@ -861,10 +862,7 @@ class Product extends LocalizedModel
 
     public function emptyStock()
     {
-        $stck = (string)$this->stock;
-        if ($stck == "0") {
-            return true;
-        }
+        return $this->withStock()->count() === 0;
     }
 
     public static function showTags()
@@ -1200,5 +1198,23 @@ class Product extends LocalizedModel
     private function decreasePriceValue(float $newPrice)
     {
         return $this->price - $newPrice;
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithStock($query)
+    {
+        return $query->whereRaw('(stock > 0 or stock is null)')->orWhereHas('associatedProducts', function (Builder $query) {
+            $query->whereRaw('(stock > 0 or stock is null)')->where('associated_products.association_type', AssociationType::Size);
+        });
+    }
+
+    public function is_available_to_buy()
+    {
+        return $this->storeSettings->is_cart_and_buy_available && $this->stock > 0;
     }
 }
