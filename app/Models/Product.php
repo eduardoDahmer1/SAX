@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends LocalizedModel
 {
@@ -244,6 +245,12 @@ class Product extends LocalizedModel
     {
         return $this->belongsToMany(Product::class, 'associated_products', 'product_id', 'associated_product_id');
     }
+
+    public function fatherProducts(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'associated_products', 'associated_product_id', 'product_id');
+    }
+
     public function reports()
     {
         return $this->hasMany('App\Models\Report', 'user_id');
@@ -1200,5 +1207,14 @@ class Product extends LocalizedModel
     private function decreasePriceValue(float $newPrice)
     {
         return $this->price - $newPrice;
+    }
+
+    public function scopeOnlyFatherProducts($query)
+    {
+        return $query->whereHas('associatedProducts', function (Builder $query) {
+            $query->where('association_type', AssociationType::Size);
+        })->orWhereDoesntHave('fatherProducts', function (Builder $query) {
+            $query->where('association_type', AssociationType::Size);
+        });
     }
 }
