@@ -166,7 +166,7 @@ class FrontendController extends Controller
 
         $sliders = ($homeSettings->random_banners == 1 ? Slider::byStore()->where('status', 1)->inRandomOrder()->get() : Slider::byStore()->where('status', 1)->orderBy('presentation_position')->orderBy('id')->get());
 
-        $prepareProducts =  Product::byStore();
+        $prepareProducts =  Product::byStore()->onlyFatherProducts();
 
         if (!$this->storeSettings->show_products_without_stock) {
             $prepareProducts->withStock();
@@ -320,6 +320,7 @@ class FrontendController extends Controller
         }
         $prods = Product::byStore()
             ->isActive()
+            ->onlyFatherProducts()
             ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
             ->where(function ($query) use ($searchReverse, $search, $searchLocale) {
                 $query->where(function ($query) use ($search) {

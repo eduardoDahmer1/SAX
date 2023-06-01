@@ -245,6 +245,12 @@ class Product extends LocalizedModel
     {
         return $this->belongsToMany(Product::class, 'associated_products', 'product_id', 'associated_product_id');
     }
+
+    public function fatherProducts(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'associated_products', 'associated_product_id', 'product_id');
+    }
+
     public function reports()
     {
         return $this->hasMany('App\Models\Report', 'user_id');
@@ -1216,5 +1222,14 @@ class Product extends LocalizedModel
     public function is_available_to_buy()
     {
         return $this->storeSettings->is_cart_and_buy_available && $this->stock > 0;
+    }
+
+    public function scopeOnlyFatherProducts($query)
+    {
+        return $query->whereHas('associatedProducts', function (Builder $query) {
+            $query->where('association_type', AssociationType::Size);
+        })->orWhereDoesntHave('fatherProducts', function (Builder $query) {
+            $query->where('association_type', AssociationType::Size);
+        });
     }
 }

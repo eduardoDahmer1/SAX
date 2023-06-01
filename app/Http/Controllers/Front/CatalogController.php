@@ -66,6 +66,7 @@ class CatalogController extends Controller
       ->where('brand_id', $brand->id)
       ->where('status', '=', 1)
       ->orderByRaw("(stock > 0 or stock is null) DESC")
+      ->onlyFatherProducts()
       ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
       ->when($sort, function ($query, $sort) {
           if ($sort == 'date_desc') {
@@ -347,7 +348,7 @@ class CatalogController extends Controller
             $prods->withStock();
         }
 
-        $prods = $prods->paginate(isset($qty) ? $qty : 25);
+        $prods = $prods->onlyFatherProducts()->paginate(isset($qty) ? $qty : 25);
 
         $data['prods'] = $prods;
 
@@ -356,12 +357,12 @@ class CatalogController extends Controller
             $homeSettings = Pagesetting::where('store_id', $this->storeSettings->id)->first();
             if ($this->storeSettings->show_products_without_stock) {
                 $feature_products =  ($homeSettings->random_products == 1 ?
-                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->inRandomOrder()->take(10)->get() :
-                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get());
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->onlyFatherProducts()->inRandomOrder()->take(10)->get() :
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->onlyFatherProducts()->orderBy('id', 'desc')->take(10)->get());
             } else {
                 $feature_products =  ($homeSettings->random_products == 1 ?
-                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->withStock()->inRandomOrder()->take(10)->get() :
-                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->withStock()->orderBy('id', 'desc')->take(10)->get());
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->onlyFatherProducts()->withStock()->inRandomOrder()->take(10)->get() :
+                    Product::byStore()->where('featured', '=', 1)->where('status', '=', 1)->onlyFatherProducts()->withStock()->orderBy('id', 'desc')->take(10)->get());
             }
             $data['feature_products'] = $feature_products;
         }
@@ -505,9 +506,9 @@ class CatalogController extends Controller
         /* Set related products by Child Category, if available. Then, by Sub Category, if available. Use Category as fallback. */
         $related_by = ($productt->childcategory_id ? $productt->childcategory : ($productt->subcategory_id ? $productt->subcategory : $productt->category));
 
-
         $related_products = $related_by->products()->byStore()->where('status', '=', 1)
             ->where('id', '!=', $productt->id)
+            ->onlyFatherProducts()
             ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
             ->take(8)->get();
 
