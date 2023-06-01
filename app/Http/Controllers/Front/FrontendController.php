@@ -166,7 +166,7 @@ class FrontendController extends Controller
 
         $sliders = ($homeSettings->random_banners == 1 ? Slider::byStore()->where('status', 1)->inRandomOrder()->get() : Slider::byStore()->where('status', 1)->orderBy('presentation_position')->orderBy('id')->get());
 
-        $prepareProducts =  Product::byStore();
+        $prepareProducts =  Product::byStore()->onlyFatherProducts();
 
         if ($this->storeSettings->show_products_without_stock) {
             $prepareProducts->whereRaw('(stock > 0 or stock is null)');
