@@ -121,9 +121,8 @@
                                         <i class="icofont-ui-password"></i>
                                     </div>
                                     <div class="form-input">
-                                        <input type="date" id="dob" class="form-control"
-                                            name="dob" placeholder="Data de nascimento"
-                                            required>
+                                        <input placeholder="{{ __('Date of Birth') }}" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
+                                        
                                     </div>
                                     <div class="form-input">
                                         <select class="form-control" name="gender" id="gender">

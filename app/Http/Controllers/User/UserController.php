@@ -86,7 +86,7 @@ class UserController extends Controller
         /** @var User $data */
         $data = Auth::user();
 
-        $data->birth_date = $input['dob'];
+        $data->birth_date = $input['birthday'];
 
         if ($file = $request->file('photo')) {
             $name = time().$file->getClientOriginalName();

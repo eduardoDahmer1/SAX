@@ -173,8 +173,7 @@
                                             </div>
                                            <div class="row">
                                             <div class="col-lg-6 mt-3">
-                                                <input type="date" class="form-control" name="dob" id="dob"
-                                                    placeholder="Data de Nascimento:" required
+                                                <input type="date" class="form-control" name="birthday" id="birthday" required
                                                     value="{{ $user->birth_date}}">
                                             </div>
                                             <div class="col-lg-6 mt-3">
