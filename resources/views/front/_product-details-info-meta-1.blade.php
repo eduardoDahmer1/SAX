@@ -14,22 +14,22 @@
                     @if($gs->show_stock)
                         @if(empty($productt->size) && empty($productt->color) && empty($productt->material))
                             <i class="icofont-check-circled"></i>
-                            {{ __("In Stock") }}: <span id="rest_of"></span>
+                            <span id="rest_of"></span>
                         @endif
 
                         @if(!empty($productt->color))
                             <i class="icofont-check-circled"></i>
-                            {{ __("In Stock") }}: <span id="rest_of"></span>
+                            <span id="rest_of"></span>
                         @endif
 
                         @if(!empty($productt->material))
                             <i class="icofont-check-circled"></i>
-                            {{ __("In Stock") }}: <span id="rest_of"></span>
+                            <span id="rest_of"></span>
                         @endif
 
                         @if(!empty($productt->size))
                             <i class="icofont-check-circled"></i>
-                            {{ __("In Stock") }}: <span id="rest_of"></span>
+                            <span id="rest_of"></span>
                         @endif
                     @endif
                 </p>

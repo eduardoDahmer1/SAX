@@ -197,3 +197,24 @@
         <div style="color:#848484;font-weight:300;font-family:'Cormorant', serif;">{!! nl2br($productt->details) !!}</div>
     </div>
 </div>
+
+<script>
+
+    const verifyStockProdChecked = () => {
+        const valueStock = $("[name='associatedProductsBySize']:checked").attr('data-product-stock')
+
+        if(valueStock > 3) {
+            $('#rest_of').html(`{{ __("In Stock") }}: ${valueStock}`)
+        } else {
+            $('#rest_of').html(`{{ __("There are only") }} ${valueStock} !`)
+        }
+
+    }
+
+    verifyStockProdChecked()
+
+    $("[name='associatedProductsBySize']").change(()=> {
+        verifyStockProdChecked()
+    })
+
+</script>

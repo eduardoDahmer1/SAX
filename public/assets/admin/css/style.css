@@ -2296,13 +2296,11 @@ span .icofont-question-circle {
   align-items: center;
   border: 1px solid #f0f0f0;
   border-radius: 10px;
+  transition: all .3s;
 }
 
 .box-options-assoc label:hover {
   cursor: pointer;
-  background-color: #f5fdf37d;
-  border: 1px solid #3cc131;
-  transition: all .3s;
 }
 
 .box-options-assoc input:checked ~ label {
