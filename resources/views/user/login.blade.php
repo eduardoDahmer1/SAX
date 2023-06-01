@@ -120,7 +120,21 @@
                                             class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                         <i class="icofont-ui-password"></i>
                                     </div>
-
+                                    <div class="form-input">
+                                        <input type="date" id="dob" class="form-control"
+                                            name="dob" placeholder="Data de nascimento"
+                                            required>
+                                    </div>
+                                    <div class="form-input">
+                                        <select class="form-control" name="gender" id="gender">
+                                            <option value="">{{ __("Gender") }}</option>
+                                            <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
+                                            <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
+                                            <option value="O" {{ old('gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
+                                            <option value="N" {{ old('gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
+                                        </select>
+                                    </div>
+                                    
                                     @if($gs->is_capcha == 1)
 
                                     <ul class="captcha-area">

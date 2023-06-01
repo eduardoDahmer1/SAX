@@ -85,6 +85,9 @@ class UserController extends Controller
 
         /** @var User $data */
         $data = Auth::user();
+
+        $data->birth_date = $input['dob'];
+
         if ($file = $request->file('photo')) {
             $name = time().$file->getClientOriginalName();
             $file->move('storage/images/users/', $name);

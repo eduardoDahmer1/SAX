@@ -171,7 +171,24 @@
                                                     </select>
                                                 </div>
                                             </div>
-
+                                           <div class="row">
+                                            <div class="col-lg-6 mt-3">
+                                                <input type="date" class="form-control" name="dob" id="dob"
+                                                    placeholder="Data de Nascimento:" required
+                                                    value="{{ $user->birth_date}}">
+                                            </div>
+                                            <div class="col-lg-6 mt-3">
+                                                <select class="form-control" name="gender" id="gender">
+                                                    <option value="">{{ __("Gender") }}</option>
+                                                    <option value="M" {{ $user->gender == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
+                                                    <option value="F" {{ $user->gender == 'F' ? 'selected' : '' }}>  {{ __("Female") }}</option>
+                                                    <option value="O" {{ $user->gender == 'O' ? 'selected' : '' }}>  {{ __("Other") }}</option>
+                                                    <option value="N" {{ $user->gender == 'N' ? 'selected' : '' }}>  {{ __("Not Declared") }}</option>
+                                                </select>
+                                            </div>
+                                                   
+                                          </div> 
+                                
                                             <div class="form-links">
                                                 <button class="submit-btn" type="submit">{{ __('Save') }}</button>
                                             </div>
