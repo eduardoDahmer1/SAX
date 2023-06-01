@@ -1682,7 +1682,6 @@
         
         async function monteHtml(data, inputName, sufixo, box, arrayChecks){
             data.data.forEach(element => {
-                console.log(element)
                 let div = document.createElement("div")
                 let checked = arrayChecks.includes(element.id) ? 'checked' : ''
                 let sizeOurColor;
