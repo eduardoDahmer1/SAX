@@ -320,6 +320,7 @@ class FrontendController extends Controller
         }
         $prods = Product::byStore()
             ->isActive()
+            ->onlyFatherProducts()
             ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
             ->where(function ($query) use ($searchReverse, $search, $searchLocale) {
                 $query->where(function ($query) use ($search) {
