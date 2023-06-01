@@ -3,19 +3,18 @@
 namespace App\Jobs;
 
 use App\Models\Order;
-use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Collection;
 
-class ProcessOrderJob implements ShouldQueue
+class OrderBilling implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     protected $url, $order;
     /**
      * Create a new job instance.
@@ -35,16 +34,17 @@ class ProcessOrderJob implements ShouldQueue
      */
     public function handle()
     {
-        $response = Http::withoutVerifying()->post($this->url);
-        if (!$response->successful()) {
-            throw new Exception('Erro na requisição');
+        try {
+            $response = Http::withoutVerifying()->post($this->url);
+        } catch (HttpResponseException $httpError) {
+            echo ('Erro na requisição: ' . $httpError->getMessage());
         }
 
         if ($response->successful()) {
             $request = $response->collect();
             foreach ($request as $data) {
-                if (isset($data['ped']) && $data['ped']) {
-                    $this->order->number_cec = $data['ped'];
+                if ($data['estatus'] == 0) {
+                    $this->order->billing = 1;
                     $this->order->update();
                 }
             }

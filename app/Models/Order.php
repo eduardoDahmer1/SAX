@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Classes\MelhorEnvio;
 use App\Observers\OrderObserver;
-use App\Observers\OrderObserver;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -58,7 +57,9 @@ class Order extends CachedModel
         'pay42_exchange_rate',
         'pay42_billet',
         'puntoentrega',
-        'puntoid'
+        'puntoid',
+        'order_number_cec',
+        'billing',
     ];
     protected $dispatchesEvents = [
         'created' => OrderObserver::class,
