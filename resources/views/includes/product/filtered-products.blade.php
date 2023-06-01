@@ -128,7 +128,7 @@
                                             <i class="icofont-close-circled"></i> {{ __('Out of Stock!') }}
                                         </span>
                                     @else
-                                        @if ($gs->is_cart_and_buy_available)
+                                        @if ($prod->is_available_to_buy())
                                             <span class="add-to-cart add-to-cart-btn"
                                                 data-href="{{ route('product.cart.add', $prod->id) }}">
                                                 <i class="fas fa-cart-plus"></i>

@@ -2279,3 +2279,39 @@ span .icofont-question-circle {
  .clear-notf-all:hover{
   text-decoration: underline;
 }
+
+.box-options-assoc {
+  position: relative;
+}
+
+.box-options-assoc input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.box-options-assoc label {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+}
+
+.box-options-assoc label:hover {
+  cursor: pointer;
+  background-color: #f5fdf37d;
+  border: 1px solid #3cc131;
+  transition: all .3s;
+}
+
+.box-options-assoc input:checked ~ label {
+  background-color: #f5fdf37d;
+  border: 1px solid #3cc131;
+  transition: all .3s;
+}
+
+#boxAssociatedColor, #boxAssociatedSize {
+  max-height: 400px;
+  overflow: auto;
+}

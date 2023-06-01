@@ -1067,12 +1067,17 @@
                                 </div>
                                 <div class="max-width-div">
                                     <div class="product-wrapper">
-                                        @foreach ($products as $product)
-                                        <div>
-                                            <input type="checkbox" id="produto_{{ $product->id }}_color" name="associated_colors[]" value="{{ $product->id }}">
-                                            <label for="produto_{{ $product->id }}_color">{{ $product->name }}</label>
+                                        <div class="container-fluid">
+                                            <div class="form-group">
+                                                <label for="searchAssociatedColor">{{__('Look for the product')}}</label>
+                                                <div class="d-flex">
+                                                    <input id="searchAssociatedColor" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                    <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">Search</button>
+                                                </div>
+                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                            </div>
+                                            <div id="boxAssociatedColor" class="row m-0"></div>
                                         </div>
-                                        @endforeach
                                     </div>
                                 </div>
                                 
@@ -1082,12 +1087,17 @@
                                 </div>
                                 <div class="max-width-div">
                                     <div class="product-wrapper">
-                                        @foreach ($products as $product)
-                                        <div>
-                                            <input type="checkbox" id="produto_{{ $product->id }}_size" name="associated_sizes[]" value="{{ $product->id }}">
-                                            <label for="produto_{{ $product->id }}_size">{{ $product->name }}</label>
+                                        <div class="container-fluid">
+                                            <div class="form-group">
+                                                <label for="searchAssociatedSize">{{__('Look for the product')}}</label>
+                                                <div class="d-flex">
+                                                    <input id="searchAssociatedSize" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                    <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">Search</button>
+                                                </div>
+                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                            </div>
+                                            <div id="boxAssociatedSize" class="row m-0"></div>
                                         </div>
-                                        @endforeach
                                     </div>
                                 </div>
 
@@ -1649,6 +1659,76 @@
         });
 
         // Gallery Section Insert Ends
+
+        const boxAssociatedColor = $('#boxAssociatedColor')
+        const boxAssociatedSize = $('#boxAssociatedSize')
+
+        const associeteColorCheck = []
+        const associeteSizeCheck = []
+
+        let loading = document.createElement("h5")
+        loading.classList.add('text-center','col-12', 'py-2')
+        loading.innerHTML = 'Carregando...'
+
+
+        async function handleGetProducts(search, i, c, b, a) {
+            $(b).empty()
+            b.append(loading)
+            const response = await fetch(`/api/products?q=${search}`);
+            const json = await response.json();
+            $(b).empty()
+            await monteHtml(json, i, c, b, a)
+        }
+        
+        async function monteHtml(data, inputName, sufixo, box, arrayChecks){
+            data.data.forEach(element => {
+                let div = document.createElement("div")
+                let checked = arrayChecks.includes(element.id) ? 'checked' : ''
+                let sizeOurColor;
+                if(sufixo == "size") {
+                    sizeOurColor = `<p class="text-muted"><small>{{__('Size')}}: ${element.product_size?? '{{__("No size")}}'}</small></p>`
+                } else {
+                    sizeOurColor = `
+                    <p class="text-muted">
+                        <small class="d-flex align-items-center">
+                            {{__('Color')}}:
+                            <span style="background-color:${element.color[0]};margin-left:5px;height:15px;width:15px;border-radius:100%;display:inline-block;"></span>
+                        </small>
+                    </p>
+                    `
+                }
+                div.classList.add('col-md-6')
+                let content = `
+                <div class="box-options-assoc">
+                    <input type="checkbox" id="produto_${element.id}_${sufixo}" name="${inputName}" value="${element.id}" ${checked}>
+                    <label for="produto_${element.id}_${sufixo}">
+                        <img src="/storage/images/thumbnails/${element.thumbnail}" 
+                            class="img-circle mr-1"
+                            width="40px">
+                        <div>
+                            <h6 class="m-0">${element.es.name}</h6>
+                            ${sizeOurColor}
+                        </div>
+                    </label>
+                </div>
+                `
+                div.innerHTML = content
+                if (!checked) {
+                    box.append(div)
+                }
+            });
+        }
+
+        $('#buttonSearchAssociatedColor').click( event => {
+            let searchColor = document.querySelector('#searchAssociatedColor').value
+            handleGetProducts(searchColor, 'associated_colors[]', 'color', boxAssociatedColor, associeteColorCheck, false)
+        });
+
+        $('#buttonSearchAssociatedSize').click( event => {
+            let searchSize = document.querySelector('#searchAssociatedSize').value
+            handleGetProducts(searchSize, 'associated_sizes[]', 'size', boxAssociatedSize, associeteSizeCheck, false)
+        });
+        
     </script>
 
     <script type="text/javascript">

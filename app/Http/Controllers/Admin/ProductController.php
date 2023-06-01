@@ -294,8 +294,7 @@ class ProductController extends Controller
         $brands = Brand::orderBy('slug')->get();
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
-        $products = Product::select('id')->with('translations')->get();
-        return view('admin.product.create.physical', compact('products', 'cats', 'sign', 'brands', 'storesList'));
+        return view('admin.product.create.physical', compact('cats', 'sign', 'brands', 'storesList'));
     }
 
     //*** GET Request
@@ -781,7 +780,17 @@ class ProductController extends Controller
             $prod->update();
         }
 
-        // Add To Gallery If any
+        $associatedProducts = $prod->associatedProducts()
+        ->where('association_type', AssociationType::Size)
+        ->get();
+
+        foreach ($associatedProducts as $associatedProduct) {
+            $associatedProduct->photo = $prod->photo;
+            $associatedProduct->thumbnail = $prod->thumbnail;
+            $associatedProduct->update();
+        }
+
+        // Add To Gallery If any    
         $lastid = $data->id;
         if ($files = $request->file('gallery')) {
             foreach ($files as  $key => $file) {
@@ -1027,7 +1036,6 @@ class ProductController extends Controller
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
         $currentStores = $data->stores()->pluck('id')->toArray();
-        $products = Product::where('id', '!=', $id)->select('id')->with('translations')->get();
         $associatedColors = $data->associatedProductsByColor->pluck('id')->toArray();
         $associatedSizes = $data->associatedProductsBySize->pluck('id')->toArray();
         $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $data->ref_code_int . '/');
@@ -1060,7 +1068,6 @@ class ProductController extends Controller
                 'storesList',
                 'currentStores',
                 'ftp_gallery',
-                'products',
                 'associatedColors',
                 'associatedSizes'
             ));
@@ -1241,6 +1248,19 @@ class ProductController extends Controller
         $data->associatedProducts()->detach();
         $data->associatedProducts()->attach($associated_colors, ['association_type' => AssociationType::Color]);
         $data->associatedProducts()->attach($associated_sizes, ['association_type' => AssociationType::Size]);
+
+        $associatedProducts = $data->associatedProducts()
+            ->where('association_type', AssociationType::Size)
+            ->get();
+
+        foreach ($associatedProducts as $associatedProduct) {
+            if ($data->photo != null) {
+                $associatedProduct->photo = $data->photo;
+                $associatedProduct->thumbnail = $data->thumbnail;
+            }
+            $associatedProduct->update();
+        }
+        
         $data->product_size = $request->input('product_size');
         
         if ($this->storeSettings->is_back_in_stock && $data->stock == 0 && $request->stock > 0) {

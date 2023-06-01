@@ -168,8 +168,8 @@ class FrontendController extends Controller
 
         $prepareProducts =  Product::byStore()->onlyFatherProducts();
 
-        if ($this->storeSettings->show_products_without_stock) {
-            $prepareProducts->whereRaw('(stock > 0 or stock is null)');
+        if (!$this->storeSettings->show_products_without_stock) {
+            $prepareProducts->withStock();
         }
 
         $prepareProducts->where('status', 1)
@@ -320,6 +320,7 @@ class FrontendController extends Controller
         }
         $prods = Product::byStore()
             ->isActive()
+            ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
             ->where(function ($query) use ($searchReverse, $search, $searchLocale) {
                 $query->where(function ($query) use ($search) {
                     $query->where('sku', 'like', "%{$search}%")

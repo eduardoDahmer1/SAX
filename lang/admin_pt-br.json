@@ -1987,5 +1987,8 @@
     "Zip Code": "C\u00f3digo Postal.",
     "ZIP Code End": "Final do CEP",
     "ZIP Code Start": "In\u00edcio do CEP",
-    "{$title}": "{$title}"
+    "{$title}": "{$title}",
+    "Look for the product":"Procure o produto",
+    "Products name":"Nome do produto",
+    "Enter the name of the product you want to associate":"Introduza o nome do produto que pretende associar"
 }
