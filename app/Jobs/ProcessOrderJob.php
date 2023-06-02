@@ -45,7 +45,7 @@ class ProcessOrderJob implements ShouldQueue
         }
 
         if ($response->failed()) {
-            throw new Exception('Erro na API Consoft: ' . $httpError->getMessage());
+            Log::debug('Erro na API Consoft');
         }
 
         if ($response->successful()) {
