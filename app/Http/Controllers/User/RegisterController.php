@@ -51,7 +51,8 @@ class RegisterController extends Controller
 	        $token = md5(time().$request->name.$request->email);
 	        $input['verification_link'] = $token;
 	        $input['affilate_code'] = md5($request->name.$request->email);
-
+		$user->birth_date = $input['birthday'];
+			
 	          if(!empty($request->vendor))
 	          {
 					//--- Validation Section
