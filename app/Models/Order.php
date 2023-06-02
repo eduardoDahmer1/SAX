@@ -57,11 +57,15 @@ class Order extends CachedModel
         'pay42_exchange_rate',
         'pay42_billet',
         'puntoentrega',
-        'puntoid'
+        'puntoid',
+        'order_number_cec',
+        'billing',
     ];
     protected $dispatchesEvents = [
         'created' => OrderObserver::class,
+        'updated' => OrderObserver::class,
     ];
+    
     protected $casts = [
         'cart' => 'array'
     ];
