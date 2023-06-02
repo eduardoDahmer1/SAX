@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use App\Helpers\Helper;
 use App\Models\CartAbandonment;
+use Illuminate\Database\Eloquent\Builder;
 
 class CheckoutController extends Controller
 {
@@ -96,11 +97,15 @@ class CheckoutController extends Controller
         }
         $first_curr = Currency::where('id', '=', 1)->first();
         $gateways =  PaymentGateway::where('status', '=', 1)->get();
-        $pickups = Pickup::all();
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
-        // Shipping Method
+        // dd($products);
+        // Shipping Method       
+        $pickups = Pickup::whereHas('products', function (Builder $query) {
+            $query->where('stock', ">", 0);
+        })->get();
+        
         if ($this->storeSettings->multiple_shipping == 1) {
             $user = null;
             foreach ($cart->items as $prod) {

@@ -23,4 +23,9 @@ class Pickup extends LocalizedModel
             ->logFillable()
             ->logOnlyDirty();
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }
