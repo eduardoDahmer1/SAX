@@ -40,21 +40,21 @@ class ProcessOrderJob implements ShouldQueue
 
         try {
             $response = Http::withoutVerifying()->post($this->url);
-        } catch (Exception $httpError) {
-            Log::debug('Erro ao tentar enviar para API Consoft: ' . $httpError->getMessage());
-        }
 
-        if ($response->failed()) {
-            Log::debug('Erro na API Consoft');
-        }
-
-        if ($response->successful()) {
-            foreach ($response->collect() as $data) {
-                if (isset($data['ped']) && $data['ped']) {
-                    $this->order->number_cec = $data['ped'];
-                    $this->order->update();
+            if ($response->failed()) {
+                Log::debug('Erro na API Consoft');
+            }
+    
+            if ($response->successful()) {
+                foreach ($response->collect() as $data) {
+                    if (isset($data['ped']) && $data['ped']) {
+                        $this->order->number_cec = $data['ped'];
+                        $this->order->update();
+                    }
                 }
             }
+        } catch (Exception $httpError) {
+            Log::debug('Erro ao tentar enviar para API Consoft: ' . $httpError->getMessage());
         }
     }
 }
