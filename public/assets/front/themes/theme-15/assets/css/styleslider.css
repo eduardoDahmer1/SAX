@@ -99,14 +99,9 @@
 
 .main-slider .slick-dots {
 	position: absolute;
-	right: -35px;
-	top: 50%;
-	font-size: 20px;
-	line-height: 22px;
-	margin: -14px 0 0;
-	-webkit-transform: rotate(90deg);
-	-ms-transform: rotate(90deg);
-	transform: rotate(90deg);
+	right: 15px;
+	display: flex !important;
+	flex-direction: column;
 }
 
 /*------------------------------------------------------------------
@@ -203,16 +198,11 @@
 23. Slick Dots / .slick-dots
 -------------------------------------------------------------------*/
 
-.slick-dots {
-	font-size: 0;
-}
-
 .slick-dots li {
 	display: inline-block;
 	vertical-align: middle;
-	margin: 0 40px 0 0;
 	font-size: 24px;
-	line-height: 26px;
+	margin: 10px 0;
 	color: #838282;
 }
 
@@ -223,6 +213,7 @@
 	-webkit-transition: all .25s linear;
 	transition: all .25s linear;
 	color: #838282;
+	transform: rotate(90deg);
 }
 
 .slick-dots li button:before {
@@ -233,7 +224,7 @@
 }
 
 .slick-dots .slick-active {
-	margin: 0 25px 0 0;
+	margin: 20px 0 ;
 	-webkit-transform: scale(2, 2);
 	-ms-transform: scale(2, 2);
 	transform: scale(2, 2);
@@ -355,6 +346,10 @@
 
 @media (min-width: 768px) {
 
+	.slick-dots li {
+		margin: 20px 0;
+	}
+
 	.social-network {
 		left: 36px;
 		position: absolute;
@@ -392,13 +387,6 @@
 	.main-slider .beans-slider .img-holder {
 		width: 700px;
 		margin: -159px auto 0;
-	}
-
-	.main-slider .slick-dots {
-		font-size: 24px;
-		line-height: 26px;
-		margin: -64px 0 0;
-		right: 0;
 	}
 
 	.slider-heading {
@@ -461,3 +449,36 @@
 	.slider-sec .slick-slider .slick-next.slick-arrow { right: 38%; }
 }
 
+
+.slick-dots li button {
+    font-size: 22px;
+    line-height: normal;
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 0;
+}
+
+.slick-dots li.slick-active button {
+    color: #333;
+}
+
+.slick-dots li button::before {
+    font-family: 'slick';
+    font-size: 23px;
+    line-height: normal;
+    color: #838282;
+    opacity: 1;
+}
+
+.slick-dots li.slick-active button::before {
+    opacity: 1;
+    color: #333;
+}
+
+
+@media (max-width:576px) {
+	.slick-dots li button, .slick-dots li button::before  {
+		font-size: 18px;
+	}
+}

@@ -40,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-4 order-3 order-lg-2 d-flex justify-content-center">
+                <div class="col-lg-8 col-4 order-3 order-lg-2 d-flex justify-content-center p-0">
                     <div class="logo">
                         <a href="{{ route('front.index') }}">
                             <img src="{{ $gs->logoUrl }}" alt="">
@@ -188,7 +188,7 @@
                             </li>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/bridal-word">
+                                <a  class="navlink" href="https://saxdepartment.com/bridal-world">
                                     {{ __('Sax Bridal World') }}
                                 </a>
                             </li>

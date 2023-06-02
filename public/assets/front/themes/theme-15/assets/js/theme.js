@@ -404,7 +404,7 @@ $(function ($) {
             margin: 0,
             loop: true,
             dots: true,
-            nav: true,
+            nav: false,
             center: false,
             autoplayHoverPause: true,
             navText:["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],

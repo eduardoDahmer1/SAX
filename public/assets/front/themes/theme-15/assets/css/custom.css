@@ -26,32 +26,6 @@
     border: none !important;
 }
 
-.slick-dots li button {
-    font-size: 22px;
-    line-height: normal;
-    display: block;
-    width: auto;
-    height: auto;
-    padding: 0;
-}
-
-.slick-dots li.slick-active button {
-    color: #333;
-}
-
-.slick-dots li button::before {
-    font-family: 'slick';
-    font-size: 23px;
-    line-height: normal;
-    color: #838282;
-    opacity: 1;
-}
-
-.slick-dots li.slick-active button::before {
-    opacity: 1;
-    color: #333;
-}
-
 .saxnavigation {
     background-color: #fff;
     position: relative;
@@ -283,6 +257,10 @@
         display: block;
     }
 
+    .saxnavigation .menu-navigation li .navlink:hover {
+        text-decoration: underline;
+    }
+
     .saxnavigation .menu-navigation {
         position: relative;
     }
@@ -306,6 +284,7 @@
         text-transform: uppercase;
         font-size: 18px;
         letter-spacing: 1px;
+        padding: 5px 15px;
     }
 
     .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open {
@@ -313,18 +292,17 @@
     }
 
     .saxnavigation .menu-navigation .submenu-cat .subcat-link .boxsubcat {
-        width: 0;
+        width: 100%;
+        position: absolute !important;
     }
 
     .saxnavigation .menu-navigation .submenu-cat .subcat-link.subcat_open .boxsubcat {
-        position: absolute;
         height: auto;
         z-index: 9;
         top: 100%;
         background-color: #fff;
         padding: 10px ;
         left: 0;
-        width: 100%;
         border-bottom: none;
         box-shadow: 0 3px 5px #cccccc8f;
         border-top: 1px solid #ececec;
@@ -353,6 +331,7 @@
 @media only screen and (max-width: 991px) {
     .item .info .name {
         font-size: 16px !important;
+        line-height: normal !important;
       }
       .boxsubcat a:nth-child(4), .boxsubcat a:nth-child(5), .boxsubcat a:nth-child(6) {
         display: none;
@@ -376,7 +355,7 @@
 .boxassociatedProductSize label {
     padding: 4px 8px;
     border: 1px solid #aeaeae;
-    margin: 0 3px;
+    margin: 3px;
     transition: all .3s;
     cursor: pointer;
 }
@@ -390,4 +369,13 @@
     background-color: #333;
     border: 1px solid #333;
     transition: all .3s;
+}
+
+@media (max-width: 767px) {
+    .logo-header {
+        padding: 0;
+    }
+    .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart {
+        margin-right: 5px;
+    }
 }
