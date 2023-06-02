@@ -100,10 +100,9 @@ class CheckoutController extends Controller
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
-        // dd($products);
-        // Shipping Method       
+        // Shipping Method      
         $pickups = Pickup::whereHas('products', function (Builder $query) {
-            $query->where('stock', ">", 0);
+            $query->where('pickup_product.stock', ">", 0);
         })->get();
         
         if ($this->storeSettings->multiple_shipping == 1) {
