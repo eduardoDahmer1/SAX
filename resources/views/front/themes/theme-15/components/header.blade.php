@@ -2,7 +2,7 @@
 <div class="menufixed">
     <section class="logo-header">
         <div class="container">
-            <div class="row justify-content-between align-items-center align-items-lg-end py-lg-3" style="position: relative;">
+            <div class="row justify-content-between align-items-center align-items-lg-end" style="position: relative;">
 
                 <div class="col-lg-2 col-2 order-2 order-lg-1" style="position: static;">
                     <div class="button-open-search">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-4 order-3 order-lg-2 d-flex justify-content-center">
+                <div class="col-lg-8 col-4 order-3 order-lg-2 d-flex justify-content-center p-0">
                     <div class="logo">
                         <a href="{{ route('front.index') }}">
                             <img src="{{ $gs->logoUrl }}" alt="">
@@ -188,7 +188,7 @@
                             </li>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/bridal-word">
+                                <a  class="navlink" href="https://saxdepartment.com/bridal-world">
                                     {{ __('Sax Bridal World') }}
                                 </a>
                             </li>

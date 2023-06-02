@@ -1075,3 +1075,7 @@ color: #fff;
 #product-details-tab #comment-area .all-comment li .single-comment {
     border: 1px solid <?php echo $theme_color_2; ?>63;
 }
+
+.saxnavigation .menu-navigation li .navlink:hover {
+    color: <?php echo $theme_color_2; ?>;
+}

@@ -160,7 +160,13 @@
                 <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannermeio.png') }}" alt="Banner Bottom">
             </div>
             <div class="col-md-8 py-1 remove-padding">
-                <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannermeio2.png') }}" alt="Banner Bottom">
+                <div class="w-100 h-100" 
+                    style="
+                    background-image:url({{ asset('assets/front/themes/theme-15/assets/images/bannermeio2.png') }});
+                    background-size:cover;
+                    background-position:center;
+                    min-height:20vh">
+                </div>
             </div>
         @endif
     @endforeach
@@ -173,7 +179,7 @@
     @include('front.themes.shared.components.no-prod-found')
 @endif
 
-<div class="col-12 py-1 remove-padding">
+<div class="col-12 mt-2 pt-4 remove-padding">
     <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannerbottom.png') }}" alt="Banner Bottom">
 </div>
 
