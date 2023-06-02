@@ -41,21 +41,21 @@ class OrderBilling implements ShouldQueue
     {
         try {
             $response = Http::withoutVerifying()->post($this->url);
-        } catch (Exception $httpError) {
-            Log::debug('Erro ao tentar enviar para API Consoft: ' . $httpError->getMessage());
-        }
 
-        if ($response->failed()) {
-            Log::debug('Erro na API Consoft');
-        }
-
-        if ($response->successful()) {
-            foreach ($response->collect() as $data) {
-                if ($data['estatus'] == 0) {
-                    $this->order->billing = 1;
-                    $this->order->update();
+            if ($response->failed()) {
+                Log::debug('Erro na API Consoft');
+            }
+    
+            if ($response->successful()) {
+                foreach ($response->collect() as $data) {
+                    if ($data['estatus'] == 0) {
+                        $this->order->billing = 1;
+                        $this->order->update();
+                    }
                 }
             }
+        } catch (Exception $httpError) {
+            Log::debug('Erro ao tentar enviar para API Consoft: ' . $httpError->getMessage());
         }
     }
 }
