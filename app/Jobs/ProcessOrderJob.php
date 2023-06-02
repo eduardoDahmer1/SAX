@@ -12,11 +12,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class ProcessOrderJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $url, $order;
+
     /**
      * Create a new job instance.
      *
@@ -41,8 +43,7 @@ class ProcessOrderJob implements ShouldQueue
         }
 
         if ($response->successful()) {
-            $request = $response->collect();
-            foreach ($request as $data) {
+            foreach ($response->collect() as $data) {
                 if (isset($data['ped']) && $data['ped']) {
                     $this->order->number_cec = $data['ped'];
                     $this->order->update();

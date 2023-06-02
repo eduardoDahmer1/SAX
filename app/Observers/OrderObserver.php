@@ -41,19 +41,18 @@ class OrderObserver
             }
         }
 
-        if (env('ENABLE_ORDER')) {
-            if ($order->payment_status === 'Completed') {
-                $parameters = [
-                    'cod' => env('ORDER_COD'),
-                    'pas' => env('ORDER_PASSWORD'),
-                    'ope' => 15,
-                    'ped' => $order->order_number,
-                    'pdc' => $order->number_cec,
-                ];
 
-                $url = 'https://saxpy.dyndns.org:444/EcommerceApi/production.php?' . http_build_query($parameters);
-                OrderBilling::dispatch($url, $order);
-            }
+        if (env('ENABLE_ORDER') && $order->payment_status === 'Completed') {
+            $parameters = [
+                'cod' => env('ORDER_COD'),
+                'pas' => env('ORDER_PASSWORD'),
+                'ope' => 15,
+                'ped' => $order->order_number,
+                'pdc' => $order->number_cec,
+            ];
+
+            $url = 'https://saxpy.dyndns.org:444/EcommerceApi/production.php?' . http_build_query($parameters);
+            OrderBilling::dispatch($url, $order);
         }
          
     }

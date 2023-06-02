@@ -42,9 +42,8 @@ class EventServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {   
         parent::boot();
-            Brand::observe(BrandObserver::class);
-            Order::observe(OrderObserver::class);
+        Brand::observe(BrandObserver::class);
     }
 }
