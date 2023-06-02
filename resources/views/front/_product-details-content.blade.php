@@ -201,7 +201,7 @@
 <script>
 
     const verifyStockProdChecked = () => {
-        const valueStock = $("[name='associatedProductsBySize']:checked").attr('data-product-stock')
+        const valueStock = $("[name='associatedProductsBySize']:checked").attr('data-product-stock')?? {{$productt->stock}}
 
         if(valueStock > 3) {
             $('#rest_of').html(`{{ __("In Stock") }}: ${valueStock}`)

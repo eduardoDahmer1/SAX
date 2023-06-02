@@ -187,7 +187,7 @@
                 <div class="col-lg-12">
                     <p class="text-center m-0">
                         <small class="text-white">
-                            COPYRIGHT {{ $gs->title }} © {{ date('Y') }}.
+                            {{ $gs->title }} © {{ date('Y') }}.
                         {{ $gs->company_document ? '| ' . $gs->document_name . ' - ' . $gs->company_document . ' |' : '' }}
                         {{ __('All Rights Reserved') }}.
                         </small>
