@@ -78,6 +78,11 @@ class Order extends CachedModel
             ->logOnlyDirty();
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
     public function vendororders()
     {
         return $this->hasMany('App\Models\VendorOrder');

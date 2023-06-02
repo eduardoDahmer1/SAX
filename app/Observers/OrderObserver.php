@@ -56,13 +56,14 @@ class OrderObserver
         }
          
     }
-    
+
     public function created(Order $order)
     {
         if (env('ENABLE_ORDER')) {
             $data = $order->cart;
             $skus = [];
             $price = [];
+            
 
             if (isset($data['items'])) {
                 foreach ($data['items'] as $item) {
@@ -87,8 +88,8 @@ class OrderObserver
                 'pgt' => 1,
                 'nom' => $order->customer_name,
                 'eml' => $order->customer_email,
-                'nas' => 3,
-                'sex' => 'M',
+                'nas' => $order->user->birth_date,
+                'sex' => $order->user->gender,
                 'doc' => $order->customer_document,
                 'fn1' => $order->customer_phone,
                 'fn2' => '',
