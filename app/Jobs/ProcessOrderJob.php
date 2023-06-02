@@ -37,9 +37,15 @@ class ProcessOrderJob implements ShouldQueue
      */
     public function handle()
     {
-        $response = Http::withoutVerifying()->post($this->url);
-        if (!$response->successful()) {
-            throw new Exception('Erro na requisição');
+
+        try {
+            $response = Http::withoutVerifying()->post($this->url);
+        } catch (Exception $httpError) {
+            Log::debug('Erro ao tentar enviar para API Consoft: ' . $httpError->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new Exception('Erro na API Consoft: ' . $httpError->getMessage());
         }
 
         if ($response->successful()) {
