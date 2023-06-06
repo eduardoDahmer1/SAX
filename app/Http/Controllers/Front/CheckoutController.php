@@ -101,19 +101,22 @@ class CheckoutController extends Controller
         $cart = new Cart($oldCart);
         $products = $cart->items;
 
-        //pega o id de todos os produtos do carrinho
+        //Pega o id de todos os produtos do carrinho
         foreach ($products as $data) {
             $productsId[] = $data['item']->id;
+            $productsQty[] = $data['qty'];
         }
 
-        $pickups = Pickup::whereHas('products', function (Builder $query) use ($productsId) {
-            // foreach(){
+        //busca os locais de retirada com as condicoes.
+        $pickups = Pickup::whereHas('products', function (Builder $query) use ($productsId, $productsQty) {
+            $query->whereIn('product_id', $productsId)->where('pickup_product.stock', ">", 0);
+            $conditions = [];
+            foreach ($productsId as $key => $productId) {
+                $conditions[] = "SUM(CASE WHEN product_id = {$productId} THEN pickup_product.stock >= {$productsQty[$key]} ELSE 0 END)";
+            }
+            $query->havingRaw(implode(' + ', $conditions) . ' = ' . count($productsId));
+        })->get();
 
-            // }
-            $query->whereIn('product_id', $productsId);
-            $query->where('pickup_product.stock', ">", 0);
-        })->dd();
-    
         if ($this->storeSettings->multiple_shipping == 1) {
             $user = null;
             foreach ($cart->items as $prod) {
