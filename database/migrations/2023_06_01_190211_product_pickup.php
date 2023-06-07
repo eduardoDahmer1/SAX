@@ -31,8 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropColumns('product_id');
-        Schema::dropColumns('pickup_id');
-        Schema::dropColumns('stock');
+        Schema::dropIfExists('pickup_product');
     }
 };
