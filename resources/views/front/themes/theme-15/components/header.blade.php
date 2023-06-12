@@ -176,19 +176,19 @@
                             </div>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/">
+                                <a  class="navlink" target="_blank" href="https://saxdepartment.com/">
                                     {{ __('Institutional') }}
                                 </a>
                             </li>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/sax-palace">
+                                <a  class="navlink" target="_blank"  href="https://saxdepartment.com/sax-palace">
                                     {{ __('Sax Palace') }}
                                 </a>
                             </li>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/bridal-world">
+                                <a  class="navlink" target="_blank"  href="https://saxdepartment.com/bridal-world">
                                     {{ __('Sax Bridal World') }}
                                 </a>
                             </li>
