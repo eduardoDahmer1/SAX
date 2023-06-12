@@ -1079,3 +1079,7 @@ color: #fff;
 .saxnavigation .menu-navigation li .navlink:hover {
     color: <?php echo $theme_color_2; ?>;
 }
+
+.saxnavigation .submenu-cat .subcat-link:hover .categoryLink {
+    color: <?php echo $theme_color_2; ?>;
+}

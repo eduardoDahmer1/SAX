@@ -152,7 +152,7 @@
                                 <ul>
                                     @foreach ($nav_categories->sortBy('presentation_position')->take(6) as $category)
                                         <li class="subcat-link">
-                                            <div>{{ $category->name }}</div>
+                                            <a class="categoryLink" href={{ route('front.category', $category->slug )}}>{{ $category->name }}</a>
                                             <div class="boxsubcat">
                                                 <div class="d-flex justify-content-center">
                                                     @foreach ($category->products as $product)
@@ -510,6 +510,12 @@
             document.querySelector('.menu-navigation').classList.toggle('drop_open')
         })        
 
+    } else {
+        document.querySelectorAll('.categoryLink').forEach( element => {
+            element.addEventListener('click', event => {
+                event.preventDefault();
+            })
+        })
     }
 
 </script>
