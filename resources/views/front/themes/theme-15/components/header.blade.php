@@ -152,7 +152,7 @@
                                 <ul>
                                     @foreach ($nav_categories->sortBy('presentation_position')->take(6) as $category)
                                         <li class="subcat-link">
-                                            <div>{{ $category->name }}</div>
+                                            <a class="categoryLink" href={{ route('front.category', $category->slug )}}>{{ $category->name }}</a>
                                             <div class="boxsubcat">
                                                 <div class="d-flex justify-content-center">
                                                     @foreach ($category->products as $product)
@@ -176,19 +176,19 @@
                             </div>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/">
+                                <a  class="navlink" target="_blank" href="https://saxdepartment.com/">
                                     {{ __('Institutional') }}
                                 </a>
                             </li>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/sax-palace">
+                                <a  class="navlink" target="_blank"  href="https://saxdepartment.com/sax-palace">
                                     {{ __('Sax Palace') }}
                                 </a>
                             </li>
                 
                             <li>
-                                <a  class="navlink" href="https://saxdepartment.com/bridal-world">
+                                <a  class="navlink" target="_blank"  href="https://saxdepartment.com/bridal-world">
                                     {{ __('Sax Bridal World') }}
                                 </a>
                             </li>
@@ -510,6 +510,12 @@
             document.querySelector('.menu-navigation').classList.toggle('drop_open')
         })        
 
+    } else {
+        document.querySelectorAll('.categoryLink').forEach( element => {
+            element.addEventListener('click', event => {
+                event.preventDefault();
+            })
+        })
     }
 
 </script>
