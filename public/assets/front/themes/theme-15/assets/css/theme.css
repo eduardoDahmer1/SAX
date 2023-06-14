@@ -2468,6 +2468,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .product-details-page .right-area .product-info .product-color .color-list li .box {
     border-radius: 0;
+    border: 1px solid #aeaeae;
 }
 
 .product-details-page .right-area .product-info .product-color .color-list li {
