@@ -179,7 +179,7 @@
                                                         <select class="form-control" name="pickup_location"
                                                             style="margin-bottom: 10px;">
                                                             @foreach ($pickups as $pickup)
-                                                                <option value="{{ $pickup->location }}">
+                                                                <option value="{{ $pickup->location }}|{{ $pickup->id }}">
                                                                     {{ $pickup->location }}
                                                                 </option>
                                                             @endforeach
@@ -466,7 +466,7 @@
                                                     <select class="form-control" name="pickup_location"
                                                         style="margin-bottom: 10px;">
                                                         @foreach ($pickups as $pickup)
-                                                            <option value="{{ $pickup->location }}">
+                                                            <option value="{{ $pickup->location }}|{{ $pickup->id }}">
                                                                 {{ $pickup->location }}
                                                             </option>
                                                         @endforeach

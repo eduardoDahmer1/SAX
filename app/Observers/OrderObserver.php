@@ -6,6 +6,8 @@ use App\Jobs\ProcessOrderJob;
 use App\Mail\RedplayLicenseMail;
 use App\Models\License;
 use App\Models\Order;
+use App\Models\Pickup;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -43,8 +45,21 @@ class OrderObserver
     
     public function created(Order $order)
     {
+        if ($order->shipping == "pickup") {
+            if ($order->store_id) {
+                $data = $order->cart;
+                foreach ($data['items'] as $item) {
+                    $qtdProd[] = $item['qty'];
+                    $productId[] = $item['item']['id'];
+                }
+                foreach ($qtdProd as $index => $qtd) {
+                    DB::table('pickup_product')->where('product_id', $productId[$index])->where('pickup_id', $order->store_id)->decrement('stock', $qtd);
+                }
+            }
+        }
+
         if (env('ENABLE_ORDER')) {
-            $data = $order->cart;
+            
             $skus = [];
             $price = [];
 
