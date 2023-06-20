@@ -83,6 +83,7 @@
                     <span><strong>{{ __('Order Date') }} :</strong>
                         {{ date('d-M-Y', strtotime($order->created_at)) }}</span><br>
                     <span><strong>{{ __('Order ID') }} :</strong> {{ $order->order_number }}</span><br>
+                    <span><strong> {{__('CEC Number')}} :</strong> {{$order->number_cec}}</span><br>
                     @if ($order->dp == 0)
                         <span> <strong>{{ __('Shipping Method') }} :</strong>
                             @if ($order->shipping == 'pickup')

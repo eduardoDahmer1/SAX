@@ -58,11 +58,15 @@ class Order extends CachedModel
         'pay42_exchange_rate',
         'pay42_billet',
         'puntoentrega',
-        'puntoid'
+        'puntoid',
+        'order_number_cec',
+        'billing',
     ];
     protected $dispatchesEvents = [
         'created' => OrderObserver::class,
+        'updated' => OrderObserver::class,
     ];
+    
     protected $casts = [
         'cart' => 'array'
     ];
@@ -75,6 +79,11 @@ class Order extends CachedModel
             ->logOnlyDirty();
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
     public function vendororders()
     {
         return $this->hasMany('App\Models\VendorOrder');

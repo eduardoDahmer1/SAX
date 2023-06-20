@@ -18,6 +18,8 @@ class CallbackPagoparPost extends FormRequest
         return [
             "resultado" => "required|array",
             "resultado.0.pagado" => "required|boolean",
+            "resultado.0.numero_comprobante_interno" => "nullable",
+            "resultado.0.ultimo_mensaje_error" => "nullable",
             "resultado.0.forma_pago" => "required|string",
             "resultado.0.fecha_pago" => "nullable",
             "resultado.0.monto" => "required|string",

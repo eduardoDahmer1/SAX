@@ -404,7 +404,7 @@ $(function ($) {
             margin: 0,
             loop: true,
             dots: true,
-            nav: true,
+            nav: false,
             center: false,
             autoplayHoverPause: true,
             navText:["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
@@ -643,10 +643,10 @@ $(function ($) {
             }
         } else {
             if ($window.scrollTop() > 190) {
-                $(".mainmenu-area").addClass('nav-fixed');
+                $(".menufixed").addClass('nav-fixed');
 
             } else {
-                $(".mainmenu-area").removeClass('nav-fixed');
+                $(".menufixed").removeClass('nav-fixed');
             }
         }
 

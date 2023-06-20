@@ -15,7 +15,7 @@
                             {!! $gs->footer !!}
                         </p>
                     </div>
-                    <h4 class="title mb-1">
+                    {{-- <h4 class="title mb-1">
                         {{ __('Opening hours') }}
                     </h4>
                     <div class="text m-0">
@@ -24,7 +24,7 @@
                             {{ __('Saturday - 8h / 12h') }} <br>
                             {{ __('Sunday - Closed') }}
                         </p>
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>
@@ -187,7 +187,7 @@
                 <div class="col-lg-12">
                     <p class="text-center m-0">
                         <small class="text-white">
-                            COPYRIGHT {{ $gs->title }} © {{ date('Y') }}.
+                            {{ $gs->title }} © {{ date('Y') }}.
                         {{ $gs->company_document ? '| ' . $gs->document_name . ' - ' . $gs->company_document . ' |' : '' }}
                         {{ __('All Rights Reserved') }}.
                         </small>

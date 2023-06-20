@@ -28,7 +28,7 @@
 
             @if ($socials->i_status == 1)
             <li class="instagram">
-                <a href="{{ $socials->twitter }}">
+                <a href="{{ $socials->instagram }}">
                     <i class="fab fa-instagram"></i>
                 </a>
             </li>

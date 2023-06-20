@@ -54,6 +54,7 @@ class User extends Authenticatable implements TranslatableContract
         'l_check',
         'shipping_cost',
         'date',
+        'birth_date',
         'mail_sent',
         'document',
         'city_id',
@@ -67,7 +68,8 @@ class User extends Authenticatable implements TranslatableContract
         'vendor_delivery_info',
         'vendor_map_embed',
         'shop_details',
-        'is_vendor_verified'
+        'is_vendor_verified',
+        'gender'
     ];
 
 

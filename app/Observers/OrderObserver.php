@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Jobs\ProcessOrderJob;
+use App\Jobs\OrderBilling;
 use App\Mail\RedplayLicenseMail;
 use App\Models\License;
 use App\Models\Order;
@@ -41,8 +42,23 @@ class OrderObserver
                 }
             }
         }
+
+
+        if (env('ENABLE_ORDER') && $order->payment_status === 'Completed') {
+            $parameters = [
+                'cod' => env('ORDER_COD'),
+                'pas' => env('ORDER_PASSWORD'),
+                'ope' => 15,
+                'ped' => $order->order_number,
+                'pdc' => $order->number_cec,
+            ];
+
+            $url = 'https://saxpy.dyndns.org:444/EcommerceApi/production.php?' . http_build_query($parameters);
+            OrderBilling::dispatch($url, $order);
+        }
+         
     }
-    
+
     public function created(Order $order)
     {
         if ($order->shipping == "pickup") {
@@ -62,6 +78,7 @@ class OrderObserver
             
             $skus = [];
             $price = [];
+            
 
             if (isset($data['items'])) {
                 foreach ($data['items'] as $item) {
@@ -86,8 +103,8 @@ class OrderObserver
                 'pgt' => 1,
                 'nom' => $order->customer_name,
                 'eml' => $order->customer_email,
-                'nas' => 3,
-                'sex' => 'M',
+                'nas' => $order->user->birth_date,
+                'sex' => $order->user->gender,
                 'doc' => $order->customer_document,
                 'fn1' => $order->customer_phone,
                 'fn2' => '',
@@ -105,7 +122,8 @@ class OrderObserver
 
             ];
             $url = 'https://saxpy.dyndns.org:444/EcommerceApi/production.php?' . http_build_query($parameters);
-            ProcessOrderJob::dispatch($url);
+            ProcessOrderJob::dispatch($url, $order);
+            
         }
     }
 }

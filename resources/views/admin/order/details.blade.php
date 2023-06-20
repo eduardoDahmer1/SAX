@@ -139,6 +139,24 @@
                                                 __('Paid') .
                                                 '</span>' !!}</td>
                                     </tr>
+
+                                    <tr>
+                                        <th width="45%">{{__('Billing')}}</th>
+                                        <th width="10%">:</th>
+                                        <td width="45%">
+                                            <span>{{$order->billing ? __('Yes') : __('No')}}</span>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th width="45%">{{__('CEC Number')}}</th>
+                                        <th width="10%">:</th>
+                                        <td width="45%">
+                                            <span>{{$order->number_cec}}</span>
+                                        </td>
+                                    </tr>
+
                                     @if (!empty($order->order_note))
                                         <tr>
                                             <th width="45%">{{ __('Order Note') }}</th>

@@ -358,7 +358,7 @@ a {
 }
 
 .item .info .name {
-    height: 52px;
+    height: auto;
     font-weight: 300;
     line-height: normal;
     margin-bottom: 10px;
@@ -367,7 +367,7 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
@@ -435,13 +435,6 @@ a {
 
 .footer .footer-info-area .footer-logo {
     text-align: center;
-}
-
-@media (min-width:768px){
-    .info-link-widget {
-        justify-content: start;
-        align-items: start;
-    }
 }
 
 .info-link-widget {
@@ -755,7 +748,7 @@ a {
 }
 
 .partners {
-    padding: 3rem 0;
+    padding: 0;
 }
 
 .radio-design label {
@@ -1794,6 +1787,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .slick-dotted.slick-slider {
     margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 .logo-header .helpful-links .icons-header {
@@ -1900,28 +1895,9 @@ h1, h2, h3, h4, h5, h6 {
     padding: 10px 0;
 }
 
-.menufixed .logo-header {
-    padding: 10px 0;
-    background-color: #fff;
-}
-
-@media (min-width: 768px){
-    .menufixed .logo-header {
-        padding: 0;
-    }
-}
-
-.nav-fixed .logo-header {
-    padding: 10px 0;
-}
-
 @media (max-width: 768px){
     .logo-header .helpful-links {
         margin: 1.5rem 0;
-    }
-
-    .logo-header {
-        padding: 0;
     }
 }
 
@@ -2362,6 +2338,7 @@ h1, h2, h3, h4, h5, h6 {
         opacity: 1;
         background-color: #fff9;
         border-radius: 10px;
+        display: none;
     }
 
 }
@@ -2491,6 +2468,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .product-details-page .right-area .product-info .product-color .color-list li .box {
     border-radius: 0;
+    border: 1px solid #aeaeae;
 }
 
 .product-details-page .right-area .product-info .product-color .color-list li {
@@ -2668,4 +2646,23 @@ h1, h2, h3, h4, h5, h6 {
 
 #services-carousel .owl-dots {
     display: none !important;
+}
+
+@media (min-width:768px){
+    .info-link-widget {
+        justify-content: start;
+        align-items: start;
+    }
+    .nav-fixed .logo-header {
+        padding: 10px 0;
+    }
+}
+
+.logo-header {
+    background-color: #fff;
+}
+
+#agcrow {
+    color: #fff;
+    font-weight: 600;
 }

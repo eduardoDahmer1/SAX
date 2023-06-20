@@ -5,19 +5,22 @@ namespace App\Jobs;
 use App\Models\Order;
 use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
-class ProcessOrderJob implements ShouldQueue
+class OrderBilling implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     protected $url, $order;
+
+    public $failOnTimeout = true;
+    public $tries = 3;
 
     /**
      * Create a new job instance.
@@ -29,7 +32,6 @@ class ProcessOrderJob implements ShouldQueue
         $this->url = $url;
         $this->order = $order;
     }
-
     /**
      * Execute the job.
      *
@@ -37,7 +39,6 @@ class ProcessOrderJob implements ShouldQueue
      */
     public function handle()
     {
-
         try {
             $response = Http::withoutVerifying()->post($this->url);
 
@@ -47,8 +48,8 @@ class ProcessOrderJob implements ShouldQueue
     
             if ($response->successful()) {
                 foreach ($response->collect() as $data) {
-                    if (isset($data['ped']) && $data['ped']) {
-                        $this->order->number_cec = $data['ped'];
+                    if ($data['estatus'] == 0) {
+                        $this->order->billing = 1;
                         $this->order->update();
                     }
                 }
