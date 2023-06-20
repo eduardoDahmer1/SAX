@@ -152,7 +152,7 @@
                                 <ul>
                                     @foreach ($nav_categories->sortBy('presentation_position')->take(6) as $category)
                                         <li class="subcat-link">
-                                            <a class="categoryLink" href={{ route('front.category', $category->slug )}}>{{ $category->name }}</a>
+                                            <a class="categoryLink text-uppercase" href={{ route('front.category', $category->slug )}}>{{ $category->name }}</a>
                                             <div class="boxsubcat">
                                                 <div class="d-flex justify-content-center">
                                                     @foreach ($category->products as $product)
