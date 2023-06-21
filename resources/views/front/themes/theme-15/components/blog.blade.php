@@ -11,18 +11,18 @@
                         <h5 data-aos="fade-in" data-aos-delay="100">{{__("Stay on top of all the news")}}</h5>
                     </div>
                     <div class="py-4">
-                        <div class="row">
+                        <div class="blog-carousel owl-theme">
                             @foreach ($extra_blogs->take(4) as $post)
-                                <div class="col-md-3 blog-box" data-aos="fade-in" data-aos-delay="{{ $loop->index }}00">
-                                    <img src="{{ $post->photo ? asset('storage/images/blogs/' . $post->photo) : asset('assets/images/noimage.png') }}"
-                                            class="img-fluid" alt="">
+                            <div class="item">
+                                <div class="blog-box" data-aos="fade-in" data-aos-delay="{{ $loop->index }}00">
+                                    <img class="img-fluid" src="{{ $post->photo ? asset('storage/images/blogs/' . $post->photo) : asset('assets/images/noimage.png') }}" alt="">
                                   
                                     <div class="box-infos">
                                         <p class="date-blog">
                                             <i class="fa fa-calendar-days"></i>
                                             {{$post->created_at->format('d M, Y')}}
                                         </p>
-
+    
                                         <a href='{{ route('front.blogshow', $post->id) }}'>
                                             <h4 class="blog-title">
                                                 {{ str($post->title)->limit(55,'...') }}
@@ -35,6 +35,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
                         </div>
                     </div>

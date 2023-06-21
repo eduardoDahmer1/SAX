@@ -785,6 +785,24 @@ $(function ($) {
         }
     });
 
+    // blog_slider
+    $('.blog-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:4,
+            }
+        }
+    })
+
     // flas_deal_slider
     var $slider_banners_excluse = $('.slider-banners-excluse');
 
@@ -802,6 +820,4 @@ $(function ($) {
         });
 
     }
-
-
 });
