@@ -41,6 +41,19 @@ class LanguagesTableSeeder extends Seeder
                 'extras_name' => NULL,
                 'rtl' => 0,
             ),
+            2 =>
+            array(
+                'id' => 9,
+                'is_default' => 0,
+                'language' => 'English',
+                'file' => 'en.json',
+                'locale' => 'en',
+                'file_extras' => NULL,
+                'extras_name' => NULL,
+                'rtl' => 0,
+            )
+    
+            
         ));
 
 
