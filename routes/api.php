@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\FedexController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +56,10 @@ Route::group([
 });
 
 Route::get('products', [ProductController::class, 'index'])->name('api.products.index');
+
+/* Fedex */
+Route::group([
+    'prefix' => 'fedex'
+], function () {
+    Route::get('auth', [FedexController::class, 'authorization'])->name('fedexauth');
+});

@@ -166,6 +166,29 @@
                                         </div>
                                     @endif
 
+                                    @if (config('features.fedex_shipping'))
+                                        <div class="col-lg-3">
+                                            <div class="input-form input-form-center">
+                                                <h4 class="heading">
+                                                    {{ __('Display Fedex') }}:
+                                                </h4>
+                                                <div class="action-list">
+                                                    <select
+                                                        class="process select droplinks {{ $admstore->is_fedex == 1 ? 'drop-success' : 'drop-danger' }}">
+                                                        <option data-val="1"
+                                                            value="{{ route('admin-gs-isfedex', 1) }}"
+                                                            {{ $admstore->is_fedex == 1 ? 'selected' : '' }}>
+                                                            {{ __('Yes') }}</option>
+                                                        <option data-val="0"
+                                                            value="{{ route('admin-gs-isfedex', 0) }}"
+                                                            {{ $admstore->is_fedex == 0 ? 'selected' : '' }}>
+                                                            {{ __('No') }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="col-lg-3">
                                         <div class="input-form input-form-center">
                                             <h4 class="heading">

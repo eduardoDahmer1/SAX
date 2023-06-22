@@ -170,6 +170,7 @@ class Generalsetting extends LocalizedModel
         'aex_numero_casa',
         'aex_telefono',
         'is_melhorenvio',
+        'is_fedex',
         'is_zip_validation',
         'company_document',
         'document_name',
@@ -255,6 +256,11 @@ class Generalsetting extends LocalizedModel
     public function melhorenvio()
     {
         return $this->belongsTo('App\Models\MelhorenvioConf', 'melhorenvio_id')->withDefault();
+    }
+
+    public function fedex()
+    {
+        return $this->belongsTo('App\Models\FedexConf', 'fedex_id')->withDefault();
     }
 
     public function getFaviconUrlAttribute()

@@ -68,6 +68,10 @@ class Kernel extends ConsoleKernel
             $schedule->command('regenerate:token')->cron('0 */4 * * *'); //Every four hours
         }
 
+        if (env("ENABLE_FEDEX_SHIPPING", false)) {
+            $schedule->command('regenerate:token-fedex')->cron('*/50 * * * *'); //Every 50 minutes
+        }
+
         $schedule->command('product:import')->hourly();
 
         $schedule->command('order:export')->hourly();
