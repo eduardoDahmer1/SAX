@@ -44535,7 +44535,6 @@ li#example_previous {
 .category-page .bg-white .sub-category-menu .parent-category li ul li a i {
   font-size: 13px;
   color: #888;
-  margin-right: 6px;
   -webkit-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
@@ -44543,10 +44542,35 @@ li#example_previous {
 
 .category-page .bg-white .sub-category-menu ul li ul li a {
   font-size: 14px;
-  line-height: 25px;
-  -webkit-transition: all 0.3s ease-in;
-  -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
+}
+
+@media (max-width: 992px) {
+  .category-page .bg-white .sub-category-menu .parent-category .p-c-title {
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .category-page .bg-white .sub-category-menu .parent-category li ul li {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .category-page .bg-white .sub-category-menu .parent-category .p-c-title {
+    max-width: 130px;
+  }
+  .category-page .bg-white .sub-category-menu .parent-category li ul li {
+    max-width: 130px;
+  }
+  .category-page .bg-white .sub-category-menu .parent-category>li {
+    flex: 50%;
+    max-width: 50%;
+  }
 }
 
 .category-page .bg-white .sub-category-menu ul li a {
@@ -45624,7 +45648,7 @@ input[type=checkbox]:checked:disabled+label:before {
   text-align: center;
   font-size: 14px;
   line-height: 35px;
-  margin: 0px 5px;
+  margin: 3px;
   transition: all .3s;
   display: inline-block;
   color: #000;

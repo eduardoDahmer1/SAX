@@ -25,6 +25,10 @@
 </div>
 <!-- Breadcrumb Area End -->
 
+<section>
+    <img src="{{ asset('assets/front/themes/theme-15/assets/images/Banner_Sax.png') }}" class="img-fluid w-100">
+</section>
+
 <!-- Wish List Area Start -->
 <section class="sub-categori wish-list">
     <div class="container">
@@ -53,10 +57,11 @@
                         <div class="single-wish">
                             <span class="remove wishlist-remove"
                                 data-href="{{ route('user-wishlist-remove', App\Models\Wishlist::where('user_id','=',$user->id)->where('product_id','=',$wishlist->id)->first()->id ) }}"><i
-                                    class="fas fa-times"></i></span>
+                                    class="fas fa-times"></i>
+                            </span>
                             <div class="left">
                                 <img src="{{ $wishlist->photo ? asset('storage/images/products/'.$wishlist->photo):asset('assets/images/noimage.png') }}"
-                                    alt="">
+                                alt="">
                             </div>
                             <div class="right">
                                 <h4 class="title">
@@ -64,7 +69,7 @@
                                         {{ $wishlist->name }}
                                     </a>
                                 </h4>
-
+    
                                 @if($gs->is_rating == 1)
                                 <ul class="stars">
                                     <div class="ratings">
@@ -97,7 +102,8 @@
                         <div class="single-wish">
                             <span class="remove wishlist-remove"
                                 data-href="{{ route('user-wishlist-remove',$wishlist->id) }}"><i
-                                    class="fas fa-times"></i></span>
+                                    class="fas fa-times"></i>
+                            </span>
                             <div class="left">
                                 <img src="{{filter_var($wishlist->product->photo, FILTER_VALIDATE_URL) ? $wishlist->product->photo :
 							asset('storage/images/products/'.$wishlist->product->photo)}}" alt="">
@@ -129,19 +135,18 @@
 
                 </div>
 
-                <div class="page-center category">
+                <div style="padding-bottom: 100px;" class="page-center category">
                     {{ $wishlists->appends(['sort' => $sort])->links() }}
                 </div>
-
 
             </div>
         </div>
         @else
-
-        <div class="page-center">
-            <h4 class="text-center">{{ __("No Product Found.") }}</h4>
-        </div>
-
+            <div class="page-center">
+                <h2>Oops! :(</h2>
+                <h4 class="text-center pt-3">{{ __("No Product Found.") }}</h4>
+            </div>
+            @include('front.themes.theme-15.components.best-sellers')
         @endif
 
     </div>

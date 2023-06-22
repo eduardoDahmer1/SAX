@@ -1648,6 +1648,10 @@ h1, h2, h3, h4, h5, h6 {
     top: 45%;
 }
 
+.blog-carousel .owl-controls {
+    opacity: 0;
+}
+
 .blog-area .owl-carousel .owl-controls .owl-nav .owl-prev {
     left: -25px;
 }
@@ -1940,6 +1944,10 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 120px;
     border: 2px solid #fff;
     margin: 0 0 10px;
+}
+
+.blog-area .blog-carousel .owl-item img {
+    max-width: 100%;
 }
 
 .partners .owl-carousel .owl-item img {

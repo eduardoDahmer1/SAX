@@ -21,9 +21,7 @@ class WishlistController extends Controller
         $qty = '';
         $sort = '';
         $user = Auth::guard('web')->user();
-
         // Search By Sort
-
         if(!empty($request->sort))
         {
         $sort = $request->sort;
@@ -53,14 +51,16 @@ class WishlistController extends Controller
         }
         return view('user.wishlist',compact('user','wishlists','sort', 'qty'));
         }
-
-
+        
+        $best_products = Product::where('best', 1)->get();
+        
         $wishlists = Wishlist::where('user_id','=',$user->id)->paginate(8);
+        
         if($request->ajax())
         {
             return view('front.pagination.wishlist',compact('user','wishlists','sort', 'qty'));
         }
-        return view('user.wishlist',compact('user','wishlists','sort', 'qty'));
+        return view('user.wishlist',compact('user','wishlists','sort', 'qty', 'best_products'));
     }
 
     public function addwish($id)
