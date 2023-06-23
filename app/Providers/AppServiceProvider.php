@@ -64,24 +64,6 @@ class AppServiceProvider extends ServiceProvider
                 return $this->forgetGeneralSettingsCache();
             });
 
-            # UTC if is Global shipping
-            if (!$storeSettings->country_ship) {
-                Config::set('app.timezone', 'UTC');
-                date_default_timezone_set('UTC');
-            }
-
-            # America/Sao_Paulo if is Global shipping
-            if ($storeSettings->country_ship === "BR") {
-                Config::set('app.timezone', 'America/Sao_Paulo');
-                date_default_timezone_set('America/Sao_Paulo');
-            }
-
-            # America/Asuncion if is Global shipping
-            if ($storeSettings->country_ship === "PY") {
-                Config::set('app.timezone', 'America/Asuncion');
-                date_default_timezone_set('America/Asuncion');
-            }
-
             Order::observe(OrderObserver::class);
 
             if (!app()->runningInConsole()) {
