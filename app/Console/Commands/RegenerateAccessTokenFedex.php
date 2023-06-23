@@ -81,6 +81,8 @@ class RegenerateAccessTokenFedex extends Command
                 'access_token' => $response['access_token']
             ]);
 
+            $this->info('The FedEx token was successfully generated!');
+
             return $response;
 
         } catch (HttpException $e) {

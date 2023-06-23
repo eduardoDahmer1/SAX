@@ -33,7 +33,7 @@
                         <a href="{{ route('admin-shipping-index') }}">{{ __('Shipping Methods') }}</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin-gs-correiosconf') }}">{{ __('Fedex Shipping') }}</a>
+                        <a href="{{ route('admin-gs-fedexconf') }}">{{ __('Fedex Shipping') }}</a>
                     </li>
                     @if (config('features.multistore'))
                     <li>
