@@ -71,13 +71,13 @@ class AppServiceProvider extends ServiceProvider
             }
 
             # America/Sao_Paulo if is Global shipping
-            if ($storeSettings->country_ship === "BR") {
+            if (env('ENABLE_COUNTRY') == "BR") {
                 Config::set('app.timezone', 'America/Sao_Paulo');
                 date_default_timezone_set('America/Sao_Paulo');
             }
 
             # America/Asuncion if is Global shipping
-            if ($storeSettings->country_ship === "PY") {
+            if (env('ENABLE_COUNTRY') === "PY") {
                 Config::set('app.timezone', 'America/Asuncion');
                 date_default_timezone_set('America/Asuncion');
             }
