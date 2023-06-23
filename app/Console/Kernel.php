@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use Illuminate\Support\Facades\Log;
+use App\Console\Commands\ClearLogCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +26,7 @@ class Kernel extends ConsoleKernel
         Commands\CheckDiscrepancies::class,
         Commands\GenerateAccessToken::class,
         Commands\ProductImport::class,
+        \App\Console\Commands\ClearLogCommand::class,
         Commands\OrderExport::class
         //
     ];
@@ -71,6 +74,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('product:import')->hourly();
 
         $schedule->command('order:export')->hourly();
+
+        $schedule->command('log:clear')->daily();
     }
 
     /**
