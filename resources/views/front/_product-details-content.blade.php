@@ -71,7 +71,7 @@
                                     data-product-stock="{{$productSize->stock}}" 
                                     data-product-id="{{$productSize->id}}">
                                     <label for="associatedProductsBySize{{$loop->index+1}}">
-                                        {{$productSize->product_size}}
+                                        {{ str_replace(',', '.', $productSize->product_size) }}
                                     </label>
                                 </span>
                             @endforeach
@@ -217,7 +217,7 @@
         const divSizes = document.querySelector('.product-color');
         const spans = Array.from(divSizes.querySelectorAll('span'));
         const numberOrder = sizes.sort((a, b) => a - b);
-        const sizesOrder = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'];
+        const sizesOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', 'XXXL', '3XL', '4XL'];
 
         if(!isNaN(convertedNumber)) {
 
