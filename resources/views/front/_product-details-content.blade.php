@@ -200,6 +200,57 @@
 
 <script>
 
+    const spans = document.querySelectorAll('.boxassociatedProductSize');
+    const sizes = [];
+
+    spans.forEach(element => {
+        const labels = element.querySelector('label');
+        if (labels) {
+        sizes.push(labels.innerText.trim());
+        }
+    });
+
+    isNumber(sizes[0]);
+
+    function isNumber(value) {
+        const convertedNumber = +value;
+        const divSizes = document.querySelector('.product-color');
+        const spans = Array.from(divSizes.querySelectorAll('span'));
+        const numberOrder = sizes.sort((a, b) => a - b);
+        const sizesOrder = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL'];
+
+        if(!isNaN(convertedNumber)) {
+
+            function compareSizes(a, b) {
+            const sizeA = a.querySelector('label').textContent.trim();
+            const sizeB = b.querySelector('label').textContent.trim();
+
+            return numberOrder.indexOf(sizeA) - numberOrder.indexOf(sizeB);
+            }
+
+            spans.sort(compareSizes);
+        }
+        else {
+
+            function compareSizes(a, b) {
+            const sizeA = a.querySelector('label').textContent.trim();
+            const sizeB = b.querySelector('label').textContent.trim();
+
+            return sizesOrder.indexOf(sizeA) - sizesOrder.indexOf(sizeB);
+            }
+
+            spans.sort(compareSizes);
+        }
+
+        spans.forEach(span => {
+        divSizes.removeChild(span);
+        });
+
+        spans.forEach(span => {
+        divSizes.appendChild(span);
+        });
+    }
+
     const verifyStockProdChecked = () => {
         const valueStock = $("[name='associatedProductsBySize']:checked").attr('data-product-stock')?? {{$productt->stock}}
 
