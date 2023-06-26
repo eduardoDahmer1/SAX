@@ -1,5 +1,5 @@
 
-name: Pipeline Stage2 SAX
+name: Pipeline Production Sax
 
 on:
    workflow_dispatch:
@@ -38,6 +38,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-        script: cd ${{ secrets.WORK_DIR }} && ./pipeline-sax-stage.sh
+        script: cd ${{ secrets.WORK_DIR }} && ./pipeline-sax-producion.sh
     - name: Desconectando do servidor
       run: exit
