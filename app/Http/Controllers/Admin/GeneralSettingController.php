@@ -16,6 +16,7 @@ use App\Models\Generalsetting;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\AexCity;
+use App\Models\FedexConf;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -238,6 +239,25 @@ class GeneralSettingController extends Controller
         //--- Redirect Section Ends
     }
 
+    public function generalUpdateFedex(Request $request)
+    {
+        $generalSettings = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
+
+        $input = $request->all();
+
+        $msg = __('Data Updated Successfully.');
+
+        if (!FedexConf::find($generalSettings->fedex_id)) {
+            $fedex = FedexConf::create($input);
+            $generalSettings->fedex_id = $fedex->id;
+            $generalSettings->update();
+            return response()->json($msg);
+        }
+
+        $generalSettings->fedex->update($input);
+        return response()->json($msg);
+    }
+
     public function updatePopUp(Request $request)
     {
         $data = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
@@ -350,7 +370,19 @@ class GeneralSettingController extends Controller
         return view('load.melhorenvio-companies', compact('melhorenvio_companies'));
     }
 
+    public function fedexconf()
+    {
+        $generalSettings = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
 
+        if (!FedexConf::find($generalSettings->fedex_id)) {
+            $fedex = FedexConf::create();
+            $generalSettings->fedex_id = $fedex->id;
+            $generalSettings->update();
+        }
+
+        $fedex = FedexConf::first();
+        return view('admin.generalsetting.fedexconf', compact('fedex'));
+    }
 
     public function contents()
     {
@@ -938,6 +970,13 @@ class GeneralSettingController extends Controller
         $data->update();
     }
 
+    public function isfedex($status)
+    {
+        $data = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
+        $data->is_fedex = $status;
+        $data->update();
+    }
+
     public function melhorenvio_production($production)
     {
         $data = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
@@ -971,6 +1010,13 @@ class GeneralSettingController extends Controller
         $data = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
         $data->melhorenvio->collect = $collect;
         $data->melhorenvio->update();
+    }
+
+    public function fedex_production($production)
+    {
+        $data = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
+        $data->fedex->production = $production;
+        $data->fedex->update();
     }
 
     public function referencecode($status)

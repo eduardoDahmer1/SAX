@@ -697,6 +697,8 @@ Route::group([
                 Route::get('ismelhorenvio/{status}', 'GeneralSettingController@ismelhorenvio')->name('ismelhorenvio');
                 Route::get('multiple/packaging/{status}', 'GeneralSettingController@mpackage')->name('mpackage');
 
+                Route::get('isfedex/{status}', 'GeneralSettingController@isfedex')->name('isfedex');
+
                 /** Payment Settings */
                 Route::get('cod/{status}', 'GeneralSettingController@cod')->name('cod');
                 Route::get('bankdeposit/{status}', 'GeneralSettingController@bankdeposit')->name('bank-deposit');
@@ -742,6 +744,11 @@ Route::group([
                 Route::get('melhorenvio_collect/{collect}', 'GeneralSettingController@melhorenvio_collect')->name('melhorenvio-collect');
                 Route::get('update_melhorenvio_companies', 'MelhorEnvioController@updatecompanies')->name('update-melhorenvio-companies');
                 Route::get('load_melhorenvio_companies', 'GeneralSettingController@loadmelhorenviocompanies')->name('load-melhorenvio-companies');
+
+                /** Fedex Settings */
+                Route::get('fedexconf', 'GeneralSettingController@fedexconf')->name('fedexconf');
+                Route::post('update/fedex', 'GeneralSettingController@generalUpdateFedex')->name('update-fedex');
+                Route::get('fedex_production/{production}', 'GeneralSettingController@fedex_production')->name('fedex-production');
 
                 /** Email Settings */
                 Route::get('issmtp/{status}', 'GeneralSettingController@issmtp')->name('issmtp');

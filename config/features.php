@@ -20,6 +20,7 @@ return [
     "material_gallery" => env("ENABLE_MATERIAL_GALLERY", false),
     "disable_developed_by_us" => env("DISABLE_DEVELOPED_BY_US", false),
     "redplay_digital_product" => env("ENABLE_REDPLAY_DIGITAL_PRODUCT", false),
-    "consult_the_price_by_whatsapp" => env("CONSULT_THE_PRICE_BY_WHATSAPP", false)
+    "consult_the_price_by_whatsapp" => env("CONSULT_THE_PRICE_BY_WHATSAPP", false),
+    "fedex_shipping" => env("ENABLE_FEDEX_SHIPPING", false),
 ];
 
