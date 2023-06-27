@@ -126,6 +126,10 @@
                                             placeholder="{{ __('Confirm Password') }}" required>
                                         <i class="icofont-ui-password"></i>
                                     </div>
+                                    <div class="form-input">
+                                        <input placeholder="{{ __('Date of Birth') }}" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
+                                        
+                                    </div>
 
                                     @if ($gs->is_capcha == 1)
                                         <ul class="captcha-area">
