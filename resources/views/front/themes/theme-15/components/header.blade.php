@@ -154,20 +154,19 @@
                                         <li class="subcat-link">
                                             <a class="categoryLink text-uppercase" href={{ route('front.category', $category->slug )}}>{{ $category->name }}</a>
                                             <div class="boxsubcat">
-                                                <div class="d-flex justify-content-center">
-                                                    @foreach ($category->products as $product)
-                                                        <a href="{{ route('front.product', $product->slug ) }}">
-                                                            <div class="box-img">
-                                                                <img src="{{ filter_var($product->photo, FILTER_VALIDATE_URL)
-                                                                    ? $product->photo
-                                                                    : asset('storage/images/products/' . $product->photo) }}" class="img-fluid" alt="">
+                                                <div class="container-lg justify-content-center d-flex">
+                                                    <div class="d-flex flex-wrap">
+                                                        @foreach ($category->subs_order_by as $subcategory)
+                                                            <div class="col-lg-3">
+                                                                <a class="sub-link" href="">{{ $subcategory->name }}</a>
+                                                                @foreach ($subcategory->childs_order_by as $childcat)
+                                                                    <a class="child-link" href=""><i style="font-size: 10px;" class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
+                                                                @endforeach
                                                             </div>
-                                                            <p class="brand-name">{{str($product->brand->name)->limit(8,'...')}}</p>
-                                                            <p class="product-name">{{str($product->name)->limit(25,'...')}}</p>
-                                                        </a>
-                                                    @endforeach
+                                                        @endforeach
+                                                        <a class="link-seemore col-12 py-2" href="{{ route('front.category', $category->slug )}}"> Ver todos {{ $category->name }}</a>
+                                                    </div>
                                                 </div>
-                                                <a class="link-seemore" href="{{ route('front.category', $category->slug )}}"> Ver todos {{ $category->name }}</a>
                                             </div>
                                         </li>
                                     @endforeach
