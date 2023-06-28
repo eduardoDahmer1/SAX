@@ -155,14 +155,37 @@
                                             <a class="categoryLink text-uppercase" href={{ route('front.category', $category->slug )}}>{{ $category->name }}</a>
                                             <div class="boxsubcat">
                                                 <div class="container-lg justify-content-center d-flex">
-                                                    <div class="d-flex flex-wrap">
+                                                    <div class="display-subs">
                                                         @foreach ($category->subs_order_by as $subcategory)
-                                                            <div class="col-lg-3">
-                                                                <a class="sub-link" href="">{{ $subcategory->name }}</a>
-                                                                @foreach ($subcategory->childs_order_by as $childcat)
-                                                                    <a class="child-link" href=""><i style="font-size: 10px;" class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
-                                                                @endforeach
-                                                            </div>
+                                                        @if(count($category->subs_order_by) == 1)
+                                                        <div class="px-3">
+                                                            <a class="sub-link" href="{{ route('front.subcat',['slug1' => $subcategory->category->slug, 'slug2' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
+                                                            @foreach ($subcategory->childs_order_by as $childcat)
+                                                                <a class="child-link" href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}"><i style="font-size: 10px;" class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
+                                                            @endforeach
+                                                        </div>
+                                                        @elseif(count($category->subs_order_by) == 2)
+                                                        <div class="col-lg-6">
+                                                            <a class="sub-link" href="{{ route('front.subcat',['slug1' => $subcategory->category->slug, 'slug2' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
+                                                            @foreach ($subcategory->childs_order_by as $childcat)
+                                                                <a class="child-link" href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}"><i style="font-size: 10px;" class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
+                                                            @endforeach
+                                                        </div>
+                                                        @elseif(count($category->subs_order_by) == 3)
+                                                        <div class="col-lg-4">
+                                                            <a class="sub-link" href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}">{{ $subcategory->name }}</a>
+                                                            @foreach ($subcategory->childs_order_by as $childcat)
+                                                                <a class="child-link" href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}"><i style="font-size: 10px;" class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
+                                                            @endforeach
+                                                        </div>
+                                                        @else
+                                                        <div class="col-lg-3">
+                                                            <a class="sub-link" href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}">{{ $subcategory->name }}</a>
+                                                            @foreach ($subcategory->childs_order_by as $childcat)
+                                                                <a class="child-link" href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}"><i style="font-size: 10px;" class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
+                                                            @endforeach
+                                                        </div>
+                                                        @endif
                                                         @endforeach
                                                         <a class="link-seemore col-12 py-2" href="{{ route('front.category', $category->slug )}}"> Ver todos {{ $category->name }}</a>
                                                     </div>
