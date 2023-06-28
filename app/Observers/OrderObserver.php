@@ -59,11 +59,10 @@ class OrderObserver
 
     public function created(Order $order)
     {
-        if (env('ENABLE_ORDER')) {
+        if (env('ENABLE_ORDER') && $order->method !== "Simplified") {
             $data = $order->cart;
             $skus = [];
             $price = [];
-            
 
             if (isset($data['items'])) {
                 foreach ($data['items'] as $item) {
@@ -88,8 +87,8 @@ class OrderObserver
                 'pgt' => 1,
                 'nom' => $order->customer_name,
                 'eml' => $order->customer_email,
-                'nas' => $order->user->birth_date,
-                'sex' => $order->user->gender,
+                'nas' => $order->method === 'Simplified' ? "" : $order->user->birth_date,
+                'sex' => $order->method === 'Simplified' ? "" : $order->user->gender,
                 'doc' => $order->customer_document,
                 'fn1' => $order->customer_phone,
                 'fn2' => '',
@@ -99,7 +98,7 @@ class OrderObserver
                 'com' => $order->customer_complement,
                 'bai' => $order->customer_district,
                 'cid' => $order->customer_city,
-                'uf' => $order->customer_state,
+                'uf' =>  $order->customer_state,
                 'cep' => $order->customer_zip,
                 'moe' => $order->currency_sign,
                 'fre' => $order->shipping_cost,
