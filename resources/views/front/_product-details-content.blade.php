@@ -41,7 +41,7 @@
                     @endif
                 </div>
                 <div class="col-lg-6 list-attr">
-                    <div class="product-color">
+                    <div class="product-color product-size">
 
                         @if ($productt->product_size)
                             <p class="title">{{__("Sizes")}} :</p>
@@ -216,7 +216,7 @@
 
     function isNumber(value) {
         const convertedNumber = +value;
-        const divSizes = document.querySelector('.product-color');
+        const divSizes = document.querySelector('.product-size');
         const spans = Array.from(divSizes.querySelectorAll('span'));
         const numberOrder = sizes.sort((a, b) => a - b);
         const sizesOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', 'XXXL', '3XL', '4XL'];
