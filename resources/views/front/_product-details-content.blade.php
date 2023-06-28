@@ -16,9 +16,8 @@
 
             @if(($productt->ref_code != null) && ($admstore->reference_code == 1))
             <h4>
-                <span id="size-code" class="badge badge-primary" style="background-color: {{$admstore->ref_color}}">{{ __('Reference
-                    Code') }}:
-                    {{ $productt->ref_code }}
+                <span class="badge badge-primary" style="background-color: {{$admstore->ref_color}}">{{ __('Reference
+                    Code') }}: <span id="size-code"></span>
                 </span>
             </h4>
             @endif
@@ -87,7 +86,8 @@
                                     type="radio" 
                                     id="associatedProductsBySize{{$loop->index + 1}}"
                                     data-product-stock="{{$productSize->stock}}" 
-                                    data-product-id="{{$productSize->id}}">
+                                    data-product-id="{{$productSize->id}}"
+                                    data-product-code="{{$productSize->ref_code}}">
                                     <label for="associatedProductsBySize{{$loop->index+1}}">
                                         {{$productSize->product_size}}
                                     </label>
@@ -264,10 +264,17 @@
 
     }
 
+    const sizeCode = () => {
+        const sizeCode = document.querySelector('#size-code');
+        const productCode = document.querySelector('[name="associatedProductsBySize"]:checked').getAttribute('data-product-code');
+        sizeCode.textContent = productCode;
+    }
+
     verifyStockProdChecked()
+    sizeCode()
 
     $("[name='associatedProductsBySize']").change(()=> {
         verifyStockProdChecked()
+        sizeCode()
     })
-
 </script>
