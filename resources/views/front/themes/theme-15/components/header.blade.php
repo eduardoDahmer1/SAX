@@ -154,20 +154,24 @@
                                         <li class="subcat-link">
                                             <a class="categoryLink text-uppercase" href={{ route('front.category', $category->slug )}}>{{ $category->name }}</a>
                                             <div class="boxsubcat">
-                                                <div class="d-flex justify-content-center">
-                                                    @foreach ($category->products as $product)
-                                                        <a href="{{ route('front.product', $product->slug ) }}">
-                                                            <div class="box-img">
-                                                                <img src="{{ filter_var($product->photo, FILTER_VALIDATE_URL)
-                                                                    ? $product->photo
-                                                                    : asset('storage/images/products/' . $product->photo) }}" class="img-fluid" alt="">
-                                                            </div>
-                                                            <p class="brand-name">{{str($product->brand->name)->limit(8,'...')}}</p>
-                                                            <p class="product-name">{{str($product->name)->limit(25,'...')}}</p>
-                                                        </a>
-                                                    @endforeach
+                                                <div class="container-lg justify-content-center d-flex">
+                                                    <div class="display-subs">
+                                                        @foreach ($category->subs_order_by as $subcategory)
+                                                        <div @class([
+                                                            'px-3' => count($category->subs_order_by) == 1,
+                                                            'col-lg-6' => count($category->subs_order_by) == 2,
+                                                            'col-lg-4' => count($category->subs_order_by) == 3,
+                                                            'col-lg-3' => count($category->subs_order_by) == 4
+                                                            ])>
+                                                            <a class="sub-link" href="{{ route('front.subcat',['slug1' => $subcategory->category->slug, 'slug2' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
+                                                            @foreach ($subcategory->childs_order_by as $childcat)
+                                                                <a class="child-link" href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}"><i style="font-size: 10px;" class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
+                                                            @endforeach
+                                                        </div>
+                                                        @endforeach
+                                                        <a class="link-seemore col-12 py-2" href="{{ route('front.category', $category->slug )}}"> Ver todos {{ $category->name }}</a>
+                                                    </div>
                                                 </div>
-                                                <a class="link-seemore" href="{{ route('front.category', $category->slug )}}"> Ver todos {{ $category->name }}</a>
                                             </div>
                                         </li>
                                     @endforeach
