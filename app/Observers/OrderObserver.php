@@ -59,11 +59,10 @@ class OrderObserver
 
     public function created(Order $order)
     {
-        if (env('ENABLE_ORDER')) {
+        if (env('ENABLE_ORDER') && $order->method !== "Simplified") {
             $data = $order->cart;
             $skus = [];
             $price = [];
-            
 
             if (isset($data['items'])) {
                 foreach ($data['items'] as $item) {
