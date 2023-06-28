@@ -161,7 +161,7 @@
                                                             'px-3' => count($category->subs_order_by) == 1,
                                                             'col-lg-6' => count($category->subs_order_by) == 2,
                                                             'col-lg-4' => count($category->subs_order_by) == 3,
-                                                            'col-lg-3' => count($category->subs_order_by) == 4
+                                                            'col-lg-3' => count($category->subs_order_by) >= 4
                                                             ])>
                                                             <a class="sub-link" href="{{ route('front.subcat',['slug1' => $subcategory->category->slug, 'slug2' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
                                                             @foreach ($subcategory->childs_order_by as $childcat)
