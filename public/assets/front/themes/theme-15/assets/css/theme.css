@@ -1725,6 +1725,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .blog-area .blog-box .blog-title {
     font-weight: 300;
+    height: 60px;
 }
 
 .blog-area .blog-box .date-blog {
@@ -2676,4 +2677,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 .product-color .color-list li a{
 border: 1px solid #00000026;    
+}
+
+.img-box {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+}
+
+@media (max-width:1200px){
+    .img-box {
+        height: 200px;
+    }
+}
+
+@media (max-width:600px){
+    .img-box {
+        height: 300px;
+    }
 }
