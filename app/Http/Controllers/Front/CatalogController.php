@@ -375,7 +375,7 @@ class CatalogController extends Controller
 
         $data['categories'] = Category::with('subs_order_by.childs_order_by')->orderBy('slug')->where('status', 1)->get();
 
-        $data['brands'] = Brand::orderBy('name')->get();
+        $data['brands'] = Brand::where('status', true)->orderBy('name')->get();
 
         $data['qty'] = $qty;
 
