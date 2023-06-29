@@ -33,15 +33,17 @@
                   @foreach ($categories as $element)
                   <li>
                     <div class="content">
-                        <a href="{{route('front.category', $element->slug)}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp') : ''}}{{ !empty(request()->input('brand')) ? '&brand='.request()->input('brand') : '' }}" class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
+                        <a href="{{route('front.category', array_merge([$element->slug], request()->query()))}}" class="category-link">
+                          <i class="fas fa-angle-right"></i> {{$element->name}}
+                        </a>
                         @if(!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
                             @foreach ($cat->subs as $key => $subelement)
                             <div class="sub-content open">
-                              <a href="{{route('front.category', [$cat->slug, $subelement->slug])}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp') : ''}}" class="subcategory-link"><i class="fas fa-angle-right"></i>{{$subelement->name}}</a>
+                              <a href="{{route('front.category', array_merge([$cat->slug, $subelement->slug], request()->query()))}}" class="subcategory-link"><i class="fas fa-angle-right"></i>{{$subelement->name}}</a>
                               @if(!empty($subcat) && $subcat->id == $subelement->id && !empty($subcat->childs))
                                 @foreach ($subcat->childs as $key => $childcat)
                                 <div class="child-content open">
-                                  <a href="{{route('front.category', [$cat->slug, $subcat->slug, $childcat->slug])}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp') : ''}}" class="subcategory-link"><i class="fas fa-caret-right"></i> {{$childcat->name}}</a>
+                                  <a href="{{route('front.category', array_merge([$cat->slug, $subcat->slug, $childcat->slug], request()->query()))}}" class="subcategory-link"><i class="fas fa-caret-right"></i> {{$childcat->name}}</a>
                                 </div>
                                 @endforeach
                               @endif
@@ -62,7 +64,8 @@
                   @foreach ($brands as $element)
                   <li>
                     <div class="content">
-                        <a href="{{route('front.category')}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp').'&' : '?'}}brand={{ $element->slug }}" class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
+                        <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp'), 'brand' => $element->slug])}}"
+                          class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
                   </li>
                   @endforeach
 
