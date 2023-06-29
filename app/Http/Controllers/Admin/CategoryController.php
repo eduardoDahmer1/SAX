@@ -122,7 +122,6 @@ class CategoryController extends Controller
             }
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
-
         //--- Validation Section Ends
 
 
