@@ -54,7 +54,6 @@
 
                   </li>
                   @endforeach
-                  @if(config("features.marketplace"))
                   <div class="header-area">
                     <h4 class="title">
                       {{ __("Filter Results By") }} {{ __("Brands") }}
@@ -66,7 +65,6 @@
                         <a href="{{route('front.category')}}{{!empty(request()->input('searchHttp')) ? '?searchHttp='.request()->input('searchHttp').'&' : '?'}}brand={{ $element->slug }}" class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
                   </li>
                   @endforeach
-                  @endif
 
                 </ul>
 
