@@ -31,6 +31,13 @@ class ShippingsTranslationsTableSeeder extends Seeder
                 'locale' => 'es',
                 'title' => 'Padrão',
             ),
+            2 =>
+            array(
+                'id' => 3,
+                'shipping_id' => 1,
+                'locale' => 'en-US',
+                'title' => 'Padrão',
+            ),
         ));
     }
 }

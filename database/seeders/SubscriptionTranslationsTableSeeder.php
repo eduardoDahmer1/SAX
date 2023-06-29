@@ -35,6 +35,14 @@ class SubscriptionTranslationsTableSeeder extends Seeder
                 'title' => 'Teste',
                 'details' => NULL,
             ),
+            2 =>
+            array(
+                'id' => 3,
+                'subscription_id' => 1,
+                'locale' => 'en-US',
+                'title' => 'Teste',
+                'details' => NULL,
+            ),
         ));
 
 

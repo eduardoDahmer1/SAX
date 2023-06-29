@@ -35,6 +35,14 @@ class PackageTranslationsTableSeeder extends Seeder
                 'title' => 'Padrão',
                 'subtitle' => NULL,
             ),
+            2 =>
+            array(
+                'id' => 3,
+                'package_id' => 1,
+                'locale' => 'en-US',
+                'title' => 'Padrão',
+                'subtitle' => NULL,
+            ),
         ));
 
 
