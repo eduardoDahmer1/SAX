@@ -56,18 +56,20 @@
 
                   </li>
                   @endforeach
-                  <div class="header-area">
-                    <h4 class="title">
-                      {{ __("Filter Results By") }} {{ __("Brands") }}
-                    </h4>
-                  </div>
-                  @foreach ($brands as $element)
-                  <li>
-                    <div class="content">
-                        <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp'), 'brand' => $element->slug])}}"
-                          class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
-                  </li>
-                  @endforeach
+                  @if ($brands)
+                    <div class="header-area">
+                      <h4 class="title">
+                        {{ __("Filter Results By") }} {{ __("Brands") }}
+                      </h4>
+                    </div>
+                    @foreach ($brands as $element)
+                      <li>
+                        <div class="content">
+                            <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp'), 'brand' => $element->slug])}}"
+                              class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
+                      </li>
+                    @endforeach
+                  @endif
 
                 </ul>
 
