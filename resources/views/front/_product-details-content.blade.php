@@ -14,10 +14,16 @@
 
             <h4 class="product-name">{{ $productt->name }}</h4>
 
-            @if(($productt->ref_code != null) && ($admstore->reference_code == 1))
+            @if($productt->product_size != null)
             <h4>
                 <span class="badge badge-primary" style="background-color: {{$admstore->ref_color}}">{{ __('Reference
                     Code') }}: <span id="size-code"></span>
+                </span>
+            </h4>
+            @else
+            <h4>
+                <span class="badge badge-primary" style="background-color: {{$admstore->ref_color}}">{{ __('Reference
+                    Code') }}: {{$productt->ref_code}}</span>
                 </span>
             </h4>
             @endif
