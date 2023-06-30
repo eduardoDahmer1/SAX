@@ -32,7 +32,7 @@
                                         </a>
                                         <div class="details">
                                             <a class="read-more-btn"
-                                                href="{{ route('front.blogshow', $post->id) }}">{{ __('Ver en el blog') }}</a>
+                                                href="{{ route('front.blogshow', $post->id) }}">{{ __('Check it out on our blog') }}</a>
                                         </div>
                                     </div>
                                 </div>
