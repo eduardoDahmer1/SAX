@@ -35,6 +35,15 @@ class AdminLanguagesTableSeeder extends Seeder
                 'name' => 'es',
                 'rtl' => 0,
             ),
+            2 =>
+            array(
+                'id' => 6,
+                'is_default' => 0,
+                'language' => 'English',
+                'file' => 'admin_en-US.json',
+                'name' => 'en-US',
+                'rtl' => 0,
+            )
         ));
     }
 }
