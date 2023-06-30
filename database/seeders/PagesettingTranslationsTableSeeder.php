@@ -41,19 +41,6 @@ class PagesettingTranslationsTableSeeder extends Seeder
                 'side_title' => NULL,
                 'side_text' => NULL,
             ),
-            2 =>
-            array(
-                'id' => 3,
-                'pagesetting_id' => 1,
-                'locale' => 'en-US',
-                'contact_success' => NULL,
-                'contact_title' => NULL,
-                'contact_text' => NULL,
-                'side_title' => NULL,
-                'side_text' => NULL,
-            ),
         ));
-
-
     }
 }
