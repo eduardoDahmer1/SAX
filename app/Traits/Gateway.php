@@ -516,7 +516,7 @@ trait Gateway
             }
         }
 
-        $values = explode('|', $request->pickup_location);
+        
         $cartArray = [];
         $cartArray['items'] = $cart->items;
         $cartArray['totalQty'] = $cart->totalQty;
@@ -529,7 +529,7 @@ trait Gateway
         $this->order['method'] = $this->name;
         $this->order['order_number'] = Str::random(4) . time();
         $this->order['shipping'] = $request->shipping;
-        $this->order['pickup_location'] = $values[0];
+
         $this->order['tax'] = $this->storeSettings->tax;
         $this->order['order_note'] = $final_order_note;
         $this->order['internal_note'] = $final_internal_note;
@@ -569,13 +569,16 @@ trait Gateway
         $this->order['shipping_country'] = $shipping_country;
         $this->order['puntoentrega'] = $request->puntoentrega;
         $this->order['puntoid'] = $request->puntoidvalue;
-        $this->order['store_id'] = intval($values[1]);
         // check if product is digital
+        if ($request->shipping == "pickup") {
+            $values = explode('|', $request->pickup_location);
+            $this->order['pickup_location'] = $values[0];
+            $this->order['store_id'] = intval($values[1]);
+        }
+
         if ($this->order['dp'] == 1) {
             $this->order['status'] = 'completed';
         }
-
-
 
         if (Session::has('affilate')) {
             $val = $request->total / $curr->value;

@@ -61,6 +61,7 @@ class OrderObserver
 
     public function created(Order $order)
     {
+    
         if ($order->shipping == "pickup") {
             if ($order->store_id) {
                 $data = $order->cart;
@@ -75,10 +76,9 @@ class OrderObserver
         }
 
         if (env('ENABLE_ORDER')) {
-            
+            $data = $order->cart;
             $skus = [];
             $price = [];
-            
 
             if (isset($data['items'])) {
                 foreach ($data['items'] as $item) {
@@ -118,8 +118,7 @@ class OrderObserver
                 'cep' => $order->customer_zip,
                 'moe' => $order->currency_sign,
                 'fre' => $order->shipping_cost,
-
-
+                
             ];
             $url = 'https://saxpy.dyndns.org:444/EcommerceApi/production.php?' . http_build_query($parameters);
             ProcessOrderJob::dispatch($url, $order);
