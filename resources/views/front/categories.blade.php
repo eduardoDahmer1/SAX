@@ -21,14 +21,13 @@
                                 <ul>
                                     @foreach($subcat->childs as $childcat)
                                     <li>
-                                        <a
+                                        <a class="sub-filha"
                                             href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}"><i
                                                 class="fas fa-angle-double-right"></i>{{$childcat->name}}</a>
                                     </li>
                                     @endforeach
                                 </ul>
                                 @endif
-
                             </li>
                             @endforeach
                         </ul>

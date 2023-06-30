@@ -19,7 +19,7 @@ class SetupStorage extends Command
      *
      * @var string
      */
-    protected $description = 'Create specific user content folders inside storage/app/public';
+    protected $description = 'Create specific required content folders';
 
     /**
      * Execute the console command.
@@ -28,19 +28,22 @@ class SetupStorage extends Command
      */
     public function handle()
     {
+        $storage_path = "/storage/";
+
         $folders = [
-            'images',
-            'images/products',
-            'images/thumbnails',
-            'images/galleries',
-            'xml',
+            $storage_path . 'images',
+            $storage_path . 'images/products',
+            $storage_path . 'images/thumbnails',
+            $storage_path . 'images/galleries',
+            $storage_path . 'xml',
+            '/assets/files',
         ];
 
         foreach ($folders as $folder) {
             try {
-                if (!is_dir(public_path().'/storage/'.$folder)) {
+                if (!is_dir(public_path().$folder)) {
                     $this->info("creating folder {$folder}");
-                    mkdir(public_path().'/storage/'.$folder);
+                    mkdir(public_path().$folder);
                 }
             } catch (Exception $e) {
                 $this->error("it was not possible to create folder {$folder}");
@@ -49,7 +52,7 @@ class SetupStorage extends Command
             }
         }
 
-        $this->info('storage folders ready. Make sure to adjust permissions afterwards, if necessary');
+        $this->info('folders ready. Make sure to adjust permissions afterwards, if necessary');
         return 0;
     }
 }

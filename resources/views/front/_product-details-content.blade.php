@@ -14,11 +14,16 @@
 
             <h4 class="product-name">{{ $productt->name }}</h4>
 
-            @if(($productt->ref_code != null) && ($admstore->reference_code == 1))
+            @if($productt->product_size != null)
             <h4>
                 <span class="badge badge-primary" style="background-color: {{$admstore->ref_color}}">{{ __('Reference
-                    Code') }}:
-                    {{ $productt->ref_code }}
+                    Code') }}: <span id="size-code"></span>
+                </span>
+            </h4>
+            @else
+            <h4>
+                <span class="badge badge-primary" style="background-color: {{$admstore->ref_color}}">{{ __('Reference
+                    Code') }}: {{$productt->ref_code}}</span>
                 </span>
             </h4>
             @endif
@@ -42,7 +47,7 @@
                     @endif
                 </div>
                 <div class="col-lg-6 list-attr">
-                    <div class="product-color">
+                    <div class="product-color product-size">
 
                         @if ($productt->product_size)
                             <p class="title">{{__("Sizes")}} :</p>
@@ -52,7 +57,8 @@
                                 type="radio" 
                                 id="associatedProductsBySize0"
                                 data-product-stock="{{$productt->stock}}" 
-                                data-product-id="{{$productt->id}}">
+                                data-product-id="{{$productt->id}}"
+                                data-product-code="{{$productt->ref_code}}">
                                 <label for="associatedProductsBySize0">
                                     {{$productt->product_size}}
                                 </label>
@@ -69,9 +75,10 @@
                                     type="radio" 
                                     id="associatedProductsBySize{{$loop->index + 1}}"
                                     data-product-stock="{{$productSize->stock}}" 
-                                    data-product-id="{{$productSize->id}}">
+                                    data-product-id="{{$productSize->id}}"
+                                    data-product-code="{{$productSize->ref_code}}">
                                     <label for="associatedProductsBySize{{$loop->index+1}}">
-                                        {{$productSize->product_size}}
+                                        {{ str_replace(',', '.', $productSize->product_size) }}
                                     </label>
                                 </span>
                             @endforeach
@@ -85,7 +92,8 @@
                                     type="radio" 
                                     id="associatedProductsBySize{{$loop->index + 1}}"
                                     data-product-stock="{{$productSize->stock}}" 
-                                    data-product-id="{{$productSize->id}}">
+                                    data-product-id="{{$productSize->id}}"
+                                    data-product-code="{{$productSize->ref_code}}">
                                     <label for="associatedProductsBySize{{$loop->index+1}}">
                                         {{$productSize->product_size}}
                                     </label>
@@ -200,6 +208,57 @@
 
 <script>
 
+    const spans = document.querySelectorAll('.boxassociatedProductSize');
+    const sizes = [];
+
+    spans.forEach(element => {
+        const labels = element.querySelector('label');
+        if (labels) {
+        sizes.push(labels.innerText.trim());
+        }
+    });
+
+    isNumber(sizes[0]);
+
+    function isNumber(value) {
+        const convertedNumber = +value;
+        const divSizes = document.querySelector('.product-size');
+        const spans = Array.from(divSizes.querySelectorAll('span'));
+        const numberOrder = sizes.sort((a, b) => a - b);
+        const sizesOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', 'XXXL', '3XL', '4XL'];
+
+        if(!isNaN(convertedNumber)) {
+
+            function compareSizes(a, b) {
+            const sizeA = a.querySelector('label').textContent.trim();
+            const sizeB = b.querySelector('label').textContent.trim();
+
+            return numberOrder.indexOf(sizeA) - numberOrder.indexOf(sizeB);
+            }
+
+            spans.sort(compareSizes);
+        }
+        else {
+
+            function compareSizes(a, b) {
+            const sizeA = a.querySelector('label').textContent.trim();
+            const sizeB = b.querySelector('label').textContent.trim();
+
+            return sizesOrder.indexOf(sizeA) - sizesOrder.indexOf(sizeB);
+            }
+
+            spans.sort(compareSizes);
+        }
+
+        spans.forEach(span => {
+        divSizes.removeChild(span);
+        });
+
+        spans.forEach(span => {
+        divSizes.appendChild(span);
+        });
+    }
+
     const verifyStockProdChecked = () => {
         const valueStock = $("[name='associatedProductsBySize']:checked").attr('data-product-stock')?? {{$productt->stock}}
 
@@ -211,10 +270,17 @@
 
     }
 
+    const sizeCode = () => {
+        const sizeCode = document.querySelector('#size-code');
+        const productCode = document.querySelector('[name="associatedProductsBySize"]:checked').getAttribute('data-product-code');
+        sizeCode.textContent = productCode;
+    }
+
     verifyStockProdChecked()
+    sizeCode()
 
     $("[name='associatedProductsBySize']").change(()=> {
         verifyStockProdChecked()
+        sizeCode()
     })
-
 </script>

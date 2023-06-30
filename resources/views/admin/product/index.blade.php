@@ -163,6 +163,7 @@
                                             <th width="15%"><i class="icofont-options icofont-lg" data-toggle="tooltip"
                                                     title='{{ __('Options') }}'></i></th>
                                             <th width="20%">{{ __('Name') }}</th>
+                                            <th >{{ __('Size') }}</th>
                                             <th>{{ __('Tags') }}</th>
                                             <th><i class="fa fa-th-large fa-lg" data-toggle="tooltip"
                                                     title='{{ __('Stock') }}'></i></th>
@@ -659,6 +660,11 @@
                     {
                         data: 'name',
                         name: 'name',
+                        searchable: true
+                    },
+                    {
+                        data: 'product_size',
+                        name: 'size',
                         searchable: true
                     },
                     {

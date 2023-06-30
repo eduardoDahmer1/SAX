@@ -36,7 +36,5 @@ class PackageTranslationsTableSeeder extends Seeder
                 'subtitle' => NULL,
             ),
         ));
-
-
     }
 }

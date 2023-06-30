@@ -42,7 +42,5 @@ class PagesettingTranslationsTableSeeder extends Seeder
                 'side_text' => NULL,
             ),
         ));
-
-
     }
 }

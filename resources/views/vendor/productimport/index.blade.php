@@ -37,6 +37,7 @@
                                         <th><i class="icofont-options icofont-lg" data-toggle="tooltip"
                                                 title='{{ __('Options') }}'></i></th>
                                         <th>{{ __('Name') }}</th>
+                                        <th>{{ __('Size') }}</th>
                                         <th><i class="fa fa-th-large fa-lg" data-toggle="tooltip"
                                                 title='{{ __('Stock') }}'></i></th>
                                         <th><i class="icofont-dollar icofont-lg" data-toggle="tooltip"

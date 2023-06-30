@@ -201,7 +201,15 @@ class ProductController extends Controller
                 $id3 = $data->type == 'Physical' ? '<small class="ml-2"> SKU: <a href="' . route('front.product', $data->slug) . '?admin-view=true" target="_blank">' . $data->sku . '</a></small>' : '';
                 $id4 = '<small class="ml-2"> ' . __('REF CODE') . ': ' . $data->ref_code . '</small>';
                 $fast_edit_btn = '<a title="' . __("Edit") . '" data-href="' . route('admin-prod-fastedit', $data->id) . '" class="fasteditbtn" data-header="' . __("Edit") . " " . $data->ref_code . '" data-toggle="modal" data-target="#fast_edit_modal"><i class="fas fa-edit text-primary"></i></a>';
+                
+                $associatedProducts = $data->associatedProducts();
+
+                if ($associatedProducts->count() > 0) {
+                    $name .= ' *';
+                }
+
                 $this->useAdminLocale();
+
                 return  $fast_edit_btn . $name . '<br>' . $id . $id3 . $id4 . $id2;
             })
 

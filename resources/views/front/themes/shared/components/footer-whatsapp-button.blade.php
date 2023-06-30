@@ -24,7 +24,7 @@
 
         <div class="floating_button_sellers">
             @if (!empty($gs->whatsapp_number))
-                <a href="https://api.whatsapp.com/send?1=pt_BR&phone={!! $gs->whatsapp_number !!}&text=Ol%C3%A1,%20estava%20olhando%20o%20site%20da%20empresa%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es"
+                <a href="https://api.whatsapp.com/send?1=pt_BR&phone={!! $gs->whatsapp_number !!}&text={{urlencode(__('Hello, I was visiting the Sax shop and would like more information?'))}}"
                     class="floating_button_seller" target="_blank">
                     <button class="btn btn-success">{{ __('Main') }}</button>
                 </a>
@@ -42,7 +42,7 @@
         </div>
     @else
         <div>
-            <a href="https://api.whatsapp.com/send?1=pt_BR&phone={!! $gs->whatsapp_number !!}&text=Ol%C3%A1,%20estava%20olhando%20o%20site%20da%20empresa%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es?"
+            <a href="https://api.whatsapp.com/send?1=pt_BR&phone={!! $gs->whatsapp_number !!}&text={{urlencode(__('Hello, I was visiting the Sax shop and would like more information?'))}}"
                 target="_blank">
                 <img class="whatsapp-widget" id="whatsapp-widget" style="cursor:pointer"
                     src="{{ asset('assets/images/icon/wpp_mini.png') }}">
