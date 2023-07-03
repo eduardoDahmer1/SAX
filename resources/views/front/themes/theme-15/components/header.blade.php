@@ -1,3 +1,4 @@
+@include('front.themes.theme-15.components.topheader')
 <!-- Logo Header Area Start -->
 <div class="menufixed">
     <section class="logo-header">

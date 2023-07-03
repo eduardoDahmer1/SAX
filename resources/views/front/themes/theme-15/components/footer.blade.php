@@ -1,4 +1,3 @@
-@include('front.themes.theme-15.components.topheader')
 <!-- Footer Area Start -->
 <footer class="footer" id="footer">
     <div class="container">

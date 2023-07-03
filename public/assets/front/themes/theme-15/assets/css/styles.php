@@ -1009,7 +1009,7 @@ color: #fff;
 }
 
 .top-header {
-    background-color: <?php echo $text_color_1; ?>;
+    background-color:#fff;
 }
 
 .top-header .left-content .list ul li .nice-select,
@@ -1019,13 +1019,13 @@ color: #fff;
 .top-header .content .right-content .list li .nice-select,
 .top-header .left-content .list ul li .language-selector i
 {
-    color: #fff;
+    color: <?php echo $text_color_1; ?>;
 }
 
 .top-header .left-content .list ul li .nice-select::after,
 .right-content .nice-select::after {
-    border-bottom: 2px solid #fff;
-    border-right: 2px solid #fff;
+    border-bottom: 2px solid <?php echo $text_color_1; ?>;
+    border-right: 2px solid <?php echo $text_color_1; ?>;
 }
 
 #profile-icon, .logo-header .search-box .search-form button  {
