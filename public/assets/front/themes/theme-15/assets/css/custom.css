@@ -393,6 +393,8 @@
 
 @media (max-width: 992px) {
     .display-subs {
+        max-height: 300px;
+        overflow: auto;
         justify-content: left;
     }
 }

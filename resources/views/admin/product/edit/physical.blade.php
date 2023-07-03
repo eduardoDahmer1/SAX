@@ -1296,9 +1296,11 @@
                                                                             @if ($loc->locale === $lang->locale)
                                                                                 @continue
                                                                             @endif
-                                                                            @php
-                                                                                $transFeature = explode(',', $data->translate($loc->locale)['features']);
-                                                                            @endphp
+                                                                            @if (isset($data->translate($loc->locale)['features']))
+                                                                                @php
+                                                                                    $transFeature = explode(',', $data->translate($loc->locale)['features']);
+                                                                                @endphp
+                                                                            @endif
                                                                             <div role="tabpanel" class="tab-pane"
                                                                                 id="{{ $loc->locale }}-features0">
                                                                                 <input type="text"
@@ -1352,6 +1354,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+
                                                 <div class="feature-area mb-3">
                                                     <div class="row mb-0">
                                                         <div class="col-lg-6">
@@ -1370,9 +1374,11 @@
                                                                             @if ($loc->locale === $lang->locale)
                                                                                 @continue
                                                                             @endif
-                                                                            @php
-                                                                                $transFeature = explode(',', $data->translate($loc->locale)['features']);
-                                                                            @endphp
+                                                                            @if (isset($data->translate($loc->locale)['features']))
+                                                                                @php
+                                                                                    $transFeature = explode(',', $data->translate($loc->locale)['features']);
+                                                                                @endphp
+                                                                            @endif
                                                                             <div role="tabpanel" class="tab-pane"
                                                                                 id="{{ $loc->locale }}-features1">
                                                                                 <input type="text"
@@ -1426,6 +1432,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                
                                             </div>
                                         </div>
                                     </div>
