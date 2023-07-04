@@ -1348,6 +1348,7 @@
             $("#check3").change(function() {
                 if ($(this).is(":checked")) {
                     var color_input = $("input[name='color_qty[]']");
+                    color_input.val($("#stock").val());
                     var color_stock_total = 0;
                     for (i = 0; i < color_input.length; i++) {
                         color_stock_total = parseInt(color_stock_total) + parseInt(color_input[i].value);
