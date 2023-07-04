@@ -21,9 +21,21 @@ class BrandController extends Controller
     }
 
     //*** JSON Request
-    public function datatables()
+    public function datatables($filter = null)
     {
-        $datas = Brand::orderBy('slug', 'asc');
+        $this->useStoreLocale();
+        $datas = Brand::orderBy('status', 'asc');
+        //--- Integrating This Collection Into Datatables
+        // Filtros para marcas - (Web.php - Route::get('datatables/{filter?}', 'BrandController@datatables')->name('datatables');)
+        if ($filter == 'active') {
+            $datas = $datas->active()->orderBy('status', 'asc');
+        } elseif ($filter == 'inactive') {
+            $datas = $datas->inactive()->orderBy('status', 'asc');
+        } elseif ($filter == 'with_products') {
+            $datas = $datas->withProducts()->orderBy('status', 'asc');
+        } elseif ($filter == 'no_products') {
+            $datas = $datas->withoutProducts()->orderBy('status', 'asc');
+        }
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
             ->addColumn('status', function (Brand $data) {
@@ -58,11 +70,20 @@ class BrandController extends Controller
             ->toJson(); //--- Returning Json Data To Client Side
     }
 
-    //*** GET Request
-    public function index()
-    {
-        return view('admin.brand.index');
-    }
+
+      //*** GET Request
+      public function index()
+      {
+          $filters = [
+              "all" => __('All Brands'),
+              "active" => __('Active Brands'),
+              "inactive" => __('Inactive Brands'),
+              "with_products" => __('With Products'),
+              "no_products" => __('No Products'),
+          ];
+        
+          return view('admin.brand.index', compact('filters'));
+      } 
 
     //*** GET Request
     public function create()

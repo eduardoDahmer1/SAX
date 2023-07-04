@@ -53,4 +53,29 @@ class Brand extends CachedModel
         }
         return asset('storage/images/thumbnails/'.$value);
     }
+
+    // Filtrar Marcas ativas
+    public function scopeActive($query)
+    {
+        return $query->where('brands.status', 1);
+    }
+
+    // Filtrar Marcas inativas
+    public function scopeInactive($query)
+    {
+        return $query->where('brands.status', 0);
+    }
+
+    // Filtrar se tem produtos
+    public function scopeWithProducts($query)
+    {
+        return $query->has('products');
+    }
+    
+    // Filtrar se não tem produtos
+    public function scopeWithoutProducts($query)
+    {
+        return $query->doesntHave('products');
+    }
+    
 }

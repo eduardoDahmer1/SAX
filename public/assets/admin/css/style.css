@@ -945,7 +945,9 @@ General Settings Area Start
   color: #E0E1DD;
   float: inherit; }
   .action-list .nice-select .list {
-    background: #0D1B2A; }
+    background: #0D1B2A; 
+    display:grid;
+  }
 
 .action-list .nice-select .option.focus,
 .action-list .nice-select .option.selected.focus,
