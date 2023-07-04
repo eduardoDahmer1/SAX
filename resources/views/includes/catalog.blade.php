@@ -56,12 +56,17 @@
 
                   </li>
                   @endforeach
-                  @if ($brands)
+                  @if ($brands && $brands->count())
                     <div class="header-area">
                       <h4 class="title">
-                        {{ __("Filter Results By") }} {{ __("Brands") }}
+                        {{ __("Brands") }}
                       </h4>
                     </div>
+                    <li>
+                      <div class="content">
+                          <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp')])}}"
+                            class="category-link"> <i class="fas fa-angle-right"></i> {{ __("All Brands")}}</a>
+                    </li>
                     @foreach ($brands as $element)
                       <li>
                         <div class="content">
@@ -154,7 +159,10 @@
 
             @else
 
-            @if ((!empty($cat)) || (!empty($subcat)) || (!empty($childcategory)))
+            @if ((!empty($cat) && empty($subcat) && !empty(json_decode($cat->attributes, true)))
+              || (!empty($subcat) && empty($childcategory) && !empty(json_decode($subcat->attributes, true)))
+              || (!empty($childcategory) && !empty(json_decode($childcategory->attributes, true)))
+            )
               <div class="tags-area">
                 <div class="header-area">
                   <h4 class="title">
