@@ -207,6 +207,11 @@ class Product extends LocalizedModel
         return $this->hasMany('App\Models\Gallery');
     }
 
+    public function pickups()
+    {
+        return $this->belongsToMany(Pickup::class);
+    }
+
     public function galleries360()
     {
         return $this->hasMany('App\Models\Gallery360');

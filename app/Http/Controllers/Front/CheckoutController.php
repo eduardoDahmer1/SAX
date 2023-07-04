@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use App\Helpers\Helper;
 use App\Models\CartAbandonment;
+use Illuminate\Database\Eloquent\Builder;
 
 class CheckoutController extends Controller
 {
@@ -96,11 +97,26 @@ class CheckoutController extends Controller
         }
         $first_curr = Currency::where('id', '=', 1)->first();
         $gateways =  PaymentGateway::where('status', '=', 1)->get();
-        $pickups = Pickup::all();
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $products = $cart->items;
-        // Shipping Method
+
+        //Pega o id de todos os produtos do carrinho
+        foreach ($products as $data) {
+            $productsId[] = $data['item']->id;
+            $productsQty[] = $data['qty'];
+        }
+
+        //busca os locais de retirada com as condicoes.
+        $pickups = Pickup::whereHas('products', function (Builder $query) use ($productsId, $productsQty) {
+            $query->whereIn('product_id', $productsId)->where('pickup_product.stock', ">", 0);
+            $conditions = [];
+            foreach ($productsId as $key => $productId) {
+                $conditions[] = "SUM(CASE WHEN product_id = {$productId} THEN pickup_product.stock >= {$productsQty[$key]} ELSE 0 END)";
+            }
+            $query->havingRaw(implode(' + ', $conditions) . ' = ' . count($productsId));
+        })->get();
+
         if ($this->storeSettings->multiple_shipping == 1) {
             $user = null;
             foreach ($cart->items as $prod) {

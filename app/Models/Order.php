@@ -18,6 +18,7 @@ class Order extends CachedModel
         'method',
         'shipping',
         'pickup_location',
+        'store_id',
         'totalQty',
         'pay_amount',
         'txnid',
