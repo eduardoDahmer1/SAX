@@ -15,21 +15,21 @@
                             @foreach ($extra_blogs->take(4) as $post)
                             <div class="item">
                                 <div class="blog-box" data-aos="fade-in" data-aos-delay="{{ $loop->index }}00">
-                                    <img class="img-fluid" src="{{ $post->photo ? asset('storage/images/blogs/' . $post->photo) : asset('assets/images/noimage.png') }}" alt="">
+                                    <div style="background: url('{{ $post->photo ? asset('storage/images/blogs/' . $post->photo) : asset('assets/images/noimage.png') }}'); background-position: center;
+                                    background-size: cover; height: 260px; width:100%;"></div>
                                   
-                                    <div class="box-infos">
+                                    <div class="box-infos pt-2">
                                         <p class="date-blog">
                                             <i class="fa fa-calendar-days"></i>
                                             {{$post->created_at->format('d M, Y')}}
                                         </p>
-    
+
                                         <a href='{{ route('front.blogshow', $post->id) }}'>
                                             <h4 class="blog-title">
                                                 {{ str($post->title)->limit(55,'...') }}
                                             </h4>
                                         </a>
                                         <div class="details">
-                                           
                                             <a class="read-more-btn"
                                                 href="{{ route('front.blogshow', $post->id) }}">{{ __('Check it out on our blog') }}</a>
                                         </div>
