@@ -1126,11 +1126,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .separador-right{
-    border-right: 1px solid #ffffff40;
+    border-right: 1px solid #ffffff00;
 }
 
 .separador-left{
-    border-left: 1px solid #ffffff40;
+    border-left: 1px solid #ffffff00;
 }
 
 .top-header {
