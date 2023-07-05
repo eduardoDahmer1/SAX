@@ -28,7 +28,7 @@
                     <ul class="links">
                         <li>
                             <div class="action-list godropdown">
-                                <!-- Filtro de marcas (Ativas e Inativas) - (Com e sem produtos) -->
+                                <!-- Brand filter (Active and Inactive) - (With and without products) -->
                                 <select id="brands_filters" class="process select go-dropdown-toggle">
                                     @foreach ($filters as $filter => $name)
                                         <option value="{{ route('admin-brand-datatables', $filter) }}">

@@ -24,17 +24,16 @@ class BrandController extends Controller
     public function datatables($filter = null)
     {
         $this->useStoreLocale();
-        $datas = Brand::orderBy('status', 'asc');
+        $datas = Brand::orderBy('id', 'asc');
         //--- Integrating This Collection Into Datatables
-        // Filtros para marcas - (Web.php - Route::get('datatables/{filter?}', 'BrandController@datatables')->name('datatables');)
         if ($filter == 'active') {
-            $datas = $datas->active()->orderBy('status', 'asc');
+            $datas = $datas->active()->orderBy('id', 'asc');
         } elseif ($filter == 'inactive') {
-            $datas = $datas->inactive()->orderBy('status', 'asc');
+            $datas = $datas->inactive()->orderBy('id', 'asc');
         } elseif ($filter == 'with_products') {
-            $datas = $datas->withProducts()->orderBy('status', 'asc');
+            $datas = $datas->withProducts()->orderBy('id', 'asc');
         } elseif ($filter == 'no_products') {
-            $datas = $datas->withoutProducts()->orderBy('status', 'asc');
+            $datas = $datas->withoutProducts()->orderBy('id', 'asc');
         }
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
