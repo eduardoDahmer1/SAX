@@ -32,6 +32,15 @@
                     </ul>
                 </div>
             </div>
+            <!-- Formulário do filtro -->
+            <div class="action-list godropdown">
+                <select id="category_filters" class="process select go-dropdown-toggle">
+                    @foreach ($filters as $filter => $name)
+                        <option value="{{ route('admin-cat-datatables', $filter) }}">
+                            {{ $name }}</option>
+                    @endforeach
+                </select>
+            </div> 
         </div>
         @include('includes.admin.partials.category-tabs')
         <div class="product-area">
@@ -346,6 +355,23 @@
                 }
             });
         });
+
+        function hideButtons() {
+                $(".bulkeditbtn").hide();
+                $(".bulkremovebtn").hide();
+        }
+        function tableRowCountReset() {
+                qtde = 0;
+                $("#bulk_all").prop('checked', false);
+                sessionStorage.setItem("CurrentPage", 0);
+                hideButtons();
+        }
+        $('#category_filters').on('change', function() {
+            tableRowCountReset();
+            sessionStorage.setItem('SelectedCategoriesFilter', $(this).val());
+            table.ajax.url(sessionStorage.getItem('SelectedCategoriesFilter')).load();
+        });
+        
     </script>
 
     {{-- CHANGE CATEGORY PRESENTATION POSITION --}}
