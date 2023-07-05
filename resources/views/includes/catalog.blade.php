@@ -30,6 +30,11 @@
                 </div>
 
                 <ul class="filter-list">
+                  <div class="header-area">
+                    <h4 class="title">
+                      {{ __("Categories") }}
+                    </h4>
+                  </div>
                   @foreach ($categories as $element)
                   <li>
                     <div class="content">
@@ -50,8 +55,8 @@
                             </div>
                             @endforeach
 
+                            @endif
                           </div>
-                        @endif
 
 
                   </li>
