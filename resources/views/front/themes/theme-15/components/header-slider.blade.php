@@ -47,7 +47,7 @@
                     <div class="border">
                       <h1 class="slider-heading">{{ $data->title_text }}</h1>
                       <div class="img-holder">
-                        <img src="{{ asset('storage/images/sliders/' . $data->photo) }}" alt="image description">
+                        <img loading="lazy" src="{{ asset('storage/images/sliders/' . $data->photo) }}" alt="image description">
                       </div>
                     </div>
                   </div>

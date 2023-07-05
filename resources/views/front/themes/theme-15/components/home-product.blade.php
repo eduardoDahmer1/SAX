@@ -112,7 +112,7 @@ if ($gs->switch_highlight_currency) {
                                     </li>
                                 </ul>
                             </div>
-                            <img class="img-fluid"
+                            <img loading="lazy" class="img-fluid"
                                 src="{{ filter_var($prod->thumbnail, FILTER_VALIDATE_URL)
                                     ? $prod->thumbnail
                                     : asset('storage/images/thumbnails/' . $prod->thumbnail) }}"
@@ -259,7 +259,7 @@ if ($gs->switch_highlight_currency) {
                                 </li>
                             </ul>
                         </div>
-                        <img class="img-fluid"
+                        <img loading="lazy" class="img-fluid"
                             src="{{ filter_var($prod->thumbnail, FILTER_VALIDATE_URL)
                                 ? $prod->thumbnail
                                 : asset('storage/images/thumbnails/' . $prod->thumbnail) }}"
@@ -411,7 +411,7 @@ if ($gs->switch_highlight_currency) {
                         </li>
                     </ul>
                 </div>
-                <img class="img-fluid"
+                <img loading="lazy" class="img-fluid"
                     src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
                         ? $prod->photo
                         : asset('storage/images/products/' . $prod->photo) }}"

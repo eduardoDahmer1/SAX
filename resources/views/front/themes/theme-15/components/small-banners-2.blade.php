@@ -10,7 +10,7 @@
                             <div class="col-12 col-lg-4" style="background-color:#red;" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                                 <div class="left">
                                     <a class="banner-effect shadow-banner" href="{{ $img->link }}" target="_blank">
-                                        <img src="{{ asset('storage/images/banners/' . $img->photo) }}" alt="">
+                                        <img loading="lazy" src="{{ asset('storage/images/banners/' . $img->photo) }}" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -18,7 +18,7 @@
                             <div class="col-6 col-lg-4" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                                 <div class="left">
                                     <a class="banner-effect shadow-banner" href="{{ $img->link }}" target="_blank">
-                                        <img src="{{ asset('storage/images/banners/' . $img->photo) }}" alt="">
+                                        <img loading="lazy" src="{{ asset('storage/images/banners/' . $img->photo) }}" alt="">
                                     </a>
                                 </div>
                             </div>
