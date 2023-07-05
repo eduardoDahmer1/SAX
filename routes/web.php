@@ -264,7 +264,7 @@ Route::group([
                 Route::group([
                     'prefix' => 'brand'
                 ], function () {
-                    Route::get('datatables', 'BrandController@datatables')->name('datatables');
+                    Route::get('datatables/{filter?}', 'BrandController@datatables')->name('datatables');
                     Route::get('create', 'BrandController@create')->name('create');
                     Route::post('create', 'BrandController@store')->name('store');
                     Route::get('edit/{id}', 'BrandController@edit')->name('edit');

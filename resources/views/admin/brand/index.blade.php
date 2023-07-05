@@ -23,6 +23,23 @@
                             class="fas fa-sync-alt"></i> {{ __('Update Thumbnails') }}</button>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="links">
+                        <li>
+                            <div class="action-list godropdown">
+                                <!-- Brand filter (Active and Inactive) - (With and without products) -->
+                                <select id="brands_filters" class="process select go-dropdown-toggle">
+                                    @foreach ($filters as $filter => $name)
+                                        <option value="{{ route('admin-brand-datatables', $filter) }}">
+                                            {{ $name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="product-area">
             <div class="row">
@@ -231,6 +248,23 @@
                     table.state.clear();
                 }
             });
+        });
+
+        function tableRowCountReset() {
+                qtde = 0;
+                $("#bulk_all").prop('checked', false);
+                sessionStorage.setItem("CurrentPage", 0);
+                hideButtons();
+        }
+        function hideButtons() {
+                $(".bulkeditbtn").hide();
+                $(".bulkremovebtn").hide();
+        }
+        
+        $('#brands_filters').on('change', function() {
+            tableRowCountReset();
+            sessionStorage.setItem('SelectedCategoriesFilter', $(this).val());
+            table.ajax.url(sessionStorage.getItem('SelectedCategoriesFilter')).load();
         });
 
         function deleteImage(id, target, targetBtn) {
