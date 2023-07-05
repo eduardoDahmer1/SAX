@@ -16,7 +16,7 @@
     <div class="slider-banners-excluse" data-aos="fade-in">
         @foreach ($top_small_banners as $img)
             <div class="item-slider">
-                <img loading="lazy" src="{{ asset('storage/images/banners/' . $img->photo) }}" alt="">
+                <img loading="lazy" src="{{ asset('storage/images/banners/' . $img->photo) }}" alt="Banner Shop Sax">
             </div>
         @endforeach
     </div>

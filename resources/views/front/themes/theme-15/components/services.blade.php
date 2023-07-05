@@ -16,7 +16,7 @@
                                             <div class="info-box">
                                                 <div class="icon">
                                                     <img class="img-fluid-service"
-                                                        src="{{ asset('storage/images/services/' . $service->photo) }}">
+                                                        src="{{ asset('storage/images/services/' . $service->photo) }}" alt="{{ $service->title }}">
                                                 </div>
                                                 <div class="info">
                                                     <h4 class="title">{{ $service->title }}</h4>

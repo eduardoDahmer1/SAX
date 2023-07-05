@@ -105,7 +105,7 @@ if ($gs->switch_highlight_currency) {
                         src="{{ filter_var($prod->thumbnail, FILTER_VALIDATE_URL)
                             ? $prod->thumbnail
                             : asset('storage/images/thumbnails/' . $prod->thumbnail) }}"
-                        alt="">
+                        alt="{{ $prod->showName() }}">
                     @if ($gs->is_rating == 1)
                         <div class="stars">
                             <div class="ratings">
@@ -248,7 +248,7 @@ if ($gs->switch_highlight_currency) {
                     src="{{ filter_var($prod->thumbnail, FILTER_VALIDATE_URL)
                         ? $prod->thumbnail
                         : asset('storage/images/thumbnails/' . $prod->thumbnail) }}"
-                    alt="">
+                    alt="{{ $prod->showName() }}">
                 @if ($gs->is_rating == 1)
                     <div class="stars">
                         <div class="ratings">
