@@ -439,7 +439,7 @@ class OrderController extends Controller
                         $product = Product::find($item['item']['id']);
                         $product->stock += $soldQuantity;
 
-                        if (isset($item['color_key'])) {
+                        if (isset($item['color_key']) && $product->color) {
                             if (!empty($item['color'])) {
                                 $key = $item['color_key'];
                                 $quantity = $item['qty'];
