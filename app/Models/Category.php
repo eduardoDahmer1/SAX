@@ -44,10 +44,28 @@ class Category extends LocalizedModel
     {
         return $this->hasMany('App\Models\Product');
     }
+    
+    public function scopeWithProducts($query){
+        return $query->has('products');
+    }
+
+    public function scopeWithoutProducts($query){
+        return $query->doesntHave('products');
+    }
 
     public function categories_galleries()
     {
         return $this->hasMany('App\Models\CategoryGallery');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('categories.status', 1);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('categories.status', 0);
     }
 
     public function setSlugAttribute($value)

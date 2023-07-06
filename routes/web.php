@@ -195,7 +195,7 @@ Route::group([
                 Route::get('delete/{id}', 'CategoryController@destroy')->name('delete');
                 Route::get('status/{id1}/{id2}', 'CategoryController@status')->name('status');
                 Route::get('changeCatPos/{id1}/{pos}', 'CategoryController@changeCatPos')->name('changeCatPos');
-                Route::get('datatables', 'CategoryController@datatables')->name('datatables');
+                Route::get('datatables/{filter?}', 'CategoryController@datatables')->name('datatables');
                 Route::get('/', 'CategoryController@index')->name('index');
                 Route::post('/delete-image', 'CategoryController@deleteImage')->name('delete-image');
                 Route::post('/delete-banner', 'CategoryController@deleteBanner')->name('delete-banner');

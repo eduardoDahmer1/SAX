@@ -24,11 +24,20 @@ class CategoryController extends Controller
     }
 
     //*** JSON Request
-    public function datatables()
+    public function datatables($filter = null)
     {
         $this->useStoreLocale();
         $datas = Category::orderBy('id', 'desc');
         //--- Integrating This Collection Into Datatables
+        if ($filter == 'active') {
+            $datas = $datas->active()->orderBy('id', 'desc');
+        } elseif ($filter == "inactive") {
+            $datas = $datas->inactive()->orderBy('id', 'desc');
+        }elseif ($filter == 'with_products') {
+            $datas = $datas->withProducts()->orderBy('id', 'desc');
+        }elseif ($filter == 'no_products') {
+            $datas = $datas->withoutProducts()->orderBy('id', 'desc');
+        }
         return Datatables::of($datas)
             ->filterColumn('name', function ($query, $keyword) {
                 $query->whereTranslationLike('name', "%{$keyword}%", $this->lang->locale);
@@ -86,8 +95,15 @@ class CategoryController extends Controller
     //*** GET Request
     public function index()
     {
+        $filters = [
+            "all" => __('All Categories'),
+            "active" => __('Active Categories'),
+            "inactive" => __('Inactive Categories'),
+            "with_products"=>__('With products'),
+            "no_products"=>__('No products')
+        ];
         $categoryGallery = CategoryGallery::all();
-        return view('admin.category.index', compact('categoryGallery'));
+        return view('admin.category.index', compact('categoryGallery', 'filters'));
     }
 
     //*** GET Request
