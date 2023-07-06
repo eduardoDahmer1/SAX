@@ -26,8 +26,8 @@
                 @foreach ($categories->where('is_featured', '=', 1) as $cat)
                     <div class="col-6 col-md-2 d-flex flex-column align-items-center" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                         <a href="{{ route('front.category', $cat->slug) }}">
-                            <img class="img-fluid mb-3" src="{{ asset('storage/images/categories/' . $cat->image) }}"
-                                alt="">
+                            <img loading="lazy" class="img-fluid mb-3" src="{{ asset('storage/images/categories/' . $cat->image) }}"
+                                alt="Image in featured for category {{ $cat->name }}">
                             <h5 class="text-center font-weight-light">{{ $cat->name }}</h5>
                         </a>
                     </div>

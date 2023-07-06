@@ -29,7 +29,7 @@
                                     <input type="hidden" name="maxprice" value="{{ request()->input('maxprice') }}">
                                 @endif
 
-                                <input type="text" id="prod_name" name="searchHttp"
+                                <input type="text" id="prod_name" name="searchHttp" aria-label="Search"
                                     placeholder="{{ __('What are you looking for?') }}"
                                     value="{{ request()->input('searchHttp') }}" autocomplete="off">
                                 <div class="autocomplete">

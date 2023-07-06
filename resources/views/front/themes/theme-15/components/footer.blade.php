@@ -6,7 +6,7 @@
                 <div class="footer-info-area">
                     <div class="footer-logo">
                         <a href="{{ route('front.index') }}" class="logo-link">
-                            <img src="{{ $gs->footerLogoUrl }}" alt="">
+                            <img loading="lazy" src="{{ $gs->footerLogoUrl }}" alt="{{ $gs->title }}">
                         </a>
                     </div>
                     <div class="text m-0">

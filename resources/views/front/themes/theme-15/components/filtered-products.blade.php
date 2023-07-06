@@ -197,7 +197,7 @@
                         src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
                             ? $prod->photo
                             : asset('storage/images/products/' . $prod->photo) }}"
-                        alt="">
+                        alt="{{ $prod->showName() }}">
                     @if ($gs->is_rating == 1)
                         <div class="stars">
                             <div class="ratings">
