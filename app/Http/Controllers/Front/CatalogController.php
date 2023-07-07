@@ -376,6 +376,7 @@ class CatalogController extends Controller
         $data['categories'] = Category::with('subs_order_by.childs_order_by')->orderBy('slug')->where('status', 1)->get();
 
         $data['brands'] = Brand::where('status', true)->whereHas('products', function ($query) use($cat, $subcat, $childcategory) {
+            $query->where('products.status', true);
             $query->when($cat, fn () => $query->where('category_id', $cat->id));
             $query->when($subcat, fn () => $query->where('subcategory_id', $subcat->id));
             $query->when($childcategory, fn () => $query->where('childcategory_id', $childcategory->id));
