@@ -104,7 +104,7 @@
 
                         @if (!config('features.marketplace'))
                             @if($prod->previous_price)
-                                <span style="text-decoration: line-through; color: #bababa;">{{$scurrency->sign}}{{$prod->previous_price}}</span>
+                                <span style="text-decoration: line-through; color: #bababa;">{{$curr->sign}}{{$prod->previous_price}}</span>
                             @endif
                             <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
                                     <small>{{ $small }}</small>
