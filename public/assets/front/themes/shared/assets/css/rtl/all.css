@@ -5354,6 +5354,7 @@ select:focus {
 
 .remove-padding {
   padding: 0px;
+  margin-bottom: 30px;
 }
 
 .nav-item.dropdown:hover .dropdown-menu {

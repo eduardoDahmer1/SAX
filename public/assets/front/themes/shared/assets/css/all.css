@@ -36609,6 +36609,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 
 .remove-padding {
   padding: 0px;
+  margin-bottom: 30px;
 }
 
 .nav-item.dropdown:hover .dropdown-menu {
