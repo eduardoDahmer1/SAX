@@ -1,6 +1,6 @@
 @if ((empty($color_gallery) && empty($material_gallery)) || (!empty($color_gallery) && !empty($material_gallery)))
 
-<div class="col-lg-7">
+<div class="col-lg-6">
     <div class="row gallery-product">
         <div class="col-12 col-6 remove-padding p-2">
             <a href="{{ filter_var($productt->photo, FILTER_VALIDATE_URL)
@@ -79,7 +79,7 @@
 </div> --}}
 
 @elseif(!empty($color_gallery) && empty($material_gallery))
-    <div class="col-lg-5 col-md-12">
+    <div class="col-lg-6 col-md-12">
         <div class="xzoom-container">
             @php
                 if (!empty($color_gallery)) {
