@@ -28,12 +28,17 @@
                         </h4>
                     </a>
 
-                    <span class="cart-product-info">
-                        <span class="cart-product-qty" id="cqt{{ $custom_item_id }}">{{$product['qty']}}</span><span>{{
-                            $product['item']['measure'] }}</span>
-                        x <span id="prct{{ $custom_item_id }}">{{
-                            App\Models\Product::convertPrice($product['item']['price']) }}</span>
-                    </span>
+                        <span class="cart-product-info">
+                            <span class="cart-product-qty" id="cqt{{ $custom_item_id }}">{{$product['qty']}}</span><span>{{
+                                $product['item']['measure'] }}</span>
+                            x 
+                            @if($admstore->show_product_prices)
+                                <span id="prct{{ $custom_item_id }}">{{
+                                    App\Models\Product::convertPrice($product['item']['price']) }}
+                                </span>
+                            @endif
+                        </span>
+                   
                 </div>
             </div><!-- End .product-details -->
 
@@ -51,15 +56,17 @@
             @endforeach
     </ul><!-- End .cart-product -->
 
-    <div class="dropdown-cart-total">
-        <span>{{ __("Total") }}</span>
+    @if($admstore->show_product_prices)
+        <div class="dropdown-cart-total">
+            <span>{{ __("Total") }}</span>
 
-        <span class="cart-total-price">
-            <span class="cart-total">{{ Session::has('cart') ?
-                App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}
+            <span class="cart-total-price">
+                <span class="cart-total">{{ Session::has('cart') ?
+                    App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}
+                </span>
             </span>
-        </span>
-    </div><!-- End .dropdown-cart-total -->
+        </div><!-- End .dropdown-cart-total -->
+    @endif
 
     @if($gs->is_standard_checkout)
     <div class="dropdown-cart-action">

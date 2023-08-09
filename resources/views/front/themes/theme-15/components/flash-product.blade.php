@@ -23,7 +23,7 @@ if ($gs->switch_highlight_currency) {
                     </span>
                 @endif
                 <div class="info">
-                    @if($prod->previous_price)
+                    @if($prod->previous_price && $admstore->show_product_prices)
                         <span style="text-decoration: line-through; color: #bababa;">{{$curr->sign}}{{$prod->previous_price}}</span>
                     @endif
                     <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
@@ -263,7 +263,7 @@ if ($gs->switch_highlight_currency) {
             </div>
 
             <div class="info">
-                @if($prod->previous_price)
+                @if($prod->previous_price && $admstore->show_product_prices)
                     <span style="text-decoration: line-through; color: #bababa;">{{$curr->sign}}{{$prod->previous_price}}</span>
                 @endif
                 <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)

@@ -52,10 +52,12 @@
                             foreach($tempcart->items as $product) {
                             $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
                             $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
-                            $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
-                            number_format($product['item']['price'] * $order->currency_value,
-                            $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            if($admstore->show_product_prices){
+                                $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
+                                number_format($product['item']['price'] * $order->currency_value,
+                                $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
                             $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
                             $product['item']['slug']])).PHP_EOL.PHP_EOL;
                             $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
@@ -68,9 +70,11 @@
                             number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
                             $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
                             }
-                            $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
-                            number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+                            if($admstore->show_product_prices){
+                                $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
+                                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+                            }
                             $linkSimplifiedCheckout .= "_" . __("Order Number") . " - " . $order->order_number .
                             "_".PHP_EOL;
                             $linkSimplifiedCheckout .= "_" . __("Date") . " - " .
@@ -110,10 +114,12 @@
                             foreach($tempcart->items as $product) {
                             $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
                             $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
-                            $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
-                            number_format($product['item']['price'] * $order->currency_value,
-                            $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            if($admstore->show_product_prices){
+                                $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
+                                number_format($product['item']['price'] * $order->currency_value,
+                                $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
                             $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
                             $product['item']['slug']])).PHP_EOL.PHP_EOL;
                             $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
@@ -126,9 +132,11 @@
                             number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
                             $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
                             }
-                            $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
-                            number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+                            if($admstore->show_product_prices){
+                                $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
+                                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+                            }
                             $linkSimplifiedCheckout .= "_" . __("Order Number") . " - " . $order->order_number .
                             "_".PHP_EOL;
                             $linkSimplifiedCheckout .= "_" . __("Date") . " - " .
@@ -177,26 +185,29 @@
                                                                 @endif
                                                             </address>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <h5>{{ __("Order Information") }}</h5>
-                                                            <p>
-                                                                @if($order->tax != 0)
-                                                                {{ __('Tax') . ": " }} {{$order->tax . "%"}} <br>
-                                                                @endif
-                                                                @if($order->coupon_discount != 0)
-                                                                {{ __('Discount') . ": " }}
-                                                                {{$order->currency_sign}}{{ number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator) }}<br>
-                                                                @endif
-                                                                {{ __("Order Amount") . ":" }}
-                                                                {{$order->currency_sign}}{{ number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator) }}<br>
-                                                                {{ __('Total') . ": " }}
-                                                                {{$first_curr->sign}}{{ number_format($order->pay_amount,  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}<br>
-                                                            </p>
-                                                            <p>{{ __("Order Method") . ": " }} {{$order->method}}</p>
-                                                        </div>
+                                                        @if($admstore->show_product_prices)
+                                                            <div class="col-md-6">
+                                                                <h5>{{ __("Order Information") }}</h5>
+                                                                <p>
+                                                                    @if($order->tax != 0)
+                                                                    {{ __('Tax') . ": " }} {{$order->tax . "%"}} <br>
+                                                                    @endif
+                                                                    @if($order->coupon_discount != 0)
+                                                                    {{ __('Discount') . ": " }}
+                                                                    {{$order->currency_sign}}{{ number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator) }}<br>
+                                                                    @endif
+                                                                    {{ __("Order Amount") . ":" }}
+                                                                    {{$order->currency_sign}}{{ number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator) }}<br>
+                                                                    {{ __('Total') . ": " }}
+                                                                    {{$first_curr->sign}}{{ number_format($order->pay_amount,  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}<br>
+                                                                </p>
+                                                                <p>{{ __("Order Method") . ": " }} {{$order->method}}</p>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <br>
+
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <h4 class="text-center">{{ __("Ordered Products:") }}</h4>
@@ -204,8 +215,10 @@
                                                             <tr>
                                                                 <th width="60%">{{ __("Name") }}</th>
                                                                 <th width="20%">{{ __("Details") }}</th>
+                                                            @if($admstore->show_product_prices)
                                                                 <th width="10%">{{ __("Price") }}</th>
                                                                 <th width="10%">{{ __("Total") }}</th>
+                                                            @endif
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -248,14 +261,16 @@
                                                                     @endforeach
                                                                     @endif
                                                                 </td>
-                                                                <td style="text-align: end;">
-                                                                    {{$order->currency_sign}}{{number_format($product['item']['price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br>
-                                                                    <small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
-                                                                </td>
-                                                                <td style="text-align: end;">
-                                                                    {{$order->currency_sign}}{{number_format($product['price'] * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br>
-                                                                    <small>{{$first_curr->sign}}{{ number_format($product['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
-                                                                </td>
+                                                                @if($admstore->show_product_prices)
+                                                                    <td style="text-align: end;">
+                                                                        {{$order->currency_sign}}{{number_format($product['item']['price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br>
+                                                                        <small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
+                                                                    </td>
+                                                                    <td style="text-align: end;">
+                                                                        {{$order->currency_sign}}{{number_format($product['price'] * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br>
+                                                                        <small>{{$first_curr->sign}}{{ number_format($product['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
+                                                                    </td>
+                                                                @endif
                                                             </tr>
                                                             @endforeach
                                                         </tbody>
