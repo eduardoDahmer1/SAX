@@ -692,7 +692,15 @@ $(function ($) {
         // Wishlist Section
 
         $(document).on('click', '.add-to-wish', function () {
-            $.get($(this).data('href'), function (data) {
+            $('#add-to-wish').attr("data-href", $(this).data('href'));
+            $('#addToWishlist').modal();
+
+            return false;
+        });
+
+        $(document).on('click', '#add-to-wish', function () {
+            $('#addToWishlist').modal('hide');
+            $.get($(this).data('href') + '/' + $('#group').val(), function (data) {
 
                 if (data[0] == 1) {
                     toastr.success(data['success']);
@@ -720,7 +728,7 @@ $(function ($) {
 
 
         $(document).on('click', '.wishlist-remove', function () {
-            $(this).parent().parent().remove();
+            $(this).parent().parent().parent().parent().remove();
 
             $.get($(this).data('href'), function (data) {
                 if (data[1] == 0) {
