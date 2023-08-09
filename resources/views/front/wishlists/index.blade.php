@@ -38,7 +38,7 @@
             <h1 class="h3 mb-3">
                 {{__('Your wishlists')}}
             </h1>
-            <button type="button" class="link link-primary" data-toggle="modal" data-target="#createWishlist">
+            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#createWishlist">
                 {{__('Create wishlist')}}
             </button>
         </div>
