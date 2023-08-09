@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use App\Models\Product;
+use App\Models\WishlistGroup;
 use Auth;
 
 class WishlistController extends Controller
@@ -63,20 +64,37 @@ class WishlistController extends Controller
         return view('user.wishlist',compact('user','wishlists','sort', 'qty', 'best_products'));
     }
 
-    public function addwish($id)
+    public function addwish($id, $group)
     {
+        if (!$group) {
+            return response()->json(['error' => __('You need choose some wishlist')]);
+        }
+
         $user = Auth::guard('web')->user();
+        $wishlistGroup = WishlistGroup::find($group);
+
+        if (!$wishlistGroup) {
+            $wishlistGroup = WishlistGroup::create(['name' => $group, 'user_id' =>  $user->id]);
+        }
+
+        if ($wishlistGroup->user_id != $user->id) {
+            return response()->json(['error' => __('You are trying to insert into a list that isn\'t yours')]);
+        }
+
         $data[0] = 0;
         $data["success"] = __("Successfully Added To Wishlist");
         $data["error"] = __("Already Added To Wishlist");
-        $ck = Wishlist::where('user_id','=',$user->id)->where('product_id','=',$id)->get()->count();
-        if($ck > 0)
-        {
+        $ck = Wishlist::where('user_id','=',$user->id)
+            ->where('product_id','=',$id)->where('wishlist_group_id', $wishlistGroup->id)->count();
+
+        if($ck > 0) {
             return response()->json($data);
         }
+
         $wish = new Wishlist();
         $wish->user_id = $user->id;
         $wish->product_id = $id;
+        $wish->wishlist_group_id = $wishlistGroup->id;
         $wish->save();
         $data[0] = 1;
         $data[1] = count($user->wishlists);

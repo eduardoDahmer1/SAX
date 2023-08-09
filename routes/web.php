@@ -1582,7 +1582,7 @@ Route::group(['middleware' => 'maintenance'], function () {
                 Route::get('profile', 'UserController@profile')->name('profile');
                 Route::post('profile', 'UserController@profileupdate')->name('profile-update');
                 Route::get('dashboard', 'UserController@index')->name('dashboard');
-                Route::get('wishlist/add/{id}', 'WishlistController@addwish')->name('wishlist-add');
+                Route::get('wishlist/add/{id}/{group?}', 'WishlistController@addwish')->name('wishlist-add');
                 Route::get('wishlist/remove/{id}', 'WishlistController@removewish')->name('wishlist-remove');
                 Route::get('wishlists', [WishlistGroupController::class, 'index'])->name('wishlists');
                 Route::get('wishlists/{wishlistGroup}', [WishlistGroupController::class, 'show'])->name('wishlists.show');
