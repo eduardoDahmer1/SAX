@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\WishlistGroupController;
 use App\Mail\RedplayLicenseMail;
 use App\Models\License;
 use App\Models\Order;
@@ -1583,7 +1584,10 @@ Route::group(['middleware' => 'maintenance'], function () {
                 Route::get('dashboard', 'UserController@index')->name('dashboard');
                 Route::get('wishlist/add/{id}', 'WishlistController@addwish')->name('wishlist-add');
                 Route::get('wishlist/remove/{id}', 'WishlistController@removewish')->name('wishlist-remove');
-                Route::get('wishlists', 'WishlistController@wishlists')->name('wishlists');
+                Route::get('wishlists', [WishlistGroupController::class, 'index'])->name('wishlists');
+                Route::get('wishlists/{wishlistGroup}', [WishlistGroupController::class, 'show'])->name('wishlists.show');
+                Route::delete('wishlists/{wishlistGroup}', [WishlistGroupController::class, 'destroy'])->name('wishlists.destroy');
+                Route::post('wishlists', [WishlistGroupController::class, 'store'])->name('wishlists.store');
                 Route::get('register/verify/{token}', 'RegisterController@token')->name('register-token');
                 Route::post('register', 'RegisterController@register')->name('register-submit');
                 Route::get('forgot', 'ForgotController@showforgotform')->name('forgot');
