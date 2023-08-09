@@ -16,6 +16,10 @@
         font-family: 'Cormorant', serif;
     }
 
+    .selected {
+        background: #f3f8fc;
+    }
+
     .wishlist:hover {
         text-decoration: underline;
     }
@@ -30,7 +34,7 @@
                 <div class="col-md-2 col-12">
                     <div class="row flex-column" style="padding-right: 15px;">
                         @foreach ($wishlistsGroup as $group)
-                            <a @class(['col-12 my-3 px-2 aling-center wishlist', 'bg-dark py-2 text-white' => $group->id == $wishlistGroup->id])
+                            <a @class(['col-12 my-3 px-2 aling-center wishlist', 'selected py-2 text-dark' => $group->id == $wishlistGroup->id])
                                 href="{{route('user-wishlists.show', $group)}}"
                             >
                                 {{$group->name}}
@@ -61,8 +65,8 @@
                                                 {{__('Shop Now')}}
                                             </button>
                                         </div>
-                                        <div class="row px-4" style="justify-content: space-evenly">
-                                            <button class="btn btn-light border add-to-cart" data-href="{{route('product.cart.add', $wishlist->product->id)}}">
+                                        <div class="row px-4 justify-content-center">
+                                            <button class="btn btn-light border add-to-cart mr-2" data-href="{{route('product.cart.add', $wishlist->product->id)}}">
                                                 <i class="fas fa-cart-plus"></i>
                                             </button>
                                             <button class="btn btn-light border wishlist-remove" data-href="{{ route('user-wishlist-remove', $wishlist->id)}}">

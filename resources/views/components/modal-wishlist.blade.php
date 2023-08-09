@@ -27,9 +27,11 @@
                         @endif
                     </div>
                     <div class="row justify-content-end px-3">
-                        <button type="button" class="btn btn-secondary mr-3" data-dismiss="modal">{{__('Cancel')}}</button>
-                        <button type="submit" class="btn btn-dark" id="add-to-wish" data-href="">
-                            {{$wishlistGroup->count() ? __('ADD') : __('Create')}}
+                        <button type="button" class="btn btn-style-1 px-2 py-1 mr-3" data-dismiss="modal">
+                            <small>{{__('Cancel')}}</small>
+                        </button>
+                        <button type="submit" class="btn btn-style-1 px-2 py-1" id="add-to-wish" data-href="">
+                            <small>{{$wishlistGroup->count() ? __('ADD') : __('Create')}}</small>
                         </button>
                     </div>
                 </form>

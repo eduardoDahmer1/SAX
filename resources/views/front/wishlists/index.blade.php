@@ -23,8 +23,8 @@
                         <input type="text" class="form-control" id="name" name="name" placeholder="{{__('Name')}}">
                     </div>
                     <div class="row justify-content-end px-3">
-                        <button type="button" class="btn btn-secondary mr-3" data-dismiss="modal">{{__('Cancel')}}</button>
-                        <button type="submit" class="btn btn-dark">{{__('Create')}}</button>
+                        <button type="button" class="btn btn-style-1 px-2 py-1 mr-3" data-dismiss="modal"><small>{{__('Cancel')}}</small></button>
+                        <button type="submit" class="btn btn-style-1 px-2 py-1"><small>{{__('Create')}}</small></button>
                     </div>
                 </form>
             </div>
@@ -38,8 +38,8 @@
             <h1 class="h3 mb-3">
                 {{__('Your wishlists')}}
             </h1>
-            <button type="button" class="btn btn-dark text-white" data-toggle="modal" data-target="#createWishlist">
-                {{__('Create wishlist')}}
+            <button type="button" class="btn btn-style-1 px-3 py-0" data-toggle="modal" data-target="#createWishlist">
+                <small>{{__('Create wishlist')}}</small>
             </button>
         </div>
         @foreach ($wishlistsGroup as $group)
