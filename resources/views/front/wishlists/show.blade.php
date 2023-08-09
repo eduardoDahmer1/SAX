@@ -1,0 +1,82 @@
+@extends('front.themes.' . env('THEME', 'theme-01') . '.layout')
+@section('content')
+<style>
+    .name{
+        height: auto;
+        font-weight: 300;
+        line-height: normal;
+        margin-bottom: 10px;
+        font-size: 20px;
+        color: #333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-family: 'Cormorant', serif;
+    }
+
+    .wishlist:hover {
+        text-decoration: underline;
+    }
+</style>
+<div class="container-fluid mt-2 mb-5">
+    <div class="row px-5">
+        <div class="col-12">
+            <h2 class="h2 mb-3">
+                {{__('Your wishlists')}}
+            </h2>
+            <div class="row border" style="padding: 15px;">
+                <div class="col-md-2 col-12">
+                    <div class="row flex-column" style="padding-right: 15px;">
+                        @foreach ($wishlistsGroup as $group)
+                            <a @class(['col-12 my-3 px-2 aling-center wishlist', 'bg-dark py-2 text-white' => $group->id == $wishlistGroup->id])
+                                href="{{route('user-wishlists.show', $group)}}"
+                            >
+                                {{$group->name}}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-md-10 col-12">
+                    <h1 class="h3 mb-3">
+                        {{$wishlistGroup->name}}
+                    </h1>
+                    <div class="row">
+                        @foreach ($wishlistGroup->wishlists as $wishlist)
+                            <div class="col-12 py-3 px-2 aling-center wishlist border-top">
+                                <div class="row">
+                                    <div class="col-md-2 col-4">
+                                        <img src="{{$wishlist->product->image}}">
+                                    </div>
+                                    <div class="col-md-7 col-5">
+                                        <p class="m-0" style="font-weight: 500;font-size: 13px;">{{$wishlist->product->brand->name}}</p>
+                                        <a class="d-inline name" href="{{route('front.product', $wishlist->product->slug)}}">
+                                            {{$wishlist->product->name}}
+                                        </a>
+                                    </div>
+                                    <div class="col-3 d-flex flex-column justify-content-center">
+                                        <div class="row justify-content-center mb-3">
+                                            <button class="btn btn-dark add-to-cart-quick w-auto" data-href="{{route('product.cart.quickadd', $wishlist->product->id)}}">
+                                                {{__('Shop Now')}}
+                                            </button>
+                                        </div>
+                                        <div class="row px-4" style="justify-content: space-evenly">
+                                            <button class="btn btn-light border add-to-cart" data-href="{{route('product.cart.add', $wishlist->product->id)}}">
+                                                <i class="fas fa-cart-plus"></i>
+                                            </button>
+                                            <button class="btn btn-light border wishlist-remove" data-href="{{ route('user-wishlist-remove', $wishlist->id)}}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
