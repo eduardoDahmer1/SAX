@@ -44,7 +44,7 @@ class WishlistGroupController extends Controller
      */
     public function show(WishlistGroup $wishlistGroup)
     {
-        $this->authorize('show', $wishlistGroup);
+        $this->authorize('view', $wishlistGroup);
         return view('front.wishlists.show', [
             'wishlistGroup' => $wishlistGroup,
             'wishlistsGroup' =>  WishlistGroup::currentUser(auth()->user())->get(),
