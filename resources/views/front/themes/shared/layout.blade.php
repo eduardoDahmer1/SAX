@@ -165,7 +165,7 @@
 </head>
 
 <body>
-
+    <x-modal-wishlist />
     <!-- google tag manager -->
     {!! $seo->tag_manager_body !!}
 
