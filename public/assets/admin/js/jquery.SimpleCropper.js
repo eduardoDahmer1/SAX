@@ -194,10 +194,12 @@
 
     function preview() {
       // Set canvas
+      var widthImg = ias.getCroppedCanvas().width;
+      var heightImg = ias.getCroppedCanvas().height;
+
       var canvas = ias.getCroppedCanvas({
-        
-        width: (config.landscape ? 1024 : 1000),
-        height: (config.landscape ? 768 : 1000),
+        width: (widthImg > 1000 ? 1000 : widthImg),
+        height: (heightImg > 1000 ? 1000 : heightImg),
       });
       // Convert canvas image to normal img
       var dataUrl = canvas.toDataURL("image/png");
