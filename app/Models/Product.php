@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Product extends LocalizedModel
 {
@@ -291,6 +292,18 @@ class Product extends LocalizedModel
         }
         $price += $price * (($this->storeSettings->product_percent) / 100);
         return $price;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => filter_var($this->photo, FILTER_VALIDATE_URL) 
+                ? $this->photo 
+                : asset('storage/images/products/' . $this->photo),
+        );
     }
 
     public function vendorSizePrice()
