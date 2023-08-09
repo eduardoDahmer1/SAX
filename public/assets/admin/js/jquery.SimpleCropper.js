@@ -194,8 +194,8 @@
 
     function preview() {
       // Set canvas
-      widthImg = ias.getCroppedCanvas().width;
-      heightImg = ias.getCroppedCanvas().height;
+      var widthImg = ias.getCroppedCanvas().width;
+      var heightImg = ias.getCroppedCanvas().height;
 
       var canvas = ias.getCroppedCanvas({
         width: (widthImg > 1000 ? 1000 : widthImg),
