@@ -165,7 +165,9 @@
 </head>
 
 <body>
-    <x-modal-wishlist />
+    @auth
+        <x-modal-wishlist />
+    @endauth
     <!-- google tag manager -->
     {!! $seo->tag_manager_body !!}
 
