@@ -51,7 +51,10 @@
                         @endif
                     </div>
                     <div class="col-md-10 col-8 d-flex align-items-center pl-3">
-                        {{$group->name}}
+                        <div>
+                            {{$group->name}}
+                            <small class="d-block">{{$group->is_public ? __('Public') : __('Private')}}</small>
+                        </div>
                     </div>
                     <div class="col-1 d-flex flex-column justify-content-center" style="justify-content: space-evenly">
                         <form action="{{route('user-wishlists.destroy', $group->id)}}" method="post">
