@@ -92,9 +92,11 @@
                                     <tr>
                                         <th>{{ __('Product Name') }}</th>
                                         <th width="30%">{{ __('Details') }}</th>
-                                        <th>{{ __('Unit Price') }}</th>
-                                        <th>{{ __('Sub Total') }}</th>
-                                        <th><i class="icofont-close-squared-alt"></i></th>
+                                        @if($admstore->show_product_prices)
+                                            <th>{{ __('Unit Price') }}</th>
+                                            <th>{{ __('Sub Total') }}</th>
+                                        @endif
+                                        <th><i class="icofont-close-squared-alt d-flex justify-content-end"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -194,53 +196,57 @@
                                                     @endif
                                                 </td>
 
-                                                <td class="unit-price quantity">
-                                                    <p class="product-unit-price">
-                                                        {{ App\Models\Product::convertPrice($product['item']['price']) }}
-                                                    </p>
-                                                    <p class="product-unit-price" style="font-size: smaller;">
-                                                        {{ App\Models\Product::signFirstPrice($product['item']['price']) }}
-                                                    </p>
-                                                    @if ($product['item']['type'] == 'Physical')
-                                                        <div class="qty">
-                                                            <ul>
-                                                                <input type="hidden" class="prodid"
-                                                                    value="{{ $product['item']['id'] }}">
-                                                                <input type="hidden" class="itemid"
-                                                                    value="{{ $custom_item_id }}">
-                                                                <input type="hidden" class="size_qty"
-                                                                    value="{{ $product['size_qty'] }}">
-                                                                <input type="hidden" class="color_qty"
-                                                                    value="{{ $product['color_qty'] }}">
-                                                                <input type="hidden" class="material_qty"
-                                                                    value="{{ $product['material_qty'] }}">
-                                                                <input type="hidden" class="max_quantity"
-                                                                    value="{{ $product['max_quantity'] }}">
+                                                @if($admstore->show_product_prices)
+                                                    <td class="unit-price quantity">
+                                                        <p class="product-unit-price">
+                                                            {{ App\Models\Product::convertPrice($product['item']['price']) }}
+                                                        </p>
+                                                        <p class="product-unit-price" style="font-size: smaller;">
+                                                            {{ App\Models\Product::signFirstPrice($product['item']['price']) }}
+                                                        </p>
+                                                        @if ($product['item']['type'] == 'Physical')
+                                                            <div class="qty">
+                                                                <ul>
+                                                                    <input type="hidden" class="prodid"
+                                                                        value="{{ $product['item']['id'] }}">
+                                                                    <input type="hidden" class="itemid"
+                                                                        value="{{ $custom_item_id }}">
+                                                                    <input type="hidden" class="size_qty"
+                                                                        value="{{ $product['size_qty'] }}">
+                                                                    <input type="hidden" class="color_qty"
+                                                                        value="{{ $product['color_qty'] }}">
+                                                                    <input type="hidden" class="material_qty"
+                                                                        value="{{ $product['material_qty'] }}">
+                                                                    <input type="hidden" class="max_quantity"
+                                                                        value="{{ $product['max_quantity'] }}">
 
-                                                                <input type="hidden" class="size_price"
-                                                                    value="{{ $product['item']['price'] }}">
-                                                                <input type="hidden" class="material_price"
-                                                                    value="{{ $product['item']['price'] }}">
-                                                                <input type="hidden" class="color_price"
-                                                                    value="{{ $product['item']['price'] }}">
-                                                                <li>
-                                                                    <span class="qtminus1 reducing">
-                                                                        <i class="icofont-minus"></i>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="qttotal1"
-                                                                        id="qty{{ $custom_item_id }}">{{ $product['qty'] }}</span>
-                                                                </li>
+                                                                    <input type="hidden" class="size_price"
+                                                                        value="{{ $product['item']['price'] }}">
+                                                                    <input type="hidden" class="material_price"
+                                                                        value="{{ $product['item']['price'] }}">
+                                                                    <input type="hidden" class="color_price"
+                                                                        value="{{ $product['item']['price'] }}">
+                                                                    
+                                                                    
+                                                                    <li>
+                                                                        <span class="qtminus1 reducing">
+                                                                            <i class="icofont-minus"></i>
+                                                                        </span>
+                                                                    </li>
+                                                                    <li>
+                                                                        <span class="qttotal1"
+                                                                            id="qty{{ $custom_item_id }}">{{ $product['qty'] }}</span>
+                                                                    </li>
 
-                                                                <li>
-                                                                    <span class="qtplus1 adding">
-                                                                        <i class="icofont-plus"></i>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    @endif
+                                                                    <li>
+                                                                        <span class="qtplus1 adding">
+                                                                            <i class="icofont-plus"></i>
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+                                                @endif
                                                     @if ($product['size_qty'])
                                                         <input type="hidden" id="stock{{ $custom_item_id }}"
                                                             value="0">
@@ -255,17 +261,22 @@
                                                     @endif
                                                 </td>
 
-                                                <td class="total-price">
-                                                    <p id="prc{{ $custom_item_id }}">
-                                                        {{ App\Models\Product::convertPrice($product['price']) }}
-                                                    </p>
-                                                </td>
+                                                @if($admstore->show_product_prices)
+                                                    <td class="total-price">
+                                                        <p id="prc{{ $custom_item_id }}">
+                                                            {{ App\Models\Product::convertPrice($product['price']) }}
+                                                        </p>
+                                                    </td>
+                                                @endif
+                                                
                                                 <td>
-                                                    <span class="removecart cart-remove"
+                                                    <div class="d-flex justify-content-end">
+                                                        <span class="removecart cart-remove"
                                                         data-class="cremove{{ str_replace(['~', '/', '-'],'',$custom_item_id) }}"
                                                         data-href="{{ route('product.cart.remove', $custom_item_id) }}"><i
                                                             class="icofont-ui-delete"></i>
                                                     </span>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -276,115 +287,120 @@
                     </div>
                 </div>
                 @if (Session::has('cart'))
-                    <div class="col-lg-4">
-                        <div class="right-area">
-                            <div class="order-box">
-                                <h4 class="title">{{ __('PRICE DETAILS') }}</h4>
-                                <ul class="order-list">
-                                    <li>
-                                        <p>
-                                            {{ __('Total MRP') }}
-                                        </p>
-                                        <P>
-                                            <b
-                                                class="cart-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($totalPrice) : '0.00' }}</b>
-                                        </P>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            {{ __('Tax') }}
-                                        </p>
-                                        <P>
-                                            <b>{{ $tx }}%</b>
-                                        </P>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            {{ __('Discount') }}
-                                        </p>
-                                        <P>
-                                            <b class="discount">{{ App\Models\Product::convertPrice(0) }}</b>
-                                            <input type="hidden" id="d-val"
-                                                value="{{ App\Models\Product::convertPrice(0) }}">
-                                        </P>
-                                    </li>
-                                </ul>
-                                <div class="total-price">
-                                    <p style="margin-bottom:0px;">
-                                        {{ __('Total') }}
-                                    </p>
-                                    <p style="margin-bottom:0px;">
-                                        <span
-                                            class="main-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($mainTotal) : '0.00' }}</span>
-                                    </p>
-                                </div>
-                                <div class="total-price">
-                                    <p>
-
-                                    </p>
-                                    <p>
-                                        <span
-                                            class="main-total2">{{ Session::has('cart') ? App\Models\Product::signFirstPrice($mainTotal) : '0.00' }}</span>
-                                    </p>
-                                </div>
-                                @if ($gs->is_standard_checkout)
-                                    <div class="cupon-box">
-                                        @if ($gs->is_zip_validation)
-                                            <h4 class="title">{{ __('Shipping Price Calculation') }}</h4>
-                                            <p class="PAC-sheep border rounded p-1">
-                                                <small>
-                                                    {{ __('Methods and prices displayed for your convenience.') }}
-                                                </small>
+                <div class="col-lg-4">
+                        @if($admstore->show_product_prices)
+                            <div class="right-area">
+                                <div class="order-box">
+                                    <h4 class="title">{{ __('PRICE DETAILS') }}</h4>
+                                    <ul class="order-list">
+                                        <li>
+                                            <p>
+                                                {{ __('Total MRP') }}
                                             </p>
-                                            <form id="freight-form" class="coupon">
-                                                <input type="text" name="zip" id="shippingZip"
-                                                    placeholder="{{ __('Postal Code') }}">
-                                                <button type="submit">{{ __('Calculate') }}</button>
-                                                <div class="shipping-area-class text-left mt-4" id="shipping-area"></div>
-                                            </form>
-                                        @endif
-                                        @if ($gs->is_aex && config('features.aex_shipping'))
-                                            <h4 class="title">
-                                                <small>{{ __('AEX Shipping') }}</small>
-                                            </h4>
-                                            <form id="freight-form-aex" class="coupon">
-                                                <select class="form-control" id="aex_destination" name="aex_destination">
-                                                    <option value="">{{ __('Select City') }}</option>
-                                                    @foreach ($aex_cities as $city)
-                                                        <option value="{{ $city->codigo_ciudad }}">
-                                                            {{ $city->denominacion }} -
-                                                            {{ $city->departamento_denominacion }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="shipping-area-class text-left mt-4" id="shipping-area-aex">
-                                                </div>
-                                            </form>
-                                        @endif
-                                        <div id="coupon-link" class="mt-3">
-                                            {{ __('Have a promotion code?') }}
-                                        </div>
-                                        <form id="coupon-form" class="coupon">
-                                            <input type="text" placeholder="{{ __('Coupon Code') }}" id="code"
-                                                required="" autocomplete="off">
-                                            <input type="hidden" class="coupon-total" id="grandtotal"
-                                                value="{{ Session::has('cart') ? App\Models\Product::convertPrice($mainTotal) : '0.00' }}">
-                                            <button type="submit">{{ __('Apply') }}</button>
-                                        </form>
+                                            <P>
+                                                <b
+                                                    class="cart-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($totalPrice) : '0.00' }}</b>
+                                            </P>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                {{ __('Tax') }}
+                                            </p>
+                                            <P>
+                                                <b>{{ $tx }}%</b>
+                                            </P>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                {{ __('Discount') }}
+                                            </p>
+                                            <P>
+                                                <b class="discount">{{ App\Models\Product::convertPrice(0) }}</b>
+                                                <input type="hidden" id="d-val"
+                                                    value="{{ App\Models\Product::convertPrice(0) }}">
+                                            </P>
+                                        </li>
+                                    </ul>
+                                    <div class="total-price">
+                                        <p style="margin-bottom:0px;">
+                                            {{ __('Total') }}
+                                        </p>
+                                        <p style="margin-bottom:0px;">
+                                            <span
+                                                class="main-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($mainTotal) : '0.00' }}</span>
+                                        </p>
                                     </div>
-                                @endif
+                                    <div class="total-price">
+                                        <p>
 
-                                @if ($gs->is_standard_checkout)
-                                    <a href="{{ route('front.checkout') }}" class="order-btn">
-                                        {{ __('Place Order') }}
-                                    </a>
-                                @endif
+                                        </p>
+                                        <p>
+                                            <span
+                                                class="main-total2">{{ Session::has('cart') ? App\Models\Product::signFirstPrice($mainTotal) : '0.00' }}</span>
+                                        </p>
+                                    </div>
+                                    @if ($gs->is_standard_checkout)
+                                        <div class="cupon-box">
+                                            @if ($gs->is_zip_validation)
+                                                <h4 class="title">{{ __('Shipping Price Calculation') }}</h4>
+                                                <p class="PAC-sheep border rounded p-1">
+                                                    <small>
+                                                        {{ __('Methods and prices displayed for your convenience.') }}
+                                                    </small>
+                                                </p>
+                                                <form id="freight-form" class="coupon">
+                                                    <input type="text" name="zip" id="shippingZip"
+                                                        placeholder="{{ __('Postal Code') }}">
+                                                    <button type="submit">{{ __('Calculate') }}</button>
+                                                    <div class="shipping-area-class text-left mt-4" id="shipping-area"></div>
+                                                </form>
+                                            @endif
+                                            @if ($gs->is_aex && config('features.aex_shipping'))
+                                                <h4 class="title">
+                                                    <small>{{ __('AEX Shipping') }}</small>
+                                                </h4>
+                                                <form id="freight-form-aex" class="coupon">
+                                                    <select class="form-control" id="aex_destination" name="aex_destination">
+                                                        <option value="">{{ __('Select City') }}</option>
+                                                        @foreach ($aex_cities as $city)
+                                                            <option value="{{ $city->codigo_ciudad }}">
+                                                                {{ $city->denominacion }} -
+                                                                {{ $city->departamento_denominacion }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="shipping-area-class text-left mt-4" id="shipping-area-aex">
+                                                    </div>
+                                                </form>
+                                            @endif
+                                            <div id="coupon-link" class="mt-3">
+                                                {{ __('Have a promotion code?') }}
+                                            </div>
+                                            <form id="coupon-form" class="coupon">
+                                                <input type="text" placeholder="{{ __('Coupon Code') }}" id="code"
+                                                    required="" autocomplete="off">
+                                                <input type="hidden" class="coupon-total" id="grandtotal"
+                                                    value="{{ Session::has('cart') ? App\Models\Product::convertPrice($mainTotal) : '0.00' }}">
+                                                <button type="submit">{{ __('Apply') }}</button>
+                                            </form>
+                                        </div>
+                                    @endif
 
-                                @if ($gs->is_simplified_checkout && !empty($gs->simplified_checkout_number))
+                                    @if ($gs->is_standard_checkout)
+                                        <a href="{{ route('front.checkout') }}" class="order-btn">
+                                            {{ __('Place Order') }}
+                                        </a>
+                                    @endif
+                        @endif
+                                @if ($gs->is_simplified_checkout && !empty($gs->simplified_checkout_number) && $admstore->show_product_prices)
                                     <a href="#" class="order-btn mt-2" data-toggle="modal"
                                         data-target="#simplified-checkout-modal">{{ __('Simplified Checkout') }}</a>
+                                @else
+                                    <div class="d-grid text-center justify-content-center order-box">
+                                        <h5 class="pb-4" style="font-family:Arial, Helvetica, sans-serif">{{ __('Place Order') }}</h5>
+                                        <a href="#" class="order-btn mt-2" data-toggle="modal"
+                                        data-target="#simplified-checkout-modal">{{ __('Simplified Checkout') }}</a>   
+                                    </div>    
                                 @endif
-
-
                             </div>
                         </div>
                     </div>

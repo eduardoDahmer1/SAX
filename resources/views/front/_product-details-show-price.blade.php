@@ -15,7 +15,7 @@
         $previous_price_value = $productt->previous_price * $product_curr->value *
         (1+($gs->product_percent / 100));
         @endphp
-        @if($productt->previous_price)
+        @if($productt->previous_price && $admstore->show_product_prices)
         <small>
             <span style="font-weight: 400; text-decoration: line-through; color: #bababa;">{{$curr->sign}}{{$productt->previous_price}}</span>
         </small>
