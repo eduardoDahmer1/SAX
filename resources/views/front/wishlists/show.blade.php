@@ -23,6 +23,11 @@
     .wishlist:hover {
         text-decoration: underline;
     }
+
+    #share:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
 </style>
 <div class="container-fluid mt-2 mb-5">
     <div class="row px-5">
@@ -56,9 +61,19 @@
                             {{$wishlistGroup->name}}
                         </h1>
                         @auth
-                            @if ($wishlistGroup->user_id === auth()->user()->id)    
-                                <input @checked($wishlistGroup->is_public) class="styled-checkbox" id="checkboxPrivacity" type="checkbox" name="privacity">
-                                <label for="checkboxPrivacity">{{ __('Public wishlist ?') }}</label>
+                            @if ($wishlistGroup->user_id === auth()->user()->id)
+                                <div class="d-flex">
+                                    @if ($wishlistGroup->is_public)    
+                                        <div id="share" class="mr-3" onclick="share()" style="margin-top: 4px;">
+                                            <i class="fas fa-share-alt"></i>
+                                            {{__('Share')}}
+                                        </div>
+                                    @endif
+                                    <div>
+                                        <input @checked($wishlistGroup->is_public) class="styled-checkbox" id="checkboxPrivacity" type="checkbox" name="privacity">
+                                        <label for="checkboxPrivacity">{{ __('Public wishlist ?') }}</label>
+                                    </div>
+                                </div>
                             @endif
                         @endauth
                     </div>
@@ -76,7 +91,9 @@
                                         </a>
                                     </div>
                                     <div class="col-3 d-flex flex-column justify-content-center">
-                                        @if ($wishlistGroup->is_public)
+                                        @if ( !auth()->check()  
+                                            || (auth()->check() && $wishlistGroup->user_id !== auth()->user()->id)
+                                        )
                                             <div class="row justify-content-center">
                                                 <button class="btn btn-dark add-to-cart w-auto" data-href="{{route('product.cart.add', $wishlist->product->id)}}">
                                                     {{__('Add To Cart')}}
@@ -120,5 +137,10 @@
             success: () => window.location.reload()
         });
     });
+
+    function share() {
+        let url = "{{ url()->current() }}"
+        navigator.clipboard.writeText(url)
+    }
 </script>
 @endsection
