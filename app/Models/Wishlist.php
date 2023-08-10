@@ -8,6 +8,8 @@ class Wishlist extends CachedModel
 {
     public $timestamps = false;
 
+    protected $guarded = ['id'];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User')->withDefault(function ($data) {
