@@ -44,5 +44,10 @@ return [
         'client_id' => '',
         'client_secret' => '',
         'redirect' => '',
-    ]
+    ],
+
+    'bling' => [
+        'id' => env('BLING_CLIENT_ID'),
+        'secret' => env('BLING_CLIENT_SECRET'),
+    ],
 ];
