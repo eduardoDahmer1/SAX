@@ -77,6 +77,15 @@ Route::group([
         });
 
         Route::group([
+            'as' => 'wishlist.',
+            'prefix' => 'wishlist'
+        ], function () {
+            Route::get('/', 'WishlistGroupController@index')->name('index');
+            Route::get('/datatables', 'WishlistGroupController@datatables')->name('datatables');
+            Route::get('/show/{wishlistGroup}', 'WishlistGroupController@show')->name('show');
+        });
+
+        Route::group([
             'as' => 'receipt-',
             'prefix' => 'receipt'
         ], function () {
