@@ -20,6 +20,14 @@ class WishlistGroup extends Model
     }
 
     /**
+     * Get the user.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \App\Models\User  $user
      * @return void
