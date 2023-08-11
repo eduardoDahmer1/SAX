@@ -4,18 +4,29 @@ namespace App\Services;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class Bling
 {
     private string $url = "https://www.bling.com.br/Api/v3/oauth/";
     private string $access_token;
     private string $refresh_token;
+    private static Bling $instance;
 
-    public function __construct(
+    private function __construct(
         private string $client_id,
         private string $client_secret,
         private string $state,
     ) {
+    }
+
+    public static function getInstance(): Bling
+    {
+        if (!self::$instance) {
+            self::$instance = new Bling(config('services.bling.id'), config('services.bling.secret'), Str::random());
+        }
+
+        return self::$instance;
     }
 
     public function authorize(): RedirectResponse
