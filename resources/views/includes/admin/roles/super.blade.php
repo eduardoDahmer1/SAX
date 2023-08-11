@@ -52,6 +52,9 @@
         <li class="{{request()->is('admin/user/*/show') ? 'active' : ''}}">
             <a href="{{ route('admin-user-index') }}"><span>{{__('Customers')}}</span></a>
         </li>
+        <li class="{{request()->is('admin/wishlist/*') ? 'active' : ''}}">
+            <a href="{{ route('admin.wishlist.index') }}"><span>{{__('Wishlists')}}</span></a>
+        </li>
         @if($gs->is_cart_abandonment)
         <li class="{{request()->is('admin/cartabandonments') || request()->is('admin/cartabandonments/*/details') ? 'active' : ''}}">
             <a href="{{ route('admin-cartabandonment-index') }}"><span>{{__('Cart Abandonment')}}</span></a>
