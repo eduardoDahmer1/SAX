@@ -6,6 +6,7 @@ use App\Models\WishlistGroup;
 use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistGroupController extends Controller
 {
@@ -45,9 +46,15 @@ class WishlistGroupController extends Controller
     public function show(WishlistGroup $wishlistGroup)
     {
         $this->authorize('view', $wishlistGroup);
+
+        $wishlistsGroup = collect();
+        if (Auth::check() && auth()->user()->id === $wishlistGroup->user_id) {
+            $wishlistsGroup = WishlistGroup::currentUser(auth()->user())->get();
+        }
+
         return view('front.wishlists.show', [
             'wishlistGroup' => $wishlistGroup,
-            'wishlistsGroup' =>  WishlistGroup::currentUser(auth()->user())->get(),
+            'wishlistsGroup' =>  $wishlistsGroup,
         ]);
     }
 
@@ -64,5 +71,22 @@ class WishlistGroupController extends Controller
 
         $wishlistGroup->delete();
         return to_route('user-wishlists');
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\WishlistGroup  $wishlistGroup
+     * @return \Illuminate\Http\Response
+     */
+    public function changePrivacity(WishlistGroup $wishlistGroup)
+    {
+        $this->authorize('update', $wishlistGroup);
+        $wishlistGroup->is_public = !$wishlistGroup->is_public;
+        $wishlistGroup->save();
+
+        return response()->json([
+            "success" => __("Successfully"),
+        ]);
     }
 }

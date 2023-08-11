@@ -1586,6 +1586,7 @@ Route::group(['middleware' => 'maintenance'], function () {
                 Route::get('wishlist/remove/{id}', 'WishlistController@removewish')->name('wishlist-remove');
                 Route::get('wishlists', [WishlistGroupController::class, 'index'])->name('wishlists');
                 Route::get('wishlists/{wishlistGroup}', [WishlistGroupController::class, 'show'])->name('wishlists.show');
+                Route::post('wishlists/{wishlistGroup}', [WishlistGroupController::class, 'changePrivacity'])->name('wishlists.privacity');
                 Route::delete('wishlists/{wishlistGroup}', [WishlistGroupController::class, 'destroy'])->name('wishlists.destroy');
                 Route::post('wishlists', [WishlistGroupController::class, 'store'])->name('wishlists.store');
                 Route::get('register/verify/{token}', 'RegisterController@token')->name('register-token');
