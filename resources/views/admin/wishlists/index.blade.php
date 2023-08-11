@@ -74,9 +74,10 @@
         var table = $('#geniustable').DataTable({
             stateSave: true,
             stateDuration: -1,
+            searching: true,
             ordering: false,
             processing: true,
-            serverSide: true,
+            serverSide: false,
             ajax: '{{ route('admin.wishlist.datatables') }}',
             columns: [{
                     data: 'action',
@@ -85,15 +86,18 @@
                 },
                 {
                     data: 'name',
-                    name: 'name'
+                    name: 'name',
+                    searchable: true,
                 },
                 {
                     data: 'qtd',
-                    name: 'qtd'
+                    name: 'qtd',
+                    searchable: false,
                 },
                 {
                     data: 'user_name',
-                    name: 'user_name'
+                    name: 'user_name',
+                    searchable: true,
                 },
             ],
             language: {
