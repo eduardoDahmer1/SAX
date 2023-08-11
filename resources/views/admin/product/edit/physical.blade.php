@@ -1586,6 +1586,43 @@
                                             <div id="boxAssociatedSize" class="row m-0"></div>
                                         </div>
                                     </div>
+
+                                    <div class="title-section-form">
+                                        <span>6</span>
+                                        <h3>{{ __('Associate Look') }}</h3>
+                                    </div>
+                                    <div class="product-wrapper">
+                                        <div class="container-fluid">
+                                            <div class="form-group">
+                                                <label for="searchAssociatedLook">{{__('Look for the product')}}</label>
+                                                <div class="d-flex">
+                                                    <input id="searchAssociatedLook" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                    <button id="buttonSearchAssociatedLook" class="btn btn-info" type="button">{{__("Search")}}</button>
+                                                </div>
+                                                <small id="emailHelp" class="form-text text-muted">{{__('Enter the name of the product you want to associate')}}</small>
+                                            </div>
+                                            <div class="row m-0">
+                                                @foreach ($data->associatedProductsByLook as $associatedProduct)
+                                                    <div class="col-md-6">
+                                                        <div class="box-options-assoc">
+                                                            <input type="checkbox" id="produto_{{ $associatedProduct->id }}_look" name="associated_looks[]" value="{{ $associatedProduct->id }}" checked>
+                                                            <label for="produto_{{ $associatedProduct->id }}_look">
+                                                                <img src="{{filter_var($associatedProduct->thumbnail, FILTER_VALIDATE_URL) ? $associatedProduct->thumbnail :
+                                                                    asset('storage/images/thumbnails/'.$associatedProduct->thumbnail)}}" 
+                                                                    class="img-circle mr-1"
+                                                                    width="40px">
+                                                                <div>
+                                                                    <h6 class="m-0">{{ $associatedProduct->name }}</h6>
+                                                                    <p class="text-muted"><small>{{__('Size')}}: {{ $associatedProduct->product_size }}</small></p>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div id="boxAssociatedLook" class="row m-0"></div>
+                                        </div>
+                                    </div>
                                     
                                     
                                 <div class="row pt-4">
@@ -2320,9 +2357,12 @@
 
         const boxAssociatedColor = $('#boxAssociatedColor')
         const boxAssociatedSize = $('#boxAssociatedSize')
+        const boxAssociatedLook = $('#boxAssociatedLook')
 
         const associeteColorCheck = {!! json_encode($associatedColors) !!}
         const associeteSizeCheck = {!! json_encode($associatedSizes) !!}
+        const associeteLookCheck = {!! json_encode($associatedLooks) !!}
+
         let loading = document.createElement("h5")
         loading.classList.add('text-center','col-12', 'py-2')
         loading.innerHTML = 'Carregando...'
@@ -2385,6 +2425,11 @@
         $('#buttonSearchAssociatedSize').click( event => {
             let searchSize = document.querySelector('#searchAssociatedSize').value
             handleGetProducts(searchSize, 'associated_sizes[]', 'size', boxAssociatedSize, associeteSizeCheck, false)
+        });
+
+        $('#buttonSearchAssociatedLook').click( event => {
+            let searchLook = document.querySelector('#searchAssociatedLook').value
+            handleGetProducts(searchLook, 'associated_looks[]', 'look', boxAssociatedLook, associeteLookCheck, false)
         });
 
     </script>

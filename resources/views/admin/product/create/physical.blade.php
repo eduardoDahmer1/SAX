@@ -1072,9 +1072,9 @@
                                                 <label for="searchAssociatedColor">{{__('Look for the product')}}</label>
                                                 <div class="d-flex">
                                                     <input id="searchAssociatedColor" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
-                                                    <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">Search</button>
+                                                    <button id="buttonSearchAssociatedColor" class="btn btn-info" type="button">{{__('Search')}}</button>
                                                 </div>
-                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                                <small id="emailHelp" class="form-text text-muted">{{__('Enter the name of the product you want to associate')}}</small>
                                             </div>
                                             <div id="boxAssociatedColor" class="row m-0"></div>
                                         </div>
@@ -1092,11 +1092,31 @@
                                                 <label for="searchAssociatedSize">{{__('Look for the product')}}</label>
                                                 <div class="d-flex">
                                                     <input id="searchAssociatedSize" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
-                                                    <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">Search</button>
+                                                    <button id="buttonSearchAssociatedSize" class="btn btn-info" type="button">{{__('Search')}}</button>
                                                 </div>
-                                                <small id="emailHelp" class="form-text text-muted">Enter the name of the product you want to associate</small>
+                                                <small id="emailHelp" class="form-text text-muted">{{__('Enter the name of the product you want to associate')}}</small>
                                             </div>
                                             <div id="boxAssociatedSize" class="row m-0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="title-section-form">
+                                    <span>6</span>
+                                    <h3>{{ __('Associate Look') }}</h3>
+                                </div>
+                                <div class="max-width-div">
+                                    <div class="product-wrapper">
+                                        <div class="container-fluid">
+                                            <div class="form-group">
+                                                <label for="searchAssociatedLook">{{__('Look for the product')}}</label>
+                                                    <div class="d-flex">
+                                                        <input id="searchAssociatedLook" class="form-control m-0" type="text" name="search" placeholder="{{__('Products name')}}">
+                                                        <button id="buttonSearchAssociatedLook" class="btn btn-info" type="button">{{__('Search')}}</button>
+                                                    </div>
+                                                    <small id="emailHelp" class="form-text text-muted">{{__('Enter the name of the product you want to associate')}}</small>
+                                            </div>
+                                            <div id="boxAssociatedLook" class="row m-0"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1663,9 +1683,11 @@
 
         const boxAssociatedColor = $('#boxAssociatedColor')
         const boxAssociatedSize = $('#boxAssociatedSize')
+        const boxAssociatedLook = $('#boxAssociatedLook')
 
         const associeteColorCheck = []
         const associeteSizeCheck = []
+        const associeteLookCheck = []
 
         let loading = document.createElement("h5")
         loading.classList.add('text-center','col-12', 'py-2')
@@ -1728,6 +1750,11 @@
         $('#buttonSearchAssociatedSize').click( event => {
             let searchSize = document.querySelector('#searchAssociatedSize').value
             handleGetProducts(searchSize, 'associated_sizes[]', 'size', boxAssociatedSize, associeteSizeCheck, false)
+        });
+
+        $('#buttonSearchAssociatedLook').click( event => {
+            let searchLook = document.querySelector('#searchAssociatedLook').value
+            handleGetProducts(searchLook, 'associated_looks[]', 'look', boxAssociatedLook, associeteLookCheck, false)
         });
         
     </script>
