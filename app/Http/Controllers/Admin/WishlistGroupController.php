@@ -32,7 +32,7 @@ class WishlistGroupController extends Controller
                 return '<div class="ml-3">'. $data->wishlists()->count() .'</div>';
             })
             ->addColumn('user_name', function (WishlistGroup $data) {
-                return '<div class="ml-2">'. $data->name .'</div>';
+                return '<div class="ml-2">'. $data->user->name .'</div>';
             })
             ->rawColumns(['action', 'qtd', 'name', 'user_name'])
             ->toJson(); //--- Returning Json Data To Client Sidedatatables
