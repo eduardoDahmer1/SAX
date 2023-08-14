@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Generalsetting;
 use App\Services\Bling;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class BlingController extends Controller
 
     public function __construct()
     {
-        $this->bling = new Bling();
+        $gs = Generalsetting::first();
+        $this->bling = new Bling($gs->bling_access_token, $gs->bling_refresh_token);
     }
 
     public function authenticate()
@@ -27,6 +29,12 @@ class BlingController extends Controller
         }
 
         $this->bling->generateTokens($request->get('code'));
+
+        $gs = Generalsetting::first();
+        $gs->bling_access_token = $this->bling->access_token;
+        $gs->bling_refresh_token = $this->bling->refresh_token;
+        $gs->bling_refresh_token_created_at = now();
+        $gs->save();
 
         return redirect()->route('admin.dashboard');
     }
