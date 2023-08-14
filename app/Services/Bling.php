@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Http;
 class Bling
 {
     private string $url = "https://www.bling.com.br/Api/v3/oauth/";
-    private $access_token;
-    private $refresh_token;
+    public $access_token;
+    public $refresh_token;
 
     private string $client_id;
     private string $client_secret;
