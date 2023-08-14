@@ -49,5 +49,6 @@ return [
     'bling' => [
         'id' => env('BLING_CLIENT_ID'),
         'secret' => env('BLING_CLIENT_SECRET'),
+        'state' => env('BLING_CLIENT_STATE'),
     ],
 ];
