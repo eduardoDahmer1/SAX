@@ -4,29 +4,24 @@ namespace App\Services;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 
 class Bling
 {
     private string $url = "https://www.bling.com.br/Api/v3/oauth/";
-    private string $access_token;
-    private string $refresh_token;
-    private static Bling $instance;
+    private $access_token;
+    private $refresh_token;
 
-    private function __construct(
-        private string $client_id,
-        private string $client_secret,
-        private string $state,
-    ) {
-    }
+    private string $client_id;
+    private string $client_secret;
+    private string $state;
 
-    public static function getInstance(): Bling
+    public function __construct(string $access_token = null, string $refresh_token = null)
     {
-        if (!self::$instance) {
-            self::$instance = new Bling(config('services.bling.id'), config('services.bling.secret'), Str::random());
-        }
-
-        return self::$instance;
+        $this->client_id = config('services.bling.id');
+        $this->client_secret = config('services.bling.secret');
+        $this->state = config('services.bling.state');
+        $this->access_token = $access_token;
+        $this->refresh_token = $refresh_token;
     }
 
     public function authorize(): RedirectResponse
@@ -34,7 +29,7 @@ class Bling
         $params = [
             'response_type' => 'code',
             'client_id' => $this->client_id,
-            'state' => $this->state
+            'state' => $this->state,
         ];
 
         return redirect()->away($this->url . 'authorize?' . http_build_query($params));
@@ -49,8 +44,13 @@ class Bling
             'code' => $code,
         ])->collect();
 
-        $this->access_token = $response->access_token;
-        $this->refresh_token = $response->refresh_token;
+        $this->access_token = $response->get('access_token');
+        $this->refresh_token = $response->get('refresh_token');
+    }
+
+    public function isValidState(string $state)
+    {
+        return $this->state === $state;
     }
 
     public function refreshAccessToken(): void
@@ -62,6 +62,6 @@ class Bling
             'refresh_token' => $this->refresh_token,
         ])->collect();
 
-        $this->access_token = $response->access_token;
+        $this->access_token = $response->get('access_token');
     }
 }
