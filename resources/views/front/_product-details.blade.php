@@ -23,7 +23,7 @@
     </div>
 
     @if(!config("features.marketplace"))
-        @if($productt->associatedProductsByLook)
+        @if($productt->associatedProductsByLook->count())
             @include('front._product-details-build-look')
         @else
             @include('front._product-details-trending')
