@@ -191,6 +191,7 @@
     "Appointment": "Agendamento",
     "Associate Colors": "Associar Cor",
     "Associate Size": "Associar Tamanho",
+    "Associate Look": "Associar Look",
     "Ask For Verification": "Pedir Verifica\u00e7\u00e3o",
     "ASK FOR VERIFICATION": "PEDIR VERIFICA\u00c7\u00c3O",
     "Atrribute": "Atributos",
@@ -2006,6 +2007,6 @@
     "{$title}": "{$title}",
     "Look for the product":"Procure o produto",
     "Products name":"Nome do produto",
-    "Enter the name of the product you want to associate":"Introduza o nome do produto que pretende associar",
+    "Enter the name of the product you want to associate": "Digite o nome do produto que deseja associar",
     "No size":"Sem tamanho"
 }

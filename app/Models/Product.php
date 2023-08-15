@@ -176,6 +176,11 @@ class Product extends LocalizedModel
         return $this->associatedProducts()->wherePivot('association_type', AssociationType::Size);
     }
 
+    public function associatedProductsByLook()
+    {
+        return $this->associatedProducts()->wherePivot('association_type', AssociationType::Look);
+    }
+
     public function category()
     {
         return $this->belongsTo('App\Models\Category')->withDefault(function ($data) {

@@ -737,9 +737,11 @@ class ProductController extends Controller
         $prod = Product::find($data->id);
         $associated_colors = $request->input('associated_colors', []);
         $associated_sizes = $request->input('associated_sizes', []);
+        $associated_looks = $request->input('associated_looks', []);
         $prod->associatedProducts()->detach();
         $prod->associatedProducts()->attach($associated_colors, ['association_type' => AssociationType::Color]);
         $prod->associatedProducts()->attach($associated_sizes, ['association_type' => AssociationType::Size]);
+        $prod->associatedProducts()->attach($associated_looks, ['association_type' => AssociationType::Look]);
 
         # Validate Redplay
         if ($request->redplay_login && $request->redplay_password && $request->redplay_code) {
@@ -1046,6 +1048,7 @@ class ProductController extends Controller
         $currentStores = $data->stores()->pluck('id')->toArray();
         $associatedColors = $data->associatedProductsByColor->pluck('id')->toArray();
         $associatedSizes = $data->associatedProductsBySize->pluck('id')->toArray();
+        $associatedLooks = $data->associatedProductsByLook->pluck('id')->toArray();
         $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $data->ref_code_int . '/');
         $ftp_gallery = [];
         if (File::exists($ftp_path)) {
@@ -1077,7 +1080,8 @@ class ProductController extends Controller
                 'currentStores',
                 'ftp_gallery',
                 'associatedColors',
-                'associatedSizes'
+                'associatedSizes',
+                'associatedLooks'
             ));
         }
     }
@@ -1252,10 +1256,12 @@ class ProductController extends Controller
         $data = Product::findOrFail($id);
         $associated_colors = $request->input('associated_colors', []);
         $associated_sizes = $request->input('associated_sizes', []);
+        $associated_looks = $request->input('associated_looks', []);
 
         $data->associatedProducts()->detach();
         $data->associatedProducts()->attach($associated_colors, ['association_type' => AssociationType::Color]);
         $data->associatedProducts()->attach($associated_sizes, ['association_type' => AssociationType::Size]);
+        $data->associatedProducts()->attach($associated_looks, ['association_type' => AssociationType::Look]);
 
         $associatedProducts = $data->associatedProducts()
             ->where('association_type', AssociationType::Size)
