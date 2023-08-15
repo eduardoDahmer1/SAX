@@ -75,6 +75,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('product:import')->hourly();
 
         $schedule->command('order:export')->hourly();
+
+        $schedule->command('bling:refresh')->everyFourHours();
     }
 
     /**
