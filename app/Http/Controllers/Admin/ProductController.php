@@ -42,7 +42,6 @@ use Illuminate\Support\Facades\DB as FacadeDB;
 use function League\Csv\delimiter_detect;
 
 use Illuminate\Support\Facades\Validator;
-use Psy\TabCompletion\AutoCompleter;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -1335,12 +1334,7 @@ class ProductController extends Controller
         if (!$existingInverseAssociation) {
             FacadeDB::table('associated_products')->insert($productWithAssociations);
         }
-
-
-        $data->associatedProductsByColor()->sync(
-            $associated_colors,
-            ['association_type' => AssociationType::Color]
-        );
+        
         $associatedProducts = $data->associatedProducts()
             ->where('association_type', AssociationType::Size)
             ->get();
