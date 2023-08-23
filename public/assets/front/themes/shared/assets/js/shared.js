@@ -688,6 +688,24 @@ $(function ($) {
 
         // Currency and Language Section Ends
 
+        // Wedding Section
+
+        $(document).on('click', '.add-to-wedding', function () {
+            $.get($(this).data('href'), function (data) {
+                if (typeof data['success'] !== 'undefined') {
+                    toastr.success(data['success']);
+                    if (typeof fbq != 'undefined') {
+                        fbq('track', 'AddToWedding');
+                    }
+                } else {
+                    toastr.error(data['error']);
+                }
+            });
+
+            return false;
+        });
+
+        // Wedding Section End
 
         // Wishlist Section
 
