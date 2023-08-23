@@ -93,6 +93,8 @@ class AppServiceProvider extends ServiceProvider
             $storeSettings = new Generalsetting;
             app()->instance('storeSettings', $storeSettings);
         }
+
+        Blade::if('wedding', fn () => config('features.wedding_list'));
     }
 
     /**
