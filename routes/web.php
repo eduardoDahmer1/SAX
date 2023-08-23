@@ -1560,6 +1560,7 @@ Route::group(['middleware' => 'maintenance'], function () {
             ], function () {
                 Route::get('login', 'LoginController@showLoginForm')->name('login');
                 Route::post('login', 'LoginController@login')->name('login.submit');
+                Route::resource('wedding', WeddingListController::class)->only(['index', 'store']);
             });
 
             Route::group([
