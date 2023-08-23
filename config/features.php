@@ -22,5 +22,6 @@ return [
     "redplay_digital_product" => env("ENABLE_REDPLAY_DIGITAL_PRODUCT", false),
     "consult_the_price_by_whatsapp" => env("CONSULT_THE_PRICE_BY_WHATSAPP", false),
     "fedex_shipping" => env("ENABLE_FEDEX_SHIPPING", false),
+    'wedding_list' => env('ENABLE_WEDDING_LIST', false),
 ];
 
