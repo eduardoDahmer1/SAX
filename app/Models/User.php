@@ -104,6 +104,11 @@ class User extends Authenticatable implements TranslatableContract
         return $this->hasMany('App\Models\Order');
     }
 
+    public function weddingProducts()
+    {
+        return $this->belongsToMany(Product::class, 'wedding_products');
+    }
+
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
