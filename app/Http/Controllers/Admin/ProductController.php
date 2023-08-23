@@ -756,9 +756,9 @@ class ProductController extends Controller
 
         $productWithAssociations = [];
         foreach ($productsAssociatedId as $productColorPk) {
-            $product_pk = Product::find($productColorPk);
+            $product_pk = new Product($productColorPk);
             foreach ($productsAssociatedId as $productColorFk) {
-                $product_fk = Product::find($productColorFk);
+                $product_fk = new Product($productColorFk);
                 if ($product_pk->id != $product_fk->id) {
                     $existingInverseAssociation =  $product_pk->associatedProducts()->where('associated_product_id',  $product_fk->id)->where('association_type', AssociationType::Color)->exists();
 
@@ -774,7 +774,7 @@ class ProductController extends Controller
             }
         }
 
-        if (!$existingInverseAssociation) {
+        if (!$productWithAssociations) {
             FacadeDB::table('associated_products')->insert($productWithAssociations);
         }
 
@@ -1313,9 +1313,9 @@ class ProductController extends Controller
 
         $productWithAssociations = [];
         foreach ($productsAssociatedId as $productColorPk) {
-            $product_pk = Product::find($productColorPk);
+            $product_pk = new Product($productColorPk);
             foreach ($productsAssociatedId as $productColorFk) {
-                $product_fk = Product::find($productColorFk);
+                $product_fk = new Product($productColorFk);
                 if ($product_pk->id != $product_fk->id) {
                     $existingInverseAssociation =  $product_pk->associatedProducts()->where('associated_product_id',  $product_fk->id)->where('association_type', AssociationType::Color)->exists();
 
@@ -1331,7 +1331,7 @@ class ProductController extends Controller
             }
         }
 
-        if (!$existingInverseAssociation) {
+        if (!$productWithAssociations) {
             FacadeDB::table('associated_products')->insert($productWithAssociations);
         }
         
