@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'vendor.redirect' => \App\Http\Middleware\VendorRedirect::class,
         'is.meli' => \App\Http\Middleware\IsMeli::class,
         'set.locale' => \App\Http\Middleware\SetLocale::class,
+        'wedding' => \App\Http\Middleware\WeddingEnabled::class,
     ];
 }

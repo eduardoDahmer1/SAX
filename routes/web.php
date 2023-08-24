@@ -1560,10 +1560,16 @@ Route::group(['middleware' => 'maintenance'], function () {
             ], function () {
                 Route::get('login', 'LoginController@showLoginForm')->name('login');
                 Route::post('login', 'LoginController@login')->name('login.submit');
-                Route::get('wedding/store/{product}', 'WeddingListController@store')->name('wedding.store')->middleware('auth');
-                Route::get('wedding/buy/{user}/{product_id}', 'WeddingListController@buyProduct')->name('wedding.buy')->middleware('auth');
-                Route::post('wedding/privacy/', 'WeddingListController@privacy')->name('wedding.privacy')->middleware('auth');
-                Route::get('wedding/show/{user}', 'WeddingListController@show')->name('wedding.show');
+                Route::group([
+                    'as' => 'wedding.',
+                    'prefix' => 'wedding',
+                    'middleware' => 'wedding',
+                ], function () {
+                    Route::get('store/{product}', 'WeddingListController@store')->name('store')->middleware('auth');
+                    Route::get('buy/{user}/{product_id}', 'WeddingListController@buyProduct')->name('buy')->middleware('auth');
+                    Route::post('privacy/', 'WeddingListController@privacy')->name('privacy')->middleware('auth');
+                    Route::get('show/{user}', 'WeddingListController@show')->name('show');
+                });
             });
 
             Route::group([
