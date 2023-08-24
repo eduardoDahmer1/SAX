@@ -4,22 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\WeddingProduct;
 use Illuminate\Http\Request;
 
 class WeddingListController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('user.wedding.index', [
-            'products' => auth()->user()->weddingProducts,
-        ]);
-    }
-
     public function store(Request $request, $product)
     {
         $message = __("Successfully Product Added To Wedding List");
@@ -39,6 +28,7 @@ class WeddingListController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', [WeddingProduct::class, $user]);
         return view('front.wedding.show', [
             'products' => $user->weddingProducts,
             'owner' => $user,
@@ -47,11 +37,22 @@ class WeddingListController extends Controller
 
     public function buyProduct(User $user, $product_id)
     {
+        $this->authorize('buy', [WeddingProduct::class, $user]);
         $user->weddingProducts()->updateExistingPivot($product_id, [
             'buyer_id' => auth()->user()->id,
             'buyed_at' => now(),
         ]);
 
         return redirect()->route('product.cart.quickadd', $product_id);
+    }
+
+    public function privacy()
+    {
+        auth()->user()->is_wedding = !auth()->user()->is_wedding;
+        auth()->user()->save();
+
+        return response()->json([
+            "success" => __('Success')
+        ]);
     }
 }
