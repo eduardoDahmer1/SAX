@@ -1560,8 +1560,8 @@ Route::group(['middleware' => 'maintenance'], function () {
             ], function () {
                 Route::get('login', 'LoginController@showLoginForm')->name('login');
                 Route::post('login', 'LoginController@login')->name('login.submit');
-                Route::get('wedding', 'WeddingListController@index')->name('wedding.index');
-                Route::get('wedding/store/{product}', 'WeddingListController@store')->name('wedding.store');
+                Route::get('wedding', 'WeddingListController@index')->name('wedding.index')->middleware('auth');
+                Route::get('wedding/store/{product}', 'WeddingListController@store')->name('wedding.store')->middleware('auth');
             });
 
             Route::group([
