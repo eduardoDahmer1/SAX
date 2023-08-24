@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class WeddingListController extends Controller
@@ -31,5 +32,26 @@ class WeddingListController extends Controller
         return response()->json([
             "success" => $message,
         ]);
+    }
+
+    /**
+     * Display a resource.
+     */
+    public function show(User $user)
+    {
+        return view('front.wedding.show', [
+            'products' => $user->weddingProducts,
+            'owner' => $user,
+        ]);
+    }
+
+    public function buyProduct(User $user, $product_id)
+    {
+        $user->weddingProducts()->updateExistingPivot($product_id, [
+            'buyer_id' => auth()->user()->id,
+            'buyed_at' => now(),
+        ]);
+
+        return redirect()->route('product.cart.quickadd', $product_id);
     }
 }
