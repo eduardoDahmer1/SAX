@@ -37,6 +37,7 @@ use Intervention\Image\Facades\Image;
 use App\Models\SubcategoryTranslation;
 use Illuminate\Support\Facades\Session;
 use App\Models\ChildcategoryTranslation;
+use Illuminate\Support\Facades\DB as FacadeDB;
 
 use function League\Csv\delimiter_detect;
 
@@ -743,6 +744,42 @@ class ProductController extends Controller
         $prod->associatedProducts()->attach($associated_sizes, ['association_type' => AssociationType::Size]);
         $prod->associatedProducts()->attach($associated_looks, ['association_type' => AssociationType::Look]);
 
+        if ($associated_colors) {
+            foreach ($associated_colors as $color) {
+                $colorProduct = Product::find($color);
+                $productsAssociatedId[] = $colorProduct['id'];
+
+                $existingInverseAssociation = $colorProduct->associatedProducts()->where('associated_product_id', $prod->id)->where('association_type', AssociationType::Color)->exists();
+                if (!$existingInverseAssociation) {
+                    $colorProduct->associatedProducts()->attach($prod->id, ['association_type' => AssociationType::Color]);
+                }
+            }
+
+            $productWithAssociations = [];
+            foreach ($productsAssociatedId as $productColorPk) {
+                $product_pk = new Product($productColorPk);
+                foreach ($productsAssociatedId as $productColorFk) {
+                    $product_fk = new Product($productColorFk);
+                    if ($product_pk->id != $product_fk->id) {
+                        $existingInverseAssociation =  $product_pk->associatedProducts()->where('associated_product_id',  $product_fk->id)->where('association_type', AssociationType::Color)->exists();
+
+                        if (!$existingInverseAssociation) {
+                            $productWithAssociations[] = [
+                                'product_id' => $product_pk->id,
+                                'associated_product_id' => $product_fk->id,
+                                'association_type' => AssociationType::Color->value
+
+                            ];
+                        }
+                    }
+                }
+            }
+
+            if (!$productWithAssociations) {
+                FacadeDB::table('associated_products')->insert($productWithAssociations);
+            }
+        }
+    
         # Validate Redplay
         if ($request->redplay_login && $request->redplay_password && $request->redplay_code) {
             $redplayData = Product::sanitizeRedplayData([
@@ -1263,6 +1300,46 @@ class ProductController extends Controller
         $data->associatedProducts()->attach($associated_sizes, ['association_type' => AssociationType::Size]);
         $data->associatedProducts()->attach($associated_looks, ['association_type' => AssociationType::Look]);
 
+        if ($associated_colors) {
+            foreach ($associated_colors as $color) {
+                $colorProduct = Product::find($color);
+                $productsAssociatedId[] = $colorProduct['id'];
+
+                $existingInverseAssociation = $colorProduct->associatedProducts()->where('associated_product_id', $data->id)->where('association_type', AssociationType::Color)->exists();
+
+                if (!$existingInverseAssociation) {
+                    $colorProduct->associatedProducts()->syncWithoutDetaching([$data->id => ['association_type' => AssociationType::Color]]);
+                }
+
+                $data->associatedProducts()->syncWithoutDetaching([$colorProduct->id => ['association_type' => AssociationType::Color]]);
+            }
+
+            $productWithAssociations = [];
+            foreach ($productsAssociatedId as $productColorPk) {
+                $product_pk = new Product($productColorPk);
+                foreach ($productsAssociatedId as $productColorFk) {
+                    $product_fk = new Product($productColorFk);
+                    if ($product_pk->id != $product_fk->id) {
+                        $existingInverseAssociation =  $product_pk->associatedProducts()->where('associated_product_id',  $product_fk->id)->where('association_type', AssociationType::Color)->exists();
+
+                        if (!$existingInverseAssociation) {
+                            $productWithAssociations[] = [
+                                'product_id' => $product_pk->id,
+                                'associated_product_id' => $product_fk->id,
+                                'association_type' => AssociationType::Color->value
+
+                            ];
+                        }
+                    }
+                }
+            }
+
+
+            if (!$productWithAssociations) {
+                FacadeDB::table('associated_products')->insert($productWithAssociations);
+            }
+        }
+        
         $associatedProducts = $data->associatedProducts()
             ->where('association_type', AssociationType::Size)
             ->get();
