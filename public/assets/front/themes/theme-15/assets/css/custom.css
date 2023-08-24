@@ -197,6 +197,10 @@
     cursor: pointer;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .submenu-cat .subcat-link .sub-link {
     font-size: 18px;
     font-weight: 700;
