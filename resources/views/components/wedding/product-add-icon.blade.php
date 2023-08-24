@@ -1,6 +1,6 @@
 @props(['id'])
 
-<li>
+<li {{ $attributes->merge(['class']) }}>
     @wedding
         @if (Auth::guard('web')->check())
             <span class="add-to-wedding"
