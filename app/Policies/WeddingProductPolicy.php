@@ -17,9 +17,9 @@ class WeddingProductPolicy
      * @param  \App\Models\WeddingProduct  $weddingProduct
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $owner)
+    public function view(?User $user, User $owner)
     {
-        return $owner->id === $user->id || $owner->is_wedding;
+        return $owner->id === $user?->id || $owner->is_wedding;
     }
 
     /**
