@@ -78,8 +78,8 @@
             @endif
 
             @wedding
-                <li class="{{ $link == route('user.wedding.index') ? 'active':'' }}">
-                    <a href="{{route('user.wedding.index')}}">{{__('Wedding List')}}</a>
+                <li>
+                    <a href="{{route('user.wedding.show', auth()->user()->id)}}">{{__('Wedding List')}}</a>
                 </li>
             @endwedding
 
