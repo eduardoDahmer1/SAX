@@ -8,12 +8,34 @@ use App\Mail\RedplayLicenseMail;
 use App\Models\License;
 use App\Models\Order;
 use App\Models\Pickup;
+use App\Models\User;
+use App\Models\WeddingProduct;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class OrderObserver
 {
+    public function updating(Order $order)
+    {
+        if (
+            config('features.wedding_list')
+            && $order->wedding_product_id
+            && $order->payment_status == 'Completed'
+        ) {
+            WeddingProduct::where('id', $order->wedding_product_id)->update([
+                'buyer_id' => $order->user_id,
+                'buyed_at' => now(),
+            ]);
+        }
+    }
+
+    public function creating(Order $order)
+    {
+        if (config('features.wedding_list') && session('wedding_product_id')) {
+            $order->wedding_product_id = session('wedding_product_id');
+        }
+    }
 
     /**
      * Handle the order "updated" event.
@@ -43,7 +65,6 @@ class OrderObserver
             }
         }
 
-
         if (env('ENABLE_ORDER') && $order->payment_status === 'Completed') {
             $parameters = [
                 'cod' => env('ORDER_COD'),
@@ -61,7 +82,6 @@ class OrderObserver
 
     public function created(Order $order)
     {
-    
         if ($order->shipping == "pickup") {
             if ($order->store_id) {
                 $data = $order->cart;
