@@ -37,6 +37,7 @@ class WeddingListController extends Controller
 
     public function buyProduct(User $user, $product_id)
     {
+        $this->authorize('buy', [WeddingProduct::class, $user]);
         session([
             'wedding_product_id' => $user->weddingProducts()->where('product_id', $product_id)->first()->pivot->id
         ]);
