@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-12">
+                    <div class="col-12 my-4">
                         {{__('No products added')}}
                     </div>
                 @endforelse
