@@ -37,10 +37,8 @@ class WeddingListController extends Controller
 
     public function buyProduct(User $user, $product_id)
     {
-        $this->authorize('buy', [WeddingProduct::class, $user]);
-        $user->weddingProducts()->updateExistingPivot($product_id, [
-            'buyer_id' => auth()->user()->id,
-            'buyed_at' => now(),
+        session([
+            'wedding_product_id' => $user->weddingProducts()->where('product_id', $product_id)->first()->pivot->id
         ]);
 
         return redirect()->route('product.cart.quickadd', $product_id);
