@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\WeddingProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class WeddingListController extends Controller
 {
@@ -38,11 +39,22 @@ class WeddingListController extends Controller
     public function buyProduct(User $user, $product_id)
     {
         $this->authorize('buy', [WeddingProduct::class, $user]);
-        session([
-            'wedding_product_id' => $user->weddingProducts()->where('product_id', $product_id)->first()->pivot->id
-        ]);
 
-        return redirect()->route('product.cart.quickadd', $product_id);
+        $data = [
+            'id' => $user->weddingProducts()->where('product_id', $product_id)->first()->pivot->id,
+            'product_id' => $user->weddingProducts()->where('product_id', $product_id)->first()->id,
+        ];
+
+        if (!in_array($data, session('weddings') ?? [])) {
+            session([
+                'weddings' => array_merge(
+                    (session('weddings') ?? []),
+                    [$data]
+                )
+            ]);
+        }
+
+        return redirect()->route('product.cart.redirect.wedding', [$user->id, $product_id]);
     }
 
     public function privacy()
