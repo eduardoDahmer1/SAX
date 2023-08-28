@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-3 d-flex flex-column justify-content-center">
                                 <div class="row justify-content-center mb-3">
-                                    @if (!$product->pivot->buyer)
+                                    @if (!$product->pivot->buyed_at)
                                         @auth
                                             @if ($owner->id != auth()->user()->id)
                                                 <a class="btn btn-dark w-auto" data-value="{{$product->id}}"
@@ -67,7 +67,11 @@
                                             </button>
                                         @endauth
                                     @else
-                                        <h3>{{__('Buyed by')}} {{$product->pivot->buyer->name}}</h3>
+                                        @if ($product->pivot->buyer)
+                                            <h3>{{__('Buyed by')}} {{$product->pivot->buyer->name}}</h3>
+                                        @else
+                                            <h3>{{__('Buyed by')}} {{$product->pivot->orders->first()->customer_name}}</h3>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
