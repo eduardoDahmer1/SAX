@@ -50,18 +50,20 @@
                                     @if (!$product->pivot->buyer)
                                         @auth
                                             @if ($owner->id != auth()->user()->id)
-                                                <a class="btn btn-dark w-auto" href="{{route('user.wedding.buy', [$owner->id, $product->id])}}">
-                                                    {{__('Shop Now')}}
+                                                <a class="btn btn-dark w-auto" data-value="{{$product->id}}"
+                                                    href="{{route('user.wedding.buy', [$owner->id, $product->id])}}"
+                                                >
+                                                    {{__('Add To Cart')}}
                                                 </a>
                                             @else
                                                 <x-wedding.product-add-icon 
                                                     class="btn w-auto deleteProdWedd cursor-pointer" 
-                                                    icon="trash" :id="$product->id" title="Delete" />
+                                                    icon="trash" :id="$product->id" title="{{__('Delete')}}" />
                                             @endif
                                         @else
                                             <button class="btn btn-dark w-auto" rel-toggle="tooltip"
                                                 data-toggle="modal" data-target="#comment-log-reg">
-                                                {{__('Shop Now')}}
+                                                {{__('Add To Cart')}}
                                             </button>
                                         @endauth
                                     @else
