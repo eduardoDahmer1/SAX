@@ -1538,6 +1538,7 @@ Route::group(['middleware' => 'maintenance'], function () {
             });
 
             Route::get('addcart/{id}', 'CartController@addcart')->name('cart.add');
+            Route::get('cart/wedding/{user}/{id}', 'CartController@addToCartAndRedirectWedding')->name('cart.redirect.wedding');
             Route::get('removecart/{id}', 'CartController@removecart')->name('cart.remove');
             Route::get('addtocart/{id}', 'CartController@addtocart')->name('cart.quickadd');
         });
