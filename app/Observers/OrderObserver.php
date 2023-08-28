@@ -13,6 +13,7 @@ use App\Models\WeddingProduct;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class OrderObserver
 {
@@ -20,20 +21,33 @@ class OrderObserver
     {
         if (
             config('features.wedding_list')
-            && $order->wedding_product_id
             && $order->payment_status == 'Completed'
         ) {
-            WeddingProduct::where('id', $order->wedding_product_id)->update([
+            $ids = [];
+            foreach ($order->weddingProducts->toArray() as $item) {
+                $ids[] = $item['pivot']['wedding_product_id'];
+            }
+
+            WeddingProduct::whereIn('id', $ids)->update([
                 'buyer_id' => $order->user_id,
                 'buyed_at' => now(),
             ]);
         }
     }
 
-    public function creating(Order $order)
+    public function createWeddingProducts(Order $order)
     {
-        if (config('features.wedding_list') && session('wedding_product_id')) {
-            $order->wedding_product_id = session('wedding_product_id');
+        if (config('features.wedding_list') && session()->has('weddings')) {
+            $ids = [];
+            foreach ($order->cart['items'] as $item) {
+                foreach (session('weddings') as $wedding) {
+                    if ($wedding['product_id'] == $item['item']['id']) {
+                        $ids[] = $wedding['id'];
+                    }
+                }
+            }
+            $order->weddingProducts()->attach($ids);
+            Session::remove("weddings");
         }
     }
 
@@ -82,6 +96,7 @@ class OrderObserver
 
     public function created(Order $order)
     {
+        $this->createWeddingProducts($order);
         if ($order->shipping == "pickup") {
             if ($order->store_id) {
                 $data = $order->cart;
