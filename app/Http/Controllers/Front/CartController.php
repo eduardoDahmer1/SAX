@@ -13,6 +13,7 @@ use App\Models\AexCity;
 use App\Models\CategoryGallery;
 use App\Models\CustomProduct;
 use App\Models\Generalsetting;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -249,6 +250,13 @@ class CartController extends Controller
             'pixel_type' => $item['item']['type'],
             'pixel_currency' => $curr['name']
         ]);
+    }
+
+    public function addToCartAndRedirectWedding($user, $id)
+    {
+        $this->addcart($id);
+
+        return redirect()->route('user.wedding.show',$user);
     }
 
     public function addcart($id)
