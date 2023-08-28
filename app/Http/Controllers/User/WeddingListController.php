@@ -12,6 +12,12 @@ class WeddingListController extends Controller
 {
     public function store(Request $request, $product)
     {
+        if ($request->user()->weddingProducts()->where('product_id', $product)->first()->pivot->buyed_at) {
+            return response()->json([
+                "error" =>  __("Product can't be removed as it has already been purchased"),
+            ]);
+        }
+
         $message = __("Successfully Product Added To Wedding List");
         if ($request->user()->weddingProducts()->where('product_id', $product)->count()) {
             $message = __("Successfully Product Removed From Wedding List");
