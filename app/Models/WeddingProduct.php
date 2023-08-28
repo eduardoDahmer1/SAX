@@ -20,4 +20,9 @@ class WeddingProduct extends Pivot
     {
         return $this->belongsTo(User::class, 'buyer_id', 'id');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_wedding_product', 'wedding_product_id', 'order_id');
+    }
 }
