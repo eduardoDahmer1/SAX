@@ -12,7 +12,7 @@ class WeddingListController extends Controller
 {
     public function store(Request $request, $product)
     {
-        if ($request->user()->weddingProducts()->where('product_id', $product)->first()->pivot->buyed_at) {
+        if ($request->user()->weddingProducts()->where('product_id', $product)->first()?->pivot->buyed_at) {
             return response()->json([
                 "error" =>  __("Product can't be removed as it has already been purchased"),
             ]);
