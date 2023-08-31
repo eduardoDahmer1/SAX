@@ -166,7 +166,13 @@
                                                 value="{{ $data->ref_code }}">
                                         </div>
                                     </div>
-
+                                    <div class="col-xl-6">
+                                        <div class="input-form">
+                                            <h4 class="heading">{{ __('GTIN Code') }}</h4>
+                                            <input type="text" class="input-field"
+                                                placeholder="{{ __('Enter Product GTIN') }}" name="gtin" value="{{ $data->gtin }}">
+                                        </div>
+                                    </div>
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Product Sku') }}* <i class="icofont-question-circle"
