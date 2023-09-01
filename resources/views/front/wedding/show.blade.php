@@ -13,15 +13,15 @@
                         <p class="text-muted">{{__('Phone')}}: {{$owner->phone}}</p>
                     @endif
                 </div>
-                @auth
-                    <div>
-                        <div class="d-flex">
-                            <div class="d-flex mr-3 pb-1">
-                                <a href="{{route('user.wedding.download', $owner->id)}}" download class="d-flex justify-content-center align-items-center">
-                                    <i class="fas fa-download mr-1"></i>
-                                    {{__('Download')}}
-                                </a>
-                            </div>
+                <div>
+                    <div class="d-flex">
+                        <div class="d-flex mr-3 pb-1">
+                            <a href="{{route('user.wedding.download', $owner->id)}}" download class="d-flex justify-content-center align-items-center">
+                                <i class="fas fa-download mr-1"></i>
+                                {{__('Download')}}
+                            </a>
+                        </div>
+                        @auth
                             @if ($owner->id === auth()->user()->id)
                                 @if ($owner->is_wedding)
                                     <div id="share" class="mr-3 cursor-pointer" onclick="share()" style="margin-top: 4px;">
@@ -34,9 +34,9 @@
                                     <label for="checkboxPrivacy">{{ __('Public Wedding List') }}?</label>
                                 </div>
                             @endif
-                        </div>
+                        @endauth
                     </div>
-                @endauth
+                </div>
             </div>
             <div class="row border mx-1">
                 @forelse ($products as $product)
