@@ -14,10 +14,16 @@
                     @endif
                 </div>
                 @auth
-                    @if ($owner->id === auth()->user()->id)
-                        <div>
-                            <div class="d-flex">
-                                @if ($owner->is_wedding)    
+                    <div>
+                        <div class="d-flex">
+                            <div class="d-flex mr-3 pb-1">
+                                <a href="{{route('user.wedding.download', $owner->id)}}" download class="d-flex justify-content-center align-items-center">
+                                    <i class="fas fa-download mr-1"></i>
+                                    {{__('Download')}}
+                                </a>
+                            </div>
+                            @if ($owner->id === auth()->user()->id)
+                                @if ($owner->is_wedding)
                                     <div id="share" class="mr-3 cursor-pointer" onclick="share()" style="margin-top: 4px;">
                                         <i class="fas fa-share-alt"></i>
                                         {{__('Share')}}
@@ -27,9 +33,9 @@
                                     <input @checked($owner->is_wedding) class="styled-checkbox" id="checkboxPrivacy" type="checkbox" name="privacy">
                                     <label for="checkboxPrivacy">{{ __('Public Wedding List') }}?</label>
                                 </div>
-                            </div>
+                            @endif
                         </div>
-                    @endif
+                    </div>
                 @endauth
             </div>
             <div class="row border mx-1">
