@@ -83,6 +83,12 @@ class Order extends CachedModel
     {
         return $this->belongsTo(User::class);
     }
+
+    public function weddingProducts()
+    {
+        return $this->belongsToMany(WeddingProduct::class, 'order_wedding_product', 'order_id', 'wedding_product_id')
+            ->withPivot('wedding_product_id');
+    }
     
     public function vendororders()
     {

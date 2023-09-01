@@ -104,6 +104,12 @@ class User extends Authenticatable implements TranslatableContract
         return $this->hasMany('App\Models\Order');
     }
 
+    public function weddingProducts()
+    {
+        return $this->belongsToMany(Product::class, 'wedding_products')
+            ->using(WeddingProduct::class)->withPivot(['buyer_id', 'id', 'buyed_at']);
+    }
+
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');

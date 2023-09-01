@@ -127,6 +127,7 @@
                                     </span>
                                 @endif
                             </li>
+                            <x-wedding.product-add-icon :id="$prod->id" />
                             <li>
                                 <span class="quick-view" rel-toggle="tooltip" title="{{ __('Quick View') }}"
                                     href="javascript:;" data-href="{{ route('product.quick', $prod->id) }}"

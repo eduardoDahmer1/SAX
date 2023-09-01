@@ -76,6 +76,8 @@
                         </a>
                     </li>
                 @endif
+
+                <x-wedding.product-add-icon class="d-flex flex-column justify-content-center cursor-pointer" :id="$productt->id" />
     
                 <li class="compare">
                     <a href="javascript:;" class="add-to-compare" data-href="{{ route('product.compare.add',$productt->id) }}">

@@ -1538,6 +1538,7 @@ Route::group(['middleware' => 'maintenance'], function () {
             });
 
             Route::get('addcart/{id}', 'CartController@addcart')->name('cart.add');
+            Route::get('cart/wedding/{user}/{id}', 'CartController@addToCartAndRedirectWedding')->name('cart.redirect.wedding');
             Route::get('removecart/{id}', 'CartController@removecart')->name('cart.remove');
             Route::get('addtocart/{id}', 'CartController@addtocart')->name('cart.quickadd');
         });
@@ -1560,6 +1561,16 @@ Route::group(['middleware' => 'maintenance'], function () {
             ], function () {
                 Route::get('login', 'LoginController@showLoginForm')->name('login');
                 Route::post('login', 'LoginController@login')->name('login.submit');
+                Route::group([
+                    'as' => 'wedding.',
+                    'prefix' => 'wedding',
+                    'middleware' => 'wedding',
+                ], function () {
+                    Route::get('store/{product}', 'WeddingListController@store')->name('store')->middleware('auth');
+                    Route::get('buy/{user}/{product_id}', 'WeddingListController@buyProduct')->name('buy')->middleware('auth');
+                    Route::post('privacy/', 'WeddingListController@privacy')->name('privacy')->middleware('auth');
+                    Route::get('show/{user}', 'WeddingListController@show')->name('show');
+                });
             });
 
             Route::group([
