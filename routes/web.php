@@ -1570,6 +1570,7 @@ Route::group(['middleware' => 'maintenance'], function () {
                     Route::get('buy/{user}/{product_id}', 'WeddingListController@buyProduct')->name('buy')->middleware('auth');
                     Route::post('privacy/', 'WeddingListController@privacy')->name('privacy')->middleware('auth');
                     Route::get('show/{user}', 'WeddingListController@show')->name('show');
+                    Route::get('download/{user}', 'WeddingListController@download')->name('download');
                 });
             });
 
