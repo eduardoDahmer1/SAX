@@ -31,54 +31,70 @@
 
                 <ul class="filter-list">
                   <div class="header-area">
-                    <h4 class="title">
-                      {{ __("Categories") }}
-                    </h4>
-                  </div>
-                  @foreach ($categories as $element)
-                  <li>
-                    <div class="content">
-                        <a href="{{route('front.category', array_merge([$element->slug], request()->query()))}}" class="category-link">
-                          <i class="fas fa-angle-right"></i> {{$element->name}}
-                        </a>
-                        @if(!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
-                            @foreach ($cat->subs as $key => $subelement)
-                            <div class="sub-content open">
-                              <a href="{{route('front.category', array_merge([$cat->slug, $subelement->slug], request()->query()))}}" class="subcategory-link"><i class="fas fa-angle-right"></i>{{$subelement->name}}</a>
-                              @if(!empty($subcat) && $subcat->id == $subelement->id && !empty($subcat->childs))
-                                @foreach ($subcat->childs as $key => $childcat)
-                                <div class="child-content open">
-                                  <a href="{{route('front.category', array_merge([$cat->slug, $subcat->slug, $childcat->slug], request()->query()))}}" class="subcategory-link"><i class="fas fa-caret-right"></i> {{$childcat->name}}</a>
-                                </div>
-                                @endforeach
-                              @endif
-                            </div>
-                            @endforeach
-
-                            @endif
-                          </div>
-
-
-                  </li>
-                  @endforeach
-                  @if ($brands && $brands->count())
-                    <div class="header-area">
-                      <h4 class="title">
-                        {{ __("Brands") }}
+                    <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                      <h4 class="title categories">
+                        {{ __("Categories") }}
+                        <i class="fas fa-plus"></i>
+                        <i class="fas fa-minus"></i>
                       </h4>
-                    </div>
+                    </a>
+                  </div>
+
+                  <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    @foreach ($categories as $element)
                     <li>
                       <div class="content">
-                          <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp')])}}"
-                            class="category-link"> <i class="fas fa-angle-right"></i> {{ __("All Brands")}}</a>
+                          <a href="{{route('front.category', [$element->slug, request()->input('searchHttp')])}}" class="category-link">
+                            <i class="fas fa-angle-right"></i> {{$element->name}}
+                          </a>
+                          @if(!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
+                              @foreach ($cat->subs as $key => $subelement)
+                              <div class="sub-content open">
+                                <a href="{{route('front.category', [$cat->slug, $subelement->slug, request()->input('searchHttp')])}}" class="subcategory-link"><i class="fas fa-angle-right"></i>{{$subelement->name}}</a>
+                                @if(!empty($subcat) && $subcat->id == $subelement->id && !empty($subcat->childs))
+                                  @foreach ($subcat->childs as $key => $childcat)
+                                  <div class="child-content open">
+                                    <a href="{{route('front.category', [$cat->slug, $subcat->slug, $childcat->slug, request()->input('searchHttp')])}}" class="subcategory-link"><i class="fas fa-caret-right"></i> {{$childcat->name}}</a>
+                                  </div>
+                                  @endforeach
+                                @endif
+                              </div>
+                              @endforeach
+
+                              @endif
+                            </div>
+
+
                     </li>
-                    @foreach ($brands as $element)
+                    @endforeach
+                  </div>
+
+                  @if ($brands && $brands->count())
+                    <div class="header-area">
+                      <a data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
+                        <h4 class="title">
+                          {{ __("Brands") }}
+                          <i class="fas fa-plus"></i>
+                          <i class="fas fa-minus"></i>
+                        </h4>
+                      </a>
+                    </div>
+
+                    <div class="collapse multi-collapse" id="multiCollapseExample2">
                       <li>
                         <div class="content">
-                            <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp'), 'brand' => $element->slug])}}"
-                              class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
+                            <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp')])}}"
+                              class="category-link"> <i class="fas fa-angle-right"></i> {{ __("All Brands")}}</a>
                       </li>
-                    @endforeach
+                      @foreach ($brands as $element)
+                        <li>
+                          <div class="content">
+                              <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp'), 'brand' => $element->slug])}}"
+                                class="category-link"> <i class="fas fa-angle-right"></i> {{$element->name}}</a>
+                        </li>
+                      @endforeach
+                    </div>
+
                   @endif
 
                 </ul>

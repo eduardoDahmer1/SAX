@@ -48681,3 +48681,25 @@ h5.titlereceipt {
   }
 }
 
+.filter-list .title {
+  position: relative;
+}
+
+.filter-list .title .fas {
+  position: absolute;
+  right: -25px;
+  font-size: .8rem;
+  top: 1px;
+}
+
+.filter-list .title .fa-minus {
+  opacity: 0;
+}
+
+.filter-list a[aria-expanded=true] .title .fa-minus {
+  opacity: 1;
+}
+
+.filter-list a[aria-expanded=true] .title .fa-plus {
+  opacity: 0;
+}
