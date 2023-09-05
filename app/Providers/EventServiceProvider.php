@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Events\BackInStock;
+use App\Events\PublishedWeddingList;
 use App\Events\WatchPix;
 use App\Listeners\HandleBackInStock;
 use App\Listeners\HandleWatchPix;
+use App\Listeners\SendWeddingListNotification;
 use App\Models\Order;
 use App\Observers\OrderObserver;
 
@@ -34,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
         WatchPix::class => [
             HandleWatchPix::class
         ],
+        PublishedWeddingList::class => [
+            SendWeddingListNotification::class
+        ]
     ];
 
     /**
