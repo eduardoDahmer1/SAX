@@ -10,6 +10,7 @@
     @include('front.themes.theme-15.components.best-sellers')
     @include('front.themes.theme-15.components.testimonials')
     @include('front.themes.shared.components.large-banners')
+    @include('front.themes.shared.components.thumbnail-banners')
     @include('front.themes.shared.components.flash-deals')
     @include('front.themes.shared.components.top-rated')
     @include('front.themes.shared.components.big-save')

@@ -201,6 +201,7 @@ class FrontendController extends Controller
          * Extra index - former ajax request
          */
         $bottom_small_banners = $banners->where('type', '=', 'BottomSmall');
+        $thumbnail_banners = $banners->where('type', '=', 'Thumbnail');
         $large_banners = $banners->where('type', '=', 'Large');
         $reviews =  Review::all();
         $partners = Partner::all();
@@ -228,6 +229,7 @@ class FrontendController extends Controller
             'categories',
             'reviews',
             'large_banners',
+            'thumbnail_banners',
             'bottom_small_banners',
             'best_products',
             'top_products',
@@ -246,6 +248,7 @@ class FrontendController extends Controller
     {
         $bottom_small_banners = Banner::byStore()->where('type', '=', 'BottomSmall')->get();
         $large_banners = Banner::byStore()->where('type', '=', 'Large')->get();
+        $thumbnail_banners = Banner::byStore()->where('type', '=', 'Thumbnail');
         $reviews =  Review::all();
         $partners = Partner::all();
         $discount_products =  Product::byStore()->where('is_discount', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
@@ -259,7 +262,7 @@ class FrontendController extends Controller
         $trending_products =  Product::byStore()->where('trending', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
         $sale_products =  Product::byStore()->where('sale', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
         $extra_blogs = Blog::orderby('views', 'desc')->take(2)->get();
-        return view('front.extraindex', compact('reviews', 'large_banners', 'bottom_small_banners', 'best_products', 'top_products', 'hot_products', 'latest_products', 'big_products', 'trending_products', 'sale_products', 'discount_products', 'partners', 'extra_blogs'));
+        return view('front.extraindex', compact('reviews', 'large_banners', 'thumbnail_banners', 'bottom_small_banners', 'best_products', 'top_products', 'hot_products', 'latest_products', 'big_products', 'trending_products', 'sale_products', 'discount_products', 'partners', 'extra_blogs'));
     }
 
     // -------------------------------- HOME PAGE SECTION ENDS ----------------------------------------
