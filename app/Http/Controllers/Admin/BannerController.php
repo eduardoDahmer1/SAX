@@ -92,6 +92,19 @@ class BannerController extends Controller
     }
 
     //*** GET Request
+    public function thumbnail()
+    {
+        $storesList = Generalsetting::all();
+        return view('admin.banner.thumbnail', compact('storesList'));
+    }
+
+    public function thumbnailcreate()
+    {
+        $storesList = Generalsetting::all();
+        return view('admin.banner.thumbnailcreate', compact('storesList'));
+    }
+
+    //*** GET Request
     public function bottomcreate()
     {
         $storesList = Generalsetting::all();
