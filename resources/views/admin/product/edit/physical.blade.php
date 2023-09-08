@@ -547,6 +547,11 @@
                                             <h4 class="heading">
                                                 {{ __('Product Gallery Images') }}
                                             </h4>
+                                            <div class="row justify-content-center">
+                                                <div class="col-9">
+                                                    <x-admin.product.gallery :galleries="$data->galleries"/>
+                                                </div>
+                                            </div>
                                             <a href="#" class="set-gallery-product" data-toggle="modal"
                                                 data-target="#setgallery">
                                                 <input type="hidden" value="{{ $data->id }}">
@@ -2079,6 +2084,15 @@
         $(document).on('click', '.remove-img', function() {
             var id = $(this).find('input[type=hidden]').val();
             $(this).parent().parent().remove();
+
+            let carouselItem = $(`#gallery-${id}`)
+            $('#carousel-gallery').find('.carousel-item').not('.active').first().addClass('active')
+            carouselItem.remove();
+
+            if ($('#carousel-gallery .carousel-item').length <= 0) {
+                $('#carouselGallery').addClass('d-none');
+            }
+
             $.ajax({
                 type: 'GET',
                 url: '{{ route('admin-gallery-delete') }}',
@@ -2252,6 +2266,13 @@
                             return el
                         });
                         for (var k in arr) {
+                            $('#carousel-gallery').append('<div class="carousel-item" id="gallery-'
+                                +arr[k]["id"]
+                                +'"><img class="d-block w-100" src="'
+                                +'{{ asset('storage/images/galleries') }}'
+                                +'/'+arr[k]["photo"]+'"></div>'
+                            );
+
                             $('.selected-image .row').append('<div class="col-sm-6">' +
                                 '<div class="img gallery-img">' +
                                 '<span class="remove-img"><i class="fas fa-times"></i>' +
@@ -2269,6 +2290,12 @@
                                 '</a>' +
                                 '</div>' +
                                 '</div>');
+                        }
+                        
+                        if ($('#carousel-gallery .carousel-item').length > 0) {
+                            $('#carouselGallery').removeClass('d-none')
+                            $('#carousel-gallery .carousel-item').removeClass('active')
+                            $('#carousel-gallery').find('.carousel-item').not('.active').first().addClass('active')
                         }
                     }
                 }

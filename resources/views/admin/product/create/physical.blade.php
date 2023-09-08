@@ -311,6 +311,11 @@
                                             <h4 class="heading">
                                                 {{ __('Product Gallery Images') }}
                                             </h4>
+                                            <div class="row justify-content-center">
+                                                <div class="col-9">
+                                                    <x-admin.product.gallery />
+                                                </div>
+                                            </div>
                                             <a href="#" class="set-gallery-product" data-toggle="modal"
                                                 data-target="#setgallery">
                                                 <i class="icofont-plus"></i> {{ __('Set Gallery') }}
@@ -1471,6 +1476,15 @@
             var id = $(this).find('input[type=hidden]').val();
             $('#galval' + id).remove();
             $(this).parent().parent().remove();
+
+            let carouselItem = $(`#gallery-${id}`)
+            $('#carousel-gallery').find('.carousel-item').not('.active').first().addClass('active')
+            carouselItem.remove()
+
+            if ($('#carousel-gallery .carousel-item').length <= 0) {
+                $('#carouselGallery').addClass('d-none')
+            }
+
         });
 
         $(document).on('click', '.remove-img_color', function() {
@@ -1495,6 +1509,8 @@
             $('#uploadgallery_color').click();
             $('.selected-image_color .row').html('');
             $('#geniusform').find('.removegal').val(0);
+            $('#carouselGallery').addClass('d-none')
+            $('#carouselGallery .carousel-item').remove()
         });
 
         $(document).on('click', '#prod_gallery360', function() {
@@ -1648,6 +1664,10 @@
         $('#uploadgallery').change(function() {
             var total_file = document.getElementById('uploadgallery').files.length;
             for (var i = 0; i < total_file; i++) {
+                $('#carousel-gallery').append('<div class="carousel-item" id="gallery-'+i
+                    +'"><img class="d-block w-100" src="'
+                    +URL.createObjectURL(event.target.files[i])+'"></div>'
+                );
                 $('.selected-image .row').append('<div class="col-sm-6">' +
                     '<div class="img gallery-img">' +
                     '<span class="remove-img"><i class="fas fa-times"></i>' +
@@ -1661,6 +1681,12 @@
                 );
                 $('#geniusform').append('<input type="hidden" name="galval[]" id="galval' + i +
                     '" class="removegal" value="' + i + '">')
+            }
+
+            if ($('#carousel-gallery .carousel-item').length > 0) {
+                $('#carouselGallery').removeClass('d-none')
+                $('#carousel-gallery .carousel-item').removeClass('active')
+                $('#carousel-gallery').find('.carousel-item').not('.active').first().addClass('active')
             }
 
         });
