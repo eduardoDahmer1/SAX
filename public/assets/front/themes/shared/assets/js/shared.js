@@ -243,7 +243,9 @@ $(function ($) {
                 success: function (data) {
 
                     if (data == 1) {
-                        window.location = mainurl + '/user/dashboard';
+                        // window.location = mainurl + '/user/dashboard';
+                        $('#comment-log-reg1').modal('hide');
+                        location.reload();
                     } else {
 
                         if ((data.errors)) {
@@ -296,7 +298,9 @@ $(function ($) {
                             fbq('track', 'CompleteRegistration');
                         }
                         setTimeout(function () {
-                            window.location = mainurl + '/user/dashboard';
+                            // window.location = mainurl + '/user/dashboard';
+                            $('#comment-log-reg1').modal('hide');
+                            location.reload();
                         }, 500);
                     } else {
 

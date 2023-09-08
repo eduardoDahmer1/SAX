@@ -197,7 +197,7 @@
                                                     <div class="col-lg-6">
                                                         <input class="form-control" type="text"
                                                             name="customer_document" id="billCpf"
-                                                            placeholder="{{ $customer_doc_str }} *" required=""
+                                                            placeholder="{{ __('Document') }} *" required=""
                                                             pattern="[0-9]+"
                                                             title="{{ __('Field only accepts numbers') }}"
                                                             value="{{ session()->get('session_order')['customer_document'] }}">
@@ -481,7 +481,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <input class="form-control" type="text" name="customer_document"
-                                                        id="billCpf" placeholder="{{ $customer_doc_str }} *"
+                                                        id="billCpf" placeholder="{{ __('Document') }} *"
                                                         required="" pattern="[0-9]+"
                                                         title="{{ __('Field only accepts numbers') }}"
                                                         value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
@@ -1857,16 +1857,16 @@
                                                     placeholder="{{ __('Email Address') }} *" required="">
                                                 <i class="icofont-email"></i>
                                             </div>
-                                            <div class="form-input">
+                                            <!-- <div class="form-input">
                                                 <input type="text" class="User Name" name="phone"
                                                     placeholder="{{ __('Phone Number') }} *" required="">
                                                 <i class="icofont-phone"></i>
-                                            </div>
-                                            <div class="form-input">
+                                            </div> -->
+                                            <!-- <div class="form-input">
                                                 <input type="text" class="User Name" name="address"
                                                     placeholder="{{ __('Address') }} *" required="">
                                                 <i class="icofont-location-pin"></i>
-                                            </div>
+                                            </div> -->
                                             <div class="form-input">
                                                 <input type="password" class="Password" name="password"
                                                     placeholder="{{ __('Password') }} *" required="">
@@ -1877,11 +1877,11 @@
                                                     placeholder="{{ __('Confirm Password') }} *" required="">
                                                 <i class="icofont-ui-password"></i>
                                             </div>
-                                            <div class="form-input">
+                                            <!-- <div class="form-input">
                                                 <input placeholder="{{ __('Date of Birth') }}" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
                                                 
-                                            </div>
-                                            <div class="form-input">
+                                            </div> -->
+                                            <!-- <div class="form-input">
                                                 <select class="form-control" name="gender" id="gender">
                                                     <option value="">{{ __("Gender") }}</option>
                                                     <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
@@ -1889,7 +1889,7 @@
                                                     <option value="O" {{ old('gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
                                                     <option value="N" {{ old('gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
                                                 </select>
-                                            </div>
+                                            </div> -->
                                             @if ($gs->is_capcha == 1)
                                                 <ul class="captcha-area">
                                                     <li>
