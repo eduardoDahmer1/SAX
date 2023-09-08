@@ -15,6 +15,16 @@ class Cart extends CachedModel
     protected $storeSettings;
     protected $storeLocale;
 
+    public function toJson($options = 0)
+    {
+        $cart = [];
+        $cart['items'] = $this->items;
+        $cart['totalQty'] = $this->totalQty;
+        $cart['totalPrice'] = $this->totalPrice;
+
+        return json_encode($cart, $options);
+    }
+
     public function __construct($oldCart = null)
     {
         parent::__construct();

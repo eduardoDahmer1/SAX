@@ -45,8 +45,7 @@ class CartAbandonmentController extends Controller
             return ($data->email_sent) ? __("Yes") : __("No");
         })
         ->addColumn('qty', function (CartAbandonment $data) {
-            $cart = $data->temp_cart;
-            return count($cart->items);
+            return count($data->temp_cart->items ?? []);
         })
         ->rawColumns(['action'])
         ->toJson(); //---
