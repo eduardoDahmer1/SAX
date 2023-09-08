@@ -74,13 +74,14 @@
     </div><!-- End .dropdown-cart-total -->
     @endif
 
-    @if($gs->is_simplified_checkout && (!empty($gs->simplified_checkout_number)))
+    <!-- Desativado a opção de wpp antes da pessoa fazer login no checkout" -->
+    <!-- @if($gs->is_simplified_checkout && (!empty($gs->simplified_checkout_number)))
     <div class="dropdown-cart-action">
         <a href="#" class="mybtn1 px-1" data-toggle="modal" data-target="#simplified-checkout-modal">
             {{ __("Simplified Checkout") }}
         </a>
     </div>
-    @endif
+    @endif -->
 </div>
 @else
 <p class="mt-1 pl-3 text-left">{{ __("Cart is empty.") }}</p>
