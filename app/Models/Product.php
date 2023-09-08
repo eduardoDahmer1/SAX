@@ -33,7 +33,7 @@ class Product extends LocalizedModel
         'meta_tag',
         'meta_description',
         'features',
-        'tags'
+        'tags',
     ];
 
     protected $fillable = [
@@ -42,6 +42,7 @@ class Product extends LocalizedModel
         'product_type',
         'affiliate_link',
         'sku',
+        'gtin',
         'brand_id',
         'subcategory_id',
         'childcategory_id',
