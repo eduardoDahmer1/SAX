@@ -382,11 +382,221 @@
                             </div>
                         </div>
                     </div>
+                    <div class="area-boleto">
+                        <div class="content">
+                        @php
+                            $linkWpp = "*| " . __('New Order - Simplified Checkout') . " |*" .
+                            PHP_EOL.PHP_EOL;
+
+                            if($order->customer_name) {
+                            $linkWpp .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
+                            PHP_EOL;
+                            }
+                            if($order->customer_phone) {
+                            $linkWpp .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+                            PHP_EOL;
+                            }
+
+                            $linkWpp .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
+
+                            foreach($tempcart->items as $product) {
+                            $linkWpp .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
+                            $linkWpp .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+                            if($admstore->show_product_prices){
+                                $linkWpp .= "*" . __("Price") . "*: " . $order->currency_sign .
+                                number_format($product['item']['price'] * $order->currency_value,
+                                $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
+                            $linkWpp .= (route('front.product', ['slug' =>
+                            $product['item']['slug']])).PHP_EOL.PHP_EOL;
+                            $linkWpp .= "*---------------------------------*".PHP_EOL.PHP_EOL;
+                            }
+                            if ($order->tax) {
+                            $linkWpp .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
+                            }
+                            if ($order->coupon_code) {
+                            $linkWpp .= "*" . __("Discount") . "*: " . $order->currency_sign .
+                            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
+                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
+                            if($admstore->show_product_prices){
+                                $linkWpp .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
+                                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+                            }
+                            $linkWpp .= "_" . __("Order Number") . " - " . $order->order_number .
+                            "_".PHP_EOL;
+                            $linkWpp .= "_" . __("Date") . " - " .
+                            Carbon\Carbon::now()->toDateTimeString() . "_";
+
+                            $link = "https://web.whatsapp.com/send?1=pt_BR&phone=" . $gs->simplified_checkout_number .
+                            "&text=" . urlencode($linkWpp);
+                            @endphp
+
+                            <a class="text" href="{{$link}}">
+                                {{ __("Click here to complete your purchase on our Whatsapp") }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <!-- Ending of Dashboard data-table area -->
             </div>
             @endif
 </section>
+
+                            @php
+                            $linkSimplifiedCheckout = "*| " . __('New Order - Simplified Checkout') . " |*" .
+                            PHP_EOL.PHP_EOL;
+
+                            if($order->customer_name) {
+                            $linkSimplifiedCheckout .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
+                            PHP_EOL;
+                            }
+                            if($order->customer_phone) {
+                            $linkSimplifiedCheckout .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+                            PHP_EOL;
+                            }
+
+                            $linkSimplifiedCheckout .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
+
+                            foreach($tempcart->items as $product) {
+                            $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
+                            $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+                            if($admstore->show_product_prices){
+                                $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
+                                number_format($product['item']['price'] * $order->currency_value,
+                                $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
+                            $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
+                            $product['item']['slug']])).PHP_EOL.PHP_EOL;
+                            $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
+                            }
+                            if ($order->tax) {
+                            $linkSimplifiedCheckout .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
+                            }
+                            if ($order->coupon_code) {
+                            $linkSimplifiedCheckout .= "*" . __("Discount") . "*: " . $order->currency_sign .
+                            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
+                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
+                            if($admstore->show_product_prices){
+                                $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
+                                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+                            }
+                            $linkSimplifiedCheckout .= "_" . __("Order Number") . " - " . $order->order_number .
+                            "_".PHP_EOL;
+                            $linkSimplifiedCheckout .= "_" . __("Date") . " - " .
+                            Carbon\Carbon::now()->toDateTimeString() . "_";
+
+                            $linkMobile = "https:///api.whatsapp.com/send?1=pt_BR&phone=" .
+                            $gs->simplified_checkout_number . "&text=" . urlencode($linkSimplifiedCheckout);
+                            @endphp
+
+
+
+                            @php
+                            $linkWpp = "*| " . __('New Order - Simplified Checkout') . " |*" .
+                            PHP_EOL.PHP_EOL;
+
+                            if($order->customer_name) {
+                            $linkWpp .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
+                            PHP_EOL;
+                            }
+                            if($order->customer_phone) {
+                            $linkWpp .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+                            PHP_EOL;
+                            }
+
+                            $linkWpp .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
+
+                            foreach($tempcart->items as $product) {
+                            $linkWpp .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
+                            $linkWpp .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+                            if($admstore->show_product_prices){
+                                $linkWpp .= "*" . __("Price") . "*: " . $order->currency_sign .
+                                number_format($product['item']['price'] * $order->currency_value,
+                                $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
+                            $linkWpp .= (route('front.product', ['slug' =>
+                            $product['item']['slug']])).PHP_EOL.PHP_EOL;
+                            $linkWpp .= "*---------------------------------*".PHP_EOL.PHP_EOL;
+                            }
+                            if ($order->tax) {
+                            $linkWpp .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
+                            }
+                            if ($order->coupon_code) {
+                            $linkWpp .= "*" . __("Discount") . "*: " . $order->currency_sign .
+                            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
+                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                            }
+                            if($admstore->show_product_prices){
+                                $linkWpp .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
+                                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+                            }
+                            $linkWpp .= "_" . __("Order Number") . " - " . $order->order_number .
+                            "_".PHP_EOL;
+                            $linkWpp .= "_" . __("Date") . " - " .
+                            Carbon\Carbon::now()->toDateTimeString() . "_";
+
+                            $link = "https://web.whatsapp.com/send?1=pt_BR&phone=" . $gs->simplified_checkout_number .
+                            "&text=" . urlencode($linkWpp);
+                            @endphp
+
+<!-- Small modal -->
+
+<div id="mySmallModalLabel" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content mobile">
+
+            <div class="card text-center">
+                <div class="card-header">
+                    {{__('Checkout')}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{__('Start Conversation')}}</h5>
+                    <p class="card-text">{{ __("You will be redirected to a new page to continue your order.") }}</p>
+                    <div class="mobile-button" style="display:flex; justify-content:center;">
+                        <a class="btn btn-success d-block d-lg-none" href="{{$linkMobile}}" style="color: #fff;"
+                            target="_blank">{{ __("Accept")}}</a>
+                        <button type="button" class="btn btn-danger d-block d-lg-none" style="margin-left: 10px;"
+                            data-dismiss="modal">{{ __("Close") }}</button>
+                    </div>
+                    <div style="display:flex; justify-content:center;">
+                        <a class="btn btn-success d-none d-lg-block" href="{{$link}}" style="color: #fff;"
+                            target="_blank">{{ __("Accept")}}</a>
+                        <button type="button" class="btn btn-danger d-none d-lg-block" style="margin-left: 10px;"
+                            data-dismiss="modal">{{ __("Close") }}</button>
+                    </div>
+
+                </div>
+                <div class="card-footer text-muted">
+                    {{ __("Order#") }} {{$order->order_number}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        $('#mySmallModalLabel').modal('show');
+        $("#link-simplified-modal").on('click', function(){
+            var url = $('#link-simplified').attr('href');
+            window.open(url); 
+            $('#mySmallModalLabel').modal('hide')
+        });
+    };
+
+</script>
+
+
 @endsection
 @section('scripts')
 <script>
