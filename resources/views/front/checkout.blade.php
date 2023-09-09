@@ -185,24 +185,35 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" type="text" name="name"
+                                                                id="billName" placeholder="{{ __('Full Name') }} *"
+                                                                required="" pattern="^(\S*)\s+(.*)$"
+                                                                title="{{ __('Input first name and last name') }}"
+                                                                value="{{ session()->get('session_order')['customer_name'] }}">
+                                                        </div>
 
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="name"
-                                                            id="billName" placeholder="{{ __('Full Name') }} *"
-                                                            required="" pattern="^(\S*)\s+(.*)$"
-                                                            title="{{ __('Input first name and last name') }}"
-                                                            value="{{ session()->get('session_order')['customer_name'] }}">
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text"
-                                                            name="customer_document" id="billCpf"
-                                                            placeholder="{{ __('Document') }} *" required=""
-                                                            pattern="[0-9]+"
-                                                            title="{{ __('Field only accepts numbers') }}"
-                                                            value="{{ session()->get('session_order')['customer_document'] }}">
-                                                    </div>
-
+                                                        <div class="col-lg-6">
+                                                            <input class="form-control" type="text"
+                                                                name="customer_document" id="billCpf"
+                                                                placeholder="{{ __('Document') }} *" required=""
+                                                                pattern="[0-9]+"
+                                                                title="{{ __('Field only accepts numbers') }}"
+                                                                value="{{ session()->get('session_order')['customer_document'] }}">
+                                                        </div>  
+                                                        <div class="col-lg-6">
+                                                            <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="customer_birthday" name="customer_birthday" required/>
+                                                        </div>
+                                                    
+                                                        <div class="col-lg-6">
+                                                            <select class="form-control" name="customer_gender" id="customer_gender">
+                                                                <option value="">{{ __("Gender") }}</option>
+                                                                <option value="M" {{ old('customer_gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
+                                                                <option value="F" {{ old('customer_gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
+                                                                <option value="O" {{ old('customer_gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
+                                                                <option value="N" {{ old('customer_gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
+                                                            </select>
+                                                        </div>
                                                     @if ($gs->is_zip_validation)
                                                         <div class="col-lg-6">
                                                             <input class="form-control js-zipcode" type="text"
@@ -481,10 +492,23 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <input class="form-control" type="text" name="customer_document"
-                                                        id="billCpf" placeholder="{{ __('Document') }} *"
+                                                        id="billCpf" placeholder="{{ __('Document') }}*"
                                                         required="" pattern="[0-9]+"
                                                         title="{{ __('Field only accepts numbers') }}"
                                                         value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
+                                                </div>    
+                                                <div class="col-lg-6">
+                                                    <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
+                                                </div>
+                                            
+                                                <div class="col-lg-6">
+                                                    <select class="form-control" name="gender" id="gender">
+                                                        <option value="">{{ __("Gender") }}</option>
+                                                        <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
+                                                        <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
+                                                        <option value="O" {{ old('gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
+                                                        <option value="N" {{ old('gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
+                                                    </select>
                                                 </div>
                                                 @if ($gs->is_zip_validation)
                                                     @if (empty($state_id && $city_id && $country_id))
