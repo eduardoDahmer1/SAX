@@ -592,6 +592,27 @@ trait Gateway
             $this->order['affilate_charge'] = $sub;
         }
         $this->order->save();
+
+
+        //APOS A ORDEM, ATUALIZO TODOS OS DADOS DO CLIENTE, E SALVO ELES.
+        $users = User::where('email', '=', $request->email)->first();
+
+        $users['email'] = $request->email;
+        $users['name'] = $request->name;
+        $users['document'] = $customer_document;
+        $users['zip'] = $request->zip;
+        $users['phone'] = $request->phone;
+        $users['address'] = $request->address;
+        $users['address_number'] = $request->address_number;
+        $users['complement'] = $request->complement;
+        $users['district'] = $request->district;
+        $users['city'] = $customer_city;
+        $users['state'] = $customer_state;
+        $users['country'] = $customer_country;
+        $users['birth_date'] = $request->customer_birthday;
+        $users['gender'] = $request->customer_gender;
+        $users->save();
+
         if (!$this->storeSettings->guest_checkout && $this->storeSettings->is_cart_abandonment) {
             CartAbandonment::where('user_id', Auth::user()->id)->delete();
         }
