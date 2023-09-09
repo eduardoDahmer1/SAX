@@ -151,6 +151,8 @@ class StripeController extends Controller
                       $order['shipping_email'] = $request->shipping_email;
                       $order['shipping_name'] = $request->shipping_name;
                       $order['shipping_phone'] = $request->shipping_phone;
+                      $order['customer_birthday'] = $request->customer_birthday;
+                      $order['customer_gender'] = $request->customer_gender;
                       $order['shipping_address'] = $request->shipping_address;
                       $order['shipping_country'] = $request->shipping_country;
                       $order['shipping_city'] = $request->shipping_city;
