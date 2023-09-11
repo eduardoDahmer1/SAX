@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\WeddingProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class WeddingListController extends Controller
 {
@@ -41,6 +42,13 @@ class WeddingListController extends Controller
             'products' => $user->weddingProducts,
             'owner' => $user,
         ]);
+    }
+
+    public function download(User $user)
+    {
+        $pdf = Pdf::loadView('front.wedding.pdf.download', ['products' => $user->weddingProducts, 'owner' => $user]);
+
+        return $pdf->download('wedding-list.pdf');
     }
 
     public function buyProduct(User $user, $product_id)
