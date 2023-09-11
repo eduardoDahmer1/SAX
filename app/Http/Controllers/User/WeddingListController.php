@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Events\PublishedWeddingList;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\WeddingProduct;
@@ -67,6 +68,10 @@ class WeddingListController extends Controller
     {
         auth()->user()->is_wedding = !auth()->user()->is_wedding;
         auth()->user()->save();
+
+        if (auth()->user()->is_wedding) {
+            PublishedWeddingList::dispatch(auth()->user());
+        }
 
         return response()->json([
             "success" => __('Success')

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Exemplo de E-mail com Tabela</title>
+    <title>{{__('Wedding List')}} - {{$user->name}}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     </tr>
     <tr align="center">
       <th>
-        <p style="width: 500px; text-align: justify; font-family: 'Cormorant Garamond', serif; font-size: 25px; color: #555555;">Estimado/[Nombre],</p>
+        <p style="width: 500px; text-align: justify; font-family: 'Cormorant Garamond', serif; font-size: 25px; color: #555555;">Estimado/{{$user->name}},</p>
       </th>
     </tr>
     <tr align="center">
@@ -39,15 +39,23 @@
     </tr>
     <tr align="center">
       <th>
-        <p style="width: 500px; text-align: justify; font-size: 16px; color: #D39C5F; letter-spacing: 1px; line-height: 35px; margin-bottom: 60px;">El equipo del SAX Bridal World. <a style="margin-left: 20px; background:#D39C5F; padding: 10px 30px; border-radius: 4px; color: #fff; text-decoration: none;" href="">Ver lista</a></p>
+        <p style="width: 500px; text-align: justify; font-size: 16px; color: #D39C5F; letter-spacing: 1px; line-height: 35px; margin-bottom: 60px;">El equipo del SAX Bridal World. <a style="margin-left: 20px; background:#D39C5F; padding: 10px 30px; border-radius: 4px; color: #fff; text-decoration: none;" href="{{route('user.wedding.show', $user->id)}}">Ver lista</a></p>
       </th>
     </tr>
     <tr align="center">
       <th align="center" style="background:#F1E7DA; height: 70px;">
-          <img src="{{ asset('assets/images/theme15/logopng.png' )}}" alt="">
-          <img src="{{ asset('assets/images/theme15/palace.png' )}}" alt="">
-          <img src="{{ asset('assets/images/theme15/depart.png' )}}" alt="">
-          <img src="{{ asset('assets/images/theme15/zappng.png' )}}" alt="">
+          <a href="{{route('front.index')}}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ asset('assets/images/theme15/logopng.png' )}}" alt="">
+          </a>
+          <a href="https://saxdepartment.com/sax-palace" target="_blank" rel="noopener noreferrer">
+            <img src="{{ asset('assets/images/theme15/palace.png' )}}" alt="">
+          </a>
+          <a href="https://saxdepartment.com/" target="_blank" rel="noopener noreferrer">
+            <img src="{{ asset('assets/images/theme15/depart.png' )}}" alt="">
+          </a>
+          <a href="https://api.whatsapp.com/send?1=pt_BR&phone={!! $number !!}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ asset('assets/images/theme15/zappng.png' )}}" alt="">
+          </a>
       </th>
     </tr>
 </table>
