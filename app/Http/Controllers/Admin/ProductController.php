@@ -107,7 +107,16 @@ class ProductController extends Controller
             $datas = $datas->whereRaw('(photo is null or photo = "")')->where('status', '=', 1)->orderBy('id', 'desc');
         } elseif ($status == 'with_image') {
             $datas = $datas->whereNotNull('photo')->where('photo', '<>', '')->orderBy('id', 'desc');
-        } elseif ($status == 'system_name') {
+        } elseif ($status == 'Activate_products_with_image') {
+            $datas = $datas->where('status', '=', 1)->whereNotNull('photo')->where('photo', '<>', '')->orderBy('id', 'desc');
+        } elseif ($status == 'Inative_products_with_image') {
+            $datas = $datas->where('status', '=', 0)->whereNotNull('photo')->where('photo', '<>', '')->orderBy('id', 'desc');
+        } elseif ($status == 'Out-of-stock_and_active_products') {
+            $datas = $datas->where('stock', '=', 0)->where('status', '=', 1)->orderBy('id', 'desc');
+        } elseif ($status == 'Stock_and_inactive_products') {
+            $datas = $datas->where('stock', '>=', 1)->where('status', '=', 0)->orderBy('id', 'desc');
+        }
+        elseif ($status == 'system_name') {
             $query1 = DB::table('products')
                 ->select('products.id as id1')
                 ->join('product_translations', function ($join) {
@@ -279,7 +288,11 @@ class ProductController extends Controller
             "latest" => __('Latest'),
             "without_category" => __('Without Category'),
             "system_name" => __('With System Name'),
-            "with_image" => __('With Image')
+            "with_image" => __('With Image'),
+            "Activate_products_with_image" => __('Active products with image'),
+            "Inative_products_with_image" => __('Inative products with image'),
+            "Out-of-stock_and_active_products" => __('Out-of-stock and active products'),
+            "Stock_and_inactive_products" => __('Stock and inactive products')
         ];
 
         $cats = Category::all();
