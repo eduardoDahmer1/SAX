@@ -193,7 +193,7 @@
                             </li>
                 
                             <li>
-                                <a  class="navlink" target="_blank"  href="https://saxdepartment.com/bridal-world">
+                                <a  class="navlink" target="_blank"  href="https://saxdepartment.com/sax-bridal">
                                     {{ __('Sax Bridal World') }}
                                 </a>
                             </li>
