@@ -348,9 +348,9 @@
         font-size: 16px !important;
         line-height: normal !important;
       }
-      .boxsubcat a:nth-child(4), .boxsubcat a:nth-child(5), .boxsubcat a:nth-child(6) {
+      /* .boxsubcat a:nth-child(4), .boxsubcat a:nth-child(5), .boxsubcat a:nth-child(6) {
         display: none;
-    }
+    } */
 }
 
 .product-details-page {
