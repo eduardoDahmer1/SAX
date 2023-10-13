@@ -165,144 +165,157 @@
                                                     {{ __('Billing Details') }}
                                                 </h5>
                                                 <div class="row">
-                                                    <div class="col-lg-6 {{ $digital == 1 ? 'd-none' : '' }}">
-                                                        <select class="form-control" id="shipop" name="shipping"
-                                                            required="" style="margin-bottom: 10px;">
-                                                            <option value="shipto">{{ __('Ship To Address') }}</option>
-                                                            @if($pickups->count() > 0)
-                                                                <option value="pickup">{{ __('Pick Up') }}</option>
-                                                            @endif
-                                                        </select>
+                                                    <div class="col-lg-6">
+                                                        <!-- Full name -->
+                                                       <div>
+                                                           <input class="form-control" type="text" name="name"
+                                                               id="billName" placeholder="{{ __('Full Name') }} *"
+                                                               required="" pattern="^(\S*)\s+(.*)$"
+                                                               title="{{ __('Input first name and last name') }}"
+                                                               value="{{ session()->get('session_order')['customer_name'] }}">
+                                                       </div>
+   
+                                                       <!-- Document -->
+                                                       <div>
+                                                           <input class="form-control" type="text"
+                                                               name="customer_document" id="billCpf"
+                                                               placeholder="{{ __('Document') }} *" required=""
+                                                               pattern="[0-9]+"
+                                                               title="{{ __('Field only accepts numbers') }}"
+                                                               value="{{ session()->get('session_order')['customer_document'] }}">
+                                                       </div>
+   
+                                                       <!-- Date -->
+                                                       <div>
+                                                           <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="customer_birthday" name="customer_birthday" required/>
+                                                       </div>
+                                                   
+                                                       <!-- Gender -->
+                                                       <div>
+                                                           <select class="form-control" name="customer_gender" id="customer_gender">
+                                                               <option value="">{{ __("Gender") }}</option>
+                                                               <option value="M" {{ old('customer_gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
+                                                               <option value="F" {{ old('customer_gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
+                                                               <option value="O" {{ old('customer_gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
+                                                               <option value="N" {{ old('customer_gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
+                                                           </select>
+                                                       </div>
+   
+                                                       <!-- Phone -->
+                                                       <div>
+                                                           <input class="form-control" type="text" name="phone"
+                                                               id="billPhone" placeholder="{{ __('Phone Number') }} *"
+                                                               required=""
+                                                               value="{{ session()->get('session_order')['customer_phone'] }}">
+                                                       </div>
+   
+                                                       <!-- E-mail -->
+                                                       <div>
+                                                           <input class="form-control" type="text" name="email"
+                                                               id="billEmail" placeholder="{{ __('Email') }} *"
+                                                               required=""
+                                                               value="{{ session()->get('session_order')['customer_email'] }}">
+                                                       </div>
                                                     </div>
-
-                                                    <div class="col-lg-6 d-none" id="shipshow">
-                                                        <select class="form-control" name="pickup_location"
-                                                            style="margin-bottom: 10px;">
-                                                            @foreach ($pickups as $pickup)
-                                                                <option value="{{ $pickup->location }}|{{ $pickup->id }}">
-                                                                    {{ $pickup->location }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="name"
-                                                                id="billName" placeholder="{{ __('Full Name') }} *"
-                                                                required="" pattern="^(\S*)\s+(.*)$"
-                                                                title="{{ __('Input first name and last name') }}"
-                                                                value="{{ session()->get('session_order')['customer_name'] }}">
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text"
-                                                                name="customer_document" id="billCpf"
-                                                                placeholder="{{ __('Document') }} *" required=""
-                                                                pattern="[0-9]+"
-                                                                title="{{ __('Field only accepts numbers') }}"
-                                                                value="{{ session()->get('session_order')['customer_document'] }}">
-                                                        </div>  
-                                                        <div class="col-lg-6">
-                                                            <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="customer_birthday" name="customer_birthday" required/>
-                                                        </div>
                                                     
-                                                        <div class="col-lg-6">
-                                                            <select class="form-control" name="customer_gender" id="customer_gender">
-                                                                <option value="">{{ __("Gender") }}</option>
-                                                                <option value="M" {{ old('customer_gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
-                                                                <option value="F" {{ old('customer_gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
-                                                                <option value="O" {{ old('customer_gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
-                                                                <option value="N" {{ old('customer_gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
+                                                    <div class="col-lg-6">
+                                                        <div class=" {{ $digital == 1 ? 'd-none' : '' }}">
+                                                            <select class="form-control" id="shipop" name="shipping"
+                                                                required="" style="margin-bottom: 10px;">
+                                                                <option value="shipto">{{ __('Ship To Address') }}</option>
+                                                                @if($pickups->count() > 0)
+                                                                    <option value="pickup">{{ __('Pick Up') }}</option>
+                                                                @endif
                                                             </select>
                                                         </div>
-                                                    @if ($gs->is_zip_validation)
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control js-zipcode" type="text"
-                                                                name="zip" data-type="bill" id="billZip"
-                                                                placeholder="{{ __('Postal Code') }}" required=""
-                                                                value="{{ session()->get('session_order')['customer_zip'] }}">
+    
+                                                        <div class=" d-none" id="shipshow">
+                                                            <select class="form-control" name="pickup_location"
+                                                                style="margin-bottom: 10px;">
+                                                                @foreach ($allPickups as $pickup)
+                                                                    <option value="{{ $pickup->location }}|{{ $pickup->id }}">
+                                                                        {{ $pickup->location }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
-                                                    @else
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control" type="text" name="zip"
-                                                                data-type="bill" id="zip"
-                                                                placeholder="{{ __('Postal Code') }}" required=""
-                                                                value="{{ session()->get('session_order')['customer_zip'] }}">
+    
+                                                        @if ($gs->is_zip_validation)
+                                                            <div>
+                                                                <input class="form-control js-zipcode" type="text"
+                                                                    name="zip" data-type="bill" id="billZip"
+                                                                    placeholder="{{ __('Postal Code') }}" required=""
+                                                                    value="{{ session()->get('session_order')['customer_zip'] }}">
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                <input class="form-control" type="text" name="zip"
+                                                                    data-type="bill" id="zip"
+                                                                    placeholder="{{ __('Postal Code') }}" required=""
+                                                                    value="{{ session()->get('session_order')['customer_zip'] }}">
+                                                            </div>
+                                                        @endif
+    
+                                                        <div>
+                                                            <input class="form-control" type="text" name="address"
+                                                                id="billAddress" placeholder="{{ __('Address') }} *"
+                                                                required=""
+                                                                value="{{ session()->get('session_order')['customer_address'] }}">
                                                         </div>
-                                                    @endif
-
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="phone"
-                                                            id="billPhone" placeholder="{{ __('Phone Number') }} *"
-                                                            required=""
-                                                            value="{{ session()->get('session_order')['customer_phone'] }}">
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="email"
-                                                            id="billEmail" placeholder="{{ __('Email') }} *"
-                                                            required=""
-                                                            value="{{ session()->get('session_order')['customer_email'] }}">
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="address"
-                                                            id="billAddress" placeholder="{{ __('Address') }} *"
-                                                            required=""
-                                                            value="{{ session()->get('session_order')['customer_address'] }}">
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="address_number"
-                                                            id="billAdressNumber" placeholder="{{ __('Number') }} *"
-                                                            required=""
-                                                            value="{{ session()->get('session_order')['customer_address_number'] }}">
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="complement"
-                                                            id="billComplement" placeholder="{{ __('Complement') }} *"
-                                                            value="{{ session()->get('session_order')['customer_complement'] }}">
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="district"
-                                                            id="billDistrict" placeholder="{{ __('District') }} *"
-                                                            value="{{ session()->get('session_order')['customer_district'] }}">
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control js-country" name="country"
-                                                            data-type="bill" id="billCountry" required="">
-                                                            <option value="" data-code="">
-                                                                {{ __('Select Country') }} *
-                                                            </option>
-                                                            @foreach ($countries as $country)
-                                                                <option value="{{ $country->id }}"
-                                                                    {{ session()->get('session_order')['customer_country_id'] == $country->id ? 'selected' : '' }}
-                                                                    data-code="{{ $country->country_code }}">
-                                                                    {{ $country->country_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control js-state" name="state"
-                                                            data-type="bill" id="billState" required="">
-                                                            <option
-                                                                value="{{ session()->get('session_order')['customer_state_id'] }}">
-                                                                {{ session()->get('session_order')['customer_state'] }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control js-city" name="city"
-                                                            data-type="bill" id="billCity" required="">
-                                                            <option
-                                                                value="{{ session()->get('session_order')['customer_city_id'] }}">
-                                                                {{ session()->get('session_order')['customer_city'] }}
-                                                            </option>
-                                                        </select>
+    
+                                                        <div>
+                                                            <input class="form-control" type="text" name="address_number"
+                                                                id="billAdressNumber" placeholder="{{ __('Number') }} *"
+                                                                required=""
+                                                                value="{{ session()->get('session_order')['customer_address_number'] }}">
+                                                        </div>
+    
+                                                        <div>
+                                                            <input class="form-control" type="text" name="complement"
+                                                                id="billComplement" placeholder="{{ __('Complement') }} *"
+                                                                value="{{ session()->get('session_order')['customer_complement'] }}">
+                                                        </div>
+    
+                                                        <div>
+                                                            <input class="form-control" type="text" name="district"
+                                                                id="billDistrict" placeholder="{{ __('District') }} *"
+                                                                value="{{ session()->get('session_order')['customer_district'] }}">
+                                                        </div>
+    
+                                                        <div>
+                                                            <select class="form-control js-country" name="country"
+                                                                data-type="bill" id="billCountry" required="">
+                                                                <option value="" data-code="">
+                                                                    {{ __('Select Country') }} *
+                                                                </option>
+                                                                @foreach ($countries as $country)
+                                                                    <option value="{{ $country->id }}"
+                                                                        {{ session()->get('session_order')['customer_country_id'] == $country->id ? 'selected' : '' }}
+                                                                        data-code="{{ $country->country_code }}">
+                                                                        {{ $country->country_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+    
+                                                        <div>
+                                                            <select class="form-control js-state" name="state"
+                                                                data-type="bill" id="billState" required="">
+                                                                <option
+                                                                    value="{{ session()->get('session_order')['customer_state_id'] }}">
+                                                                    {{ session()->get('session_order')['customer_state'] }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+    
+                                                        <div>
+                                                            <select class="form-control js-city" name="city"
+                                                                data-type="bill" id="billCity" required="">
+                                                                <option
+                                                                    value="{{ session()->get('session_order')['customer_city_id'] }}">
+                                                                    {{ session()->get('session_order')['customer_city'] }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -460,161 +473,175 @@
                                             @endif
                                         </div>
                                         <div class="billing-address">
-                                            <h5 class="title">
-                                                {{ __('Billing Details') }}
-                                            </h5>
-                                            <div class="row">
-                                                <div class="col-lg-6 {{ $digital == 1 ? 'd-none' : '' }}">
-                                                    <select class="form-control" id="shipop" name="shipping"
-                                                        required="" style="margin-bottom: 10px;">
-                                                        <option value="shipto">{{ __('Ship To Address') }}</option>
-                                                        @if($pickups->count() > 0)
+                                            <h5 class="title">{{ __('Personal Data') }}</h5>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 p-0 row">
+                                                    <!-- Fullname -->
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="name"
+                                                            id="billName" placeholder="{{ __('Full Name') }} *"
+                                                            required="" pattern="^(\S*)\s+(.*)$"
+                                                            title="{{ __('Input first name and last name') }}"
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->name : old('name') }}">
+                                                    </div>
+    
+                                                    <!-- Document -->
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="customer_document"
+                                                            id="billCpf" placeholder="{{ __('Document') }}*"
+                                                            required="" pattern="[0-9]+"
+                                                            title="{{ __('Field only accepts numbers') }}"
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
+                                                    </div>
+    
+                                                    <!-- Data -->
+                                                    <div class="col-lg-6">
+                                                        <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
+                                                    </div>
+                                                
+                                                    <!-- Gender -->
+                                                    <div class="col-lg-6">
+                                                        <select class="form-control" name="gender" id="gender">
+                                                            <option value="">{{ __("Gender") }}</option>
+                                                            <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
+                                                            <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
+                                                            <option value="O" {{ old('gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
+                                                            <option value="N" {{ old('gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
+                                                        </select>
+                                                    </div>
+    
+                                                    <!-- Phone -->
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="phone"
+                                                            id="billPhone" placeholder="{{ __('Phone Number') }} *"
+                                                            required=""
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->phone : old('phone') }}">
+                                                    </div>
+    
+                                                    <!-- Email -->
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="email"
+                                                            id="billEmail" placeholder="{{ __('Email') }} *"
+                                                            required=""
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->email : old('email') }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5 class="title mt-3">{{ __('Shipping details') }}</h5>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 p-0 row">
+                                                    <div class="col-lg-6 {{ $digital == 1 ? 'd-none' : '' }}">
+                                                        <select class="form-control" id="shipop" name="shipping"
+                                                            required="" style="margin-bottom: 10px;">
+                                                            <option value="shipto">{{ __('Ship To Address') }}</option>
                                                             <option value="pickup">{{ __('Pick Up') }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-6 d-none" id="shipshow">
+                                                        <select class="form-control" name="pickup_location"
+                                                            style="margin-bottom: 10px;">
+                                                            @foreach ($allPickups as $pickup)
+                                                                <option value="{{ $pickup->location }}|{{ $pickup->id }}">
+                                                                    {{ $pickup->location }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+    
+                                                    @if ($gs->is_zip_validation)
+                                                        @if (empty($state_id && $city_id && $country_id))
+                                                            <div class="col-lg-6">
+                                                                <input class="form-control js-zipcode" type="text"
+                                                                    name="zip" data-type="bill" id="billZip"
+                                                                    placeholder="{{ __('Postal Code') }}
+                                                        *"
+                                                                    required="" value="{{ old('zip') }}">
+                                                            </div>
+                                                        @else
+                                                            <div class="col-lg-6">
+                                                                <input class="form-control js-zipcode" type="text"
+                                                                    name="zip" data-type="bill" id="billZip"
+                                                                    placeholder="{{ __('Postal Code') }}
+                                                        *"
+                                                                    required=""
+                                                                    value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->zip : old('zip') }}">
+                                                            </div>
                                                         @endif
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-6 d-none" id="shipshow">
-                                                    <select class="form-control" name="pickup_location"
-                                                        style="margin-bottom: 10px;">
-                                                        @foreach ($pickups as $pickup)
-                                                            <option value="{{ $pickup->location }}|{{ $pickup->id }}">
-                                                                {{ $pickup->location }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="name"
-                                                        id="billName" placeholder="{{ __('Full Name') }} *"
-                                                        required="" pattern="^(\S*)\s+(.*)$"
-                                                        title="{{ __('Input first name and last name') }}"
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->name : old('name') }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="customer_document"
-                                                        id="billCpf" placeholder="{{ __('Document') }}*"
-                                                        required="" pattern="[0-9]+"
-                                                        title="{{ __('Field only accepts numbers') }}"
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
-                                                </div>    
-                                                <div class="col-lg-6">
-                                                    <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
-                                                </div>
-                                            
-                                                <div class="col-lg-6">
-                                                    <select class="form-control" name="gender" id="gender">
-                                                        <option value="">{{ __("Gender") }}</option>
-                                                        <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
-                                                        <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
-                                                        <option value="O" {{ old('gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
-                                                        <option value="N" {{ old('gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
-                                                    </select>
-                                                </div>
-                                                @if ($gs->is_zip_validation)
-                                                    @if (empty($state_id && $city_id && $country_id))
-                                                        <div class="col-lg-6">
-                                                            <input class="form-control js-zipcode" type="text"
-                                                                name="zip" data-type="bill" id="billZip"
-                                                                placeholder="{{ __('Postal Code') }}
-                                                    *"
-                                                                required="" value="{{ old('zip') }}">
-                                                        </div>
                                                     @else
                                                         <div class="col-lg-6">
-                                                            <input class="form-control js-zipcode" type="text"
-                                                                name="zip" data-type="bill" id="billZip"
-                                                                placeholder="{{ __('Postal Code') }}
-                                                    *"
-                                                                required=""
+                                                            <input class="form-control" type="text" name="zip"
+                                                                data-type="bill" id="zip"
+                                                                placeholder="{{ __('Postal Code') }} *" required=""
                                                                 value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->zip : old('zip') }}">
                                                         </div>
                                                     @endif
-                                                @else
                                                     <div class="col-lg-6">
-                                                        <input class="form-control" type="text" name="zip"
-                                                            data-type="bill" id="zip"
-                                                            placeholder="{{ __('Postal Code') }} *" required=""
-                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->zip : old('zip') }}">
+                                                        <input class="form-control" type="text" name="address"
+                                                            id="billAddress" placeholder="{{ __('Address') }} *"
+                                                            required=""
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->address : old('address') }}">
                                                     </div>
-                                                @endif
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="phone"
-                                                        id="billPhone" placeholder="{{ __('Phone Number') }} *"
-                                                        required=""
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->phone : old('phone') }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="email"
-                                                        id="billEmail" placeholder="{{ __('Email') }} *"
-                                                        required=""
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->email : old('email') }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="address"
-                                                        id="billAddress" placeholder="{{ __('Address') }} *"
-                                                        required=""
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->address : old('address') }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="address_number"
-                                                        id="billAdressNumber" placeholder="{{ __('Number') }} *"
-                                                        required=""
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->address_number : old('address_number') }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="complement"
-                                                        id="billComplement" placeholder="{{ __('Complement') }}"
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->complement : old('complement') }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control" type="text" name="district"
-                                                        id="billDistrict" placeholder="{{ __('District') }}"
-                                                        value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->district : old('district') }}">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <select class="form-control js-country" name="country"
-                                                        id="billCountry" data-type="bill" required="">
-                                                        <option value="" data-code="">{{ __('Select Country') }}
-                                                            *</option>
-                                                        @foreach ($countries as $country)
-                                                            <option value="{{ $country->id }}"
-                                                                {{ Auth::guard('web')->check() && Auth::guard('web')->user()->country_id == $country->id ? 'selected' : '' }}
-                                                                data-code="{{ $country->country_code }}">
-                                                                {{ $country->country_name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                @if (Auth::guard('web')->check())
                                                     <div class="col-lg-6">
-                                                        <select class="form-control js-state" name="state"
-                                                            id="billState" data-type="bill" required="" readonly>
-                                                            <option value="{{ $state_id ?? '' }}"> {{ $state_name }}
-                                                            </option>
+                                                        <input class="form-control" type="text" name="address_number"
+                                                            id="billAdressNumber" placeholder="{{ __('Number') }} *"
+                                                            required=""
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->address_number : old('address_number') }}">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="complement"
+                                                            id="billComplement" placeholder="{{ __('Complement') }}"
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->complement : old('complement') }}">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="district"
+                                                            id="billDistrict" placeholder="{{ __('District') }}"
+                                                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->district : old('district') }}">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <select class="form-control js-country" name="country"
+                                                            id="billCountry" data-type="bill" required="">
+                                                            <option value="" data-code="">{{ __('Select Country') }}
+                                                                *</option>
+                                                            @foreach ($countries as $country)
+                                                                <option value="{{ $country->id }}"
+                                                                    {{ Auth::guard('web')->check() && Auth::guard('web')->user()->country_id == $country->id ? 'selected' : '' }}
+                                                                    data-code="{{ $country->country_code }}">
+                                                                    {{ $country->country_name }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control js-city" name="city"
-                                                            id="billCity" data-type="bill" required="" readonly>
-                                                            <option value="{{ $city_id }}"> {{ $city_name }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                @else
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control js-state" name="state"
-                                                            id="billState" required readonly>
-                                                            <option value="">{{ __('Select country first') }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control js-city" name="city"
-                                                            id="billCity" required readonly>
-                                                            <option value="">{{ __('Select state first') }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                @endif
+                                                    @if (Auth::guard('web')->check())
+                                                        <div class="col-lg-6">
+                                                            <select class="form-control js-state" name="state"
+                                                                id="billState" data-type="bill" required="" readonly>
+                                                                <option value="{{ $state_id ?? '' }}"> {{ $state_name }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <select class="form-control js-city" name="city"
+                                                                id="billCity" data-type="bill" required="" readonly>
+                                                                <option value="{{ $city_id }}"> {{ $city_name }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-lg-6">
+                                                            <select class="form-control js-state" name="state"
+                                                                id="billState" required readonly>
+                                                                <option value="">{{ __('Select country first') }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <select class="form-control js-city" name="city"
+                                                                id="billCity" required readonly>
+                                                                <option value="">{{ __('Select state first') }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="alert alert-warning" id="checkoutZipError"
