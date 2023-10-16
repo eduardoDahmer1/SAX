@@ -311,6 +311,7 @@ a {
 }
 
 .item {
+    overflow: visible !important;
     position: relative;
     margin: 5px;
     overflow: hidden;
@@ -380,6 +381,7 @@ a {
     font-weight: 600;
     padding:5px;
     margin:3px;
+    opacity: 1;
 }
 
 .electronics-section {
@@ -1415,10 +1417,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .item .item-cart-area {
-    bottom: 0;
+    bottom: -35px;
     position: absolute;
     transition: all linear .3s;
-    padding-bottom: 5px;
+    padding-bottom: 0;
+    background-color: #000000;
 }
 
 .item .item-img {
@@ -1449,8 +1452,8 @@ h1, h2, h3, h4, h5, h6 {
     bottom: -25px;
 }
 
-.flash-deals .item:hover .item-cart-area {
-    bottom:2.5rem;
+.flash-deals .item .item-cart-area {
+    bottom:3rem;
 }
 
 .item:hover .item-img img {
