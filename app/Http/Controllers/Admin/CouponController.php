@@ -69,7 +69,8 @@ class CouponController extends Controller
     {
         $data = new Coupon;
         $cats = Category::all();
-        return view('admin.coupon.create', compact('cats', 'data'));
+        $brands = Brand::all();
+        return view('admin.coupon.create', compact('cats', 'data', 'brands'));
     }
 
     //*** POST Request

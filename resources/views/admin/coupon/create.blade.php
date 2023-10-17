@@ -119,20 +119,20 @@
                 </div>
 
                 @if(old('desc') == 0)
-                    <div class="col-xl-4">
-                      <div class="input-form">
-                        <h4 class="heading">{{ __('Select Category') }} *</h4>
-                          <select id="cat" name="category_id" required="">
-                            @foreach ($cats as $cat)
-                                <option data-href="{{ route('admin-subcat-load', $cat->id) }}"
-                                    value="{{ $cat->id }}"
-                                    {{ $cat->id == $data->category_id ? 'selected' : '' }}>
-                                    {{ $cat->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                    </div>
-                @elseif(old('desc') == 1)
+                  <div class="col-xl-4">
+                    <div class="input-form">
+                      <h4 class="heading">{{ __('Select Category') }} *</h4>
+                        <select id="cat" name="category_id" required="">
+                          @foreach ($cats as $cat)
+                              <option data-href="{{ route('admin-subcat-load', $cat->id) }}"
+                                  value="{{ $cat->id }}"
+                                  {{ $cat->id == $data->category_id ? 'selected' : '' }}>
+                                  {{ $cat->name }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                  </div>
+                @else
                   <div class="col-xl-4">
                     <div class="input-form">
                       <h4 class="heading">{{ __('Brand') }}</h4>
