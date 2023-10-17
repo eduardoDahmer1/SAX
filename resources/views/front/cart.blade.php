@@ -394,6 +394,12 @@
                                 @if ($gs->is_simplified_checkout && !empty($gs->simplified_checkout_number) && $admstore->show_product_prices)
                                     <a href="#" class="order-btn mt-2" data-toggle="modal"
                                         data-target="#simplified-checkout-modal">{{ __('Simplified Checkout') }}</a>
+                                @else
+                                    <div class="d-grid text-center justify-content-center order-box">
+                                        <h5 class="pb-4" style="font-family:Arial, Helvetica, sans-serif">{{ __('Place Order') }}</h5>
+                                        <a href="#" class="order-btn mt-2" data-toggle="modal"
+                                        data-target="#simplified-checkout-modal">{{ __('Simplified Checkout') }}</a>   
+                                    </div>    
                                 @endif
                             </div>
                         </div>

@@ -49,8 +49,13 @@
                         @else
                         <li class="addtocart">
                             <a href="javascript:;" id="addcrt">
-                                <img width="19px" class="mr-1" src="{{asset('assets/images/theme15/bagicone.png')}}" alt="">
-                                {{ __("+ Add to Bag") }}
+                                @if(!env('ENABLE_SAX_BRIDAL'))
+                                    <img width="19px" class="mr-1" src="{{asset('assets/images/theme15/bagicone.png')}}" alt="">
+                                        {{ __("+ Add to Bag") }}
+                                @else
+                                    <img width="22px" src="{{asset('assets/images/theme15/wishicone.png')}}" alt="">
+                                        {{ __("+ Add to Bag") }}
+                                @endif
                             </a>
                         </li>
                         <li class="addtocart">
@@ -63,27 +68,31 @@
                     @endif
                 @endif
     
-                @if(Auth::guard('web')->check())
+                @if(Auth::guard('web')->check() && !env('ENABLE_SAX_BRIDAL'))
                     <li class="favorite">
                         <a href="javascript:;" class="add-to-wish" data-href="{{ route('user-wishlist-add',$productt->id) }}">
                             <img width="22px" src="{{asset('assets/images/theme15/wishicone.png')}}" alt="">
                         </a>
                     </li>
                 @else
-                    <li class="favorite">
-                        <a href="javascript:;" data-toggle="modal" data-target="#comment-log-reg">
-                            <img width="22px" src="{{asset('assets/images/theme15/wishicone.png')}}" alt="">
+                    @if(!env('ENABLE_SAX_BRIDAL'))
+                        <li class="favorite">
+                            <a href="javascript:;" data-toggle="modal" data-target="#comment-log-reg">
+                                <img width="22px" src="{{asset('assets/images/theme15/wishicone.png')}}" alt="">
+                            </a>
+                        </li>
+                    @endif
+                @endif
+
+                @if(!env('ENABLE_SAX_BRIDAL'))
+                    <x-wedding.product-add-icon class="d-flex flex-column justify-content-center cursor-pointer" :id="$productt->id" />
+        
+                    <li class="compare">
+                        <a href="javascript:;" class="add-to-compare" data-href="{{ route('product.compare.add',$productt->id) }}">
+                            <i class="icofont-exchange"></i>
                         </a>
                     </li>
                 @endif
-
-                <x-wedding.product-add-icon class="d-flex flex-column justify-content-center cursor-pointer" :id="$productt->id" />
-    
-                <li class="compare">
-                    <a href="javascript:;" class="add-to-compare" data-href="{{ route('product.compare.add',$productt->id) }}">
-                        <i class="icofont-exchange"></i>
-                    </a>
-                </li>
             </div>
         </ul>
     </div>
