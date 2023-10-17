@@ -108,14 +108,22 @@ class CheckoutController extends Controller
         }
 
         //busca os locais de retirada com as condicoes.
-        $pickups = Pickup::whereHas('products', function (Builder $query) use ($productsId, $productsQty) {
-            $query->whereIn('product_id', $productsId)->where('pickup_product.stock', ">", 0);
-            $conditions = [];
-            foreach ($productsId as $key => $productId) {
-                $conditions[] = "SUM(CASE WHEN product_id = {$productId} THEN pickup_product.stock >= {$productsQty[$key]} ELSE 0 END)";
-            }
-            $query->havingRaw(implode(' + ', $conditions) . ' = ' . count($productsId));
-        })->get();
+        $allPickups = Pickup::all();
+        
+        // $pickups = Pickup::whereHas('products', function (Builder $query) use ($productsId, $productsQty) {
+        //     $query->whereIn('product_id', $productsId)->where('pickup_product.stock', ">", 0);
+        //     $conditions = [];
+        //     foreach ($productsId as $key => $productId) {
+        //         $conditions[] = "SUM(CASE WHEN product_id = {$productId} THEN pickup_product.stock >= {$productsQty[$key]} ELSE 0 END)";
+        //     }
+        //     $query->havingRaw(implode(' + ', $conditions) . ' = ' . count($productsId));
+        // })->get();
+
+        // $thisPickup = false;
+
+        // if($pickups->count() == 1) {
+        //     $thisPickup = $pickups->first();
+        // }
 
         if ($this->storeSettings->multiple_shipping == 1) {
             $user = null;
@@ -285,7 +293,7 @@ class CheckoutController extends Controller
         if (env('ENABLE_REDPLAY_DIGITAL_PRODUCT', false)) {
             return view('front.checkout_redplay', [
                 'customer' => $request->session()->get('temporder'),
-                'products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty,
+                'products' => $cart->items, 'totalPrice' => $total, 'allPickups' => $allPickups, 'totalQty' => $cart->totalQty,
                 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr_checkout' => $curr, 'first_curr' => $first_curr,
                 'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id,
                 'vendor_packing_id' => $vendor_packing_id,
@@ -297,7 +305,7 @@ class CheckoutController extends Controller
 
         return view('front.checkout', [
             'customer' => $request->session()->get('temporder'),
-            'products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty,
+            'products' => $cart->items, 'totalPrice' => $total, 'allPickups' => $allPickups, 'totalQty' => $cart->totalQty,
             'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr_checkout' => $curr, 'first_curr' => $first_curr,
             'shipping_data' => $shipping_data, 'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id,
             'vendor_packing_id' => $vendor_packing_id,
