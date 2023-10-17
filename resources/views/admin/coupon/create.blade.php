@@ -106,6 +106,48 @@
                     required="" value="">
                   </div>
                 </div>
+
+                <div class="col-xl-4">
+                  <div class="input-form">
+                    <h4 class="heading">{{ __('Modelos de desconto') }} *</h4>
+                    <select id="desc" required="">
+                      <option value="">{{ __('Selecione uma opção') }}</option>
+                      <option value="0">{{ __('Categoria') }}</option>
+                      <option value="1">{{ __('Marca') }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                @if(old('desc') == 0)
+                    <div class="col-xl-4">
+                      <div class="input-form">
+                        <h4 class="heading">{{ __('Select Category') }} *</h4>
+                          <select id="cat" name="category_id" required="">
+                            @foreach ($cats as $cat)
+                                <option data-href="{{ route('admin-subcat-load', $cat->id) }}"
+                                    value="{{ $cat->id }}"
+                                    {{ $cat->id == $data->category_id ? 'selected' : '' }}>
+                                    {{ $cat->name }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                    </div>
+                @elseif(old('desc') == 1)
+                  <div class="col-xl-4">
+                    <div class="input-form">
+                      <h4 class="heading">{{ __('Brand') }}</h4>
+                      <select id="brand" name="brand_id">
+                          <option value="">{{ __('Select Brand') }}</option>
+                          @foreach ($brands as $brand)
+                              <option data-href="{{ route('admin-brand-load', $brand->id) }}"
+                                  value="{{ $brand->id }}"
+                                  {{ $brand->id == $data->brand_id ? 'selected' : '' }}>
+                                  {{ $brand->name }}</option>
+                          @endforeach
+                      </select>
+                    </div>
+                  </div>
+                @endif
              
               </div> <!--FECHAMENTO TAG ROW-->
 
@@ -179,5 +221,26 @@
   });
 
 </script>
+
+{{-- <script type="text/javascript">
+  $('#desc').on('change', function() {
+    var val = $(this).val();
+    var selector = $(this).parent().parent().next();
+    if (val == "") {
+      selector.hide();
+    } else {
+      if (val == 0) {
+        selector.find('.heading').html('{{ __("Select Category") }} *');
+        selector.find('select').attr("name", "category_id").attr("required", "required"); // Adicione ou atualize os atributos conforme necessário
+        selector.find('select').html(`@foreach ($cats as $cat) <option data-href="{{ route('admin-subcat-load', $cat->id) }}" value="{{ $cat->id }}">{{ $cat->name }}</option> @endforeach`);
+        // selector.find('input').hide(); // Esconder o campo de input, se existir
+        selector.find('select').show(); // Mostrar o campo de seleção
+        selector.css('display', 'flex');
+      } else if (val == 1) {
+       
+      }
+    }
+  });
+</script> --}}
 
 @endsection
