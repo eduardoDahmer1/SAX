@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Illuminate\Support\Facades\Cache;
 use Image;
 use Validator;
 use Carbon\Carbon;
@@ -56,25 +57,25 @@ class FrontendController extends Controller
                 $brwsr = Counter::where('type', 'browser')->where('referral', $this->getOS());
                 if ($brwsr->count() > 0) {
                     $brwsr = $brwsr->first();
-                    $tbrwsr['total_count']= $brwsr->total_count + 1;
+                    $tbrwsr['total_count'] = $brwsr->total_count + 1;
                     $brwsr->update($tbrwsr);
                 } else {
                     $newbrws = new Counter();
-                    $newbrws['referral']= $this->getOS();
-                    $newbrws['type']= "browser";
-                    $newbrws['total_count']= 1;
+                    $newbrws['referral'] = $this->getOS();
+                    $newbrws['type'] = "browser";
+                    $newbrws['total_count'] = 1;
                     $newbrws->save();
                 }
 
                 $count = Counter::where('referral', $referral);
                 if ($count->count() > 0) {
                     $counts = $count->first();
-                    $tcount['total_count']= $counts->total_count + 1;
+                    $tcount['total_count'] = $counts->total_count + 1;
                     $counts->update($tcount);
                 } else {
                     $newcount = new Counter();
-                    $newcount['referral']= $referral;
-                    $newcount['total_count']= 1;
+                    $newcount['referral'] = $referral;
+                    $newcount['total_count'] = 1;
                     $newcount->save();
                 }
             }
@@ -82,13 +83,13 @@ class FrontendController extends Controller
             $brwsr = Counter::where('type', 'browser')->where('referral', $this->getOS());
             if ($brwsr->count() > 0) {
                 $brwsr = $brwsr->first();
-                $tbrwsr['total_count']= $brwsr->total_count + 1;
+                $tbrwsr['total_count'] = $brwsr->total_count + 1;
                 $brwsr->update($tbrwsr);
             } else {
                 $newbrws = new Counter();
-                $newbrws['referral']= $this->getOS();
-                $newbrws['type']= "browser";
-                $newbrws['total_count']= 1;
+                $newbrws['referral'] = $this->getOS();
+                $newbrws['type'] = "browser";
+                $newbrws['total_count'] = 1;
                 $newbrws->save();
             }
         }
@@ -96,39 +97,39 @@ class FrontendController extends Controller
 
     public function getOS()
     {
-        $user_agent     =   $_SERVER['HTTP_USER_AGENT'] ?? '';
+        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-        $os_platform    =   "Unknown OS Platform";
+        $os_platform = "Unknown OS Platform";
 
-        $os_array       =   array(
-            '/windows nt 10/i'     =>  'Windows 10',
-            '/windows nt 6.3/i'     =>  'Windows 8.1',
-            '/windows nt 6.2/i'     =>  'Windows 8',
-            '/windows nt 6.1/i'     =>  'Windows 7',
-            '/windows nt 6.0/i'     =>  'Windows Vista',
-            '/windows nt 5.2/i'     =>  'Windows Server 2003/XP x64',
-            '/windows nt 5.1/i'     =>  'Windows XP',
-            '/windows xp/i'         =>  'Windows XP',
-            '/windows nt 5.0/i'     =>  'Windows 2000',
-            '/windows me/i'         =>  'Windows ME',
-            '/win98/i'              =>  'Windows 98',
-            '/win95/i'              =>  'Windows 95',
-            '/win16/i'              =>  'Windows 3.11',
-            '/macintosh|mac os x/i' =>  'Mac OS X',
-            '/mac_powerpc/i'        =>  'Mac OS 9',
-            '/linux/i'              =>  'Linux',
-            '/ubuntu/i'             =>  'Ubuntu',
-            '/iphone/i'             =>  'iPhone',
-            '/ipod/i'               =>  'iPod',
-            '/ipad/i'               =>  'iPad',
-            '/android/i'            =>  'Android',
-            '/blackberry/i'         =>  'BlackBerry',
-            '/webos/i'              =>  'Mobile'
+        $os_array = array(
+            '/windows nt 10/i' => 'Windows 10',
+            '/windows nt 6.3/i' => 'Windows 8.1',
+            '/windows nt 6.2/i' => 'Windows 8',
+            '/windows nt 6.1/i' => 'Windows 7',
+            '/windows nt 6.0/i' => 'Windows Vista',
+            '/windows nt 5.2/i' => 'Windows Server 2003/XP x64',
+            '/windows nt 5.1/i' => 'Windows XP',
+            '/windows xp/i' => 'Windows XP',
+            '/windows nt 5.0/i' => 'Windows 2000',
+            '/windows me/i' => 'Windows ME',
+            '/win98/i' => 'Windows 98',
+            '/win95/i' => 'Windows 95',
+            '/win16/i' => 'Windows 3.11',
+            '/macintosh|mac os x/i' => 'Mac OS X',
+            '/mac_powerpc/i' => 'Mac OS 9',
+            '/linux/i' => 'Linux',
+            '/ubuntu/i' => 'Ubuntu',
+            '/iphone/i' => 'iPhone',
+            '/ipod/i' => 'iPod',
+            '/ipad/i' => 'iPad',
+            '/android/i' => 'Android',
+            '/blackberry/i' => 'BlackBerry',
+            '/webos/i' => 'Mobile'
         );
 
         foreach ($os_array as $regex => $value) {
             if (preg_match($regex, $user_agent)) {
-                $os_platform    =   $value;
+                $os_platform = $value;
             }
         }
         return $os_platform;
@@ -139,6 +140,10 @@ class FrontendController extends Controller
 
     public function index(Request $request)
     {
+        if (Cache::has('pagina_inicial')) {
+            return Cache::get('pagina_inicial');
+        }
+
         if (!empty($request->reff)) {
             $affilate_user = User::where('affilate_code', '=', $request->reff)->first();
             if (!empty($affilate_user)) {
@@ -166,7 +171,7 @@ class FrontendController extends Controller
 
         $sliders = ($homeSettings->random_banners == 1 ? Slider::byStore()->where('status', 1)->inRandomOrder()->get() : Slider::byStore()->where('status', 1)->orderBy('presentation_position')->orderBy('id')->get());
 
-        $prepareProducts =  Product::byStore()->onlyFatherProducts();
+        $prepareProducts = Product::byStore()->onlyFatherProducts();
 
         if (!$this->storeSettings->show_products_without_stock) {
             $prepareProducts->withStock();
@@ -203,7 +208,7 @@ class FrontendController extends Controller
         $bottom_small_banners = $banners->where('type', '=', 'BottomSmall');
         $thumbnail_banners = $banners->where('type', '=', 'Thumbnail');
         $large_banners = $banners->where('type', '=', 'Large');
-        $reviews =  Review::all();
+        $reviews = Review::all();
         $partners = Partner::all();
 
         $discount_products = $products->where('is_discount', 1)->take(10)->each(function ($product) {
@@ -222,7 +227,9 @@ class FrontendController extends Controller
         $trending_products = $products->where('trending', 1)->take(10);
         $sale_products = $products->where('sale', 1)->take(10);
         $extra_blogs = Blog::orderBy('created_at', 'desc')->limit(5)->get();
-        return view('front.index', compact(
+
+        // Cache a saída da função por 20 minutos
+        $conteudoPagina = view('front.index', compact(
             'sliders',
             'top_small_banners',
             'feature_products',
@@ -241,7 +248,12 @@ class FrontendController extends Controller
             'discount_products',
             'partners',
             'extra_blogs',
-        ));
+        )
+        )->render();
+
+        Cache::put('pagina_inicial', $conteudoPagina, now()->addMinutes(60));
+
+        return $conteudoPagina;
     }
 
     public function extraIndex()
@@ -249,18 +261,18 @@ class FrontendController extends Controller
         $bottom_small_banners = Banner::byStore()->where('type', '=', 'BottomSmall')->get();
         $large_banners = Banner::byStore()->where('type', '=', 'Large')->get();
         $thumbnail_banners = Banner::byStore()->where('type', '=', 'Thumbnail');
-        $reviews =  Review::all();
+        $reviews = Review::all();
         $partners = Partner::all();
-        $discount_products =  Product::byStore()->where('is_discount', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
+        $discount_products = Product::byStore()->where('is_discount', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
         $best_products = Product::byStore()->where('best', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
         $top_products = Product::byStore()->where('top', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
         ;
         $big_products = Product::byStore()->where('big', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
         ;
-        $hot_products =  Product::byStore()->where('hot', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
-        $latest_products =  Product::byStore()->where('latest', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
-        $trending_products =  Product::byStore()->where('trending', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
-        $sale_products =  Product::byStore()->where('sale', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
+        $hot_products = Product::byStore()->where('hot', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
+        $latest_products = Product::byStore()->where('latest', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
+        $trending_products = Product::byStore()->where('trending', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
+        $sale_products = Product::byStore()->where('sale', '=', 1)->where('status', '=', 1)->orderBy('id', 'desc')->take(10)->get();
         $extra_blogs = Blog::orderby('views', 'desc')->take(2)->get();
         return view('front.extraindex', compact('reviews', 'large_banners', 'thumbnail_banners', 'bottom_small_banners', 'best_products', 'top_products', 'hot_products', 'latest_products', 'big_products', 'trending_products', 'sale_products', 'discount_products', 'partners', 'extra_blogs'));
     }
@@ -349,7 +361,7 @@ class FrontendController extends Controller
     public function finalize()
     {
         $actual_path = str_replace('project', '', base_path());
-        $dir = $actual_path.'install';
+        $dir = $actual_path . 'install';
         $this->deleteDir($dir);
         return redirect('/');
     }
@@ -360,7 +372,7 @@ class FrontendController extends Controller
 
     public function blog(Request $request)
     {
-        if (resolve('storeSettings')->is_blog== 0) {
+        if (resolve('storeSettings')->is_blog == 0) {
             return abort(404);
         }
         $blogs = Blog::orderBy('created_at', 'desc')->paginate(9);
@@ -372,7 +384,7 @@ class FrontendController extends Controller
 
     public function blogcategory(Request $request, $slug)
     {
-        if (resolve('storeSettings')->is_blog== 0) {
+        if (resolve('storeSettings')->is_blog == 0) {
             return redirect()->route('front.index');
         }
         $bcat = BlogCategory::where('slug', '=', str_replace(' ', '-', $slug))->first();
@@ -385,7 +397,7 @@ class FrontendController extends Controller
 
     public function blogtags(Request $request, $slug)
     {
-        if (resolve('storeSettings')->is_blog== 0) {
+        if (resolve('storeSettings')->is_blog == 0) {
             return redirect()->route('front.index');
         }
         $blogs = Blog::whereTranslationLike('tags', "%{$slug}%", $this->lang->locale)->paginate(9);
@@ -397,7 +409,7 @@ class FrontendController extends Controller
 
     public function blogsearch(Request $request)
     {
-        if (resolve('storeSettings')->is_blog== 0) {
+        if (resolve('storeSettings')->is_blog == 0) {
             return redirect()->route('front.index');
         }
         $search = $request->search;
@@ -410,7 +422,7 @@ class FrontendController extends Controller
 
     public function blogarchive(Request $request, $slug)
     {
-        if (resolve('storeSettings')->is_blog== 0) {
+        if (resolve('storeSettings')->is_blog == 0) {
             return redirect()->route('front.index');
         }
         $date = \Carbon\Carbon::parse($slug)->format('Y-m');
@@ -423,7 +435,7 @@ class FrontendController extends Controller
 
     public function blogshow($id)
     {
-        if (resolve('storeSettings')->is_blog== 0) {
+        if (resolve('storeSettings')->is_blog == 0) {
             return redirect()->route('front.index');
         }
         $tags = null;
@@ -450,7 +462,7 @@ class FrontendController extends Controller
 
     public function team_member(Request $request)
     {
-        if ($this->storeSettings->team_show_header != 1 &&  $this->storeSettings->team_show_footer != 1) {
+        if ($this->storeSettings->team_show_header != 1 && $this->storeSettings->team_show_footer != 1) {
             return redirect()->route('front.index');
         } else {
             // $team_members = TeamMember::paginate(12);App\Models\TeamMemberCategory::has('team_members')->get();
@@ -504,21 +516,21 @@ class FrontendController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         $data = Order::findOrFail($request->id);
-        if (!is_dir(public_path().'/storage/images/receipts/')) {
-            mkdir(public_path().'/storage/images/receipts/');
+        if (!is_dir(public_path() . '/storage/images/receipts/')) {
+            mkdir(public_path() . '/storage/images/receipts/');
         }
         //--- Validation Section Ends
         $image = $request->receipt;
         $image = base64_decode($image);
-        $image_name = time().Str::random(8).'.png';
-        $path = 'storage/images/receipts/'.$image_name;
+        $image_name = time() . Str::random(8) . '.png';
+        $path = 'storage/images/receipts/' . $image_name;
         $mime = mime_content_type($request->file('receipt')->getRealPath());
         if ($mime == "image/jpeg" || $mime == "image/png" || $mime == "image/gif" || $mime == "image/webp") {
             $img = Image::make($request->file('receipt')->getRealPath());
-            $img->save(public_path().'/storage/images/receipts/'.$image_name);
+            $img->save(public_path() . '/storage/images/receipts/' . $image_name);
             if ($data->receipt != null) {
-                if (file_exists(public_path().'/storage/images/receipts/'.$data->receipt)) {
-                    unlink(public_path().'/storage/images/receipts/'.$data->receipt);
+                if (file_exists(public_path() . '/storage/images/receipts/' . $data->receipt)) {
+                    unlink(public_path() . '/storage/images/receipts/' . $data->receipt);
                 }
             }
             Order::where('id', $request->id)->update(['receipt' => $image_name]);
@@ -526,9 +538,9 @@ class FrontendController extends Controller
             $notification->receipt = $image_name;
             $notification->order_id = $data->id;
             $notification->save();
-            return response()->json(['success'=> true, 'msg' => "Comprovante enviado com sucesso!"]);
+            return response()->json(['success' => true, 'msg' => "Comprovante enviado com sucesso!"]);
         } else {
-            return response()->json(['success'=> false, 'msg' => "Formato de arquivo inválido!"]);
+            return response()->json(['success' => false, 'msg' => "Formato de arquivo inválido!"]);
         }
     }
     // -------------------------------- RECEIPT SECTION ENDS----------------------------------------
@@ -539,7 +551,7 @@ class FrontendController extends Controller
         if (resolve('storeSettings')->is_faq == 0) {
             return redirect()->back();
         }
-        $faqs =  Faq::orderBy('id', 'desc')->get();
+        $faqs = Faq::orderBy('id', 'desc')->get();
         return view('front.faq', compact('faqs'));
     }
     // -------------------------------- FAQ SECTION ENDS----------------------------------------
@@ -598,10 +610,10 @@ class FrontendController extends Controller
     public function contact()
     {
         $this->generateCaptcha();
-        if (resolve('storeSettings')->is_contact== 0) {
+        if (resolve('storeSettings')->is_contact == 0) {
             return redirect()->back();
         }
-        $ps =  Pagesetting::where('id', '=', 1)->first();
+        $ps = Pagesetting::where('id', '=', 1)->first();
         return view('front.contact', compact('ps'));
     }
 
@@ -615,32 +627,32 @@ class FrontendController extends Controller
             // Capcha Check
             $value = session('captcha_string');
             if ($request->codes != $value) {
-                return response()->json(array('errors' => [ 0 => __('Please enter Correct Captcha Code.') ]));
+                return response()->json(array('errors' => [0 => __('Please enter Correct Captcha Code.')]));
             }
         }
 
         // Login Section
         $ps = Pagesetting::where('id', '=', 1)->first();
-        $subject = "Email From Of ".$request->name;
+        $subject = "Email From Of " . $request->name;
         $to = $request->to;
         $name = $request->name;
         $phone = $request->phone;
         $from = $request->email;
-        $msg = "Name: ".$name."\nEmail: ".$from."\nPhone: ".$phone."\nMessage: ".$request->text;
+        $msg = "Name: " . $name . "\nEmail: " . $from . "\nPhone: " . $phone . "\nMessage: " . $request->text;
         if ($gs->is_smtp) {
             $data = [
-            'to' => $to,
-            'subject' => $subject,
-            'body' => $msg,
-            'from_email' => $this->storeSettings->from_email,
-            'from_name' => $this->storeSettings->from_name,
-            'reply' => $from
-        ];
+                'to' => $to,
+                'subject' => $subject,
+                'body' => $msg,
+                'from_email' => $this->storeSettings->from_email,
+                'from_name' => $this->storeSettings->from_name,
+                'reply' => $from
+            ];
 
             $mailer = new GeniusMailer();
             $mailer->sendCustomMail($data);
         } else {
-            $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
+            $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
             mail($to, $subject, $msg, $headers);
         }
         // Login Section Ends
@@ -693,9 +705,9 @@ class FrontendController extends Controller
         $settings = Generalsetting::findOrFail(1);
         $today = Carbon::now()->format('Y-m-d');
         $newday = strtotime($today);
-        foreach (User::where('is_vendor', '=', 2)->get() as  $user) {
+        foreach (User::where('is_vendor', '=', 2)->get() as $user) {
             $lastday = $user->date;
-            $secs = strtotime($lastday)-$newday;
+            $secs = strtotime($lastday) - $newday;
             $days = $secs / 86400;
             if ($days <= 5) {
                 if ($user->mail_sent == 1) {
@@ -712,7 +724,7 @@ class FrontendController extends Controller
                         $mailer = new GeniusMailer();
                         $mailer->sendAutoMail($data);
                     } else {
-                        $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
+                        $headers = "From: " . $settings->from_name . "<" . $settings->from_email . ">";
                         mail($user->email, 'Your subscription plan duration will end after five days. Please renew your plan otherwise all of your products will be deactivated.Thank You.', $headers);
                     }
                     User::where('id', $user->id)->update(['mail_sent' => 0]);
@@ -728,7 +740,7 @@ class FrontendController extends Controller
     public function trackload($id)
     {
         $order = Order::where('order_number', '=', $id)->first();
-        $datas = array('Pending','Processing','On Delivery','Completed');
+        $datas = array('Pending', 'Processing', 'On Delivery', 'Completed');
         return view('load.track-load', compact('order', 'datas'));
     }
     // -------------------------------- CONTACT SECTION ENDS----------------------------------------
@@ -763,7 +775,7 @@ class FrontendController extends Controller
 
     public function deleteDir($dirPath)
     {
-        if (! is_dir($dirPath)) {
+        if (!is_dir($dirPath)) {
             throw new InvalidArgumentException("$dirPath must be a directory");
         }
         if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
@@ -789,7 +801,7 @@ class FrontendController extends Controller
         }
 
         $products = Product::where('status', 1)->with('brand')->get();
-        
+
         return view('front.pdfview', compact('products', 'currency'));
     }
 
