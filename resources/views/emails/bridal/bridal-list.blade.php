@@ -39,7 +39,7 @@
     </tr>
     <tr align="center">
       <th>
-        <p style="width: 500px; text-align: justify; font-size: 16px; color: #D39C5F; letter-spacing: 1px; line-height: 35px; margin-bottom: 60px;">El equipo del SAX Bridal World. <a style="margin-left: 20px; background:#D39C5F; padding: 10px 30px; border-radius: 4px; color: #fff; text-decoration: none;" href="{{route('user.wedding.show', $user->id)}}">Ver lista</a></p>
+        <p style="width: 500px; text-align: justify; font-size: 16px; color: #D39C5F; letter-spacing: 1px; line-height: 35px; margin-bottom: 60px;">El equipo del SAX Bridal. <a style="margin-left: 20px; background:#D39C5F; padding: 10px 30px; border-radius: 4px; color: #fff; text-decoration: none;" href="{{route('user.wedding.show', $user->id)}}">Ver lista</a></p>
       </th>
     </tr>
     <tr align="center">
