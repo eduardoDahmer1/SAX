@@ -424,15 +424,24 @@ color: <?php echo $text_color_1; ?>;
 .section-top .section-title::after{
 background: <?php echo $theme_color_1; ?>;
 }
+
+.item .item-cart-area {
+    bottom: -35px;
+    position: absolute;
+    transition: all linear .3s;
+    padding-bottom: 0;
+    background: <?php echo $theme_color_2; ?>;
+}
+
 .item .add-to-cart-btn{
 background: <?php echo $theme_color_2; ?>;
 border: 1px solid <?php echo $theme_color_2; ?>;
 color: #fff;
 }
+
 .item .add-to-cart-btn:hover {
 color: #fff;
-background: <?php echo $text_color_2; ?>;
-border: 1px solid <?php echo $text_color_2; ?>;
+background: <?php echo $theme_color_2; ?>;
 }
 
 .flash-deals .flas-deal-slider .item .price .new-price {
