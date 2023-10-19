@@ -8,7 +8,7 @@
                     <h2 class="section-title" data-aos="fade-in">
                         {{ __("Featured") }}
                     </h2>
-                    <h5 data-aos="fade-in" data-aos-delay="100">{{__("Discover the next piece to add to your collection")}}</h5>
+                    <h5 data-aos="fade-in" data-aos-delay="100">{{__("Selected products that represent the best offers and current trends.")}}</h5>
                 </div>
             </div>
         </div>
