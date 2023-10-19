@@ -1372,9 +1372,9 @@
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="pay-area d-none">
-                                                        <div class="tab-content" id="v-pills-tabContent">
+                                                        <div class="tab-content {{ $gs->is_bancard == 1 ? ' d-none' : '' }} " id="v-pills-tabContent">
                                                             @if (config('gateways.bancard') && $gs->is_bancard == 1)
-                                                                <div class="tab-pane fade" id="v-pills-tab1"
+                                                                <div class="tab-pane fade d-none" id="v-pills-tab1"
                                                                     role="tabpanel" aria-labelledby="v-pills-tab1-tab">
                                                                 </div>
                                                             @endif
