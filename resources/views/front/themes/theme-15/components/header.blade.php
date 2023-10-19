@@ -66,29 +66,45 @@
                                 @endif
                             </li>
 
-                            <li class="wishlist" data-toggle="tooltip" data-placement="top"
-                                title="{{ __('Wish') }}">
-                                @if (Auth::guard('web')->check())
+                            @if (!env('ENABLE_SAX_BRIDAL'))
+                                <li class="wishlist" data-toggle="tooltip" data-placement="top"
+                                    title="{{ __('Wish') }}">
+                                    @if (Auth::guard('web')->check())
 
-                                    <a href="{{ route('user-wishlists') }}" class="wish">
-                                        <img class="img-fluid icons-header" src="{{ asset('assets/images/theme15/wishicone.png')}}" alt="">
-                                        <span id="wishlist-count">{{ count(Auth::user()->wishlists) }}</span>
-                                    </a>
+                                        <a href="{{ route('user-wishlists') }}" class="wish">
+                                            <img class="img-fluid icons-header" src="{{ asset('assets/images/theme15/wishicone.png')}}" alt="">
+                                            <span id="wishlist-count">{{ count(Auth::user()->wishlists) }}</span>
+                                        </a>
 
-                                @else
-                                    <a href="javascript:;" data-toggle="modal" id="wish-btn"
-                                        data-target="#comment-log-reg" class="wish">
-                                        <img class="img-fluid icons-header" src="{{ asset('assets/images/theme15/wishicone.png')}}" alt="">
-                                        <span id="wishlist-count">0</span>
-                                    </a>
+                                    @else
+                                        <a href="javascript:;" data-toggle="modal" id="wish-btn"
+                                            data-target="#comment-log-reg" class="wish">
+                                            <img class="img-fluid icons-header" src="{{ asset('assets/images/theme15/wishicone.png')}}" alt="">
+                                            <span id="wishlist-count">0</span>
+                                        </a>
+                                    @endif
+                                </li>
+
+                                @if ($gs->is_cart)
+                                    <li class="my-dropdown">
+                                        <a href="javascript:;" class="cart carticon">
+                                            <div class="icon">
+                                                <img class="img-fluid icons-header" src="{{ asset('assets/images/theme15/bagicone.png')}}" alt="">
+                                                <span class="cart-quantity" id="cart-count">
+                                                    {{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <div class="my-dropdown-menu" id="cart-items">
+                                            @include('load.cart')
+                                        </div>
+                                    </li>
                                 @endif
-                            </li>
-
-                            @if ($gs->is_cart)
+                            @else
                                 <li class="my-dropdown">
                                     <a href="javascript:;" class="cart carticon">
                                         <div class="icon">
-                                            <img class="img-fluid icons-header" src="{{ asset('assets/images/theme15/bagicone.png')}}" alt="">
+                                            <img class="img-fluid icons-header" src="{{ asset('assets/images/theme15/wishicone.png')}}" alt="">
                                             <span class="cart-quantity" id="cart-count">
                                                 {{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}
                                             </span>
@@ -99,7 +115,6 @@
                                     </div>
                                 </li>
                             @endif
-
                             {{-- <li class="compare" data-toggle="tooltip" data-placement="top"
                                 title="{{ __('Compare') }}">
                                 <a href="{{ route('product.compare') }}" class="wish compare-product">
