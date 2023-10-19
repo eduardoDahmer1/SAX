@@ -493,16 +493,15 @@
                                                             title="{{ __('Field only accepts numbers') }}"
                                                             value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
                                                     </div>
-    
+                                                    
                                                     <!-- Data -->
                                                     <div class="col-lg-6">
-                                                        <input placeholder="{{ __('Date of Birth') }}" class="form-control" type="date" id="birthday" name="birthday" required/>
+                                                        <input placeholder="{{ __('Date of Birth') }}" class="form-control" value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->birth_date : old('birthday') }}" type="date" id="birthday" name="birthday" required/>
                                                     </div>
                                                 
                                                     <!-- Gender -->
                                                     <div class="col-lg-6">
                                                         <select class="form-control" name="gender" id="gender">
-                                                            <option value="">{{ __("Gender") }}</option>
                                                             <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
                                                             <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
                                                             <option value="O" {{ old('gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
