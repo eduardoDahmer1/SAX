@@ -3,7 +3,7 @@
         $bancard_api = $gs->bancard_mode == 'sandbox' ? 'https://vpos.infonet.com.py:8888' : 'https://vpos.infonet.com.py';
     @endphp
     <script src="{{ $bancard_api }}/checkout/javascript/dist/bancard-checkout-3.0.0.js"></script>
-    <div class="col-lg-12">
+    <div class="col-lg-12 d-none">
         <p>{{ __('If you want to pay using Zimple, please type your phone number') }}.</p>
         <p>{{ __('Please remember this is not required. If this field is empty, payment will proceed with Bancard normally') }}.
         </p>
