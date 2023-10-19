@@ -496,7 +496,7 @@
     
                                                     <!-- Data -->
                                                     <div class="col-lg-6">
-                                                        <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
+                                                        <input placeholder="{{ __('Date of Birth') }}" class="form-control" type="date" id="birthday" name="birthday" required/>
                                                     </div>
                                                 
                                                     <!-- Gender -->
