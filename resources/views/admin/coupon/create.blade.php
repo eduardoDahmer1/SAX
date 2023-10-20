@@ -107,13 +107,13 @@
                   </div>
                 </div>
 
-                <div class="col-xl-4">
+                <div class="col-xl-4 select-div">
                   <div class="input-form">
                     <h4 class="heading">{{ __('Modelos de desconto') }} *</h4>
-                    <select id="desc" required="">
+                    <select id="desc" name="desc" >
                       <option value="">{{ __('Selecione uma opção') }}</option>
-                      <option value="0">{{ __('Categoria') }}</option>
-                      <option value="1">{{ __('Marca') }}</option>
+                      <option value="1">{{ __('Categoria') }}</option>
+                      <option value="2">{{ __('Marca') }}</option>
                     </select>
                   </div>
                 </div>
@@ -121,38 +121,38 @@
                 <div class="col-xl-4" style="display:none;">
                   <div class="input-form">
                     <h4 class="heading">{{ __('Select Category') }} *</h4>
-                    <select id="cat" name="category_id" required="">
+                    <select id="cat" name="category_id" >
                       @foreach ($cats as $cat)
                         <option data-href="{{ route('admin-subcat-load', $cat->id) }}"
                                 value="{{ $cat->id }}"
                                 {{ $cat->id == $data->category_id ? 'selected' : '' }}>
-                          {{ $cat->name }}</option>
+                                {{ $cat->name }}</option>
                       @endforeach
                     </select>
                   </div>
                 </div>
-
-                <div class="input-form" style="display:none;">
-                  <h4 class="heading">{{ __('Brand') }}</h4>
-                  <select id="brand" name="brand_id">
-                      <option value="">{{ __('Select Brand') }}</option>
+                
+                <div class="col-xl-4" style="display:none;">
+                  <div class="input-form">
+                    <h4 class="heading">{{ __('Brand') }} *</h4>
+                    <select id="brand" name="brand_id" >
                       @foreach ($brands as $brand)
-                          <option data-href="{{ route('admin-brand-load', $brand->id) }}"
-                              value="{{ $brand->id }}"
-                              {{ $brand->id == $data->brand_id ? 'selected' : '' }}>
-                              {{ $brand->name }}</option>
-                      @endforeach
-                  </select>
+                            <option data-href="{{ route('admin-brand-load', $brand->id) }}"
+                                value="{{ $brand->id }}"
+                                {{ $brand->id == $data->brand_id ? 'selected' : '' }}>
+                                {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                  </div>
                 </div>
-              </div>
              
               </div> <!--FECHAMENTO TAG ROW-->
 
               <div class="row justify-content-center">
-              
                   <button class="addProductSubmit-btn" type="submit">{{ __('Create Coupon') }}</button>
-                
               </div>
+              
             </form>
           </div>
         </div>
@@ -204,18 +204,24 @@
   $(document).ready(function() {
     $('#desc').on('change', function() {
       var val = $(this).val();
-      var selector = $(this).closest('.col-xl-4').next();
+      var selector = $(this).closest('.select-div').next();
+      var selector2 = selector.next();
       if (val === "") {
         selector.hide();
+        selector2.hide();
       } else {
-        if (val == 0) {
+        if (val == 1) {
+          selector2.find('select').val('');
           selector.find('.heading').html('{{ __("Select Category") }} *');
           selector.find('select').attr("placeholder", "{{ __('Select Category') }} *").next();
           selector.css('display', 'flex');
-        } else if (val == 1) {
-          selector.find('.heading').html('{{ __("Select Brand") }} *');
-          selector.find('select').attr("placeholder", "{{ __('Select Brand') }}").next();
-          selector.css('display', 'flex');
+          selector2.css('display', 'none')
+        } else if (val == 2) {
+          selector.find('select').val('');
+          selector2.find('.heading').html('{{ __("Select Brand") }} *');
+          selector2.find('select').attr("placeholder", "{{ __('Select Brand') }}").next();
+          selector2.css('display', 'flex');
+          selector.css('display', 'none');
         }
       }
     });

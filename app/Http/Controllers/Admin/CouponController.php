@@ -104,7 +104,9 @@ class CouponController extends Controller
     public function edit($id)
     {
         $data = Coupon::findOrFail($id);
-        return view('admin.coupon.edit',compact('data'));
+        $cats = Category::all();
+        $brands = Brand::all();
+        return view('admin.coupon.edit',compact('data', 'cats', 'brands'));
     }
 
     //*** POST Request
