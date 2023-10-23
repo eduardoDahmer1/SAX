@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row pt-4">
+            <div class="row pt-4 justify-content-center">
                 @foreach ($categories->where('is_featured', '=', 1) as $cat)
                     <div class="col-6 col-md-2 d-flex flex-column align-items-center" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                         <a href="{{ route('front.category', $cat->slug) }}">
