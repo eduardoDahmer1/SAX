@@ -121,6 +121,7 @@
                   <div class="input-form">
                     <h4 class="heading">{{ __('Select Category') }} *</h4>
                     <select id="cat" name="category_id" >
+                      <option value="">{{ __('Selecione uma opção') }}</option>
                       @foreach ($cats as $cat)
                         <option data-href="{{ route('admin-subcat-load', $cat->id) }}"
                                 value="{{ $cat->id }}"
@@ -135,6 +136,7 @@
                   <div class="input-form">
                     <h4 class="heading">{{ __('Brand') }} *</h4>
                     <select id="brand" name="brand_id" >
+                      <option value="">{{ __('Selecione uma opção') }}</option>
                       @foreach ($brands as $brand)
                             <option data-href="{{ route('admin-brand-load', $brand->id) }}"
                                 value="{{ $brand->id }}"
