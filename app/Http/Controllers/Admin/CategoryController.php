@@ -245,8 +245,10 @@ class CategoryController extends Controller
             "{$this->lang->locale}.name" => 'required',
             'photo' => 'mimes:jpeg,jpg,png,svg',
             'banner' => 'mimes:jpeg,jpg,png,svg',
-            'slug' => 'unique:categories,slug,'.$id.'|regex:/^[a-zA-Z0-9\s-]+$/'
+            'slug' => 'unique:categories,slug,'.$id.'|regex:/^[a-zA-Z0-9\s-]+$/',
+            'link' => 'nullable',
                  ];
+
         $customs = [
             "{$this->lang->locale}.name.required" => __('Category Name in :lang is required', ['lang' => $this->lang->language]),
             'photo.mimes' => __('Icon Type is Invalid.'),
@@ -254,8 +256,7 @@ class CategoryController extends Controller
             'slug.unique' => __('This slug has already been taken.'),
             'slug.regex' => __('Slug Must Not Have Any Special Characters.')
                    ];
-        $validator = Validator::make($request->all(), $rules, $customs);
-
+        $validator = Validator::make($request->all(), $rules, $customs);       
         if ($validator->fails()) {
             if ($request->api) {
                 return response()->json(array('errors' => $validator->getMessageBag()->toArray()), Response::HTTP_BAD_REQUEST);
