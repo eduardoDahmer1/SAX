@@ -138,27 +138,23 @@
                                 </div>
                                 <div class="col-xl-12">
                                     <div class="input-form">
-                                        <h4 class="heading">{{ __('Link') }} *<i class="icofont-question-circle"
+                                        <h4 class="heading">{{ __('Link') }}<i class="icofont-question-circle"
                                             data-toggle="tooltip" style="display: inline-block "
                                             data-placement="top"
                                             title="{{ __('Link that will open when the object gets clicked') }}"></i>
                                         </h4>
                                             <input type="text" class="input-field" name="link" placeholder="{{ __('Link') }}" value="{{ $data->link }}">
-                                            </div>
-                                                <div class="row justify-content-center">
-                                                        <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
-                                                </div>
-                                        </form>
+                    
                                     </div>
                                 </div>
 
 
                             </div>
-                            <!-- FECHAMENTO TAG ROW
+                            <!-- FECHAMENTO TAG ROW -->
 
                             <div class="row justify-content-center">
                                 <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
-                            </div> -->
+                            </div> 
 
                         </form>
                     </div>
