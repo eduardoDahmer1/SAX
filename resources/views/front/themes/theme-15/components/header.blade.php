@@ -168,7 +168,7 @@
                                 <ul>
                                     @foreach ($nav_categories->sortBy('presentation_position')->take(6) as $category)
                                         <li class="subcat-link">
-                                            <a class="categoryLink text-uppercase" href={{ $category->link ? $category->link : route('front.category', $category->slug )}}>{{ $category->name }}</a>
+                                            <a class="categoryLink text-uppercase" href={{ $category->link ?? route('front.category', $category->slug )}}>{{ $category->name }}</a>
                                             <div class="boxsubcat">
                                                 <div class="container-lg justify-content-center d-flex">
                                                     <div class="display-subs">
