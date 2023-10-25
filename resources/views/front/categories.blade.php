@@ -9,7 +9,7 @@
                     @foreach($allCategories as $category)
                     <div class="sub-category-menu">
                         <h3 class="category-name"><a
-                                href="{{ route('front.category',$category->slug) }}">{{ $category->name }}</a></h3>
+                            href="{{ $category->link ? $category->link : route('front.category',$category->slug) }}">{{ $category->name }}</a></h3>
                         @if(count($category->subs) > 0)
                         <ul class="parent-category">
                             @foreach($category->subs as $subcat)
