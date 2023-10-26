@@ -186,9 +186,9 @@
                                                        </div>
    
                                                        <!-- Date -->
-                                                       <div>
-                                                           <input placeholder="{{ __('Date of Birth') }}" class="form-control textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="customer_birthday" name="customer_birthday" required/>
-                                                       </div>
+                                                       <div class="col-lg-6">
+                                                            <input placeholder="{{ __('Date of Birth') }}" class="form-control" value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->birth_date : old('birthday') }}" type="text" id="birthday" name="birthday" required/>
+                                                        </div>
                                                    
                                                        <!-- Gender -->
                                                        <div>
@@ -496,8 +496,8 @@
                                                     
                                                     <!-- Data -->
                                                     <div class="col-lg-6">
-                                                        <input placeholder="{{ __('Date of Birth') }}" class="form-control" value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->birth_date : old('birthday') }}" type="date" id="birthday" name="birthday" required/>
-                                                    </div>
+                                                            <input placeholder="{{ __('Date of Birth') }}" class="form-control" value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->birth_date : old('birthday') }}" type="text" id="birthday" name="birthday" required/>
+                                                        </div>
                                                 
                                                     <!-- Gender -->
                                                     <div class="col-lg-6">
@@ -1999,6 +1999,13 @@
 @endsection
 
 @section('scripts')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.4/jquery.inputmask.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#birthday').inputmask('99-99-9999'); // Define a máscara como DD/MM/AAAA
+    });
+</script>
     <script>
         window.onload = function() {
             document.getElementById("customer_name").value = document.getElementById("billName").value;
