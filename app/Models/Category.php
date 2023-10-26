@@ -13,7 +13,7 @@ class Category extends LocalizedModel
     protected $with = ['translations'];
 
     public $translatedAttributes = ['name'];
-    protected $fillable = ['slug','photo','is_featured','image','status', 'is_customizable', 'ref_code', 'is_customizable_number', 'banner'];
+    protected $fillable = ['slug','photo','is_featured','image','status', 'is_customizable', 'ref_code', 'is_customizable_number', 'banner','link'];
     public $timestamps = false;
 
     public function getActivitylogOptions(): LogOptions
