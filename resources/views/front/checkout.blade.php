@@ -232,7 +232,7 @@
                                                         <div class=" d-none" id="shipshow">
                                                             <select class="form-control" name="pickup_location"
                                                                 style="margin-bottom: 10px;">
-                                                                @foreach ($AllPickups as $pickup)
+                                                                @foreach ($allPickups as $pickup)
                                                                     <option value="{{ $pickup->location }}|{{ $pickup->id }}">
                                                                         {{ $pickup->location }}
                                                                     </option>
