@@ -223,7 +223,7 @@
                                                             <select class="form-control" id="shipop" name="shipping"
                                                                 required="" style="margin-bottom: 10px;">
                                                                 <option value="shipto">{{ __('Ship To Address') }}</option>
-                                                                @if($pickups->count() > 0)
+                                                                @if($allPickups->count() > 0)
                                                                     <option value="pickup">{{ __('Pick Up') }}</option>
                                                                 @endif
                                                             </select>
