@@ -214,44 +214,42 @@
         var datatable_translation_url = "{{ $datatable_translation }}"
     </script>
 
-    <!-- jquery -->
-    <script src="{{ asset('assets/front/themes/shared/assets/js/jquery.js') }}"></script>
+   <!-- jquery -->
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/jquery.js') }}">
 
-    <script src="{{ asset('assets/front/themes/shared/assets/js/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- popper -->
-    <script src="{{ asset('assets/front/themes/shared/assets/js/popper.min.js') }}"></script>
-    <!-- bootstrap -->
-    <script src="{{ asset('assets/front/themes/shared/assets/js/bootstrap.min.js') }}"></script>
-    <!-- plugin js-->
-    <script src="{{ asset('assets/front/themes/shared/assets/js/plugin.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/jquery-number-master/jquery.number.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/jquery-number-master/jquery.number.min.js') }}"></script>
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/jquery-ui/jquery-ui.min.js') }}">
+<!-- popper -->
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/popper.min.js') }}">
+<!-- bootstrap -->
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/bootstrap.min.js') }}">
+<!-- plugin js-->
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/plugin.js') }}">
+<link rel="preload" as="script" href="{{ asset('assets/admin/plugins/jquery-number-master/jquery.number.js') }}">
+<link rel="preload" as="script" href="{{ asset('assets/admin/plugins/jquery-number-master/jquery.number.min.js') }}">
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/xzoom.min.js') }}">
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/jquery.hammer.min.js') }}">
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/setup.js') }>
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/toastr.js') }}">
+<!-- Simple LightBox -->
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/simple-lightbox.min.js') }}">
+<!-- theme -->
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/' . env('THEME', 'theme-01') . '/assets/js/theme.js') }}">
+<!-- shared -->
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/shared.js') }">
 
-    <script src="{{ asset('assets/front/themes/shared/assets/js/xzoom.min.js') }}"></script>
-    <script src="{{ asset('assets/front/themes/shared/assets/js/jquery.hammer.min.js') }}"></script>
-    <script src="{{ asset('assets/front/themes/shared/assets/js/setup.js') }}"></script>
+<!-- Animação de aparecer ao scrollar -->
+<link rel="preload" as="style" href="https://unpkg.com/aos@next/dist/aos.css">
+<link rel="preload" as="script" href="https://unpkg.com/aos@next/dist/aos.js">
 
-    <script src="{{ asset('assets/front/themes/shared/assets/js/toastr.js') }}"></script>
+<script>
+    AOS.init({
+        duration: 1500,
+        offset: 120,
+    });
 
-    <!-- Simple LightBox -->
-    <script src="{{ asset('assets/front/themes/shared/assets/js/simple-lightbox.min.js') }}"></script>
+    var lightbox = new SimpleLightbox('.gallery-product a');
+</script>
 
-    <!-- theme -->
-    <script src="{{ asset('assets/front/themes/' . env('THEME', 'theme-01') . '/assets/js/theme.js') }}"></script>
-    <!-- shared -->
-    <script src="{{ asset('assets/front/themes/shared/assets/js/shared.js') }}"></script>
-
-    <!-- Animação de aparecer ao scrolar -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1500,
-            offset: 120,
-        });
-
-        var lightbox = new SimpleLightbox('.gallery-product a');
-    </script>
 
     {!! $seo->google_analytics !!}
 
