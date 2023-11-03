@@ -89,7 +89,7 @@ class SubCategoryController extends Controller
         $rules = [
             "{$this->lang->locale}.name" => 'required',
             'category_id'      => 'required',
-            'banner' => 'mimes:jpeg,jpg,png,svg',
+            'banner' => 'mimes:jpeg,jpg,png,svg,webp',
             'slug' => 'unique:subcategories|regex:/^[a-zA-Z0-9\s-]+$/'
                  ];
         $customs = [
@@ -158,7 +158,7 @@ class SubCategoryController extends Controller
         $rules = [
             "{$this->lang->locale}.name" => 'required',
             'category_id'      => 'required',
-            'banner' => 'mimes:jpeg,jpg,png,svg',
+            'banner' => 'mimes:jpeg,jpg,png,svg,webp',
             'slug' => 'unique:subcategories,slug,'.$id.'|regex:/^[a-zA-Z0-9\s-]+$/'
                  ];
         $customs = [

@@ -70,7 +70,7 @@ class ReviewController extends Controller
             "{$this->lang->locale}.title" => 'required',
             "{$this->lang->locale}.subtitle" => 'required',
             "{$this->lang->locale}.details" => 'required',
-            'photo'      => 'required|mimes:jpeg,jpg,png,svg',
+            'photo'      => 'required|mimes:jpeg,jpg,png,svg,webp',
         ];
         $customs = [
             "{$this->lang->locale}.title.required" => __('Title in :lang is required', ['lang' => $this->lang->language]),
@@ -117,7 +117,7 @@ class ReviewController extends Controller
             "{$this->lang->locale}.title" => 'required',
             "{$this->lang->locale}.subtitle" => 'required',
             "{$this->lang->locale}.details" => 'required',
-            'photo'      => 'mimes:jpeg,jpg,png,svg',
+            'photo'      => 'mimes:jpeg,jpg,png,svg,webp',
         ];
         $customs = [
             "{$this->lang->locale}.title.required" => __('Title in :lang is required', ['lang' => $this->lang->language]),

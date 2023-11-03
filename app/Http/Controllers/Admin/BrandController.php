@@ -95,8 +95,8 @@ class BrandController extends Controller
     {
         //--- Validation Section
         $rules = [
-            'image' => 'mimes:jpeg,jpg,png,svg',
-            'banner' => 'mimes:jpeg,jpg,png,svg',
+            'image' => 'mimes:jpeg,jpg,png,svg,webp',
+            'banner' => 'mimes:jpeg,jpg,png,svg,webp',
             'name' => 'unique:brands|required',
             'slug' => 'unique:brands|regex:/^[a-zA-Z0-9\s-]+$/'
         ];
@@ -173,8 +173,8 @@ class BrandController extends Controller
     {
         //--- Validation Section
         $rules = [
-            'image' => 'mimes:jpeg,jpg,png,svg',
-            'banner' => 'mimes:jpeg,jpg,png,svg',
+            'image' => 'mimes:jpeg,jpg,png,svg,webp',
+            'banner' => 'mimes:jpeg,jpg,png,svg,webp',
             'name' => 'unique:brands,name,'.$id.'|required',
             'slug' => 'unique:brands,slug,'.$id.'|regex:/^[a-zA-Z0-9\s-]+$/'
         ];

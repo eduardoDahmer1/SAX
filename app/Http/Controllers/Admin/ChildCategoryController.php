@@ -96,7 +96,7 @@ class ChildCategoryController extends Controller
         $rules = [
             "{$this->lang->locale}.name" => 'required',
             'subcategory_id'      => 'required',
-            'banner' => 'mimes:jpeg,jpg,png,svg',
+            'banner' => 'mimes:jpeg,jpg,png,svg,webp',
             'slug' => 'unique:childcategories|regex:/^[a-zA-Z0-9\s-]+$/'
                  ];
         $customs = [
@@ -169,7 +169,7 @@ class ChildCategoryController extends Controller
         $rules = [
             "{$this->lang->locale}.name" => 'required',
             'subcategory_id'      => 'required',
-            'banner' => 'mimes:jpeg,jpg,png,svg',
+            'banner' => 'mimes:jpeg,jpg,png,svg,webp',
             'slug' => 'unique:childcategories,slug,'.$id.'|regex:/^[a-zA-Z0-9\s-]+$/'
                  ];
         $customs = [
