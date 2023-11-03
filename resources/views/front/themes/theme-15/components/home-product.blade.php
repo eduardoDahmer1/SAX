@@ -424,7 +424,7 @@ if ($gs->switch_highlight_currency) {
                     src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
                         ? $prod->photo
                         : asset('storage/images/products/' . $prod->photo) }}"
-                    alt="{{ $prod->showName() }}">
+                    alt="{{ $prod->showName() }}" width="600" height="600" >
                 @if ($gs->is_rating == 1)
                     <div class="stars">
                         <div class="ratings">
