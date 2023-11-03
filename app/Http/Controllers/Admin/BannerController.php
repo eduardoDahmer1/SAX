@@ -163,7 +163,7 @@ class BannerController extends Controller
     {
         //--- Validation Section
         $rules = [
-               'photo'      => 'mimes:jpeg,jpg,png,svg,gif',
+               'photo'      => 'mimes:jpeg,jpg,png,svg,gif,webp',
                 ];
 
         $validator = Validator::make($request->all(), $rules);
