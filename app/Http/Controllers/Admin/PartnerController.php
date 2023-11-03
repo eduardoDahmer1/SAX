@@ -62,7 +62,7 @@ class PartnerController extends Controller
         //--- Validation Section
         $rules = [
                'link'       => 'required',
-               'photo'      => 'required|mimes:jpeg,jpg,png,svg',
+               'photo'      => 'required|mimes:jpeg,jpg,png,svg,webp',
                 ];
 
         $customs = [
@@ -116,7 +116,7 @@ class PartnerController extends Controller
         //--- Validation Section
         $rules = [
                'link'       => 'required',
-               'photo'      => 'mimes:jpeg,jpg,png,svg',
+               'photo'      => 'mimes:jpeg,jpg,png,svg,webp',
                 ];
 
         $customs = [

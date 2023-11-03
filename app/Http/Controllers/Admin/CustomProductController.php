@@ -14,7 +14,7 @@ class CustomProductController extends Controller
     public function logoUpload(Request $request){
          //--- Validation Section
          $rules = [
-            'customizable_logo' => 'mimes:jpeg,jpg,png,svg',
+            'customizable_logo' => 'mimes:jpeg,jpg,png,svg,webp',
          ];
         $customs = [
             'customizable_logo.mimes' => __('Image type is invalid.'),
