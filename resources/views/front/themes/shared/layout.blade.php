@@ -228,7 +228,7 @@
 <link rel="preload" as="script" href="{{ asset('assets/admin/plugins/jquery-number-master/jquery.number.min.js') }}">
 <link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/xzoom.min.js') }}">
 <link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/jquery.hammer.min.js') }}">
-<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/setup.js') }>
+<link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/setup.js') }}">
 <link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/toastr.js') }}">
 <!-- Simple LightBox -->
 <link rel="preload" as="script" href="{{ asset('assets/front/themes/shared/assets/js/simple-lightbox.min.js') }}">

@@ -2,7 +2,7 @@
 
 @section('styles')
 <link rel="preload" as="style" href="{{ asset('assets/front/themes/theme-15/assets/css/categorie_horizontal.css') }}">
-<link rel="preload" as="style" href="{{ asset('assets/front/themes/theme-15/assets/css/custom.css') }">
+<link rel="preload" as="style" href="{{ asset('assets/front/themes/theme-15/assets/css/custom.css') }}">
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
 
 <link rel="preload" as="style" href="{{ asset('assets/front/themes/theme-15/assets/css/slick.min.css') }}">
