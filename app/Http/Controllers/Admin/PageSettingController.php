@@ -19,10 +19,10 @@ class PageSettingController extends Controller
 
     protected $rules =
     [
-        'best_seller_banner' => 'mimes:jpeg,jpg,png,svg,gif',
-        'big_save_banner'    => 'mimes:jpeg,jpg,png,svg,gif',
-        'best_seller_banner1' => 'mimes:jpeg,jpg,png,svg,gif',
-        'big_save_banner1'    => 'mimes:jpeg,jpg,png,svg,gif'
+        'best_seller_banner' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'big_save_banner'    => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'best_seller_banner1' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'big_save_banner1'    => 'mimes:jpeg,jpg,png,svg,gif,webp'
     ];
 
 
