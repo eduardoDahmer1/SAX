@@ -42,7 +42,7 @@
                                     @endif
                                 @endif
 
-                                @if (Auth::guard('admin')->check())
+                                <!-- @if (Auth::guard('admin')->check())
                                     <li>
                                         <div class="mybadge1">
                                             <a href="{{ route('admin.logout') }}">
@@ -52,7 +52,7 @@
                                             </a>
                                         </div>
                                     </li>
-                                @endif
+                                @endif -->
 
                             </ul>
                         </div>
