@@ -1,11 +1,11 @@
 <div class="col-lg-5 pl-lg-5">
     <div class="right-area">
         <div class="product-info">
-            @if($isAdmin)
+            <!-- @if($isAdmin)
             <div class="mybadge1">
                 {{ __('Viewing as Admin')}}
             </div>
-            @endif
+            @endif -->
             
             <a href="{{ route('front.brand', $productt->brand->slug) }}" class="d-block mb-2">
                 <img src="{{$productt->brand->image ? asset('storage/images/brands/'.$productt->brand->image) : asset('assets/images/noimage.png') }}"
