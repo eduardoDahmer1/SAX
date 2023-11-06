@@ -12,16 +12,19 @@
     <p class="price">
         @php
         $size_price_value = $productt->vendorPrice() * $product_curr->value;
-        $previous_price_value = $productt->previous_price * $product_curr->value *
+        $previous_price_value = $productt->promotion_price * $product_curr->value *
         (1+($gs->product_percent / 100));
         @endphp
-        @if($productt->previous_price && $admstore->show_product_prices)
-        <small>
-            <span style="font-weight: 400; text-decoration: line-through; color: #bababa;">{{$curr->sign}}{{$productt->previous_price}}</span>
-        </small>
+        @if(!$productt->promotion_price && $admstore->show_product_prices)
+            <span id="sizeprice">{{ $highlight }}</span>
+            <input type="hidden" id="previous_price_value" value="{{ round($previous_price_value,2) }}">
+        @else
+            <small>
+                <span style="font-weight: 400; text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+            </small>
+            <span id="sizeprice">{{$curr->sign}}{{$productt->promotion_price}}</span>
+            <input type="hidden" id="previous_price_value" value="{{ round($previous_price_value,2) }}">
         @endif
-        <span id="sizeprice">{{ $highlight }}</span>
-        <input type="hidden" id="previous_price_value" value="{{ round($previous_price_value,2) }}">
         @if($curr->id != $scurrency->id)
         <small><span id="originalprice">{{ $small }}</span></small>
         @endif

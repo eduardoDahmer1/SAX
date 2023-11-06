@@ -104,30 +104,50 @@ $small = $product->firstCurrencyPrice();
                     </ul>
                 </div>
                 @if($product->show_price)
-                <div class="product-price">
-                    @if($gs->show_product_prices)
-                    <p class="title">{{ __("Price") }} :</p>
-                    @endif
-                    <p class="price"><span id="msizeprice">{{ $highlight }}</span>
-                        @php
-                        $size_price_value = $product->vendorPrice() * $curr->value;
-                        $previous_price_value = $product->previous_price * $curr->value * (1+($gs->product_percent /
-                        100));
-                        @endphp
-                        <small><del id="mpreviousprice"
-                                style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{
-                                $product->showPreviousPrice() }}</del></small>
-                        <input type="hidden" id="mprevious_price_value" value="{{ round($previous_price_value,2) }}">
-                        @if($curr->id != $first_curr->id)
-                        <small><span id="moriginalprice">{{ $small }}</span></small>
-                    </p>
-                    @endif
-                    @if($product->youtube != null)
-                    <a href="{{ $product->youtube }}" class="video-play-btn mfp-iframe">
-                        <i class="fas fa-play"></i>
-                    </a>
-                    @endif
-                </div>
+                    <div class="product-price">
+                        @if($gs->show_product_prices)
+                            <p class="title">{{ __("Price") }} :</p>
+                        @endif
+                        @if($product->promotion_price > 0)
+                            <span style=" font-weight: 400; text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                            <p class="price"><span id="msizeprice">{{$curr->sign}}{{ $product->promotion_price }}</span>
+                                @php
+                                    $size_price_value = $product->vendorPrice() * $curr->value;
+                                    $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent / 100));
+                                @endphp
+                                <small>
+                                    <del id="mpreviousprice"
+                                        style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
+                                    </del>
+                                </small>
+                                <input type="hidden" id="mprevious_price_value" value="{{ round($previous_price_value,2) }}">
+                                @if($curr->id != $first_curr->id)
+                                    <small><span id="moriginalprice">{{ $small }}</span></small>
+                                @endif
+                            </p>
+                        @else
+                            <p class="price"><span id="msizeprice">{{ $highlight }}</span>
+                                @php
+                                    $size_price_value = $product->vendorPrice() * $curr->value;
+                                    $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent / 100));
+                                @endphp
+                                <small>
+                                    <del id="mpreviousprice"
+                                        style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
+                                    </del>
+                                </small>
+                                <input type="hidden" id="mprevious_price_value" value="{{ round($previous_price_value,2) }}">
+                                @if($curr->id != $first_curr->id)
+                                    <small><span id="moriginalprice">{{ $small }}</span></small>
+                                @endif
+                            </p>
+                        @endif
+                            @if($product->youtube != null)
+                                <a href="{{ $product->youtube }}" class="video-play-btn mfp-iframe">
+                                    <i class="fas fa-play"></i>
+                                </a>
+                            @endif
+                    </div>
                 @endif
                 @if(!empty($product->size))
                 <div class="mproduct-size">
