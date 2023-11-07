@@ -275,7 +275,7 @@
                                                     <td class="total-price">
                                                         @if($product['item']['promotion_price'] > 0)
                                                             <p id="prc{{ $custom_item_id }}">
-                                                                {{ App\Models\Product::convertPrice($product['item']['promotion_price']) }}
+                                                                {{ App\Models\Product::convertPrice($product['item']['promotion_price'] * $product['qty']) }}
                                                             </p>
                                                         @else
                                                             <p id="prc{{ $custom_item_id }}">
