@@ -1,5 +1,6 @@
 @include('front.themes.theme-15.components.topheader')
 <!-- Logo Header Area Start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <div class="menufixed">
     <section class="logo-header">
         <div class="container">
@@ -8,7 +9,7 @@
                 <div class="col-lg-2 col-2 order-2 order-lg-1" style="position: static;">
                     <div class="button-open-search">
                         <input type="checkbox">
-                        <i class="icofont-search-1"></i>
+                        <i class="bi bi-search"></i>
                     </div>
                     <div class="search-box-wrapper">
                         <div class="search-box">
