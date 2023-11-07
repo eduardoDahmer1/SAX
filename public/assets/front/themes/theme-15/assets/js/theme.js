@@ -41,8 +41,15 @@ $(function ($) {
         })
 
         $('.button-open-search').on('click', function (e) {
-            let boxSearch = document.querySelector('.search-box')
+            let boxSearch = document.querySelector('.search-box')   
             $(boxSearch).toggleClass('open-search');
+
+            let iconSearchButton = document.querySelector('.iconSearchButton')
+            if ($(iconSearchButton).hasClass('bi-search')) {
+                $(iconSearchButton).removeClass('bi-search').addClass('bi-x-lg');
+            } else {
+                $(iconSearchButton).removeClass('bi-x-lg').addClass('bi-search');
+            }
         })
 
         /*------addClass/removeClass categories-------*/

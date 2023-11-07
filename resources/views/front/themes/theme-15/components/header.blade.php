@@ -9,14 +9,14 @@
                 <div class="col-lg-2 col-2 order-2 order-lg-1" style="position: static;">
                     <div class="button-open-search">
                         <input type="checkbox">
-                        <i class="bi bi-search"></i>
+                        <i class="iconSearchButton bi bi-search"></i>
                     </div>
                     <div class="search-box-wrapper">
                         <div class="search-box">
                             <form id="searchForm" class="search-form" action="{{ route('front.category') }}"
                                 method="GET">
 
-                                <button type="submit"><i class="icofont-search-1"></i></button>
+                                <button type="submit"><i class="bi bi-search"></i></button>
 
                                 @if (!empty(request()->input('sort')))
                                     <input type="hidden" name="sort" value="{{ request()->input('sort') }}">
