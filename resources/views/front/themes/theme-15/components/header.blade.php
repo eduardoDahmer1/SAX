@@ -9,7 +9,7 @@
                 <div class="col-lg-2 col-2 order-2 order-lg-1" style="position: static;">
                     <div class="button-open-search">
                         <input type="checkbox">
-                        <i class="iconSearchButton bi bi-search"></i>
+                        <i class="fa fa-search" aria-hidden="true"></i>
                     </div>
                     <div class="search-box-wrapper">
                         <div class="search-box">

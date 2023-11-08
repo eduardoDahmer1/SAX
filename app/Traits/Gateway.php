@@ -594,9 +594,9 @@ trait Gateway
         $this->order->save();
 
 
-        //APOS A ORDEM, ATUALIZO TODOS OS DADOS DO CLIENTE, E SALVO ELES.
-        $users = User::where('email', '=', $request->email)->first();
 
+        //APOS A ORDEM, ATUALIZO TODOS OS DADOS DO CLIENTE, E SALVO ELES.
+        $users = User::where('email', $request->personal_email)->first();
         $users['email'] = $request->email;
         $users['name'] = $request->name;
         $users['document'] = $customer_document;
@@ -611,6 +611,7 @@ trait Gateway
         $users['country'] = $customer_country;
         $users['birth_date'] = $request->customer_birthday;
         $users['gender'] = $request->customer_gender;
+        $users['ruc'] = $request->cpf_brasileiro;
         $users->save();
 
         if (!$this->storeSettings->guest_checkout && $this->storeSettings->is_cart_abandonment) {

@@ -183,6 +183,7 @@
                                                                pattern="[0-9]+"
                                                                title="{{ __('Field only accepts numbers') }}"
                                                                value="{{ session()->get('session_order')['customer_document'] }}">
+
                                                        </div>
    
                                                        <!-- Date -->
@@ -493,6 +494,14 @@
                                                             title="{{ __('Field only accepts numbers') }}"
                                                             value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
                                                     </div>
+
+                                                    <!-- CPF BRASILEIRO -->
+                                                    <div class="col-lg-6">
+                                                        <input class="form-control" type="text" name="cpf_brasileiro"
+                                                            id="cpf_brasileiro" placeholder="{{ __('RUC') }}"pattern="[0-9]+"
+                                                            title="{{ __('Field only accepts numbers') }}">
+                                                    </div>
+                                                    
                                                     
                                                     <!-- Data -->
                                                     <div class="col-lg-6">
@@ -690,7 +699,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <input class="form-control" type="text" name="shipping_address"
-                                                        id="shippingAddress" placeholder="{{ __('Address') }} *"
+                                                        id="shippingAddress" placeholder="{{ __('Address') }} *"            
                                                         value="{{ old('shipping_address') }}">
                                                 </div>
                                                 <div class="col-lg-6">

@@ -69,7 +69,8 @@ class User extends Authenticatable implements TranslatableContract
         'vendor_map_embed',
         'shop_details',
         'is_vendor_verified',
-        'gender'
+        'gender',
+        'ruc',
     ];
 
 
