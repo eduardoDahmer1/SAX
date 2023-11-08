@@ -198,12 +198,22 @@
 
                                                 @if($admstore->show_product_prices)
                                                     <td class="unit-price quantity">
-                                                        <p class="product-unit-price">
-                                                            {{ App\Models\Product::convertPrice($product['item']['price']) }}
-                                                        </p>
-                                                        <p class="product-unit-price" style="font-size: smaller;">
-                                                            {{ App\Models\Product::signFirstPrice($product['item']['price']) }}
-                                                        </p>
+                                                        @if($product['item']['promotion_price'] > 0)
+                                                            <p class="product-unit-price">
+                                                                {{ App\Models\Product::convertPrice($product['item']['promotion_price']) }}
+                                                            </p>
+                                                            <p class="product-unit-price" style="font-size: smaller;">
+                                                                {{ App\Models\Product::signFirstPrice($product['item']['promotion_price']) }}
+                                                            </p>
+                                                        @else
+                                                            <p class="product-unit-price">
+                                                                {{ App\Models\Product::convertPrice($product['item']['price']) }}
+                                                            </p>
+                                                            <p class="product-unit-price" style="font-size: smaller;">
+                                                                {{ App\Models\Product::signFirstPrice($product['item']['price']) }}
+                                                            </p>
+                                                        @endif
+                                                        
                                                         @if ($product['item']['type'] == 'Physical')
                                                             <div class="qty">
                                                                 <ul>
@@ -263,9 +273,15 @@
 
                                                 @if($admstore->show_product_prices)
                                                     <td class="total-price">
-                                                        <p id="prc{{ $custom_item_id }}">
-                                                            {{ App\Models\Product::convertPrice($product['price']) }}
-                                                        </p>
+                                                        @if($product['item']['promotion_price'] > 0)
+                                                            <p id="prc{{ $custom_item_id }}">
+                                                                {{ App\Models\Product::convertPrice($product['item']['promotion_price'] * $product['qty']) }}
+                                                            </p>
+                                                        @else
+                                                            <p id="prc{{ $custom_item_id }}">
+                                                                {{ App\Models\Product::convertPrice($product['price']) }}
+                                                            </p>
+                                                        @endif
                                                     </td>
                                                 @endif
                                                 
@@ -398,7 +414,7 @@
                                     <div class="d-grid text-center justify-content-center order-box">
                                         <h5 class="pb-4" style="font-family:Arial, Helvetica, sans-serif">{{ __('Place Order') }}</h5>
                                         <a href="#" class="order-btn mt-2" data-toggle="modal"
-                                        data-target="#simplified-checkout-modal">{{ __('Simplified Checkout') }}</a>   
+                                        data-target="#simplified-checkout-modal">{{ __('Simplified Checkout') }}</a>
                                     </div>    
                                 @endif
                             </div>

@@ -31,11 +31,17 @@
                         <span class="cart-product-info">
                             <span class="cart-product-qty" id="cqt{{ $custom_item_id }}">{{$product['qty']}}</span><span>{{
                                 $product['item']['measure'] }}</span>
-                            x 
+                            x
                             @if($admstore->show_product_prices)
-                                <span id="prct{{ $custom_item_id }}">{{
-                                    App\Models\Product::convertPrice($product['item']['price']) }}
-                                </span>
+                                @if($product['item']['promotion_price'] && $product['item']['promotion_price'] > 0)
+                                    <span id="prct{{ $custom_item_id }}">{{
+                                        App\Models\Product::convertPrice($product['item']['promotion_price']) }}
+                                    </span>
+                                @else
+                                    <span id="prct{{ $custom_item_id }}">{{
+                                        App\Models\Product::convertPrice($product['item']['price']) }}
+                                    </span>
+                                @endif
                             @endif
                         </span>
                    

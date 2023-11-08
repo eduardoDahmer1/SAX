@@ -116,7 +116,8 @@ class Product extends LocalizedModel
         'mercadolivre_warranty_type_name',
         'mercadolivre_warranty_time',
         'mercadolivre_warranty_time_unit',
-        'mercadolivre_without_warranty'
+        'mercadolivre_without_warranty',
+        'promotion_price',
     ];
 
     public function __construct()

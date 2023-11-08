@@ -160,7 +160,12 @@ class Cart extends CachedModel
             $storedItem['values'] = $values;
         }
         $item->price += $size_cost;
-        $price_aux = $storedItem['item']->attributes['price'];
+        if ($storedItem['item']->attributes['promotion_price'] > 0) {
+            $price_aux = $storedItem['item']->attributes['promotion_price'];
+        } else {
+            $price_aux = $storedItem['item']->attributes['price'];
+        }
+
         if (!empty($item->whole_sell_qty)) {
             $ultimo = 0;
             foreach (array_combine($item->whole_sell_qty, $item->whole_sell_discount) as $whole_sell_qty => $whole_sell_discount) {
@@ -341,7 +346,13 @@ class Cart extends CachedModel
         } elseif ($material_cost > 0) {
             $item->price += $material_cost;
         }
-        $price_aux = $storedItem['item']->attributes['price'];
+
+        if (!$storedItem['item']->attributes['promotion_price']) {
+            $price_aux = $storedItem['item']->attributes['price'];
+        } else {
+            $price_aux = $storedItem['item']->attributes['promotion_price'];
+        }
+        
         if (!empty($item->whole_sell_qty)) {
             $ultimo = 0;
             foreach (array_combine($item->whole_sell_qty, $item->whole_sell_discount) as $whole_sell_qty => $whole_sell_discount) {
@@ -387,7 +398,11 @@ class Cart extends CachedModel
             $storedItem['stock']--;
         }
         $item->price = (double)$size_price;
-        $price_aux = $storedItem['item']->attributes['price'];
+        if ($storedItem['item']->attributes['promotion_price'] > 0) {
+            $price_aux = $storedItem['item']->attributes['promotion_price'];
+        } else {
+            $price_aux = $storedItem['item']->attributes['price'];
+        }
         if (!empty($item->whole_sell_qty)) {
             $ultimo = 0;
             foreach (array_combine($item->whole_sell_qty, $item->whole_sell_discount) as $whole_sell_qty => $whole_sell_discount) {
@@ -432,7 +447,11 @@ class Cart extends CachedModel
         }
 
         $item->price = (double)$size_price;
-        $price_aux = $storedItem['item']->attributes['price'];
+        if ($storedItem['item']->attributes['promotion_price'] > 0) {
+            $price_aux = $storedItem['item']->attributes['promotion_price'];
+        } else {
+            $price_aux = $storedItem['item']->attributes['price'];
+        }
         if (!empty($item->whole_sell_qty)) {
             $len = count($item->whole_sell_qty);
             foreach ($item->whole_sell_qty as $key => $data1) {

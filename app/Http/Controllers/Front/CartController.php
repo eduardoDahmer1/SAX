@@ -237,6 +237,9 @@ class CartController extends Controller
 
         $cart->totalPrice = 0;
         foreach ($cart->items as $item) {
+            if ($prod->promotion_price > 0) {
+                $item['price'] = $prod->promotion_price;
+            }
             $cart->totalPrice += $item['price'];
         }
 
@@ -431,6 +434,9 @@ class CartController extends Controller
         if (!$cartError) {
             $cart->totalPrice = 0;
             foreach ($cart->items as $item) {
+                if ($item['promotion_price'] > 0) {
+                    $item['price'] = $item['promotion_price'];
+                }
                 $cart->totalPrice += $item['price'];
             }
             Session::put('cart', $cart);
@@ -1022,8 +1028,13 @@ class CartController extends Controller
 
         $cart->totalPrice = 0;
         foreach ($cart->items as $item) {
-            $cart->totalPrice += $item['price'];
+            $product = Product::where('id', $item['item']->id)->first();
+            if ($product->promotion_price) {
+                $item['price'] = $product->promotion_price;
+            }
+            $cart->totalPrice += ($item['price'] * $item['qty']);
         }
+        
         Session::put('cart', $cart);
 
         return redirect()->route('front.cart')->with([
@@ -1059,7 +1070,8 @@ class CartController extends Controller
         $color_price = $_GET['color_price'];
         $material_qty = $_GET['material_qty'];
         $material_price = $_GET['material_price'];
-        $prod = Product::where('id', '=', $id)->where('status', '=', 1)->first(['id','user_id','slug','photo','size','size_qty','size_price','color','price','stock','type','file','link','license','license_qty','measure','whole_sell_qty','whole_sell_discount','attributes','max_quantity','weight','width','height','length','ref_code','ref_code_int', 'color_qty', 'color_price','material_qty','material_price']);
+        $prod = Product::where('id', '=', $id)->where('status', '=', 1)->first(['id', 'user_id', 'slug', 'photo', 'size', 'size_qty', 'size_price', 'color', 'price', 'stock', 'type', 'file', 'link', 'license', 'license_qty', 'measure', 'whole_sell_qty', 'whole_sell_discount', 'attributes', 'max_quantity', 'weight', 'width', 'height', 'length', 'ref_code', 'ref_code_int', 'color_qty', 'color_price', 'material_qty', 'material_price', 'promotion_price']);
+
         if (empty($prod)) {
             $data["out_stock"] = __("Out of Stock!");
             return response()->json($data);
@@ -1146,9 +1158,9 @@ class CartController extends Controller
         foreach ($cart->items as $data) {
             $cart->totalPrice += $data['price'];
         }
+
         Session::put('cart', $cart);
         $data[0] = $cart->totalPrice;
-
         $data[3] = $data[0];
         $tx = $this->storeSettings->tax;
         if ($tx != 0) {

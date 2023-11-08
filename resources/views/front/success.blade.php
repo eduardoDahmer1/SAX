@@ -215,7 +215,6 @@
                                                             </p>
                                                             @endif
                                                             <h5>{{ __("Order Note") }}</h5>
-                                                            <p>
                                                                 {{ $order->order_note }}
                                                             </p>
                                                         </div>
@@ -364,9 +363,15 @@
                                                                     @endforeach
                                                                     @endif
                                                                 </td>
-                                                                <td style="text-align: end;">
-                                                                    {{$order->currency_sign}}{{number_format($product['item']['price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
-                                                                </td>
+                                                                @if($product['item']['promotion_price'] > 0)
+                                                                    <td style="text-align: end;">
+                                                                        {{$order->currency_sign}}{{number_format($product['item']['promotion_price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
+                                                                    </td>
+                                                                @else
+                                                                    <td style="text-align: end;">
+                                                                        {{$order->currency_sign}}{{number_format($product['item']['price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
+                                                                    </td>
+                                                                @endif
                                                                 <td style="text-align: end;">
                                                                     {{$order->currency_sign}}{{number_format($product['price'] * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
                                                                 </td>
