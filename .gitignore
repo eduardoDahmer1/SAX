@@ -14,8 +14,3 @@ yarn-error.log
 /.vscode
 .docker.env
 .docker/dbdata
-/lang/*.json
-!/lang/admin_pt-br.json
-!/lang/admin_en-US.json
-!/lang/admin_es.json
-!/lang/base/*
