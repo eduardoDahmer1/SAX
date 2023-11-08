@@ -3,6 +3,8 @@
 @section('content')
 
 <section class="login-signup">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -64,14 +66,14 @@
                                             @if(App\Models\Socialsetting::find(1)->f_check == 1)
                                             <li>
                                                 <a href="{{ route('social-provider','facebook') }}">
-                                                    <i class="fab fa-facebook-f"></i>
+                                                    <i class="fab fa-facebook-f" style="font-size: 24px;"></i>
                                                 </a>
                                             </li>
                                             @endif
                                             @if(App\Models\Socialsetting::find(1)->g_check == 1)
                                             <li>
                                                 <a href="{{ route('social-provider','google') }}">
-                                                    <i class="fab google"></i>
+                                                    <i><img src="{{asset('assets/images/theme15/google24px.png')}}"></i>
                                                 </a>
                                             </li>
                                             @endif
