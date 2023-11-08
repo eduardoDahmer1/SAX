@@ -498,7 +498,7 @@
                                                     <!-- CPF BRASILEIRO -->
                                                     <div class="col-lg-6">
                                                         <input class="form-control" type="text" name="cpf_brasileiro"
-                                                            id="cpf_brasileiro" placeholder="{{ __('RUC (CPF Brasileño)') }}"pattern="[0-9]+"
+                                                            id="cpf_brasileiro" placeholder="{{ __('RUC') }}"pattern="[0-9]+"
                                                             title="{{ __('Field only accepts numbers') }}">
                                                     </div>
                                                     
