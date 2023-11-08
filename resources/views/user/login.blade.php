@@ -158,11 +158,9 @@
                                         <div class="left">
                                             <input type="checkbox" name="agree_privacy_policy"
                                                 id="agree_privacy_policy">
-                                            <label for="agree_privacy_policy">Concordo com a <a target="_blank"
-                                                    href="{{ $url ? route('front.privacypolicy') : ""  }}">Política de
-                                                    Privacidade</a> e os <a target="_blank"
-                                                    href="{{ $url_terms ? route('front.crowpolicy') : ""  }}">Termos de
-                                                    Uso</a>.</label>
+                                            <label for="agree_privacy_policy">{{ __("I agree with the") }} <a target="_blank"
+                                                    href="{{ $url ? route('front.privacypolicy') : ""  }}"> {{ __("Privacy Policy") }}</a> {{ __("And the") }}<a target="_blank"
+                                                    href="{{ $url_terms ? route('front.crowpolicy') : ""  }}"> {{ __("Terms of use") }}</a>.</label>
                                         </div>
                                     </div>
 

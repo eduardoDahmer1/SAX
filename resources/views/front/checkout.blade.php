@@ -1962,10 +1962,8 @@
                                                 <div class="left">
                                                     <input type="checkbox" name="agree_privacy_policy"
                                                         id="agree_privacy_policy">
-                                                    <label for="agree_privacy_policy">Concordo com a <a target="_blank"
-                                                            href="{{ $url ? route('front.privacypolicy') : '' }}">Política
-                                                            de
-                                                            Privacidade</a>.</label>
+                                                    <label for="agree_privacy_policy">{{ __("I agree with the") }} <a target="_blank"
+                                                            href="{{ $url ? route('front.privacypolicy') : '' }}"> {{ __("Privacy Policy") }}</a>.</label>
                                                 </div>
                                             </div>
                                             <input id="processdata" type="hidden"
