@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('coupons', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->unsignedInteger('brand_id')->nullable();
     
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
