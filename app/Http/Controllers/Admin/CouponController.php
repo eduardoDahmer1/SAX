@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Category;
+use App\Models\Brand;
 
 class CouponController extends Controller
 {
@@ -56,13 +58,19 @@ class CouponController extends Controller
     //*** GET Request
     public function index()
     {
-        return view('admin.coupon.index');
+        $data = new Coupon;
+        $cats = Category::all();
+        $brands = Brand::all();
+        return view('admin.coupon.index', compact('cats', 'data', 'brands'));
     }
 
     //*** GET Request
     public function create()
     {
-        return view('admin.coupon.create');
+        $data = new Coupon;
+        $cats = Category::all();
+        $brands = Brand::all();
+        return view('admin.coupon.create', compact('cats', 'data', 'brands'));
     }
 
     //*** POST Request
@@ -96,7 +104,9 @@ class CouponController extends Controller
     public function edit($id)
     {
         $data = Coupon::findOrFail($id);
-        return view('admin.coupon.edit',compact('data'));
+        $cats = Category::all();
+        $brands = Brand::all();
+        return view('admin.coupon.edit',compact('data', 'cats', 'brands'));
     }
 
     //*** POST Request
