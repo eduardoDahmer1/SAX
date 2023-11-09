@@ -82,7 +82,7 @@
 }
 
 .main-slider .beans-slider .img-holder {
-	width: 100%;
+	width: auto;
 	margin: -109px auto 0;
 	position: relative;
 	z-index: 0;
@@ -480,5 +480,25 @@
 @media (max-width:576px) {
 	.slick-dots li button, .slick-dots li button::before  {
 		font-size: 18px;
+	}
+}
+
+@media(max-height:760px) {
+	.main-slider .beans-slider .img-holder {
+		width: 475px;
+	}
+	.slider-heading {
+    font-size: 55px;
+    padding-bottom: 70px;
+		line-height: 0;
+	}
+	.main-slider .beans-slider {
+    width: 540px;
+	}
+	.main-slider .beans-slider .border:after {
+    padding: 125px 0;
+	}
+	.main-slider .beans-slider .border:before {
+    padding: 35px 0;
 	}
 }
