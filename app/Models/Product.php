@@ -675,7 +675,11 @@ class Product extends LocalizedModel
             return '';
         }
 
-        $price = $this->price;
+        if (is_null($this->promotion_price)) {
+            $price = $this->promotion_price;
+        }else{
+            $price = $this->price; 
+        }
 
         if ($this->user_id != 0) {
             $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
@@ -741,6 +745,7 @@ class Product extends LocalizedModel
         //Add product_percent on price
         $price += $price * (($this->storeSettings->product_percent) / 100);
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
+
         if ($this->storeSettings->currency_format == 0) {
             return $curr->sign . $price;
         } else {
