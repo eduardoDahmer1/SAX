@@ -692,7 +692,7 @@ class Product extends LocalizedModel
             }
         }
 
-       dump($a, $price);    
+       dump($a, $price, $this->promotion_price);    
 
         if (!empty($this->size)) {
             foreach ($this->size as $key => $size) {
