@@ -677,13 +677,14 @@ class Product extends LocalizedModel
 
         if (!is_null($this->promotion_price) || $this->promotion_price <= 0) {
 
+            $a = 'nao';
             $price = $this->promotion_price;
             if ($this->user_id != 0) {
                 $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
             }
         
         }else{
-
+            $a = 'sim';
             $price = $this->price; 
 
             if ($this->user_id != 0) {
@@ -691,7 +692,7 @@ class Product extends LocalizedModel
             }
         }
 
-       
+       dump($a, $price);    
 
         if (!empty($this->size)) {
             foreach ($this->size as $key => $size) {
