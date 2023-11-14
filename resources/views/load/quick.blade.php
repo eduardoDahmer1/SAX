@@ -614,7 +614,7 @@ $.ajax({
       else {
           $("#cart-count").html(data[0]);
           $("#cart-items").load(mainurl+'/carts/view');
-          toastr.success(data['success']);
+          toastr.success( __("Successfully Added To Cart"));
       }
   }
 });
