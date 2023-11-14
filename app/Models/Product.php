@@ -416,9 +416,18 @@ class Product extends LocalizedModel
             return '';
         }
 
+        if ($this->price > $this->promotion_price && $this->promotion_price > 0)  {
+            $price = $this->promotion_price;
+            if ($this->user_id != 0) {
+                $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
+            }
+        }else{
+            $price = $this->price; 
 
-
-        $price = $this->price;
+            if ($this->user_id != 0) {
+                $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+            }
+        }
 
         if ($this->user_id != 0) {
             $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
