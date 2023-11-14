@@ -675,7 +675,7 @@ class Product extends LocalizedModel
             return '';
         }
 
-        if (!is_null($this->promotion_price)) {
+        if (!is_null($this->promotion_price) || $this->promotion_price <= 0) {
 
             $price = $this->promotion_price;
             if ($this->user_id != 0) {
