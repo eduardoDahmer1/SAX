@@ -2,6 +2,7 @@
 if ($gs->switch_highlight_currency) {
     $highlight = $prod->firstCurrencyPrice();
     $small = $prod->showPrice();
+    dump('aqui')
 } else {
     $highlight = $prod->showPrice();
     $small = $prod->firstCurrencyPrice();
@@ -31,14 +32,23 @@ if ($gs->switch_highlight_currency) {
                         <div class="info">
                             <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                             <h5 class="name">{{ $prod->showName() }}</h5>
-                            @if($prod->promotion_price && $admstore->show_product_prices)
-                                <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
-                            @endif
-                            <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}} 
-                                @if ($curr->id != $scurrency->id)
-                                    <small><span id="originalprice">{{ $small }}</span></small>
+                            @if($admstore->show_product_prices)
+                                @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight )
+                                    <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                                    <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                                        @if ($curr->id != $scurrency->id)
+                                            <small>{{ $small }}</small>
+                                        @endif
+                                    </h4>
+                                @else
+                                <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
+                                    <h4 class="price">{{ $highlight }}
+                                        @if ($curr->id != $scurrency->id)
+                                            <small>{{ $small }}</small>
+                                        @endif
+                                    </h4>
                                 @endif
-                            </h4>
+                            @endif
                         </div>
 
                         <div
@@ -284,13 +294,23 @@ if ($gs->switch_highlight_currency) {
                     <div class="info">
                         <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                         <h5 class="name">{{ $prod->showName() }}</h5>
-                        @if($prod->promotion_price && $admstore->show_product_prices)
-                            <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
-                        @endif
-                        <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}} @if ($curr->id != $scurrency->id)
-                                <small><span id="originalprice">{{ $small }}</span></small>
+                        @if($admstore->show_product_prices)
+                            @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight )
+                                <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                                <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                                    @if ($curr->id != $scurrency->id)
+                                        <small>{{ $small }}</small>
+                                    @endif
+                                </h4>
+                            @else
+                            <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
+                                <h4 class="price">{{ $highlight }}
+                                    @if ($curr->id != $scurrency->id)
+                                        <small>{{ $small }}</small>
+                                    @endif
+                                </h4>
                             @endif
-                        </h4>
+                        @endif
                         
                     </div>
 
@@ -438,16 +458,23 @@ if ($gs->switch_highlight_currency) {
             <div class="info">
                 <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                 <h5 class="name">{{ $prod->showName() }}</h5>
-                @if($prod->promotion_price && $admstore->show_product_prices)
-                    <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
-                @endif
-                <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
-                    @if ($curr->id != $scurrency->id)
-                        <small><span id="originalprice">{{ $small }}</span></small>
+                    @if($admstore->show_product_prices)
+                       @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight )
+                            <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                            <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                                @if ($curr->id != $scurrency->id)
+                                    <small>{{ $small }}</small>
+                                @endif
+                            </h4>
+                        @else
+                        <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
+                            <h4 class="price">{{ $highlight }}
+                                @if ($curr->id != $scurrency->id)
+                                    <small>{{ $small }}</small>
+                                @endif
+                            </h4>
+                        @endif
                     @endif
-                </h4>
-                
-
             </div>
 
             @if ($gs->is_cart)
