@@ -140,18 +140,10 @@ class FrontendController extends Controller
 
     public function index(Request $request)
     {
-        // Cache key para as variáveis
-        $cacheKey = 'pagina_inicial';
+        // if (Cache::has('pagina_inicial')) {
+        //     return Cache::get('pagina_inicial');
+        // }
 
-        // Tentar obter as variáveis do cache
-        $cachedData = Cache::get($cacheKey);
-
-        if ($cachedData) {
-            // Se as variáveis estão em cache, retornar diretamente
-            return $cachedData;
-        }
-
-        // Lógica para verificar o afiliado e redirecionar
         if (!empty($request->reff)) {
             $affilate_user = User::where('affilate_code', '=', $request->reff)->first();
             if (!empty($affilate_user)) {
@@ -163,11 +155,9 @@ class FrontendController extends Controller
             }
         }
 
-        // Restante do código para obter variáveis
         $homeSettings = Pagesetting::findOrFail($this->storeSettings->pageSettings->id);
 
         $prepareBanners = Banner::byStore();
-
 
         if ($homeSettings->random_banners == 1) {
             $prepareBanners->inRandomOrder();
@@ -238,50 +228,32 @@ class FrontendController extends Controller
         $sale_products = $products->where('sale', 1)->take(10);
         $extra_blogs = Blog::orderBy('created_at', 'desc')->limit(5)->get();
 
-        // Cache das variáveis por 20 minutos
-        $cachedData = cache()->remember($cacheKey, now()->addMinutes(60), function () use (
-            $sliders,
-            $top_small_banners,
-            $feature_products,
-            $categories,
-            $reviews,
-            $large_banners,
-            $thumbnail_banners,
-            $bottom_small_banners,
-            $best_products,
-            $top_products,
-            $hot_products,
-            $latest_products,
-            $big_products,
-            $trending_products,
-            $sale_products,
-            $discount_products,
-            $partners,
-            $extra_blogs
-        ) {
-            return view('front.index', compact(
-                'sliders',
-                'top_small_banners',
-                'feature_products',
-                'categories',
-                'reviews',
-                'large_banners',
-                'thumbnail_banners',
-                'bottom_small_banners',
-                'best_products',
-                'top_products',
-                'hot_products',
-                'latest_products',
-                'big_products',
-                'trending_products',
-                'sale_products',
-                'discount_products',
-                'partners',
-                'extra_blogs',
-            ))->render();
-        });
+        // Cache a saída da função por 20 minutos
+        $conteudoPagina = view('front.index', compact(
+            'sliders',
+            'top_small_banners',
+            'feature_products',
+            'categories',
+            'reviews',
+            'large_banners',
+            'thumbnail_banners',
+            'bottom_small_banners',
+            'best_products',
+            'top_products',
+            'hot_products',
+            'latest_products',
+            'big_products',
+            'trending_products',
+            'sale_products',
+            'discount_products',
+            'partners',
+            'extra_blogs',
+        )
+        )->render();
 
-        return $cachedData;
+        Cache::put('pagina_inicial', $conteudoPagina, now()->addMinutes(60));
+
+        return $conteudoPagina;
     }
 
     public function extraIndex()
