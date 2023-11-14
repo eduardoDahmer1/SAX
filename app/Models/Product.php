@@ -470,6 +470,10 @@ class Product extends LocalizedModel
         $price += $price * (($this->storeSettings->product_percent) / 100);
         $price = round(($price) * $curr->value, 2);
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
+
+        dump($price, $this->promotion_price,$this->price);    
+
+        
         if ($this->storeSettings->currency_format == 0) {
             return $curr->sign . $price;
         } else {
