@@ -2698,6 +2698,10 @@ border: 1px solid #00000026;
     .item .add-to-cart-btn {
         font-size: 12px;
     }
+    .item .info .price {
+        display: flex;
+        flex-flow: column;
+    }
 }
 @media (max-width:380px) {
     .item .add-to-cart-btn {
