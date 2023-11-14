@@ -675,24 +675,18 @@ class Product extends LocalizedModel
             return '';
         }
 
-        if (!is_null($this->promotion_price) || $this->promotion_price <= 0) {
-
-            $a = 'nao';
+        if ($this->price > $this->promotion_price)  {
             $price = $this->promotion_price;
             if ($this->user_id != 0) {
                 $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
             }
-        
         }else{
-            $a = 'sim';
             $price = $this->price; 
 
             if ($this->user_id != 0) {
                 $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
             }
-        }
-
-       dump($a, $price, $this->promotion_price,$this->price);    
+        } 
 
         if (!empty($this->size)) {
             foreach ($this->size as $key => $size) {
