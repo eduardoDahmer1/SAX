@@ -2694,6 +2694,16 @@ border: 1px solid #00000026;
     }
 }
 
+@media (max-width:1210px) {
+    .item .add-to-cart-btn {
+        font-size: 12px;
+    }
+}
+@media (max-width:380px) {
+    .item .add-to-cart-btn {
+        font-size: 11px;
+    }
+}
 @media (max-width:600px){
     .img-box {
         height: 300px;
