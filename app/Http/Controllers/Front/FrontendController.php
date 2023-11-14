@@ -141,16 +141,16 @@ class FrontendController extends Controller
     public function index(Request $request)
     {
         // Cache key para as variáveis
-        $cacheKey = 'pagina_inicial';
-
+        $cacheKey = 'variaveis_pagina_inicial';
+    
         // Tentar obter as variáveis do cache
-        $cachedData = Cache::get($cacheKey);
-
-        if ($cachedData) {
-            // Se as variáveis estão em cache, retornar diretamente
-            return $cachedData;
+        $cachedVariables = Cache::get($cacheKey);
+    
+        if ($cachedVariables) {
+            // Se as variáveis estão em cache, renderizar a view diretamente com essas variáveis
+            return view('front.index', $cachedVariables);
         }
-
+    
         // Lógica para verificar o afiliado e redirecionar
         if (!empty($request->reff)) {
             $affilate_user = User::where('affilate_code', '=', $request->reff)->first();
@@ -162,33 +162,31 @@ class FrontendController extends Controller
                 }
             }
         }
-
+    
         // Restante do código para obter variáveis
         $homeSettings = Pagesetting::findOrFail($this->storeSettings->pageSettings->id);
-
+    
         // Obter todas as variáveis do banco de dados
         $sliders = ($homeSettings->random_banners == 1 ? Slider::byStore()->where('status', 1)->inRandomOrder()->get() : Slider::byStore()->where('status', 1)->orderBy('presentation_position')->orderBy('id')->get());
-
+    
         $prepareBanners = Banner::byStore();
-
+    
         if ($homeSettings->random_banners == 1) {
             $prepareBanners->inRandomOrder();
         } else {
             $prepareBanners->orderBy('id', 'desc');
         }
-
+    
         $banners = $prepareBanners->get();
-
+    
         $top_small_banners = $banners->where('type', '=', 'TopSmall');
-
-        $sliders = ($homeSettings->random_banners == 1 ? Slider::byStore()->where('status', 1)->inRandomOrder()->get() : Slider::byStore()->where('status', 1)->orderBy('presentation_position')->orderBy('id')->get());
-
+    
         $prepareProducts = Product::byStore()->onlyFatherProducts();
-
+    
         if (!$this->storeSettings->show_products_without_stock) {
             $prepareProducts->withStock();
         }
-
+    
         $prepareProducts->where('status', 1)
             ->where(function ($query) {
                 $query->where('featured', 1)
@@ -201,25 +199,25 @@ class FrontendController extends Controller
                     ->orWhere('is_discount', 1)
                     ->orWhere('sale', 1);
             });
-
+    
         if ($homeSettings->random_products == 1) {
             $prepareProducts->inRandomOrder();
         } else {
             $prepareProducts->orderBy('id', 'desc');
         }
-
+    
         $products = $prepareProducts->get();
-
+    
         $feature_products = $products->where('featured', 1)->take(10);
-
+    
         $categories = Category::orderBy('slug')->orderBy('presentation_position')->where('is_featured', 1)->get();
-
+    
         $bottom_small_banners = $banners->where('type', '=', 'BottomSmall');
         $thumbnail_banners = $banners->where('type', '=', 'Thumbnail');
         $large_banners = $banners->where('type', '=', 'Large');
         $reviews = Review::all();
         $partners = Partner::all();
-
+    
         $discount_products = $products->where('is_discount', 1)->take(10)->each(function ($product) {
             if (Carbon::now()->format('Y-m-d') > Carbon::parse($product->discount_date)->format('Y-m-d')) {
                 $product->discount_date = null;
@@ -227,7 +225,7 @@ class FrontendController extends Controller
                 $product->update();
             }
         });
-
+    
         $best_products = $products->where('best', 1)->take(10);
         $top_products = $products->where('top', 1)->take(10);
         $big_products = $products->where('big', 1)->take(10);
@@ -236,51 +234,33 @@ class FrontendController extends Controller
         $trending_products = $products->where('trending', 1)->take(10);
         $sale_products = $products->where('sale', 1)->take(10);
         $extra_blogs = Blog::orderBy('created_at', 'desc')->limit(5)->get();
-
-        // Cache de todas as variáveis por 20 minutos
-        $cachedData = cache()->remember($cacheKey, now()->addMinutes(20), function () use (
-            $sliders,
-            $top_small_banners,
-            $feature_products,
-            $categories,
-            $reviews,
-            $large_banners,
-            $thumbnail_banners,
-            $bottom_small_banners,
-            $best_products,
-            $top_products,
-            $hot_products,
-            $latest_products,
-            $big_products,
-            $trending_products,
-            $sale_products,
-            $discount_products,
-            $partners,
-            $extra_blogs
-        ) {
-            return view('front.index', compact(
-                'sliders',
-                'top_small_banners',
-                'feature_products',
-                'categories',
-                'reviews',
-                'large_banners',
-                'thumbnail_banners',
-                'bottom_small_banners',
-                'best_products',
-                'top_products',
-                'hot_products',
-                'latest_products',
-                'big_products',
-                'trending_products',
-                'sale_products',
-                'discount_products',
-                'partners',
-                'extra_blogs',
-            ))->render();
-        });
-
-        return $cachedData;
+    
+        // Cachear apenas as variáveis por 20 minutos
+        $cachedVariables = [
+            'sliders' => $sliders,
+            'top_small_banners' => $top_small_banners,
+            'feature_products' => $feature_products,
+            'categories' => $categories,
+            'reviews' => $reviews,
+            'large_banners' => $large_banners,
+            'thumbnail_banners' => $thumbnail_banners,
+            'bottom_small_banners' => $bottom_small_banners,
+            'best_products' => $best_products,
+            'top_products' => $top_products,
+            'hot_products' => $hot_products,
+            'latest_products' => $latest_products,
+            'big_products' => $big_products,
+            'trending_products' => $trending_products,
+            'sale_products' => $sale_products,
+            'discount_products' => $discount_products,
+            'partners' => $partners,
+            'extra_blogs' => $extra_blogs,
+        ];
+    
+        Cache::put($cacheKey, $cachedVariables, now()->addMinutes(20));
+    
+        // Renderizar a view com as variáveis obtidas
+        return view('front.index', $cachedVariables);
     }
 
     public function extraIndex()
