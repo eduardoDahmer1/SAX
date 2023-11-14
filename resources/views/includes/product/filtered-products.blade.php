@@ -104,7 +104,7 @@
 
                         @if (!config('features.marketplace'))
                             @if($admstore->show_product_prices)
-                                @if($prod->promotion_price > 0 && $prod->promotion_price < $highlight )
+                                @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight )
                                     <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
                                     <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
                                         @if ($curr->id != $scurrency->id)
