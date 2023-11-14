@@ -676,14 +676,15 @@ class Product extends LocalizedModel
         }
 
         if (is_null($this->promotion_price)) {
+
             $price = $this->promotion_price;
-        
+            dd($price);
             if ($this->user_id != 0) {
                 $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
             }
         
         }else{
-            
+
             $price = $this->price; 
 
             if ($this->user_id != 0) {
