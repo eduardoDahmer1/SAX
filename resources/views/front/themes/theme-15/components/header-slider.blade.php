@@ -47,7 +47,9 @@
                     <div class="border">
                       <h1 class="slider-heading">{{ $data->title_text }}</h1>
                       <div class="img-holder">
-                        <img loading="lazy" src="{{ asset('storage/images/sliders/' . $data->photo) }}" width="650" height="650" alt="image description">
+                        <a href="https://shop.saxdepartment.com/category/fashion-sale-47">
+                            <img loading="lazy" src="{{ asset('storage/images/sliders/' . $data->photo) }}" width="650" height="650" alt="image description">
+                        </a>
                       </div>
                     </div>
                   </div>
