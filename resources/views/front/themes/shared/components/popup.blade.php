@@ -9,10 +9,12 @@
         <!--  Starting of subscribe-pre-loader Area   -->
         <div class="subscribe-preloader-wrap" id="subscriptionForm" style="display: none;">
             <div class="popup-wrapper">
-                <a href="https://shop.saxdepartment.com/category/fashion-sale-47">
+               
                     <div class="subscribePreloader__thumb">
                         @if (!empty($gs->popup_background))
+                        <a href="https://shop.saxdepartment.com/category/fashion-sale-47">
                             <img src="{{ $gs->popup_backgroundUrl }}">
+                        </a>
                         @endif
                         @if (!empty($gs->popup_title) || !empty($gs->popup_text) || $gs->is_newsletter_popup == 1)
                             <div class="subscribePreloader__text text-center">
@@ -42,7 +44,6 @@
                             <span class="preload-close" style="align-self: end;"><i class="fas fa-times"></i></span>
                         @endif
                     </div>
-                </a>
             </div>
         </div>
         <!--  Ending of subscribe-pre-loader Area   -->
