@@ -104,7 +104,7 @@
 
                         @if (!config('features.marketplace'))
                             @if($admstore->show_product_prices)
-                                @if($prod->promotion_price > 0)
+                                @if($prod->promotion_price > 0 )
                                     <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
                                     <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
                                         @if ($curr->id != $scurrency->id)
@@ -112,6 +112,7 @@
                                         @endif
                                     </h4>
                                 @else
+                                    <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
                                     <h4 class="price">{{ $highlight }} 
                                         @if ($curr->id != $scurrency->id)
                                             <small>{{ $small }}</small>
@@ -172,7 +173,7 @@
                 <div class="col-lg-4 py-1 pr-lg-2 remove-padding">
                     <img src="{{ asset('assets/front/themes/theme-15/assets/images/bridal2.jpg') }}" alt="Banner Bottom">
                 </div>
-                <div class="col-md-8 py-1 remove-padding">
+                <div class="col-lg-8 py-1 remove-padding">
                     <div class="w-100 h-100" 
                         style="
                         background-image:url({{ asset('assets/front/themes/theme-15/assets/images/bridal1.jpg') }});
@@ -187,7 +188,7 @@
                 <div class="col-lg-4 py-1 pr-lg-2 remove-padding">
                     <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannermeio.png') }}" alt="Banner Bottom">
                 </div>
-                <div class="col-md-8 py-1 remove-padding">
+                <div class="col-lg-8 py-1 remove-padding">
                     <div class="w-100 h-100" 
                         style="
                         background-image:url({{ asset('assets/front/themes/theme-15/assets/images/bannermeio2.png') }});

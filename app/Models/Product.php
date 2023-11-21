@@ -416,9 +416,18 @@ class Product extends LocalizedModel
             return '';
         }
 
+        // if ($this->price > $this->promotion_price && $this->promotion_price > 0)  {
+        //     $price = $this->promotion_price;
+        //     if ($this->user_id != 0) {
+        //         $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
+        //     }
+        // }else{
+            $price = $this->price; 
 
-
-        $price = $this->price;
+        //     if ($this->user_id != 0) {
+        //         $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+        //     }
+        // }
 
         if ($this->user_id != 0) {
             $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
@@ -461,6 +470,9 @@ class Product extends LocalizedModel
         $price += $price * (($this->storeSettings->product_percent) / 100);
         $price = round(($price) * $curr->value, 2);
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
+ 
+
+
         if ($this->storeSettings->currency_format == 0) {
             return $curr->sign . $price;
         } else {
@@ -675,11 +687,19 @@ class Product extends LocalizedModel
             return '';
         }
 
-        $price = $this->price;
+        if ($this->price > $this->promotion_price && $this->promotion_price > 0)  {
+            $price = $this->promotion_price;
+            if ($this->user_id != 0) {
+                $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
+            }
+        }else{
+            $price = $this->price; 
 
-        if ($this->user_id != 0) {
-            $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+            if ($this->user_id != 0) {
+                $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+            }
         }
+
 
         if (!empty($this->size)) {
             foreach ($this->size as $key => $size) {
@@ -741,6 +761,7 @@ class Product extends LocalizedModel
         //Add product_percent on price
         $price += $price * (($this->storeSettings->product_percent) / 100);
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
+     
         if ($this->storeSettings->currency_format == 0) {
             return $curr->sign . $price;
         } else {
