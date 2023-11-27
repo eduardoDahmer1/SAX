@@ -1,4 +1,4 @@
-<!-- @if ($ps->reviews_store == 1)
+@if ($ps->reviews_store == 1)
 <section style="padding: 3rem 0;">
     <div class="container">
         <div class="row justify-content-center" data-aos="fade-in">
@@ -36,4 +36,4 @@
         </div>
     </div>
 </section>
-@endif -->
+@endif
