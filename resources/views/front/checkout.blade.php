@@ -1789,7 +1789,7 @@
                 <div class="bottom-area center-buttons">
                     <a href="javascript:;" onclick="back2();scrolltotop()" id="step2-btn" class="mybtn1 mr-3"
                         form="myform">{{ __('Back') }}</a>
-                    <button type="submit" id="final-btn" class="mybtn1"
+                    <button type="submit" onclick="disableButton()" id="final-btn" class="mybtn1"
                         form="myform">{{ __('Continue') }}</button>
                 </div>
             </div>
@@ -1989,7 +1989,7 @@
         </div>
         <!-- LOGIN MODAL ENDS -->
     @endif
-    <div class="modal fade" id="iframe-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="iframe-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" style="transition: .5s; padding:10px;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2003,6 +2003,18 @@
             </div>
         </div>
     </div>
+    <x-loader/>
+    <script>
+        const myModalEl = document.getElementById('final-btn')
+        myModalEl.addEventListener('click', event => {
+            document.getElementsByClassName('loader-checkout')[0].classList.add('d-flex')
+        })
+        $(document).ready(function(){ 
+            $('#iframe-modal').on('shown.bs.modal', function (e) {
+                document.getElementsByClassName('loader-checkout')[0].classList.remove('d-flex') 
+            })
+        });
+    </script>
 @endsection
 
 @section('scripts')
