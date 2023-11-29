@@ -2,7 +2,7 @@
 <footer class="footer" id="footer">
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-12 col-md-3 d-flex flex-column justify-content-start align-items-center">
+            <div class="col-12 col-xl-3 col-md-4 d-flex flex-column justify-content-start align-items-center">
                 <div class="footer-info-area">
                     <div class="footer-logo">
                         <a href="{{ route('front.index') }}" class="logo-link">
@@ -27,7 +27,25 @@
                 </div>
 
             </div>
-            <div class="col-md-3">
+            <div class="col-xl-2 col-md-4">
+                <div class="footer-widget info-link-widget">
+                    <h4 class="title mb-1">
+                        {{ __('Important Links') }}
+                    </h4>
+                    <ul class="link-list">
+                        @foreach ($pfooter as $key => $data)
+                            @if($key < 5)
+                                <li class="py-2">
+                                    <a href="{{ route('front.page', $data->slug) }}">
+                                        {{ $data->title }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
                 <div class="footer-widget info-link-widget">
                     <h4 class="title mb-1">
                         {{ __('Footer Links') }}
@@ -38,14 +56,6 @@
                                 {{ __('Home') }}
                             </a>
                         </li>
-
-                        @foreach ($pfooter as $data)
-                            <li>
-                                <a href="{{ route('front.page', $data->slug) }}">
-                                    {{ $data->title }}
-                                </a>
-                            </li>
-                        @endforeach
 
                         <li>
                             <a href="{{ route('front.contact') }}">
@@ -82,12 +92,60 @@
                         @endif
 
                     </ul>
+                    <ul class="link-list">
+                        @foreach ($pfooter as $key => $data)
+                            @if($key > 5)
+                                <li class="py-2">
+                                    <a href="{{ route('front.page', $data->slug) }}">
+                                        {{ $data->title }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="fotter-social-links pt-2">
+            </div>
+            <div class="col-xl-2 col-md-6 mb-3">
+                @if ($ps->featured_category == 1)
+                    <div class="footer-widget info-link-widget">
+                        <h4 class="title mb-1">
+                            {{ __('Departaments') }}
+                        </h4>
+                        <ul class="link-list">
+
+                            @php
+                                $categoryhasimage = false;
+                                foreach ($categories->where('is_featured', '=', 1) as $cat) {
+                                    if (!empty($cat->image)) {
+                                        $categoryhasimage = true;
+                                        break;
+                                    }
+                                    $categoryhasimage = false;
+                                }
+                            @endphp
+
+                            @foreach ($categories->where('is_featured', '=', 1) as $cat)
+                                <li>
+                                    <a href="{{ route('front.category', $cat->slug) }}">
+                                        {{ $cat->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+
+
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <div class="col-xl-2 col-md-6">
+                <div>
+                    {!! $gs->copyright !!}
+                </div>
+                <div class="fotter-social-links mt-3">
                     <h4 class="title mb-2">
                         {{ __('Social networks') }}
                     </h4>
-                    <ul>
+                    <ul class="d-flex">
 
                         @if ($socials->f_status == 1)
                             <li>
@@ -138,43 +196,6 @@
                         @endif
 
                     </ul>
-                </div>
-            </div>
-            <div class="col-md-2">
-                @if ($ps->featured_category == 1)
-                    <div class="footer-widget info-link-widget">
-                        <h4 class="title mb-1">
-                            {{ __('Departaments') }}
-                        </h4>
-                        <ul class="link-list">
-
-                            @php
-                                $categoryhasimage = false;
-                                foreach ($categories->where('is_featured', '=', 1) as $cat) {
-                                    if (!empty($cat->image)) {
-                                        $categoryhasimage = true;
-                                        break;
-                                    }
-                                    $categoryhasimage = false;
-                                }
-                            @endphp
-
-                            @foreach ($categories->where('is_featured', '=', 1) as $cat)
-                                <li>
-                                    <a href="{{ route('front.category', $cat->slug) }}">
-                                        {{ $cat->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-
-
-                        </ul>
-                    </div>
-                @endif
-            </div>
-            <div class="col-md-3">
-                <div>
-                    {!! $gs->copyright !!}
                 </div>
             </div>
         </div>
