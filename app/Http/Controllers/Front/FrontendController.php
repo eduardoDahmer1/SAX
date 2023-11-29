@@ -206,6 +206,7 @@ class FrontendController extends Controller
          * Extra index - former ajax request
          */
         $bottom_small_banners = $banners->where('type', '=', 'BottomSmall');
+        $search_banners = $banners->where('type', '=', 'BannerSearch');
         $thumbnail_banners = $banners->where('type', '=', 'Thumbnail');
         $large_banners = $banners->where('type', '=', 'Large');
         $reviews = Review::all();
@@ -237,6 +238,7 @@ class FrontendController extends Controller
             'reviews',
             'large_banners',
             'thumbnail_banners',
+            'search_banners',
             'bottom_small_banners',
             'best_products',
             'top_products',

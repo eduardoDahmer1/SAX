@@ -568,6 +568,8 @@ Route::group([
                 Route::get('large/banner/', 'BannerController@large')->name('large');
                 Route::get('large/thumbnail/create', 'BannerController@thumbnailcreate')->name('create-thumbnail');
                 Route::get('large/thumbnail', 'BannerController@thumbnail')->name('thumbnail');
+                Route::get('large/filteredbanner', 'BannerController@filteredBanner')->name('filteredbanner');
+                Route::get('large/filteredbanner/create', 'BannerController@filteredBannerCreate')->name('create-filteredbanner');
 
                 Route::group([
                     'prefix' => 'banner'

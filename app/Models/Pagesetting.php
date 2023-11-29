@@ -45,7 +45,10 @@ class Pagesetting extends LocalizedModel
         'random_products',
         'store_id',
         'blog_posts',
-        'reviews_store'
+        'reviews_store',
+        'banner_search1',
+        'banner_search2',
+        'banner_search3',
     ];
 
     public $timestamps = false;
