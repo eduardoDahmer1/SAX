@@ -63,6 +63,7 @@
       $('#buttons2').removeClass('none');
       $('#buttons3').addClass('none');
       $('#buttons1').addClass('none');
+      $('#buttons3').find('button').prop('disabled', false)
     }
 
     function scrolltotop(){
@@ -77,7 +78,9 @@
       $('#buttons1').addClass('none');
     }
 
-
+    function disableButton(){
+      $('#buttons3').find('button').prop('disabled', true)
+    }
     // Step 2 btn DONE
     $('#step2-btn').on('click', function() {
         $('#pills-step3-tab').removeClass('active');
