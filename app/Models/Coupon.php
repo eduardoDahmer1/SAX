@@ -11,7 +11,7 @@ class Coupon extends CachedModel
     use LogsActivity;
 
 
-    protected $fillable = ['code', 'type', 'price', 'times', 'start_date', 'end_date', 'minimum_value', 'maximum_value', 'category_id', 'brand_id'];
+    protected $fillable = ['code', 'type', 'price', 'times', 'start_date', 'end_date', 'minimum_value', 'maximum_value', 'category_id', 'brand_id', 'discount_type'];
     public $timestamps = false;
 
     public function getActivitylogOptions(): LogOptions
