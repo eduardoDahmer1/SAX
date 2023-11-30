@@ -109,15 +109,15 @@
                 <div class="col-xl-4 select-div">
                   <div class="input-form">
                     <h4 class="heading">{{ __('Modelos de desconto') }} *</h4>
-                    <select id="desc" name="desc" >
-                      <option value="">{{ __('Selecione uma opção') }}</option>
-                      <option value="1">{{ __('Categoria') }}</option>
-                      <option value="2">{{ __('Marca') }}</option>
+                    <select id="discount_type" name="discount_type" required>
+                      <option value="" disabled selected hidden>{{ __('Selecione uma opção') }}</option>
+                      <option value="1" @selected($data->discount_type == 1)>{{ __('Categoria') }}</option>
+                      <option value="2" @selected($data->discount_type == 2)>{{ __('Marca') }}</option>
                     </select>
                   </div>
                 </div>
 
-                <div class="col-xl-4" style="display:none;">
+                <div class="col-xl-4" id="category" style="display:none;">
                   <div class="input-form">
                     <h4 class="heading">{{ __('Select Category') }} *</h4>
                     <select id="cat" name="category_id" >
@@ -132,7 +132,7 @@
                   </div>
                 </div>
                 
-                <div class="col-xl-4" style="display:none;">
+                <div class="col-xl-4" id="brands" style="display:none;">
                   <div class="input-form">
                     <h4 class="heading">{{ __('Brand') }} *</h4>
                     <select id="brand" name="brand_id" >
@@ -191,6 +191,14 @@
 
 {{-- Coupon Type --}}
 <script>
+  $(document).ready(function() {
+    var discountType = {{ $data->discount_type}}
+    if(discountType == 1 ){
+      $('#category').show();  
+    }else if(discountType == 2){
+      $('#brands').show();  
+    }
+  });
   $('#type').on('change', function() {
     var val = $(this).val();
     var selector = $(this).parent().parent().next();
@@ -238,7 +246,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#desc').on('change', function() {
+    $('#discount_type').on('change', function() {
       var val = $(this).val();
       var selector = $(this).closest('.select-div').next();
       var selector2 = selector.next();
