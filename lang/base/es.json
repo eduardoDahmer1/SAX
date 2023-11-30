@@ -826,6 +826,7 @@
   "The total value is less than the minimum possible value.": "El valor total es menor que el valor m\u00ednimo posible.",
   "The Transaction ID field is required.": "El campo ID de transacci\u00f3n es obligatorio.",
   "This coupon cannot be applied on this buy": "Este cup\u00f3n no se puede aplicar en esta compra",
+  "This coupon is not available for this product": "Este cupón no está disponible para este producto",
   "This coupon doesn't exist.": "Este cup\u00f3n no existe.",
   "This coupon is not available anymore": "Este cup\u00f3n ya no est\u00e1 disponible.",
   "This Email Already Exist.": "Este correo electr\u00f3nico ya existe.",
