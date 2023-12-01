@@ -20,19 +20,24 @@ class PageSettingController extends Controller
     protected $rules =
     [
         'best_seller_banner' => 'mimes:jpeg,jpg,png,svg,gif,webp',
-        'big_save_banner'    => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'big_save_banner' => 'mimes:jpeg,jpg,png,svg,gif,webp',
         'best_seller_banner1' => 'mimes:jpeg,jpg,png,svg,gif,webp',
-        'big_save_banner1'    => 'mimes:jpeg,jpg,png,svg,gif,webp'
+        'big_save_banner1' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search1' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search2' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search3' => 'mimes:jpeg,jpg,png,svg,gif,webp',
     ];
 
 
     protected $customs =
     [
-        'best_seller_banner.mimes'  => 'Photo type must be in jpeg, jpg, png, svg, gif',
-        'big_save_banner.mimes'     => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'best_seller_banner.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'big_save_banner.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
         'best_seller_banner1.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
-        'big_save_banner1.mimes'    => 'Photo type must be in jpeg, jpg, png, svg, gif'
-
+        'big_save_banner1.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search1.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search2.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search3.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
     ];
 
 
@@ -68,6 +73,24 @@ class PageSettingController extends Controller
             $name = time().$data->id.$file->getClientOriginalName();
             $data->upload($name, $file, $data->best_seller_banner1);
             $input['best_seller_banner1'] = $name;
+        }
+
+        if ($file = $request->file('banner_search1')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search1);
+            $input['banner_search1'] = $name;
+        }
+
+        if ($file = $request->file('banner_search2')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search2);
+            $input['banner_search2'] = $name;
+        }
+
+        if ($file = $request->file('banner_search3')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search3);
+            $input['banner_search3'] = $name;
         }
         if ($file = $request->file('big_save_banner1')) {
             $name = time().$data->id.$file->getClientOriginalName();
@@ -187,6 +210,24 @@ class PageSettingController extends Controller
             $input['best_seller_banner1'] = null;
             if (file_exists(public_path().'/storage/images/banners/'.$data->best_seller_banner1) && !empty($data->best_seller_banner1)) {
                 unlink(public_path().'/storage/images/banners/'.$data->best_seller_banner1);
+            }
+        }
+        if ($request->type == "banner_search1") {
+            $input['banner_search1'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search1) && !empty($data->banner_search1)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search1);
+            }
+        }
+        if ($request->type == "banner_search2") {
+            $input['banner_search2'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search2) && !empty($data->banner_search2)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search2);
+            }
+        }
+        if ($request->type == "banner_search3") {
+            $input['banner_search3'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search3) && !empty($data->banner_search3)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search3);
             }
         }
         if ($request->type == "big_save_banner1") {

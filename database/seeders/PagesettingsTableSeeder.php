@@ -51,6 +51,9 @@ class PagesettingsTableSeeder extends Seeder
                 'big_save_banner1' => NULL,
                 'big_save_banner_link1' => '#',
                 'featured_category' => 1,
+                'banner_search1' => NULL,
+                'banner_search2' => NULL,
+                'banner_search3' => NULL,
             ),
         ));
 

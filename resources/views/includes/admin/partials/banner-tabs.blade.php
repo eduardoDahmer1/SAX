@@ -8,6 +8,7 @@
                 <a class="nav-item nav-link {{request()->is('admin/bottom/small/banner') ? 'active' : ''}}" href="{{ route('admin-sb-bottom') }}" role="tab">{{ __('Bottom Small') }}</a>
                 <a class="nav-item nav-link {{request()->is('admin/large/banner') ? 'active' : ''}}" href="{{ route('admin-sb-large') }}" role="tab">{{ __('Large') }}</a>
                 <a class="nav-item nav-link {{request()->is('admin/large/thumbnail') ? 'active' : ''}}" href="{{ route('admin-sb-thumbnail') }}" role="tab">{{ __('Thumbnail') }}</a>
+                <a class="nav-item nav-link {{request()->is('admin/large/filteredbanner') ? 'active' : ''}}" href="{{ route('admin-sb-filteredbanner') }}" role="tab">{{ __('Search Page') }}</a>
             </div>
         </nav>
     </div>
