@@ -105,6 +105,20 @@ class BannerController extends Controller
     }
 
     //*** GET Request
+    public function filteredBanner()
+    {
+        $storesList = Generalsetting::all();
+        return view('admin.banner.filteredbanner', compact('storesList'));
+    }
+    
+    //*** GET Request
+    public function filteredBannerCreate(Request $request)
+    {
+        $storesList = Generalsetting::all();
+        return view('admin.banner.filteredbannercreate', compact('storesList'));
+    }
+
+    //*** GET Request
     public function bottomcreate()
     {
         $storesList = Generalsetting::all();

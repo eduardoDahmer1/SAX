@@ -168,30 +168,15 @@
                 </a>
             </div>
         @endif
-        @if (env('ENABLE_SAX_BRIDAL'))
-            @if ( $loop->index == 7 )
+        @if ( $loop->index == 7)
+            @if($admstore->pagesettings->banner_search1 || $admstore->pagesettings->banner_search2)
                 <div class="col-lg-4 py-1 pr-lg-2 remove-padding">
-                    <img src="{{ asset('assets/front/themes/theme-15/assets/images/bridal2.jpg') }}" alt="Banner Bottom">
+                    <img src="{{ $admstore->pagesettings->banner_search1 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search1) : asset('assets/images/noimage.png') }}" alt="Banner Bottom">
                 </div>
                 <div class="col-lg-8 py-1 remove-padding">
                     <div class="w-100 h-100" 
                         style="
-                        background-image:url({{ asset('assets/front/themes/theme-15/assets/images/bridal1.jpg') }});
-                        background-size:cover;
-                        background-position:center;
-                        min-height:20vh">
-                    </div>
-                </div>
-            @endif
-        @else
-            @if ( $loop->index == 7 )
-                <div class="col-lg-4 py-1 pr-lg-2 remove-padding">
-                    <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannermeio.png') }}" alt="Banner Bottom">
-                </div>
-                <div class="col-lg-8 py-1 remove-padding">
-                    <div class="w-100 h-100" 
-                        style="
-                        background-image:url({{ asset('assets/front/themes/theme-15/assets/images/bannermeio2.png') }});
+                        background-image:url({{ $admstore->pagesettings->banner_search2 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search2) : asset('assets/images/noimage.png') }});
                         background-size:cover;
                         background-position:center;
                         min-height:20vh">
@@ -209,13 +194,9 @@
     @include('front.themes.shared.components.no-prod-found')
 @endif
 
-@if (env('ENABLE_SAX_BRIDAL'))
+@if($admstore->pagesettings->banner_search3)
     <div class="col-12 mt-2 pt-4 remove-padding">
-        <img src="{{ asset('assets/front/themes/theme-15/assets/images/bridal1.jpg') }}" alt="Banner Bottom">
-    </div>
-@else
-    <div class="col-12 mt-2 pt-4 remove-padding">
-        <img src="{{ asset('assets/front/themes/theme-15/assets/images/bannerbottom.png') }}" alt="Banner Bottom">
+        <img style="height: 320px;object-fit:cover;object-position:center;width:100%;" src="{{ $admstore->pagesettings->banner_search3 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search3) : asset('assets/images/noimage.png') }}" alt="Banner Bottom">
     </div>
 @endif
 
