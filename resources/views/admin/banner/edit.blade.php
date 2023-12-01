@@ -1,8 +1,6 @@
 @extends('layouts.load')
-
 @section('content')
 <div class="content-area">
-
     <div class="add-product-content">
         <div class="row">
             <div class="col-lg-12">
@@ -20,7 +18,6 @@
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-xl-6">
                                     <div class="input-form">
@@ -32,8 +29,13 @@
                                                         class="icofont-upload-alt"></i>{{ __('Upload Image') }}</label>
                                                 <input type="file" name="photo" class="img-upload" id="image-upload">
                                             </div>
-                                            <p class="text">{{ __('Prefered Size: (1280x600) or Square Sized Image') }}
-                                            </p>
+                                            @if(str_contains(url()->previous(), 'bottom'))
+                                                <p class="text">{{ __('Prefered Size: (400x630) or Square Sized Image') }}</p>
+                                            @elseif(str_contains(url()->previous(), 'top'))
+                                                <p class="text">{{ __('Prefered Size: (1300x600) or Square Sized Image') }}</p>
+                                            @else
+                                                <p class="text">{{ __('Prefered Size: (1275x500) or Square Sized Image') }}</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

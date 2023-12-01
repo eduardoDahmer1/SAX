@@ -514,8 +514,7 @@
                                                         id="image-upload">
                                                 </div>
                                                 <p class="text">
-                                                    {{ __('Prefered Size: (1920x400) or Rectangular Sized
-                                                                                                    Image') }}
+                                                    {{ __('Prefered Size: (650x650) or Rectangular Sized Image') }}
                                                 </p>
                                             </div>
                                         </div>

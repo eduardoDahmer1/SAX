@@ -24,7 +24,6 @@
         }
     </style>
 @endsection
-
 @section('content')
     <div class="content-area">
         <div class="mr-breadcrumb">
@@ -70,7 +69,7 @@
                         @include('includes.admin.form-success')
 
                         <div class="table-responsiv">
-                            <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
+                            <table id="geniustable" class="teste table table-hover dt-responsive" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th><i class="icofont-options icofont-lg" data-toggle="tooltip"
