@@ -1032,7 +1032,7 @@ class CartController extends Controller
             if ($product->promotion_price) {
                 $item['price'] = $product->promotion_price;
             }
-            $cart->totalPrice += ($item['price'] * $item['qty']);
+            $cart->totalPrice += ($item['price']);
         }
         
         Session::put('cart', $cart);

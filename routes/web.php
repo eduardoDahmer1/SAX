@@ -14,6 +14,11 @@ Route::get('test/redplay-email', function () {
     return new RedplayLicenseMail($order, $license);
 });
 
+Route::get('/checkoutv2', function(){
+    return view('front.checkout.checkoutv2');
+});
+
+
 Route::post('trumbowyg-upload', 'Controller@trumbowygUpload')->name('trumbowyg-upload');
 
 /**
