@@ -24,7 +24,6 @@
         }
     </style>
 @endsection
-
 @section('content')
     <div class="content-area">
         <div class="mr-breadcrumb">
