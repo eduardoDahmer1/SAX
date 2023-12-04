@@ -290,10 +290,10 @@ class FrontendController extends Controller
         Session::forget('currency');
 
         if ($id == 1) {
-            $idCurrency = 12;
+            $idCurrency = 14;
             Session::put('currency', $idCurrency);
         } else if ($id == 8) {
-            $idCurrency = 11;
+            $idCurrency = 12;
             Session::put('currency', $idCurrency);
         } else {
             $idCurrency = 1;
