@@ -5,14 +5,23 @@
                 <div class="content">
                     <div class="left-content">
                         <div class="list">
+                            @php
+                                if($slocale->id == '1'){
+                                    $top_first_curr = $curr;
+                                    $top_curr = App\Models\Currency::where('sign', 'R$')->first();
+                                }else{
+                                    $top_first_curr = $curr;
+                                    $top_curr = App\Models\Currency::where('sign', 'GS$')->first();
+                                }
+                            @endphp
                             <ul>
                                 @if (config('features.lang_switcher') && $gs->is_language == 1)
                                     <li class="separador-right">
                                         <div class="language-selector">
                                             <i class="fas fa-globe-americas"></i>
-                                            <select name="language" class="language selectors nice">
+                                            <select id="changeLanguage" name="language" class="language selectors nice">
                                                 @foreach ($locales as $language)
-                                                    <option value="{{ route('front.language', $language->id) }}"
+                                                    <option value="{{ route('front.language', [$language->id, $top_curr->id]) }}"
                                                         {{ $slocale->id == $language->id ? 'selected' : '' }}>
                                                         {{ $language->language }}
                                                     </option>
@@ -24,11 +33,16 @@
 
                                 @if ($gs->show_currency_values == 1)
                                     @php
-                                        $top_first_curr = $curr;
-                                        $top_curr = $scurrency;
+                                        if($slocale->id == '1'){
+                                            $top_first_curr = $curr;
+                                            $top_curr = App\Models\Currency::where('sign', 'R$')->first();
+                                        }else{
+                                            $top_first_curr = $curr;
+                                            $top_curr = App\Models\Currency::where('sign', 'GS$')->first();
+                                        }
                                     @endphp
 
-                                    @if ($scurrency->id != 1)
+                                    @if ($top_curr->id != 1)
                                         <li>
                                             <div class="currency-selector">
                                                 <span><i class="fas fa-coins"></i>
@@ -63,11 +77,11 @@
                                 <!--MOEDA-->
                                 @if (config('features.currency_switcher') && $gs->is_currency == 1)
                                     <li>
-                                        <div class="currency-selector" style="padding-right:12px;">
-                                            <select name="currency" class="currency selectors nice">
+                                        <div hidden class="currency-selector"style="padding-right:12px;">
+                                            <select id="changeCurrency" name="currency" class="currency selectors nice">
                                                 @foreach ($currencies as $currency)
                                                     <option value="{{ route('front.currency', $currency->id) }}"
-                                                        {{ $scurrency->id == $currency->id ? 'selected' : '' }}>
+                                                        @selected($top_curr->sign == $currency->sign )>
                                                         {{ $currency->name }}
                                                     </option>
                                                 @endforeach
@@ -94,4 +108,13 @@
         </div>
     </div>
 </section>
+
+<script>
+    const selectLanguage = document.getElementById('changeLanguage');
+    const selectCurrency = document.getElementById('changeCurrency');
+    window.addEventListener('load', function() {
+
+    });
+
+</script>
 <!-- Top Header Area End -->

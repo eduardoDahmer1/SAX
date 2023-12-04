@@ -1510,7 +1510,7 @@ Route::group(['middleware' => 'maintenance'], function () {
             Route::get('category/{slug1}/{slug2}/{slug3}', 'CatalogController@childcategory')->name('childcat');
             Route::get('categories', 'CatalogController@categories')->name('categories');
             Route::get('currency/{id}', 'FrontendController@currency')->name('currency');
-            Route::get('language/{id}', 'FrontendController@language')->name('language');
+            Route::get('language/{id}/{idCurrency}', 'FrontendController@language')->name('language');
             Route::post('item/review', 'CatalogController@reviewsubmit')->name('review.submit');
             Route::get('item/view/review/{id}', 'CatalogController@reviews')->name('reviews');
             Route::get('item/{slug}', 'CatalogController@product')->name('product');
