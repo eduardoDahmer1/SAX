@@ -282,18 +282,29 @@ class FrontendController extends Controller
     // -------------------------------- HOME PAGE SECTION ENDS ----------------------------------------
 
 
+    // CURRENCY SECTION
+
+
     // LANGUAGE SECTION
 
-    public function language($id)
+    public function language($id, $idCurrency)
     {
+        Session::forget('currency');
+
+        if ($id == 1) {
+            $idCurrency = 14;
+            Session::put('currency', $idCurrency);
+        } else if ($id == 8) {
+            $idCurrency = 12;
+            Session::put('currency', $idCurrency);
+        } else {
+            $idCurrency = 1;
+            Session::put('currency', $idCurrency);
+        }
+        
         Session::put('language', $id);
         return redirect()->back();
     }
-
-    // LANGUAGE SECTION ENDS
-
-
-    // CURRENCY SECTION
 
     public function currency($id)
     {
@@ -309,6 +320,10 @@ class FrontendController extends Controller
         Session::put('currency', $id);
         return redirect()->back();
     }
+
+
+    // LANGUAGE SECTION ENDS
+
 
     // CURRENCY SECTION ENDS
 
