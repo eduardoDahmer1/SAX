@@ -1376,25 +1376,20 @@ class CartController extends Controller
     public function coupon()
     {
         $code = $_GET['code'];
-
         if (!Session::has('cart')) {
             return view('front.cart');
         }
 
         $oldCart = Session::get('cart');
-
         $cart = new Cart($oldCart);
-
         $total = $cart->totalPrice;
         $tx = $this->storeSettings->tax;
-
         if ($tx != 0) {
             $tax = ($total / 100) * $tx;
             $total = $total + $tax;
         }
 
         $fnd = Coupon::where('code', '=', $code)->get()->count();
-
         $couponError = false;
 
         if ($fnd < 1) {
@@ -1402,7 +1397,38 @@ class CartController extends Controller
             $couponError = true;
         } else {
             $coupon = Coupon::where('code', '=', $code)->first();
-
+            if ($coupon->category_id) {
+                $couponCategories = [];
+                $idProducts = [];
+                $idCategories = [];
+                foreach ($cart->items as $item) {
+                    $idProducts[] = $item['item']['id'];
+                }
+                if ($idProducts) {
+                    $products = Product::whereIn('id', $idProducts)->with('category')->get();
+                    $idCategories = $products->pluck('category.id')->toArray();
+                    $couponCategories[] = $coupon->category_id;
+                    if (array_diff($idCategories, $couponCategories) != null) {
+                        $data["not_found"] = __("This coupon is not available for this product");
+                    }
+                }
+            }
+            if ($coupon->brand_id) {
+                $couponBrands = [];
+                $idProducts = [];
+                $idBrands = [];
+                foreach ($cart->items as $item) {
+                    $idProducts[] = $item['item']['id'];
+                }
+                if ($idProducts) {
+                    $products = Product::whereIn('id', $idProducts)->with('brand')->get();
+                    $idBrands = $products->pluck('brand.id')->toArray();
+                    $couponBrands[] = $coupon->brand_id;
+                    if (array_diff($idBrands, $couponBrands) != null) {
+                        $data["not_found"] = __("This coupon is not available for this product");
+                    }
+                }
+            }      
             if (Session::has('currency')) {
                 $curr = Currency::find(Session::get('currency'));
             } else {
@@ -1544,6 +1570,38 @@ class CartController extends Controller
         //Total price of the item(s) in the cart
 
         $cart = new Cart(Session::get('cart'));
+        if ($coupon->category_id) {
+            $couponCategories = [];
+            $idProducts = [];
+            $idCategories = [];
+            foreach ($cart->items as $item) {
+                $idProducts[] = $item['item']['id'];
+            }
+            if ($idProducts) {
+                $products = Product::whereIn('id', $idProducts)->with('category')->get();
+                $idCategories = $products->pluck('category.id')->toArray();
+                $couponCategories[] = $coupon->category_id;
+                if (array_diff($idCategories, $couponCategories) != null) {
+                    $data["not_found"] = __("This coupon is not available for this product");
+                }
+            }
+        }
+        if ($coupon->brand_id) {
+            $couponBrands = [];
+            $idProducts = [];
+            $idBrands = [];
+            foreach ($cart->items as $item) {
+                $idProducts[] = $item['item']['id'];
+            }
+            if ($idProducts) {
+                $products = Product::whereIn('id', $idProducts)->with('brand')->get();
+                $idBrands = $products->pluck('brand.id')->toArray();
+                $couponBrands[] = $coupon->brand_id;
+                if (array_diff($idBrands, $couponBrands) != null) {
+                    $data["not_found"] = __("This coupon is not available for this product");
+                }
+            }
+        }      
         $cart_total_price = $cart->totalPrice;
         $tax = $this->storeSettings->tax;
         if ($tax > 0) {
