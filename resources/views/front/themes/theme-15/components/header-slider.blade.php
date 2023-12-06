@@ -36,27 +36,20 @@
         </ul>
         <!-- Main Slider of the page -->
         <div id="main-slider">
-
           @foreach ($sliders as $data)
-          <!-- Slide of the page -->
-          <div class="slide">
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-xs-12">
-                  <div class="beans-slider">
-                    <div class="border">
-                      <h1 class="slider-heading">{{ $data->title_text }}</h1>
-                      <div class="img-holder">
-                        <a href="https://shop.saxdepartment.com/category/fashion-sale-47">
-                            <img loading="lazy" src="{{ asset('storage/images/sliders/' . $data->photo) }}" width="650" height="650" alt="image description">
-                        </a>
-                      </div>
+            {{-- <Slide of the page --> --}}
+            <div class="slide">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        {{-- <h1 class="slider-heading">{{ $data->title_text }}</h1> --}}
+                        <div class="img-holder">
+                            <a href="https://shop.saxdepartment.com/category/fashion-sale-47">
+                                <img loading="lazy" class='img-fluid' src="{{ asset('storage/images/sliders/' . $data->photo) }}" alt="image description">
+                            </a>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
           @endforeach
 
         </div>
