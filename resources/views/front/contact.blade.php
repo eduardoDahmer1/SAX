@@ -29,67 +29,77 @@
     <!-- Contact Us Area Start -->
     <section class="contact-us">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="contact-section-title">
-                        {!! $ps->contact_title !!}
-                        {!! $ps->contact_text !!}
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-8">
+                    <div class="contact-section-title text-center">
+                        <h3>Envía tu mensaje y te responderemos a la brevedad.</h4>
+                        <p class='lead'>Bienvenido al mundo de SAX. La tienda de artículos de lujo más grande de Sudamérica. Por favor, siéntase libre de enviar su mensaje.</p>
+                        
+                        {{-- {!! $ps->contact_title !!}
+                        {!! $ps->contact_text !!} --}}
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-between">
-                <div class="col-xl-7 col-lg-7 col-md-6">
-                    <div class="left-area">
-                        <div class="contact-form">
-                            <div class="gocover"
-                                style="background: url({{ asset('storage/images/' . $gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
-                            </div>
-                            <form id="contactform" action="{{ route('front.contact.submit') }}" method="POST">
-                                {{ csrf_field() }}
-                                @include('includes.admin.form-both')
-
-                                <div class="form-input">
-                                    <input type="text" name="name" placeholder="{{ __('Name') }} *" required="">
-                                    <i class="icofont-user-alt-5"></i>
-                                </div>
-                                <div class="form-input">
-                                    <input type="text" name="phone" placeholder="{{ __('Phone Number') }} *">
-                                    <i class="icofont-ui-call"></i>
-                                </div>
-                                <div class="form-input">
-                                    <input type="email" name="email" placeholder="{{ __('Email Address') }} *"
-                                        required="">
-                                    <i class="icofont-email"></i>
-                                </div>
-                                <div class="form-input">
-                                    <textarea name="text" placeholder="{{ __('Your Message') }} *" required=""></textarea>
-                                </div>
-
-                                @if ($gs->is_capcha == 1)
-                                    <ul class="captcha-area">
-                                        <li>
-                                            <p><img class="codeimg1" src="{{ asset('storage/images/capcha_code.png') }}"
-                                                    alt="">
-                                                <i class="fas fa-sync-alt pointer refresh_code"></i>
-                                            </p>
-
-                                        </li>
-                                        <li>
-                                            <input name="codes" type="text" class="input-field"
-                                                placeholder="{{ __('Enter Code') }}" required="">
-
-                                        </li>
-                                    </ul>
-                                @endif
-
-
-                                <input type="hidden" name="to" value="{{ $ps->contact_email }}">
-                                <button class="submit-btn" type="submit">{{ __('Send Message') }}</button>
-                            </form>
+            <div class="row w-100 justify-content-center">
+                <div class="col-xl-12 col-lg-12 col-md-6">
+                    <div class="contact-form">
+                        <div class="gocover"
+                            style="background: url({{ asset('storage/images/' . $gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
                         </div>
+                        <form id="contactform" action="{{ route('front.contact.submit') }}" method="POST">
+                            {{ csrf_field() }}
+                            @include('includes.admin.form-both')
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-input">
+                                        <input type="text" name="name" placeholder="{{ __('Name') }} *" required="">
+                                        <i class="icofont-user-alt-5"></i>
+                                    </div>
+                                    <div class="form-input">
+                                        <input type="text" name="phone" placeholder="{{ __('Phone Number') }} *">
+                                        <i class="icofont-ui-call"></i>
+                                    </div>
+                                    <div class="form-input">
+                                        <input type="email" name="email" placeholder="{{ __('Email Address') }} *"
+                                            required="">
+                                        <i class="icofont-email"></i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-input">
+                                        <textarea name="text" placeholder="{{ __('Your Message') }} *" required=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-lg-6 mt-2 d-flex w-100 justify-content-center">
+                                    @if ($gs->is_capcha == 1)
+                                        <ul class="captcha-area">
+                                            <li>
+                                                <p><img class="codeimg1" src="{{ asset('storage/images/capcha_code.png') }}"
+                                                        alt="">
+                                                    <i class="fas fa-sync-alt pointer refresh_code"></i>
+                                                </p>
+
+                                            </li>
+                                            <li>
+                                                <input name="codes" type="text" class="input-field"
+                                                    placeholder="{{ __('Enter Code') }}" required="">
+                                            </li>
+                                        </ul>
+                                    @endif
+                                </div>
+                                <div class="col-lg-6 d-flex w-100 justify-content-center">
+                                    <input type="hidden" name="to" value="{{ $ps->contact_email }}">
+                                    <button class="submit-btn" type="submit">{{ __('Send Message') }}</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="col-xl-5 col-lg-5 col-md-6 mt-4">
+            </div>
+                {{-- <div class="col-xl-5 col-lg-5 col-md-6 mt-4">
                     <div class="right-area">
 
                         @if ($ps->site != null || $ps->email != null)
@@ -205,8 +215,8 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> --}}
+            
         </div>
     </section>
     <!-- Contact Us Area End-->
