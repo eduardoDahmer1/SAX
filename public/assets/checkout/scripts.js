@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', function () {
   shippingType.forEach(input => {
     input.addEventListener('change', () => {
       if(input.value == 2) {
-        newAddress.classList.replace('d-none', 'd-flex')
+        newAddress.classList.replace('d-none', 'test')
       } else {
-        newAddress.classList.replace('d-flex', 'd-none')
+        newAddress.classList.replace('test', 'd-none')
       }
       if(input.value == 3) {
         selectLocal.classList.replace('d-none', 'd-flex')

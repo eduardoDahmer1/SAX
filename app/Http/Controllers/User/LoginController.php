@@ -53,7 +53,6 @@ class LoginController extends Controller
             Auth::guard('web')->logout();
             return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));   
           }
-
           // Login Via Modal
           if(!empty($request->modal))
           {
@@ -69,7 +68,8 @@ class LoginController extends Controller
                 }
             }
           // Login as User
-          return response()->json(1);          
+          // return response()->json(1);
+          return redirect()->back();          
           }
           // Login as User
           return response()->json(route('user-dashboard'));

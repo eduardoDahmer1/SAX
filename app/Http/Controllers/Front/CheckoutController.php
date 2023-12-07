@@ -69,6 +69,7 @@ class CheckoutController extends Controller
     }
     public function checkout(Request $request)
     {
+
         if (!$this->storeSettings->is_standard_checkout) {
             return view('errors.404');
         }
@@ -302,6 +303,7 @@ class CheckoutController extends Controller
                 'aex_cities' => $aex_cities
             ]);
         }
+        // dd(Auth::guard('web')->user());
 
         return view('front.checkout', [
             'customer' => $request->session()->get('temporder'),
