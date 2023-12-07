@@ -28,11 +28,11 @@
 
     <!-- Contact Us Area Start -->
     <section class="contact-us">
-        <div class="container m-auto">
+        <div class="container-lg m-auto">
             <div class="row justify-content-center align-items-center">
-                <div class="col-lg-8 col-md-10 col-sm-12">
-                    <div class="contact-section-title text-center">
-                        <h3>Envía tu mensaje y te responderemos a la brevedad.</h4>
+                <div class="col-xl-8">
+                    <div class="contact-section-title text-center w-75 m-auto">
+                        <h3>Envía tu mensaje y te responderemos a la brevedad.</h3>
                         <p class='lead'>Bienvenido al mundo de SAX. La tienda de artículos de lujo más grande de Sudamérica. Por favor, siéntase libre de enviar su mensaje.</p>
                         
                         {{-- {!! $ps->contact_title !!}
@@ -41,8 +41,8 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-xl-12 col-lg-12 col-md-6">
-                    <div class="contact-form">
+                <div class="col-xl-12">
+                    <div class="contact-form m-auto">
                         <div class="gocover"
                             style="background: url({{ asset('storage/images/' . $gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
                         </div>
@@ -50,8 +50,8 @@
                             {{ csrf_field() }}
                             @include('includes.admin.form-both')
 
-                            <div class="row">
-                                <div class="col-lg-6">
+                            <div class="row justify-content-center w-100 m-auto">
+                                <div class="col-xl-4 col-lg-5">
                                     <div class="form-input">
                                         <input type="text" name="name" placeholder="{{ __('Name') }} *" required="">
                                         <i class="icofont-user-alt-5"></i>
@@ -66,14 +66,14 @@
                                         <i class="icofont-email"></i>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-xl-4 col-lg-5">
                                     <div class="form-input">
                                         <textarea name="text" placeholder="{{ __('Your Message') }} *" required=""></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-center align-items-center">
-                                <div class="col-lg-6 mt-2 d-flex w-100 justify-content-center">
+                                <div class="col-xl-6 col-md-12 mt-2 d-flex w-100 justify-content-center">
                                     @if ($gs->is_capcha == 1)
                                         <ul class="captcha-area">
                                             <li>
@@ -90,7 +90,7 @@
                                         </ul>
                                     @endif
                                 </div>
-                                <div class="col-lg-6 d-flex w-100 justify-content-center">
+                                <div class="col-lg-6 col-lg-12 d-flex w-100 justify-content-center">
                                     <input type="hidden" name="to" value="{{ $ps->contact_email }}">
                                     <button class="submit-btn" type="submit">{{ __('Send Message') }}</button>
                                 </div>
@@ -99,11 +99,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-lg-12">
-                    <div class="row w-100 justify-content-center">
+            <div class="row mt-5 justify-content-center align-items-center">
+                <div class="col-xl-12">
+                    <div class="row justify-content-center">
                             @if ($ps->site != null || $ps->email != null)
-                            <div class="col-lg-3 contact-info">
+                            <div class="col-xl-3 contact-info">
                                 <div class="left ">
                                     <div class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M4.222 19.778a4.983 4.983 0 0 0 3.535 1.462 4.986 4.986 0 0 0 3.536-1.462l2.828-2.829-1.414-1.414-2.828 2.829a3.007 3.007 0 0 1-4.243 0 3.005 3.005 0 0 1 0-4.243l2.829-2.828-1.414-1.414-2.829 2.828a5.006 5.006 0 0 0 0 7.071zm15.556-8.485a5.008 5.008 0 0 0 0-7.071 5.006 5.006 0 0 0-7.071 0L9.879 7.051l1.414 1.414 2.828-2.829a3.007 3.007 0 0 1 4.243 0 3.005 3.005 0 0 1 0 4.243l-2.829 2.828 1.414 1.414 2.829-2.828z"></path><path d="m8.464 16.95-1.415-1.414 8.487-8.486 1.414 1.415z"></path></svg>
@@ -124,7 +124,7 @@
                             </div>
                         @endif
                         @if ($ps->street != null)
-                            <div class="col-lg-3 contact-info">
+                            <div class="col-xl-3 contact-info">
                                 <div class="left ">
                                     <div class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C7.589 2 4 5.589 4 9.995 3.971 16.44 11.696 21.784 12 22c0 0 8.029-5.56 8-12 0-4.411-3.589-8-8-8zm0 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path></svg>
@@ -140,7 +140,7 @@
                             </div>
                         @endif
                         @if ($ps->phone != null || $ps->fax != null)
-                        <div class="col-lg-3 contact-info">
+                        <div class="col-xl-3 contact-info">
                             <div class="left ">
                                 <div class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="m20.487 17.14-4.065-3.696a1.001 1.001 0 0 0-1.391.043l-2.393 2.461c-.576-.11-1.734-.471-2.926-1.66-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 0 0 .043-1.391L6.859 3.513a1 1 0 0 0-1.391-.087l-2.17 1.861a1 1 0 0 0-.29.649c-.015.25-.301 6.172 4.291 10.766C11.305 20.707 16.323 21 17.705 21c.202 0 .326-.006.359-.008a.992.992 0 0 0 .648-.291l1.86-2.171a.997.997 0 0 0-.085-1.39z"></path></svg>
@@ -161,8 +161,8 @@
                         </div>
                         @endif
                     </div>
-                    <div class="row w-100 d-flex justify-content-center align-items-center">
-                        <div class="col-lg-3">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-lg-4">
                             <div class="social-links">
                                 <h4 class="title">{{ __('Find Us Here') }} :</h4>
                                 <ul>

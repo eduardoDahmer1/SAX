@@ -42576,9 +42576,30 @@ nav button {
 
 .contact-us {
   padding: 55px 0px 70px;
-  overflow: hidden;
-  /* margin:0 auto;
-  width: 100%; */
+}
+
+@media screen and (max-width: 1140px) {
+  .contact-us .contact-section-title h2 {
+    font-size: 28px;
+    font-weight: 600;
+    
+  }  
+
+  .contact-us .contact-section-title p {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .contact-us .contact-section-title h2 {
+    font-size: 24px;
+    font-weight: 600;
+    
+  }  
+
+  .contact-us .contact-section-title p {
+    font-size: 15px;
+  }
 }
 
 .contact-us .contact-section-title .subtitle {
@@ -42597,8 +42618,9 @@ nav button {
   margin-bottom: 13px;
 }
 
-.contact-us .contact-section-title .text {
+.contact-us .contact-section-title p {
   color: #777;
+  /* font-size: 18px; */
 }
 
 .contact-us .contact-form {
@@ -42734,8 +42756,8 @@ nav button {
 }
 
 .contact-us .contact-info {
-  width: 280px;
-  height: 180px;
+  max-width: 280px;
+  max-height: 180px;
   padding: 20px 0px 30px;
   margin-bottom: 30px;
   -webkit-transition: all 0.3s ease-in;
@@ -42824,6 +42846,16 @@ nav button {
 
 .contact-us .social-links ul li:not(:last-child) {
   margin-right: 20px;
+}
+
+@media screen and (max-width: 728px) {
+  .contact-us .social-links ul li:not(:last-child) {
+    margin: 0;
+  }
+  
+  .contact-us .contact-info:not(:last-child) {
+    margin-right: 0px;
+  }
 }
 
 .contact-us .social-links ul li a:hover {
