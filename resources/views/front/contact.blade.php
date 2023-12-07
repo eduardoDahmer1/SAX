@@ -72,8 +72,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row d-flex justify-content-center align-items-center">
-                                <div class="col-xl-6 col-md-12 mt-2 d-flex w-100 justify-content-center">
+                            <div class="row mt-4 justify-content-center align-items-center">
+                                <div class="col-xl-4 col-lg-5 d-flex justify-content-center">
                                     @if ($gs->is_capcha == 1)
                                         <ul class="captcha-area">
                                             <li>
@@ -90,7 +90,7 @@
                                         </ul>
                                     @endif
                                 </div>
-                                <div class="col-lg-6 col-lg-12 d-flex w-100 justify-content-center">
+                                <div class="mt-4 col-xl-4 col-lg-5 d-flex justify-content-center">
                                     <input type="hidden" name="to" value="{{ $ps->contact_email }}">
                                     <button class="submit-btn" type="submit">{{ __('Send Message') }}</button>
                                 </div>
