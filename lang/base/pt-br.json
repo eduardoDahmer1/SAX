@@ -2335,5 +2335,7 @@
     "Products name":"Nome do produto",
     "Enter the name of the product you want to associate":"Introduza o nome do produto que pretende associar",
     "Central Banner Left":"Banner Central Esquerdo",
-    "Central Banner Right":"Banner Central Direito"
+    "Central Banner Right":"Banner Central Direito",
+    "Product code":"Código do Produto",
+    "Personal data":"Dados pessoais"
 }

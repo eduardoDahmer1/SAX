@@ -1025,5 +1025,8 @@
   "Products name":"Nombre del producto",
   "Enter the name of the product you want to associate":"Introduzca el nombre del producto que desea asociar",
   "Central Banner Left":"Banner Central Izquierdo",
-  "Central Banner Right":"Banner Central Derecha"
+  "Central Banner Right":"Banner Central Derecha",
+  "Product code":"Código de producto",
+  "items": "itens",
+  "Personal data":"Datos personales"
 }

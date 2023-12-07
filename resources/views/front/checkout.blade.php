@@ -3,7 +3,7 @@
 @section('content')
 
 
-@if ($checked)
+{{-- @if ($checked)
 <!-- LOGIN MODAL -->
 <div class="modal fade" id="comment-log-reg1" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="comment-log-reg-Title" aria-hidden="true">
@@ -180,7 +180,7 @@
     </div>
 </div>
 <!-- LOGIN MODAL ENDS -->
-@endif
+@endif --}}
 
 <body>
     <header class="bg-black text-center py-3 mb-5"><img src="https://i.ibb.co/1dFF5PK/logosax.png" alt=""></header>
@@ -200,25 +200,23 @@
             <!-- Step 1 -->
             <div class="step col-10 row align-items-center justify-content-center mt-4">
                 <div class="d-flex align-items-center bg-top my-4 py-2">
-                    <h6 class="col-8">PRODUTO</h6>
-                    <h6 class="col-2 d-lg-block d-none">QUANTIDADE</h6>
-                    <h6 class="col-2 d-lg-block d-none">{{ __('Price') }}</h6>
+                    <h6 class="col-8 text-uppercase">{{ __('Product') }}</h6>
+                    <h6 class="col-2 d-lg-block d-none text-uppercase">{{ __('Amount') }}</h6>
+                    <h6 class="col-2 d-lg-block d-none text-uppercase">{{ __('Price') }}</h6>
                 </div>
                 @foreach ($products as $product)
                 <div class="d-flex flex-wrap align-items-center p-0 pb-5 border-bottom-f1 mb-4">
                     <div class="col-lg-8 prod-img">
-                        <img src="{{ filter_var($product['item']['photo'], FILTER_VALIDATE_URL)
-                                                                ? $product['item']['photo']
-                                                                : asset('storage/images/products/' . $product['item']['photo']) }}"
+                        <img src="{{ filter_var($product['item']['photo'], FILTER_VALIDATE_URL) ? $product['item']['photo'] : asset('storage/images/products/' . $product['item']['photo']) }}"
                             alt="">
                         <div class="pl-4">
                             <h5 class="fw-normal fs-16">{{ $product['item']->name }}</h5>
-                            <p class="color-1">Código do produto: {{ $product['item']->sku }}</p>
+                            <p class="color-1">{{ __('Product code') }}: {{ $product['item']->sku }}</p>
                         </div>
                     </div>
                     <div class="col-12 d-flex align-items-center bg-top my-4 py-2 d-lg-none d-block">
-                        <h6 class="col-6">QUANTIDADE</h6>
-                        <h6 class="col-6">{{ __('Price') }}</h6>
+                        <h6 class="col-6 text-uppercase">{{ __('Amount') }}</h6>
+                        <h6 class="col-6 text-uppercase">{{ __('Price') }}</h6>
                     </div>
                     <p class="col-lg-2 col-6 m-lg-0 mt-3">{{ $product['qty'] }}</p>
                     <div class="col-lg-2 prices col-6">
@@ -232,20 +230,20 @@
 
                 <div class="bg-top py-5 d-flex flex-wrap justify-content-between mt-3">
                     <div class="prices d-flex justify-content-between px-2 col-12 col-md-7">
-                        <p class="color-1 m-0">Total ({{$totalQty}} itens):</p>
+                        <p class="color-1 m-0">{{ __('Total') }} ({{$totalQty}} {{ __('items') }}):</p>
                         <div class="px-lg-5">
                             <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($totalPrice) }}</h5>
                             <span class="color-1 m-0">{{ App\Models\Product::convertPriceDolar($totalPrice) }}</span>
                         </div>
                     </div>
-                    <button class="px-5 btn-continue col-md-4 col-lg-3 col-12 mt-4 mt-md-0">Continuar</button>
+                    <button class="px-5 btn-continue col-md-4 col-lg-3 col-12 mt-4 mt-md-0">{{ __('Continue')}}</button>
                 </div>
             </div>
 
             <!-- Step 2 -->
             <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
                 <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
-                    <h5 class="fw-semibold">Dados pessoais</h5>
+                    <h5 class="fw-semibold">{{ __('Personal data') }}</h5>
                 </div>
                 <div class="bg-top py-5 row justify-content-center mt-5 personal-data">
                     <div class="col-md-6 mb-3">
@@ -271,11 +269,11 @@
                     </div>
                     <div class="col-12 text-end mt-4 d-md-block d-none">
                         <button class="btn-back">Voltar</button>
-                        <button class="px-5 btn-continue" id="step-2-continue">Continuar</button>
+                        <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
                     </div>
                     <div class="col-12 text-center mt-4 d-md-none d-block">
                         <button class="btn-back">Voltar</button>
-                        <button class="px-5 btn-continue" id="step-2-continue">Continuar</button>
+                        <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
                     </div>
                 </div>
             </div>
@@ -358,12 +356,12 @@
 
                     <div class="col-12 text-end mt-4 d-md-block d-none">
                         <button class="btn-back">Voltar</button>
-                        <button class="px-5 btn-continue">Continuar</button>
+                        <button class="px-5 btn-continue">{{ __('Continue')}}</button>
                     </div>
 
                     <div class="col-12 text-center mt-4 d-md-none d-block pb-4">
                         <button class="btn-back">Voltar</button>
-                        <button class="px-5 btn-continue">Continuar</button>
+                        <button class="px-5 btn-continue">{{ __('Continue')}}</button>
                     </div>
                 </div>
             </div>
@@ -517,7 +515,7 @@
                             event.preventDefault();
 
                             // Adicione qualquer lógica de feedback ou mensagem de erro aqui, se necessário
-                            alert('Por favor, preencha todos os campos antes de continuar.');
+                            alert('Por favor, preencha todos os campos antes de {{ __('continue')}}.');
                             event.preventDefault();
                         } else {
                             // Faça qualquer ação necessária antes de ir para o STEP3

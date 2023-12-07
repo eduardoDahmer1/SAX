@@ -1015,5 +1015,8 @@
   "Look for the product":"Busca el producto",
   "Products name":"Nombre del producto",
   "Enter the name of the product you want to associate":"Introduzca el nombre del producto que desea asociar",
-  "RUC": "RUC"
+  "RUC": "RUC",
+  "Product code":"Código de producto",
+  "items": "itens",
+  "Personal data":"Datos personales"
 }
