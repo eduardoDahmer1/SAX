@@ -162,6 +162,15 @@
 
     <!-- Dashboard Core -->
     <script src="{{ asset('assets/admin/js/vendors/jquery-3.3.1.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var url = "{{route('admin.notifications-show')}}";
+                $.ajax({
+                    url: '/admin/notifications/show',
+                    method: 'GET',
+                });
+            });
+     </script>
     <script src="{{ asset('assets/admin/js/vendors/vue.js') }}"></script>
     <script src="{{ asset('assets/admin/js/vendors/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/jquery-ui.min.js') }}"></script>
@@ -182,6 +191,7 @@
     <script src="{{ asset('assets/admin/js/trumbowyg/trumbowyg.min.js') }}">
         var trumbo_lang = "en";
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
     @if (file_exists(public_path() . '/assets/admin/js/trumbowyg/langs/' . $current_locale . '.min.js'))
         <script>
             trumbo_lang = "{{ str_replace('-', '_', $current_locale) }}";
