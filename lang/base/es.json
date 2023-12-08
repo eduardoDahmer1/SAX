@@ -1028,5 +1028,11 @@
   "Central Banner Right":"Banner Central Derecha",
   "Product code":"Código de producto",
   "items": "itens",
-  "Personal data":"Datos personales"
+  "Personal data":"Datos personales",
+  "Pick up in": "Recoger en",
+  "Shipping method": "Método de envío",
+  "Add new address":"Agregar nueva dirección",
+  "Department":"Departamento",
+  "Receive at my address":"Recibir en mi dirección",
+  "To go back":"Para volver"
 }

@@ -36,6 +36,9 @@ body {
 .color-3 {
   color: #F44F4F;
 }
+.color-4 {
+  color:#57C22D;
+}
 .steps-container {
   width: 100%;
   background-color: #fff;
@@ -180,4 +183,19 @@ fill: #000;
     height: 114px;
     width: 140px;
   }
+  .fs-16 {
+    font-size: 14px;
+  }
+  .prod-img p {
+    font-size: 11px;
+  }
+  .prices h5 {
+    font-size: 18px;
+  }
+}
+.order-box-2 {
+  border: 1px solid #f1f1f1;
+  padding: 40px 25px 40px;
+  border-radius: 8px;
+  box-shadow: none;
 }

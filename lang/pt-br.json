@@ -2327,5 +2327,10 @@
     "Enter the name of the product you want to associate":"Introduza o nome do produto que pretende associar",
     "RUC" : "CPF",
     "Product code":"Código do Produto",
-    "Personal data":"Dados pessoais"
+    "Personal data":"Dados pessoais",
+    "Pick up in": "Retirar em",
+    "Add new address":"Adicionar novo endereço",
+    "Department":"Departamento",
+    "Receive at my address":"Receber em meu endereço",
+    "To go back":"Voltar"
 }

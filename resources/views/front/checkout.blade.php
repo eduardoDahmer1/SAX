@@ -206,10 +206,10 @@
                 </div>
                 @foreach ($products as $product)
                 <div class="d-flex flex-wrap align-items-center p-0 pb-5 border-bottom-f1 mb-4">
-                    <div class="col-lg-8 prod-img">
+                    <div class="col-lg-8 prod-img px-0">
                         <img src="{{ filter_var($product['item']['photo'], FILTER_VALIDATE_URL) ? $product['item']['photo'] : asset('storage/images/products/' . $product['item']['photo']) }}"
                             alt="">
-                        <div class="pl-4">
+                        <div class="pl-sm-4 pl-1">
                             <h5 class="fw-normal fs-16">{{ $product['item']->name }}</h5>
                             <p class="color-1">{{ __('Product code') }}: {{ $product['item']->sku }}</p>
                         </div>
@@ -248,31 +248,31 @@
                 <div class="bg-top py-5 row justify-content-center mt-5 personal-data">
                     <div class="col-md-6 mb-3">
                         <p class="m-0 color-1 fw-semibold px-1">{{ __('Full Name') }} *</p>
-                        <input id="billName" name="name" class="col-12 mx-1" type="text" pattern="^(\S*)\s+(.*)$"
+                        <input id="billName" name="name" class="col-12 mx-1 required-input" type="text" pattern="^(\S*)\s+(.*)$"
                             required
                             value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->name : old('name') }}">
                     </div>
                     <div class="col-md-6 mb-3">
                         <p class="m-0 color-1 fw-semibold px-1">{{ __('Document') }} *</p>
-                        <input id="billCpf" name="customer_document" class="col-12 mx-1" type="text" pattern="[0-9]+"
+                        <input id="billCpf" name="customer_document" class="col-12 mx-1 required-input" type="text" pattern="[0-9]+"
                             value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
                     </div>
                     <div class="col-md-6 mb-3">
                         <p class="m-0 color-1 fw-semibold px-1">{{ __('Email') }} *</p>
-                        <input id="billEmail" name="email" class="col-12 mx-1" type="text"
+                        <input id="billEmail" name="email" class="col-12 mx-1 required-input" type="text"
                             value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->email : old('email') }}">
                     </div>
                     <div class="col-md-6 mb-3">
                         <p class="m-0 color-1 fw-semibold px-1">{{ __('Phone Number') }} *</p>
-                        <input id="billPhone" name="phone" class="col-12 mx-1" type="text"
+                        <input id="billPhone" name="phone" class="col-12 mx-1 required-input" type="text"
                             value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->phone : old('phone') }}">
                     </div>
                     <div class="col-12 text-end mt-4 d-md-block d-none">
-                        <button class="btn-back">Voltar</button>
+                        <button class="btn-back">{{ __('To go back') }}</button>
                         <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
                     </div>
                     <div class="col-12 text-center mt-4 d-md-none d-block">
-                        <button class="btn-back">Voltar</button>
+                        <button class="btn-back">{{ __('To go back') }}</button>
                         <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
                     </div>
                 </div>
@@ -281,7 +281,7 @@
             <!-- Step 3 -->
             <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
                 <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
-                    <h5 class="fw-semibold">Opções de Entrega</h5>
+                    <h5 class="fw-semibold">{{ __('Shipping method') }}</h5>
                 </div>
                 <div class="bg-top mt-5 py-4">
 
@@ -290,7 +290,7 @@
                         @if(Auth::guard('web')->check() && Auth::guard('web')->user()->address != '')
                         <div>
                             <input id="myaddress" name="shipping" value="1" type="radio">
-                            <label for="myaddress">Receber no meu endereço</label>
+                            <label for="myaddress">{{ __('Receive at my address') }}</label>
                             <p style="font-size: 14px;" class="mb-0 color-1 px-3">{{Auth::guard('web')->user()->address
                                 ?? ''}}
                             </p>
@@ -302,26 +302,26 @@
                     <!-- adicionar endereço -->
                     <div class="border-bottom-f1 py-4 d-flex flex-wrap justify-content-between">
                         <div>
-                            <input id="newaddress" name="shipping" value="2" type="radio">
-                            <label for="newaddress">Adicionar endereço</label>
+                            <input id="newaddress" name="shipping" value="2" type="radio" checked>
+                            <label for="newaddress">{{ __('Add new address') }}</label>
                         </div>
                         <h6 class="px-2 color-3">U$10.00</h6>
-                        <div class="d-none col-12 mt-3 new-address">
+                        <div class="d-block col-12 mt-3 new-address">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">Departamento</p>
+                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('Country') }}</p>
                                     <select class="form-control js-state" name="shipping_state" data-type="shipping"
                                         id="shippingState"> </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">Cidade</p>
+                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('City') }}</p>
                                     <select class="form-control js-city" name="shipping_city" data-type="shipping"
                                         id="shippingCity" readonly> </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">Endereços</p>
+                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('Address') }}</p>
                                     <input id="address" name="address" type="text">
                                 </div>
                             </div>
@@ -333,14 +333,14 @@
                         <div class="d-flex align-items-center">
                             <div>
                                 <input id="withdrawal" name="shipping" value="3" type="radio">
-                                <label for="withdrawal">Retirar na SAX</label>
+                                <label for="withdrawal">{{ __('Pick up in') }} SAX</label>
                             </div>
                             <select class="select-local d-none mx-2" name="local" id="local">
                                 <option value="1">CDE</option>
-                                <option value="2">ASSUNÇÃO</option>
+                                <option value="2">ASUNCIÓN</option>
                             </select>
                         </div>
-                        <span style="font-size: 14px;">GRÁTIS</span>
+                        <span style="font-size: 14px;">FREE</span>
                     </div>
 
                     <div class="col-12">
@@ -355,12 +355,12 @@
                     </div>
 
                     <div class="col-12 text-end mt-4 d-md-block d-none">
-                        <button class="btn-back">Voltar</button>
+                        <button class="btn-back">{{ __('To go back') }}</button>
                         <button class="px-5 btn-continue">{{ __('Continue')}}</button>
                     </div>
 
                     <div class="col-12 text-center mt-4 d-md-none d-block pb-4">
-                        <button class="btn-back">Voltar</button>
+                        <button class="btn-back">{{ __('To go back') }}</button>
                         <button class="px-5 btn-continue">{{ __('Continue')}}</button>
                     </div>
                 </div>
@@ -369,10 +369,10 @@
             <!-- Step 4 -->
             <div class="step col-sm-10 row justify-content-between mt-4">
                 <div class="d-flex align-items-center bg-top my-4 py-2 justify-content-between">
-                    <h6 class="col-8">METODO</h6>
-                    <h6 class="col-3 d-lg-block d-none">TOTAL</h6>
+                    <h6 class="col-8 text-uppercase">{{ __('Method') }}</h6>
+                    <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
                 </div>
-                <div class="pay-method d-flex gap-2 col-lg-8 p-0 mb-4">
+                <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-between">
                     <div>
                         <input id="credit" type="radio" name="pay-method" value="1">
                         <label for="credit">
@@ -395,48 +395,29 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-xl-5">
                     <div class="right-area">
-                        <div class="order-box">
-                            <h4 class="title">{{ __('PRICE DETAILS') }}</h4>
-                            <ul class="order-list">
-                                <li>
-                                    <p>
-                                        {{ __('Total MRP') }}
-                                    </p>
-                                    <P>
-                                        <b class="cart-total">{{ Session::has('cart') ?
-                                            App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00'
-                                            }}</b>
-                                    </P>
-                                </li>
-                            </ul>
-                            <h4 class="title">{{ __('MÉTODO DE ENVIO') }}</h4>
-                            <ul class="order-list">
-                                <li>
-                                    <p>
-                                    Transportadora local - Costo Fijo  
-                                    </p>
-                                    <P>
-                                        <b class="cart-total">{{App\Models\Product::convertPrice(10)}}</b>
-                                    </P>
-                                </li>
-                            </ul>
-                            <div class="total-price">
-                                <p style="margin-bottom:0px;">
-                                    {{ __('Total') }}
-                                </p>
+                        <div class="order-box order-box-2">
+                            <h4 class="title text-black">{{ __('PRICE DETAILS') }}</h4>
+                            <div class="d-flex justify-content-between border-bottom-f1 pb-3 mb-3">
+                                <p style="font-size: 14px;" class="fw-semibold m-0">{{ __('Total MRP') }}</p>
+                                <p style="font-size: 14px;" class="m-0"><b class="cart-total">{{ Session::has('cart') ? App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}</b></p>
                             </div>
-                            <div class="total-price">
-                                <p></p>
-                                <p>
-                                    <span id="total-cost2">{{ App\Models\Product::signFirstPrice($totalPrice) }}</span>
-
-                                </p>
+                            <h4 class="title text-black">{{ __('Shipping method') }}</h4>
+                            <div class="d-flex flex-wrap">
+                                <p id="freteText2" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">{{__('Pick up in')}}</p>
+                                <p id="freteText" style="font-size: 14px;" class="fw-semibold colo-1 pr-1">{{__('Pick up in')}}</p>
+                                <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
+                            </div>
+                            <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none"></p>
+                            <p id="frete10" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-danger"><b class="cart-total fw-bold">{{App\Models\Product::convertPrice(10)}}</b></p>
+                            <div class="total-price d-flex justify-content-between">
+                                <p style="margin-bottom:0px;">{{ __('Total') }}</p>
+                                <p><span id="total-cost2">{{ App\Models\Product::signFirstPrice($totalPrice) }}</span></p>
                             </div>
                             <div class="d-flex">
-                                <button class="btn-back d-lg-none d-block">Voltar</button>
-                                <button class="col-12 px-4 btn-continue">Finalizar compra</button>
+                                <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
+                                <button class="w-100 px-sm-4 btn-continue px-1">Finalizar compra</button>
                             </div>
                         </div>
 
@@ -448,7 +429,7 @@
                     </div>-->
 
                 </div>
-                <div><button class="btn-back px-5 mt-5 d-lg-block d-none">Voltar</button></div>
+                <div class="position-absolute" style="bottom: 0;left: 0;"><button class="btn-back px-5 mt-5 d-xl-block d-none">{{ __('To go back') }}</button></div>
 
                 <script src="{{ asset('assets/checkout/scripts.js') }}"></script>
 
@@ -457,7 +438,7 @@
                     $(document).ready(function () {
                         $.ajax({
                             type: 'GET',
-                            url: 'http://localhost:8000' + '/checkout/getStatesOptions',
+                            url: 'http://localhost' + '/checkout/getStatesOptions',
                             data: {
                                 location_id: 173 //paraguai
                             },
@@ -480,7 +461,7 @@
                             console.log("aaaa", selectedValue)
                             $.ajax({
                                 type: 'GET',
-                                url: 'http://localhost:8000' + '/checkout/getCitiesOptions',
+                                url: 'http://localhost' + '/checkout/getCitiesOptions',
                                 data: {
                                     location_id: selectedValue //paraguai
                                 },
@@ -504,26 +485,26 @@
                 <script>
 
 
-                    // Adiciona evento de clique para o botão de continuação do STEP2
-                    document.getElementById('step-2-continue').addEventListener('click', function (event) {
-                        // Verifica se os campos estão preenchidos antes de avançar
-                        var isStep2Valid = checkIfStep2Valid();
+                    // // Adiciona evento de clique para o botão de continuação do STEP2
+                    // document.getElementById('step-2-continue').addEventListener('click', function (event) {
+                    //     // Verifica se os campos estão preenchidos antes de avançar
+                    //     var isStep2Valid = checkIfStep2Valid();
 
-                        if (!isStep2Valid) {
-                            // Caso algum campo não esteja preenchido, ignore a ação de avançar
-                            document.getElementById('step-2-continue').disabled = true;
-                            event.preventDefault();
+                    //     if (!isStep2Valid) {
+                    //         // Caso algum campo não esteja preenchido, ignore a ação de avançar
+                    //         document.getElementById('step-2-continue').disabled = true;
+                    //         event.preventDefault();
 
-                            // Adicione qualquer lógica de feedback ou mensagem de erro aqui, se necessário
-                            alert('Por favor, preencha todos os campos antes de {{ __('continue')}}.');
-                            event.preventDefault();
-                        } else {
-                            // Faça qualquer ação necessária antes de ir para o STEP3
-                            // Navega para o STEP3
-                            document.getElementById('step-3').classList.add('active');
-                        }
-                        event.preventDefault();
-                    });
+                    //         // Adicione qualquer lógica de feedback ou mensagem de erro aqui, se necessário
+                    //         alert('Por favor, preencha todos os campos antes de {{ __('continue')}}.');
+                    //         event.preventDefault();
+                    //     } else {
+                    //         // Faça qualquer ação necessária antes de ir para o STEP3
+                    //         // Navega para o STEP3
+                    //         document.getElementById('step-3').classList.add('active');
+                    //     }
+                    //     event.preventDefault();
+                    // });
 
                     function checkIfStep2Valid() {
 
