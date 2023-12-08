@@ -37152,7 +37152,13 @@ Logo Header Area Start
 --------------------------*/
 
 .logo-header {
-  padding: 20px 0px 20px;
+  padding: 0px 0px 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .logo-header {
+    padding: 20px 0px 20px;
+  }
 }
 
 .logo-header .search-box {
@@ -44458,7 +44464,8 @@ li#example_previous {
 /* Partners Area Start */
 
 .partners {
-  padding: 50px 0px 60px;
+  padding: 0px 0px 60px;
+  /* background: blue; */
 }
 
 .partners .item {

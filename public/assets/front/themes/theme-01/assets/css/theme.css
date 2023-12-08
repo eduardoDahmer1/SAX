@@ -622,6 +622,7 @@ a {
 
 .logo-header .logo {
     text-align: center;
+    max-width: 180px !important;
 }
 
 @media only screen and (max-width: 414px) {

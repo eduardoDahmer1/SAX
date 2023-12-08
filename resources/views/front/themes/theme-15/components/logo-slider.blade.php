@@ -8,7 +8,7 @@
                     @foreach($partners as $data)
                     <div class="item-slide">
                         <a href="{{ $data->link }}" target="_blank">
-                            <img loading="lazy" src="{{asset('storage/images/partner/'.$data->photo)}}" height="100" width="100" alt="Logo Shop Sax">
+                            <img loading="lazy" src="{{asset('storage/images/partner/'.$data->photo)}}" alt="Logo Shop Sax">
                         </a>
                     </div>
                     @endforeach
