@@ -563,6 +563,7 @@
  }
  
  .owl-carousel .owl-stage {
+   width: 100%;
    position: relative;
    -ms-touch-action: pan-Y;
  }

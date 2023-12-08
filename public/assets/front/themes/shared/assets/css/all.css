@@ -28498,6 +28498,7 @@ a.meanmenu-reveal {
 .owl-carousel .owl-stage {
   position: relative;
   margin: 0 auto;
+  width: 100%;
   
   -ms-touch-action: pan-Y;
 }
@@ -38258,14 +38259,10 @@ nav button {
 
 .item .item-img {
   height: 200px;
-  width: 200px;
+  width: 100%;
   position: relative;
   overflow: hidden;
   text-align: center;
-  /* background: blue; */
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 
 .item .item-img img {
@@ -38362,7 +38359,8 @@ nav button {
   /* width: 200px !important; */
   padding-top: 0px;
   padding-bottom: 0px;
-  max-width: 200px;
+  max-width: 100%;
+  /* width: 200px; */
   padding: 2px 25px 0px 2px !important;
   /* width: 200px; */
   -webkit-transition: all linear .3s;
@@ -38650,6 +38648,8 @@ nav button {
 
 .flash-deals {
   position: relative;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .flash-deals .heading-title {
@@ -38668,19 +38668,27 @@ nav button {
 
 .flash-deals .flas-deal-slider .card-product-flash {
   margin: auto;
-  max-width: 350px;
-  width: 100%;
+  max-width: 400px;
+  min-width: 200px;
+  /* width: 100%; */
+}
+
+.flash-deals .flas-deal-slider .owl-item {
+  padding: 0rem;
 }
 
 .flash-deals .flas-deal-slider .item {
   text-align: center;
   margin: 10px 0px;
   border: 0px;
+  width: 100%;
 }
 
 .flash-deals .flas-deal-slider .item .item-img {
   text-align: center;
   position: relative;
+  width: 100%;
+  height: 200px;
 }
 
 .flash-deals .flas-deal-slider .item .item-img .discount {
@@ -38694,7 +38702,9 @@ nav button {
 }
 
 .flash-deals .flas-deal-slider .item .item-img img {
-  width: auto;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
   display: inline-block;
 }
 
