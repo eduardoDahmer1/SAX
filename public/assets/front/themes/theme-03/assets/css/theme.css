@@ -631,7 +631,7 @@ a {
 }
 
 .partners {
-    padding: 6rem 0;
+    padding: 0rem 0;
 }
 
 .radio-design label {
@@ -1628,7 +1628,8 @@ color: #333;
 }
 
 .partners .owl-carousel .owl-item img {
-    max-width: 400px;
+    max-width: 100px;
+    max-height: 200px;
 }
 
 .menufixed.nav-fixed .logo img {
