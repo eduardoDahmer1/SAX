@@ -410,11 +410,11 @@ hr {
 
 .list-inline {
   padding-left: 0;
-  list-style: none
+  list-style: none;
 }
 
 .list-inline-item {
-  display: inline-block
+  display: inline-block;
 }
 
 .list-inline-item:not(:last-child) {
@@ -423,12 +423,12 @@ hr {
 
 .initialism {
   font-size: 90%;
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1.25rem
+  font-size: 1.25rem;
 }
 
 .blockquote-footer {
@@ -438,12 +438,12 @@ hr {
 }
 
 .blockquote-footer::before {
-  content: "\2014\00A0"
+  content: "\2014\00A0";
 }
 
 .img-fluid {
-  max-width: 100%;
-  height: auto
+  width: 100%;
+  height: auto;
 }
 
 .img-thumbnail {
@@ -452,16 +452,16 @@ hr {
   border: 1px solid #dee2e6;
   border-radius: .25rem;
   max-width: 100%;
-  height: auto
+  height: auto;
 }
 
 .figure {
-  display: inline-block
+  display: inline-block;
 }
 
 .figure-img {
   margin-bottom: .5rem;
-  line-height: 1
+  line-height: 1;
 }
 
 .figure-caption {
@@ -472,11 +472,11 @@ hr {
 code {
   font-size: 87.5%;
   color: #e83e8c;
-  word-break: break-word
+  word-break: break-word;
 }
 
 a>code {
-  color: inherit
+  color: inherit;
 }
 
 kbd {
@@ -28497,7 +28497,8 @@ a.meanmenu-reveal {
 
 .owl-carousel .owl-stage {
   position: relative;
-  margin: auto;
+  margin: 0 auto;
+  
   -ms-touch-action: pan-Y;
 }
 
@@ -28545,6 +28546,8 @@ a.meanmenu-reveal {
 }
 
 .owl-carousel .owl-item {
+  max-width: 400px !important;
+  padding: 2rem;
   position: relative;
   min-height: 1px;
   float: left;
@@ -38254,14 +38257,23 @@ nav button {
 }
 
 .item .item-img {
+  height: 200px;
+  width: 200px;
   position: relative;
   overflow: hidden;
   text-align: center;
+  /* background: blue; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
 
 .item .item-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: 4/3;
+  object-position: center;
   -webkit-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
@@ -38269,7 +38281,10 @@ nav button {
 
 .item .item-img.baw img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  aspect-ratio: 4/3;
   -webkit-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
@@ -38344,9 +38359,12 @@ nav button {
   position: relative;
   top: 0;
   text-align: center;
+  /* width: 200px !important; */
   padding-top: 0px;
   padding-bottom: 0px;
-  padding: 2px 25px 0px;
+  max-width: 200px;
+  padding: 2px 25px 0px 2px !important;
+  /* width: 200px; */
   -webkit-transition: all linear .3s;
   -moz-transition: all linear .3s;
   -o-transition: all linear .3s;
@@ -38380,12 +38398,12 @@ nav button {
 }
 
 .item .info .name {
-  font-size: 15px;
+  font-size: 14px !important;
   font-weight: 600;
-  line-height: 20px;
+  line-height: 19.2px;
   color: #555;
   margin-bottom: 8px;
-  height: 61px;
+  /* height: 61px; */
 }
 
 .item:hover .extra-list {

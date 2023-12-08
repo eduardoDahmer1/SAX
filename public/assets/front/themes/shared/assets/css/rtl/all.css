@@ -6809,7 +6809,11 @@ nav button {
 ** Trending Item Area Start
 ------------------------------*/
 .trending {
+  width: 100%;
+  /* margin: 0 auto; */
   padding: 36px 0px 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .trending .ui-widget.ui-widget-content {
@@ -6903,6 +6907,7 @@ nav button {
   -webkit-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
+  max-width: 400px !important;
 }
 
 .item:hover {

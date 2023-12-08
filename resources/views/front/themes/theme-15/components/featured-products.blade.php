@@ -13,8 +13,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 remove-padding">
-                <div class="trending-item-slider">
+            <div class="col-lg-12">
+                <div class="trending-item-slider d-flex justify-content-center align-items-center">
                     @foreach($feature_products as $prod)
                     @include('front.themes.'.env('THEME', 'theme-01').'.components.slider-product')
                     @endforeach

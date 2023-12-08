@@ -18,9 +18,9 @@
             @else
             <div class="col-lg-12">
             @endif
-                <div class="row">
+                <div class="row justify-content-center align-items-center m-auto">
                     @foreach($best_products as $prod)
-                        @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')
+                    @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')
                     @endforeach
                 </div>
             </div>
