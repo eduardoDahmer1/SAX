@@ -56,7 +56,7 @@
 
 @media screen and (max-width: 1140px) {
 	.main-slider .slick-slider .slick-list {
-		max-height: 40vh !important;
+		max-height: 30vh !important;
 	}
 }
 

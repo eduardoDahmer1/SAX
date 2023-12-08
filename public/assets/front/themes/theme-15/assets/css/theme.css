@@ -1954,8 +1954,12 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 100%;
 }
 
+.partners {
+    padding: 0.5rem 0rem 3rem;
+}
+
 .partners .owl-carousel .owl-item img {
-    max-width: 400px;
+    max-width: 120px;
 }
 
 .menufixed.nav-fixed .logo img {
