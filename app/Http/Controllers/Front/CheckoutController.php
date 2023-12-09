@@ -176,6 +176,7 @@ class CheckoutController extends Controller
         }
         $total = $cart->totalPrice;
         $coupon = Session::has('coupon') ? Session::get('coupon') : 0;
+
         if ($this->storeSettings->tax != 0) {
             $tax = ($total / 100) * $this->storeSettings->tax;
             $total = $total + $tax;
@@ -304,7 +305,6 @@ class CheckoutController extends Controller
             ]);
         }
         // dd(Auth::guard('web')->user());
-
         return view('front.checkout', [
             'customer' => $request->session()->get('temporder'),
             'products' => $cart->items, 'totalPrice' => $total, 'allPickups' => $allPickups, 'totalQty' => $cart->totalQty,

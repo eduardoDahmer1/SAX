@@ -89,6 +89,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="tab-pane fade" id="nav-reg" role="tabpanel" aria-labelledby="nav-reg-tab">
                         <div class="login-area signup-area">
                             <div class="header-area">
@@ -109,16 +111,6 @@
                                             placeholder="{{ __('Email Address') }} *" required="">
                                         <i class="icofont-email"></i>
                                     </div>
-                                    <!-- <div class="form-input">
-                                                <input type="text" class="User Name" name="phone"
-                                                    placeholder="{{ __('Phone Number') }} *" required="">
-                                                <i class="icofont-phone"></i>
-                                            </div> -->
-                                    <!-- <div class="form-input">
-                                                <input type="text" class="User Name" name="address"
-                                                    placeholder="{{ __('Address') }} *" required="">
-                                                <i class="icofont-location-pin"></i>
-                                            </div> -->
                                     <div class="form-input">
                                         <input type="password" class="Password" name="password"
                                             placeholder="{{ __('Password') }} *" required="">
@@ -129,19 +121,6 @@
                                             placeholder="{{ __('Confirm Password') }} *" required="">
                                         <i class="icofont-ui-password"></i>
                                     </div>
-                                    <!-- <div class="form-input">
-                                                <input placeholder="{{ __('Date of Birth') }}" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="birthday" name="birthday" required/>
-                                                
-                                            </div> -->
-                                    <!-- <div class="form-input">
-                                                <select class="form-control" name="gender" id="gender">
-                                                    <option value="">{{ __("Gender") }}</option>
-                                                    <option value="M" {{ old('gender') == 'M' ? 'selected' : '' }}> {{ __("Male") }}</option>
-                                                    <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>{{ __("Female") }}</option>
-                                                    <option value="O" {{ old('gender') == 'O' ? 'selected' : '' }}>{{ __("Other") }}</option>
-                                                    <option value="N" {{ old('gender') == 'N' ? 'selected' : '' }}>{{ __("Not Declared") }}</option>
-                                                </select>
-                                            </div> -->
                                     @if ($gs->is_capcha == 1)
                                     <ul class="captcha-area">
                                         <li>
@@ -184,6 +163,7 @@
 
 <body>
     <header class="bg-black text-center py-3 mb-5"><img src="https://i.ibb.co/1dFF5PK/logosax.png" alt=""></header>
+
     <div class="container">
         <div class="row justify-content-center">
 
@@ -197,333 +177,354 @@
                 <div class="d-flex align-items-center"><i class="bi bi-credit-card"></i></div>
             </div>
 
-            <!-- Step 1 -->
-            <div class="step col-10 row align-items-center justify-content-center mt-4">
-                <div class="d-flex align-items-center bg-top my-4 py-2">
-                    <h6 class="col-8 text-uppercase">{{ __('Product') }}</h6>
-                    <h6 class="col-2 d-lg-block d-none text-uppercase">{{ __('Amount') }}</h6>
-                    <h6 class="col-2 d-lg-block d-none text-uppercase">{{ __('Price') }}</h6>
-                </div>
-                @foreach ($products as $product)
-                <div class="d-flex flex-wrap align-items-center p-0 pb-5 border-bottom-f1 mb-4">
-                    <div class="col-lg-8 prod-img px-0">
-                        <img src="{{ filter_var($product['item']['photo'], FILTER_VALIDATE_URL) ? $product['item']['photo'] : asset('storage/images/products/' . $product['item']['photo']) }}"
-                            alt="">
-                        <div class="pl-sm-4 pl-1">
-                            <h5 class="fw-normal fs-16">{{ $product['item']->name }}</h5>
-                            <p class="color-1">{{ __('Product code') }}: {{ $product['item']->sku }}</p>
-                        </div>
-                    </div>
-                    <div class="col-12 d-flex align-items-center bg-top my-4 py-2 d-lg-none d-block">
-                        <h6 class="col-6 text-uppercase">{{ __('Amount') }}</h6>
-                        <h6 class="col-6 text-uppercase">{{ __('Price') }}</h6>
-                    </div>
-                    <p class="col-lg-2 col-6 m-lg-0 mt-3">{{ $product['qty'] }}</p>
-                    <div class="col-lg-2 prices col-6">
-                        <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($product['item']['price']) }}
-                        </h5>
-                        <span>{{ App\Models\Product::convertPriceDolar($product['item']['price']) }}</span>
-                    </div>
-                </div>
-                @endforeach
+            <form id="myform" action="/enviar-dados" method="POST" class="checkoutform">
+                {{ csrf_field() }}
 
-
-                <div class="bg-top py-5 d-flex flex-wrap justify-content-between mt-3">
-                    <div class="prices d-flex justify-content-between px-2 col-12 col-md-7">
-                        <p class="color-1 m-0">{{ __('Total') }} ({{$totalQty}} {{ __('items') }}):</p>
-                        <div class="px-lg-5">
-                            <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($totalPrice) }}</h5>
-                            <span class="color-1 m-0">{{ App\Models\Product::convertPriceDolar($totalPrice) }}</span>
-                        </div>
+                <!-- Step 1 -->
+                <div class="step col-10 row align-items-center justify-content-center mt-4">
+                    <div class="d-flex align-items-center bg-top my-4 py-2">
+                        <h6 class="col-8 text-uppercase">{{ __('Product') }}</h6>
+                        <h6 class="col-2 d-lg-block d-none text-uppercase">{{ __('Amount') }}</h6>
+                        <h6 class="col-2 d-lg-block d-none text-uppercase">{{ __('Price') }}</h6>
                     </div>
-                    <button class="px-5 btn-continue col-md-4 col-lg-3 col-12 mt-4 mt-md-0">{{ __('Continue')}}</button>
-                </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
-                <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
-                    <h5 class="fw-semibold">{{ __('Personal data') }}</h5>
-                </div>
-                <div class="bg-top py-5 row justify-content-center mt-5 personal-data">
-                    <div class="col-md-6 mb-3">
-                        <p class="m-0 color-1 fw-semibold px-1">{{ __('Full Name') }} *</p>
-                        <input id="billName" name="name" class="col-12 mx-1 required-input" type="text" pattern="^(\S*)\s+(.*)$"
-                            required
-                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->name : old('name') }}">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="m-0 color-1 fw-semibold px-1">{{ __('Document') }} *</p>
-                        <input id="billCpf" name="customer_document" class="col-12 mx-1 required-input" type="text" pattern="[0-9]+"
-                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_document') }}">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="m-0 color-1 fw-semibold px-1">{{ __('Email') }} *</p>
-                        <input id="billEmail" name="email" class="col-12 mx-1 required-input" type="text"
-                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->email : old('email') }}">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="m-0 color-1 fw-semibold px-1">{{ __('Phone Number') }} *</p>
-                        <input id="billPhone" name="phone" class="col-12 mx-1 required-input" type="text"
-                            value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->phone : old('phone') }}">
-                    </div>
-                    <div class="col-12 text-end mt-4 d-md-block d-none">
-                        <button class="btn-back">{{ __('To go back') }}</button>
-                        <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
-                    </div>
-                    <div class="col-12 text-center mt-4 d-md-none d-block">
-                        <button class="btn-back">{{ __('To go back') }}</button>
-                        <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
-                <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
-                    <h5 class="fw-semibold">{{ __('Shipping method') }}</h5>
-                </div>
-                <div class="bg-top mt-5 py-4">
-
-                    <!-- retirar no meu endereço -->
-                    <div class="border-bottom-f1 pb-4 d-flex justify-content-between">
-                        @if(Auth::guard('web')->check() && Auth::guard('web')->user()->address != '')
-                        <div>
-                            <input id="myaddress" name="shipping" value="1" type="radio">
-                            <label for="myaddress">{{ __('Receive at my address') }}</label>
-                            <p style="font-size: 14px;" class="mb-0 color-1 px-3">{{Auth::guard('web')->user()->address
-                                ?? ''}}
-                            </p>
-                        </div>
-                        <h6 class="px-2 color-3">U$10.00</h6>
-                        @endif
-                    </div>
-
-                    <!-- adicionar endereço -->
-                    <div class="border-bottom-f1 py-4 d-flex flex-wrap justify-content-between">
-                        <div>
-                            <input id="newaddress" name="shipping" value="2" type="radio" checked>
-                            <label for="newaddress">{{ __('Add new address') }}</label>
-                        </div>
-                        <h6 class="px-2 color-3">U$10.00</h6>
-                        <div class="d-block col-12 mt-3 new-address">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('Country') }}</p>
-                                    <select class="form-control js-state" name="shipping_state" data-type="shipping"
-                                        id="shippingState"> </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('City') }}</p>
-                                    <select class="form-control js-city" name="shipping_city" data-type="shipping"
-                                        id="shippingCity" readonly> </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('Address') }}</p>
-                                    <input id="address" name="address" type="text">
-                                </div>
+                    @foreach ($products as $product)
+                    <div class="d-flex flex-wrap align-items-center p-0 pb-5 border-bottom-f1 mb-4">
+                        <div class="col-lg-8 prod-img px-0">
+                            <img src="{{ filter_var($product['item']['photo'], FILTER_VALIDATE_URL) ? $product['item']['photo'] : asset('storage/images/products/' . $product['item']['photo']) }}"
+                                alt="">
+                            <div class="pl-sm-4 pl-1">
+                                <h5 class="fw-normal fs-16">{{ $product['item']->name }}</h5>
+                                <p class="color-1">{{ __('Product code') }}: {{ $product['item']->sku }}</p>
                             </div>
                         </div>
+                        <div class="col-12 d-flex align-items-center bg-top my-4 py-2 d-lg-none d-block">
+                            <h6 class="col-6 text-uppercase">{{ __('Amount') }}</h6>
+                            <h6 class="col-6 text-uppercase">{{ __('Price') }}</h6>
+                        </div>
+                        <p class="col-lg-2 col-6 m-lg-0 mt-3">{{ $product['qty'] }}</p>
+                        <div class="col-lg-2 prices col-6">
+                            <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($product['item']['price'])
+                                }}
+                            </h5>
+                            <span>{{ App\Models\Product::convertPriceDolar($product['item']['price']) }}</span>
+                        </div>
                     </div>
+                    @endforeach
 
-                    <!-- retirar na sax -->
-                    <div class="py-4 d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
+
+                    <div class="bg-top py-5 d-flex flex-wrap justify-content-between mt-3">
+                        <div class="prices d-flex justify-content-between px-2 col-12 col-md-7">
+                            <p class="color-1 m-0">{{ __('Total') }} ({{$totalQty}} {{ __('items') }}):</p>
+                            <div class="px-lg-5">
+                                <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($totalPrice) }}</h5>
+                                <span class="color-1 m-0">{{ App\Models\Product::convertPriceDolar($totalPrice)
+                                    }}</span>
+                            </div>
+                        </div>
+                        <button class="px-5 btn-continue col-md-4 col-lg-3 col-12 mt-4 mt-md-0">{{
+                            __('Continue')}}</button>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
+                    <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
+                        <h5 class="fw-semibold">{{ __('Personal data') }}</h5>
+                    </div>
+                    <div class="bg-top py-5 row justify-content-center mt-5 personal-data">
+                        <div class="col-md-6 mb-3">
+                            <p class="m-0 color-1 fw-semibold px-1">{{ __('Full Name') }} *</p>
+                            <input id="billName" name="names" class="col-12 mx-1 required-input" type="text"
+                                pattern="^(\S*)\s+(.*)$" required
+                                value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->name : old('names') }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="m-0 color-1 fw-semibold px-1">{{ __('Document') }} *</p>
+                            <input id="billCpf" name="customer_documents" class="col-12 mx-1 required-input" type="text"
+                                pattern="[0-9]+"
+                                value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->document : old('customer_documents') }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="m-0 color-1 fw-semibold px-1">{{ __('Email') }} *</p>
+                            <input id="billEmail" name="email" class="col-12 mx-1 required-input" type="text"
+                                value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->email : old('email') }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="m-0 color-1 fw-semibold px-1">{{ __('Phone Number') }} *</p>
+                            <input id="billPhone" name="phone" class="col-12 mx-1 required-input" type="text"
+                                value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->phone : old('phone') }}">
+                        </div>
+                        <div class="col-12 text-end mt-4 d-md-block d-none">
+                            <button class="btn-back">{{ __('To go back') }}</button>
+                            <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
+                        </div>
+                        <div class="col-12 text-center mt-4 d-md-none d-block">
+                            <button class="btn-back">{{ __('To go back') }}</button>
+                            <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
+                    <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
+                        <h5 class="fw-semibold">{{ __('Shipping method') }}</h5>
+                    </div>
+                    <div class="bg-top mt-5 py-4">
+
+                        <!-- retirar no meu endereço -->
+                        <div class="border-bottom-f1 pb-4 d-flex justify-content-between">
+                            @if(Auth::guard('web')->check() && Auth::guard('web')->user()->address != '')
                             <div>
-                                <input id="withdrawal" name="shipping" value="3" type="radio">
-                                <label for="withdrawal">{{ __('Pick up in') }} SAX</label>
+                                <input id="myaddress" name="shipping" value="1" type="radio">
+                                <label for="myaddress">{{ __('Receive at my address') }}</label>
+                                <p style="font-size: 14px;" class="mb-0 color-1 px-3">
+                                    {{Auth::guard('web')->user()->address
+                                    ?? ''}}
+                                </p>
                             </div>
-                            <select class="select-local d-none mx-2" name="local" id="local">
-                                <option value="1">CDE</option>
-                                <option value="2">ASUNCIÓN</option>
-                            </select>
+                            <h6 class="px-2 color-3">U$10.00</h6>
+                            @endif
                         </div>
-                        <span style="font-size: 14px;">FREE</span>
-                    </div>
 
-                    <div class="col-12">
-                        <iframe style="height: 300px;" class="w-100 CDE-MAP d-none"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14403.483045695173!2d-54.625295595894784!3d-25.509356390177906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f69aaaec5ef03d%3A0xff12a8b090a63ebd!2sSAX%20Department%20Store!5e0!3m2!1sen!2sbr!4v1701116211878!5m2!1sen!2sbr"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        <iframe style="height: 300px;" class="w-100 ASUNCION-MAP d-none"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.579420944204!2d-57.56840971875741!3d-25.284729820038848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da8a8f48ce025%3A0x2715791645730d75!2sSAX%20Department%20Store-Asunci%C3%B3n!5e0!3m2!1sen!2sbr!4v1701116467727!5m2!1sen!2sbr"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-
-                    <div class="col-12 text-end mt-4 d-md-block d-none">
-                        <button class="btn-back">{{ __('To go back') }}</button>
-                        <button class="px-5 btn-continue">{{ __('Continue')}}</button>
-                    </div>
-
-                    <div class="col-12 text-center mt-4 d-md-none d-block pb-4">
-                        <button class="btn-back">{{ __('To go back') }}</button>
-                        <button class="px-5 btn-continue">{{ __('Continue')}}</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="step col-sm-10 row justify-content-between mt-4">
-                <div class="d-flex align-items-center bg-top my-4 py-2 justify-content-between">
-                    <h6 class="col-8 text-uppercase">{{ __('Method') }}</h6>
-                    <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
-                </div>
-                <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-between">
-                    <div>
-                        <input id="credit" type="radio" name="pay-method" value="1">
-                        <label for="credit">
-                            <i class="bi bi-bank"></i>
-                            <p>Transferência</p>
-                        </label>
-                    </div>
-                    <div>
-                        <input id="transfer" type="radio" name="pay-method" value="2">
-                        <label for="transfer">
-                            <i class="bi bi-credit-card"></i>
-                            <p>Cartão de Crédito</p>
-                        </label>
-                    </div>
-                    <div>
-                        <input id="now" type="radio" name="pay-method" value="3">
-                        <label for="now">
-                            <i class="bi bi-cash-coin"></i>
-                            <p>Pargar na Entrega</p>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xl-5">
-                    <div class="right-area">
-                        <div class="order-box order-box-2">
-                            <h4 class="title text-black">{{ __('PRICE DETAILS') }}</h4>
-                            <div class="d-flex justify-content-between border-bottom-f1 pb-3 mb-3">
-                                <p style="font-size: 14px;" class="fw-semibold m-0">{{ __('Total MRP') }}</p>
-                                <p style="font-size: 14px;" class="m-0"><b class="cart-total">{{ Session::has('cart') ? App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}</b></p>
+                        <!-- adicionar endereço -->
+                        <div class="border-bottom-f1 py-4 d-flex flex-wrap justify-content-between">
+                            <div>
+                                <input id="newaddress" name="shipping" value="2" type="radio" checked>
+                                <label for="newaddress">{{ __('Add new address') }}</label>
                             </div>
-                            <h4 class="title text-black">{{ __('Shipping method') }}</h4>
-                            <div class="d-flex flex-wrap">
-                                <p id="freteText2" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">{{__('Pick up in')}}</p>
-                                <p id="freteText" style="font-size: 14px;" class="fw-semibold colo-1 pr-1">{{__('Pick up in')}}</p>
-                                <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
-                            </div>
-                            <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none"></p>
-                            <p id="frete10" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-danger"><b class="cart-total fw-bold">{{App\Models\Product::convertPrice(10)}}</b></p>
-                            <div class="total-price d-flex justify-content-between">
-                                <p style="margin-bottom:0px;">{{ __('Total') }}</p>
-                                <p><span id="total-cost2">{{ App\Models\Product::signFirstPrice($totalPrice) }}</span></p>
-                            </div>
-                            <div class="d-flex">
-                                <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
-                                <button class="w-100 px-sm-4 btn-continue px-1">Finalizar compra</button>
+                            <h6 class="px-2 color-3">U$10.00</h6>
+                            <div class="d-block col-12 mt-3 new-address">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{
+                                            __('Country') }}</p>
+                                        <select class="form-control js-state" name="shipping_state" data-type="shipping"
+                                            id="shippingState"> </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('City')
+                                            }}</p>
+                                        <select class="form-control js-city" name="shipping_city" data-type="shipping"
+                                            id="shippingCity" readonly> </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{
+                                            __('Address') }}</p>
+                                        <input id="address" name="address" type="text">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- retirar na sax -->
+                        <div class="py-4 d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <input id="withdrawal" name="shipping" value="3" type="radio">
+                                    <label for="withdrawal">{{ __('Pick up in') }} SAX</label>
+                                </div>
+                                <select class="select-local d-none mx-2" name="local" id="local">
+                                    <option value="1">CDE</option>
+                                    <option value="2">ASUNCIÓN</option>
+                                </select>
+                            </div>
+                            <span style="font-size: 14px;">FREE</span>
+                        </div>
+
+                        <div class="col-12">
+                            <iframe style="height: 300px;" class="w-100 CDE-MAP d-none"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14403.483045695173!2d-54.625295595894784!3d-25.509356390177906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f69aaaec5ef03d%3A0xff12a8b090a63ebd!2sSAX%20Department%20Store!5e0!3m2!1sen!2sbr!4v1701116211878!5m2!1sen!2sbr"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe style="height: 300px;" class="w-100 ASUNCION-MAP d-none"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.579420944204!2d-57.56840971875741!3d-25.284729820038848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da8a8f48ce025%3A0x2715791645730d75!2sSAX%20Department%20Store-Asunci%C3%B3n!5e0!3m2!1sen!2sbr!4v1701116467727!5m2!1sen!2sbr"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+
+                        <div class="col-12 text-end mt-4 d-md-block d-none">
+                            <button class="btn-back">{{ __('To go back') }}</button>
+                            <button class="px-5 btn-continue">{{ __('Continue')}}</button>
+                        </div>
+
+                        <div class="col-12 text-center mt-4 d-md-none d-block pb-4">
+                            <button class="btn-back">{{ __('To go back') }}</button>
+                            <button class="px-5 btn-continue">{{ __('Continue')}}</button>
+                        </div>
                     </div>
-                    <!-- <div class="col-lg-3 p-0">
-                    <div class="prices pb-3">
-                    <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($totalPrice) }}</h5>
-                            <span class="color-1 m-0">{{ App\Models\Product::convertPriceDolar($totalPrice) }}</span>
-                    </div>-->
-
                 </div>
-                <div class="position-absolute" style="bottom: 0;left: 0;"><button class="btn-back px-5 mt-5 d-xl-block d-none">{{ __('To go back') }}</button></div>
 
-                <script src="{{ asset('assets/checkout/scripts.js') }}"></script>
-
-                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                <script>
-                    $(document).ready(function () {
-                        $.ajax({
-                            type: 'GET',
-                            url: 'http://localhost' + '/checkout/getStatesOptions',
-                            data: {
-                                location_id: 173 //paraguai
-                            },
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function (data) {
-                                $('#shippingState').append('<option value="">{{ __('Selecione seu departamento') }}</option>');
-                                $('#shippingState').append(data);
-                            },
-                            error: function (err) {
-                                console.log(err);
-                            },
-                        })
+                <!-- Step 4 -->
+                <div class="step col-sm-10 row justify-content-between mt-4">
+                    <div class="d-flex align-items-center bg-top my-4 py-2 justify-content-between">
+                        <h6 class="col-8 text-uppercase">{{ __('Method') }}</h6>
+                        <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
+                    </div>
+                    <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-between">
+                        <div>
+                            <input id="credit" type="radio" name="pay-method" value="1">
+                            <label for="credit">
+                                <i class="bi bi-bank"></i>
+                                <p>Depósito bancario</p>
+                            </label>
+                        </div>
 
 
-                        $('#shippingState').on('change', function () {
-                            // Obtém o valor selecionado
-                            var selectedValue = $(this).val();
-                            console.log("aaaa", selectedValue)
-                            $.ajax({
-                                type: 'GET',
-                                url: 'http://localhost' + '/checkout/getCitiesOptions',
-                                data: {
-                                    location_id: selectedValue //paraguai
-                                },
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                },
-                                success: function (data) {
-                                    $('#shippingCity').append(data);
-                                    $('#shippingCity').removeAttr('readonly');
-                                },
-                                error: function (err) {
-                                    console.log(err);
-                                },
-                            })
+                        <div>
+                            <input id="transfer" type="radio" name="pay-method" value="2">
+                            <label for="transfer">
+                                <i class="bi bi-credit-card"></i>
+                                <p>Bancard</p>
+                            </label>
+                        </div>
+                        <!-- <div>
+                            <input id="now" type="radio" name="pay-method" value="3">
+                            <label for="now">
+                                <i class="bi bi-cash-coin"></i>
+                                <p>Pargar na Entrega</p>
+                            </label>
+                        </div> -->
+                    </div>
+                    <div class="col-xl-5">
+                        <div class="right-area">
+                            <div class="order-box order-box-2">
+                                <h4 class="title text-black">{{ __('PRICE DETAILS') }}</h4>
+                                <div class="border-bottom-f1">
+                                    <div class="d-flex justify-content-between">
+                                        <p style="font-size: 14px;" class="fw-semibold m-0">{{ __('Total MRP') }}</p>
+                                        <p style="font-size: 14px;" class="m-0"><b class="cart-total">{{
+                                                Session::has('cart') ?
+                                                App\Models\Product::convertPrice(Session::get('cart')->totalPrice) :
+                                                '0.00'
+                                                }}</b></p>
+                                    </div>
+                                    <p style="font-size: 14px;" class="m-0 text-end pb-3 mb-3"><b class="cart-total">{{
+                                            Session::has('cart') ?
+                                            App\Models\Product::convertPriceDolar(Session::get('cart')->totalPrice) :
+                                            '0.00'
+                                            }}</b></p>
+                                </div>
+                                <h4 class="title text-black">{{ __('Shipping method') }}</h4>
+                                <div class="d-flex flex-wrap">
+                                    <p id="freteText2" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">
+                                        {{__('Pick up in')}}</p>
+                                    <p id="freteText" style="font-size: 14px;" class="fw-semibold colo-1 pr-1">
+                                        {{__('Pick up in')}}</p>
+                                    <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
+                                </div>
+                                <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none  text-end">
+                                </p>
+                                <p id="frete10"
+                                    class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-danger text-end">
+                                    <b class="cart-total fw-bold">{{App\Models\Product::convertPrice(10)}}</b>
+                                </p>
+                                <div class="total-price d-flex justify-content-between">
+                                    <p style="margin-bottom:0px;">{{ __('Total') }}</p>
+                                    <p><span id="total-cost2">{{ App\Models\Product::signFirstPrice($totalPrice)
+                                            }}</span></p>
+                                </div>
+                                <div class="d-flex">
+                                    <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
+                                    <button type="submit" class="w-100 px-sm-4 btn-continue px-1">Finalizar
+                                        compra</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="" style="bottom: 0;left: 0;">
+                        <button class="btn-back px-5 mt-5 d-xl-block d-none">{{ __('To go back') }}</button>
+                    </div>
+            </form>
+            <script src="{{ asset('assets/checkout/scripts.js') }}"></script>
 
-                        });
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-                    });
-                </script>
+            <script>
+    $(documen                    (function                          $('#myform'                        ction (e) {
+            // Impede o envio tradicional do form                               e                            );
 
-                <script>
+            // Obtém os                         mul                             var fo                            .serialize();
+            console.log("formData", formData)
+
+                        //                         citação AJAX
+            $.                                   type: 'POST',
+                url: '/enviar-dados',
+                data: formData,
+                                 ss: function (data) {
+                                    ógi                        cutada em caso de sucess                                  console.log(                        dat                                             ,
+                error: function (error) {
+                                // Lógica a ser executad                         erro
+                    console.l                        error);
+                             
+                                            });
+            </script>
+
+            <script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8001' + '/checkout/getStatesOptions',
+            data: {
+                location_id: 173 //paraguai
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                $('#shippingState').append('<option value="">{{ __('Selecione seu departamento') }}</option>');
+                $('#shippingState').append(data);
+            },
+           t                (err) {
+                console.                    ;
+            },
+        })
 
 
-                    // // Adiciona evento de clique para o botão de continuação do STEP2
-                    // document.getElementById('step-2-continue').addEventListener('click', function (event) {
-                    //     // Verifica se os campos estão preenchidos antes de avançar
-                    //     var isStep2Valid = checkIfStep2Valid();
+        $('#shippingSta                    'change', function () {
+            // Obtém o valor sele                                var selectedValue = $(this).val();
+            $                                    type: 'GET',
+                url: 'http:/                    st:8001' + '/checkout/getCiti                    s',
+                data: {
+                    location_id: selectedValue //paraguai
+                },                             headers: {
+                                                    TOKEN': $('meta[name="cs                oken"]').attrt                ')
+                },
+                                    success: function (data) {
+                    $('#shippingCity').append(data);
+                                        $('#shippingCity').removeAttr('readonly');
+                },
+                                err                or: function (err) {
+                    console.log(                err);
+                },
+            })
 
-                    //     if (!isStep2Valid) {
-                    //         // Caso algum campo não esteja preenchido, ignore a ação de avançar
-                    //         document.getElementById('step-2-continue').disabled = true;
-                    //         event.preventDefault();
+        }                    );
 
-                    //         // Adicione qualquer lógica de feedback ou mensagem de erro aqui, se necessário
-                    //         alert('Por favor, preencha todos os campos antes de {{ __('continue')}}.');
-                    //         event.preventDefault();
-                    //     } else {
-                    //         // Faça qualquer ação necessária antes de ir para o STEP3
-                    //         // Navega para o STEP3
-                    //         document.getElementById('step-3').classList.add('active');
-                    //     }
-                    //     event.preventDefault();
-                    // });
+    });
+            </script>
 
-                    function checkIfStep2Valid() {
-
-                        var idcpf = document.getElementById('billCpf').value
-                        var idemail = document.getElementById('billEmail').value
-                        var idtelefone = document.getElementById('billPhone').value
-                        var idnome = document.getElementById('billName').value
+            <script>
+    function checkIfStep2Valid() {
+                
+        var idcpf = document.getElementById('billCpf')                .value
+        var idemail = document.getElementByI                    d('billEmail').value
+        var idtelefone = document.getElementBy                Id('bi)                .value
+        var i                dnome = document.getElementById('billNam                e').value
 
 
-                        var allFieldsFilled = true;
+        var allFieldsFilled = true;
 
-                        if (idcpf.trim() === '' || idemail.trim() === '' || idtelefone.trim() === '' || idnome.trim() === '') {
+                        if (idcpf.trim() === '' || idemail.trim() === '' || idtelef                one.trim() === '' || idnome.trim() === '') {
                             allFieldsFilled = false;
-                        }
+        }
 
-                        return allFieldsFilled;
-                    }
+        return a                llFieldsFilled;
+    }
 
-                </script>
+            </script>
 
 </body>
 
@@ -534,369 +535,23 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.4/jquery.inputmask.min.js"></script>
 <script>
-    window.onload = function () {
-        document.getElementById("customer_name").value = document.getElementById("billName").value;
-        document.getElementById("customer_phone").value = document.getElementById("billPhone").value;
-    }
+window.onload =     function () {
+document.getElementById("customer_nam    e").value = document.getEl    ementById("billName").value;
+document.getElementById    ("customer_phone").value = docum    ent.getElementById("billPhone").value;
+}
 
-    var billName = document.getElementById("billName");
+var     billName = document.getElementBy    Id("billName");
 
-    billName.addEventListener("change", function () {
-        document.getElementById("customer_name").value = billName.value;
-    });
+billName.addEve        ntListener("change", function ()             {
+document.getElementById("customer                _name").value                 = billName.value;
+}            );
 
-    var billPhone = document.getElementById("billPhone");
+        va    r bil    lPhone = document.getElementById("billPh        one");
 
-    billPhone.addEventListener("change", function () {
-        document.getElementById("customer_phone").value = billPhone.value;
-    });
+billPhone.addEventL            istener("change", functio                n () {
+document.getElementById("customer_pho                    .value = billPhone.value;
+});
 </script>
-
-<script>
-    // Global variables
-    var pos = '{{ $gs->currency_format }}';
-    var dec_sep = '{{ $curr_checkout->decimal_separator }}';
-    var tho_sep = '{{ $curr_checkout->thousands_separator }}';
-    var dec_dig = '{{ $curr_checkout->decimal_digits }}';
-    var dec_sep2 = '{{ $first_curr->decimal_separator }}';
-    var tho_sep2 = '{{ $first_curr->thousands_separator }}';
-    var dec_dig2 = '{{ $first_curr->decimal_digits }}';
-    var diff_address = false;
-    var checkout_url = '{{ route('front.checkout') }}';
-    var fbPaymentInfoClick = false;
-    var currency = '{{ $curr_checkout->name }}';
-    var price = '{{ $totalPrice }}';
-    $(document).ready(function () {
-        if (typeof fbq != 'undefined') {
-            fbq('track', 'InitiateCheckout', {
-                value: price,
-                currency: currency
-            });
-        }
-    });
-
-    $(".fbPaymentInfo").click(function () {
-        if (!fbPaymentInfoClick) {
-            setTimeout(function () {
-                if ($("#pills-step2").hasClass("active")) {
-                    if (typeof fbq != 'undefined') {
-                        fbq('track', 'AddPaymentInfo');
-                        fbPaymentInfoClick = true;
-                    }
-                }
-            }, 1000);
-        }
-    });
-
-    // Calculate Shipping and Package in frontend
-    function calc_ship_pack() {
-        var mship = $('.shipping').length > 0 ? $('.shipping:checked').map(function () {
-            return $(this).data('price');
-        }).get() : 0;
-        var mpack = $('.packing').length > 0 ? $('.packing:checked').map(function () {
-            return $(this).data('price');
-        }).get() : 0;
-        mship = parseFloat(mship);
-        mpack = parseFloat(mpack);
-        if (isNaN(mship)) {
-            mship = 0;
-        }
-        if (isNaN(mpack)) {
-            mpack = 0;
-        }
-        var shipid = $('.shipping').length > 0 ? $('.shipping:checked').map(function () {
-            return $(this).data('id');
-        }).get() : 0;
-        var packid = $('.packing').length > 0 ? $('.packing:checked').map(function () {
-            return $(this).data('id');
-        }).get() : 0;
-        $('#shipping-cost').val(shipid);
-        $('#packing-cost').val(packid);
-        $('#aex-city').val($('#aex_destination').val());
-
-        var ftotal = parseFloat($('#grandtotal').val()) + mship + mpack;
-        ftotal = parseFloat(ftotal);
-        var curr_checkout_value = parseFloat('{{ $curr_checkout->value }}');
-        var ftotal2 = ftotal / curr_checkout_value;
-
-        // if (pos == 0) {
-        //     $('#final-cost').html('{{ $curr_checkout->sign }}' + $.number(ftotal, dec_dig, dec_sep, tho_sep));
-        //     $('#final-cost2').html('{{ $first_curr->sign }}' + $.number(ftotal2, dec_dig2, dec_sep2, tho_sep2));
-        // } else {
-        //     $('#final-cost').html($.number(ftotal, dec_dig, dec_sep, tho_sep) + '{{ $curr_checkout->sign }}');
-        //     $('#final-cost2').html($.number(ftotal2, dec_dig2, dec_sep2, tho_sep2) + '{{ $first_curr->sign }}');
-        // }
-    }
-    // End Calculate Shipping and Package in frontend
-</script>
-<script>
-    function gerarPonto(id) {
-        var pontoselecionado = document.querySelector('input[name="puntoentrega"]:checked').value;
-        document.getElementById("punto-selected").value = pontoselecionado;
-
-        document.getElementById("punto-id").value = id;
-    }
-
-    function excluirPonto() {
-        var envioStandard = document.querySelector('input[data-itemtype="standard"]:checked');
-        if (envioStandard) {
-            var pontos = document.getElementsByName("puntoentrega");
-            for (var i = 0; i < pontos.length; i++) {
-                pontos[i].checked = false;
-            }
-            document.getElementById("punto-selected").value = null;
-            document.getElementById("punto-id").value = null;
-        }
-    }
-
-    // Create Account checkbox
-    $("#open-pass").on("change", function () {
-        if (this.checked) {
-            $('.set-account-pass').removeClass('d-none');
-            $('.set-account-pass input').prop('required', true);
-            $('#personal-email').prop('required', true);
-            $('#personal-name').prop('required', true);
-        } else {
-            $('.set-account-pass').addClass('d-none');
-            $('.set-account-pass input').prop('required', false);
-            $('#personal-email').prop('required', false);
-            $('#personal-name').prop('required', false);
-        }
-    });
-    // End Create Account checkbox
-
-    // Pickup and Address shipping select
-    $('#shipop').on('change', function () {
-        var val = $(this).val();
-        if (val == 'pickup') {
-            $('#shipshow').removeClass('d-none');
-            $("#ship-diff-address").parent().addClass('d-none');
-            $("#ship-diff-address").removeAttr('checked');
-            $('.ship-diff-addres-area').addClass('d-none');
-            $('.ship-diff-addres-area input, .ship-diff-addres-area select').prop('required', false);
-            $('#empty-ship').addClass('d-none');
-            $('#pickup-ship').removeClass('d-none');
-            $('.normal-sheep').remove();
-            $('.PAC-sheep').remove();
-            $('.SEDEX-sheep').remove();
-            $('.aex-sheep').remove();
-            $('#aex-box').addClass('d-none');
-            calc_ship_pack();
-        } else {
-            $('#shipshow').addClass('d-none');
-            $("#ship-diff-address").parent().removeClass('d-none');
-            $('#empty-ship').removeClass('d-none');
-            $('#pickup-ship').addClass('d-none');
-            $('#billCity').trigger('change');
-            $('#aex-box').removeClass('d-none');
-        }
-    });
-    // End Pickup and Address shipping select
-
-    // Shipping Address Checking
-    $("#ship-diff-address").on("change", function () {
-        if (this.checked) {
-            diff_address = true;
-            $('#shippingCity').trigger('change');
-            $('.ship-diff-addres-area').removeClass('d-none');
-            $('.ship-diff-addres-area input, .ship-diff-addres-area select').prop('required', true);
-        } else {
-            diff_address = false;
-            $('#billCity').trigger('change');
-            $('.ship-diff-addres-area').addClass('d-none');
-            $('.ship-diff-addres-area input, .ship-diff-addres-area select').prop('required', false);
-        }
-    });
-    // End Shipping Address Checking
-
-    // Resets country selection based on logged user and session available
-    @if (!Auth:: check() && !Session:: has('session_order'))
-    $('.js-country').val('');
-    @endif
-
-    // Reload the page to work with the ajax if there was a session available
-    if ($('#has_temporder').val() === 'true') {
-        $('#has_temporder').val('false');
-        window.location = checkout_url;
-    }
-
-
-    // Calculate initial prices with first shipping upon loading
-    calc_ship_pack();
-
-    // Calculate new prices when clicking the packages available
-    $('.packing').on('click', function () {
-        calc_ship_pack();
-    });
-
-    // Calculate Coupon Discounts if applied
-    $('#check-coupon-form').on('submit', function (e) {
-        $('#preloader_checkout').show();
-        e.preventDefault();
-        var val = $('#code').val();
-        var total = $('#grandtotal').val();
-        var ship = 0;
-        $.ajax({
-            type: 'GET',
-            url: mainurl + '/carts/coupon/check',
-            data: {
-                code: val,
-                total: total,
-                shipping_cost: ship
-            },
-            success: function (data) {
-                //Coupon not found
-                if (data.not_found) {
-                    toastr.error(data['not_found']);
-                    $('#code').val('');
-                    return;
-                }
-
-                //Coupon already applied
-                if (data.already) {
-                    toastr.error(data['already']);
-                    $('#code').val('');
-                    return;
-                }
-
-                // Display Discount applied
-                $('#check-coupon-form').toggle();
-                $('.discount-bar').removeClass('d-none');
-
-                // In the following, data is an array with the representation:
-                // data[0] = cart total price in store currency
-                // data[1] = the coupon code
-                // data[2] = the coupon value or percentage
-                // data[3] = the coupon ID
-                // data[4] = 0 if coupon is a value; the coupon price in percentage
-                // data[5] = 1
-                // data[6] = cart total price in currency 1
-
-                if (pos == 0) {
-                    $('#total-cost').html('{{ $curr_checkout->sign }}' + $.number(data[0],
-                        dec_dig,
-                        dec_sep, tho_sep));
-                    $('#total-cost2').html('{{ $first_curr->sign }}' + $.number(data[6],
-                        dec_dig2, dec_sep2, tho_sep2));
-                    $('#discount').html('{{ $curr_checkout->sign }}' + $.number(data[2], dec_dig,
-                        dec_sep, tho_sep));
-                } else {
-                    $('#total-cost').html($.number(data[0], dec_dig, dec_sep, tho_sep) +
-                        '{{ $curr_checkout->sign }}');
-                    $('#total-cost2').html($.number(data[6], dec_dig2, dec_sep2, tho_sep2) +
-                        '{{ $first_curr->sign }}');
-                    $('#discount').html($.number(data[2], dec_dig, dec_sep, tho_sep) +
-                        '{{ $curr_checkout->sign }}');
-                }
-
-                $('#grandtotal').val(data[0]);
-                $('#tgrandtotal').val(data[0]);
-                $('#coupon_code').val(data[1]);
-                $('#coupon_discount').val(data[2]);
-
-                if (data[4] != 0) {
-                    $('.dpercent').html('(' + data[4] + ')');
-                } else {
-                    $('.dpercent').html('');
-                }
-
-                toastr.success(data['success']);
-                $('#code').val('');
-            },
-            error: function (err) {
-                console.log(err);
-            },
-            complete: function () {
-                calc_ship_pack();
-                $('#preloader_checkout').hide();
-            }
-        })
-    });
-
-    // Search address by zipcode
-    $('.js-zipcode').on('change', function () {
-        var address_field = 'billAddress';
-        var district_field = 'billDistrict';
-        var select_country = 'billCountry';
-
-        if ($(this).data('type') == 'shipping') {
-            address_field = 'shippingAddress';
-            district_field = 'shippingDistrict';
-            select_country = 'shippingCountry';
-        }
-
-        $('#preloader_checkout').show();
-        $('#checkoutZipError').hide();
-        $.ajax({
-            type: 'GET',
-            url: mainurl + '/checkout/cep',
-            data: {
-                cep: $(this).val()
-            },
-            success: function (data) {
-                // Invalid zipcode
-                if (data.error) {
-                    $('#checkoutZipError').show();
-                    $('#preloader_checkout').hide();
-                    return;
-                }
-
-                // Fill address inputs
-                $('#' + address_field).val(data['street']);
-                $('#' + district_field).val(data['district']);
-
-                //Select country based on the zipcode, passing the zipdata.
-                // Then the selects are triggered in sequence, checking the zipdata
-                // in each trigger
-                $('#' + select_country).val(data['country_id']).trigger('change', data);
-
-            },
-            error: function (err) {
-                console.log(err);
-                $('#preloader_checkout').hide();
-            }
-        })
-    });
-
-    //Change AEX Option
-    $('#aex_destination').on('change', function (e) {
-        $('#preloader_checkout').show();
-        $('.js-city').trigger('change');
-    });
-</script>
-
-{{-- If user is authenticated, bypass zipcode checking and just trigger the selects --}}
-@if (Auth::check())
-<script>
-    var user_zipdata = {
-        city: '{{ Auth::user()->city ?? '' }}',
-        city_id: {{ Auth:: user() -> city_id ?? 0 }},
-    country_id: { { Auth:: user() -> country_id ?? 0 } },
-    state_id: { { Auth:: user() -> state_id ?? 0 } },
-    state_name: '{{ Auth::user()->state ?? '' }}',
-        uf: '{{ Auth::user()->state->initial ?? '' }}',
-            zipcode: '{{ Auth::user()->zip ?? '' }}'
-            };
-    $('#billCountry').trigger('change', user_zipdata);
-</script>
-@endif
-
-{{-- If session is available, bypass zipcode checking and just trigger the selects --}}
-@if (Session::has('session_order'))
-<script>
-    $('#has_temporder').val('true');
-    var session_zipdata = {
-        city: '{{ session()->get('session_order')['customer_city'] ?? '' }}',
-        city_id: {{ session() -> get('session_order')['customer_city_id'] ?? 0 }},
-    country_id: { { session() -> get('session_order')['customer_country_id'] ?? 0 } },
-    state_id: { { session() -> get('session_order')['customer_state_id'] ?? 0 } },
-    state_name: '{{ session()->get('session_order')['customer_state'] ?? '' }}',
-        uf: '{{ session()->get('session_order')['customer_state_initials'] ?? '' }}',
-            zipcode: '{{ session()->get('session_order')['customer_zip'] ?? '' }}'
-            };
-    $('#billCountry').trigger('change', session_zipdata);
-</script>
-@endif
 
 @include('includes.checkout-flow-scripts')
 @endsection
