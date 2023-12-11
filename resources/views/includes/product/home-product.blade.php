@@ -17,7 +17,7 @@ if ($gs->switch_highlight_currency) {
         @if (isset($_GET['max']))
 
             @if ($prod->vendorPrice() <= $_GET['max'])
-                <div class="col-lg-3 col-md-3 col-6 remove-padding">
+                <div class="col-xlg-6 col-6 remove-padding">
                     <a href="{{ route('front.product', $prod->slug) }}" class="item">
                         <div
                             class="item-img {{ $gs->show_products_without_stock_baw && !is_null($prod->stock) && $prod->stock == 0

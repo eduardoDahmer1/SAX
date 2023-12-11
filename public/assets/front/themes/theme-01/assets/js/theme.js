@@ -355,7 +355,7 @@ $(function ($) {
             loop: true,
             dots: true,
             nav: true,
-            center: false,
+            center: true,
             autoplayHoverPause: true,
             navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
             smartSpeed: 800,

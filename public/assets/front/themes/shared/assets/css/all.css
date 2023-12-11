@@ -28548,7 +28548,6 @@ a.meanmenu-reveal {
 
 .owl-carousel .owl-item {
   max-width: 400px !important;
-  padding: 2rem;
   position: relative;
   min-height: 1px;
   float: left;
@@ -38243,6 +38242,7 @@ nav button {
   -webkit-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
+  padding: 1rem;
 }
 
 .item:hover {
@@ -38259,10 +38259,12 @@ nav button {
 
 .item .item-img {
   height: 200px;
+  max-width: 400px;
   width: 100%;
   position: relative;
   overflow: hidden;
   text-align: center;
+  
 }
 
 .item .item-img img {
