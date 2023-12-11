@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Front\WishlistGroupController;
 use App\Mail\RedplayLicenseMail;
 use App\Models\License;
@@ -43,6 +44,7 @@ Route::group([
             Route::get('count', 'NotificationController@count')->name('count');
             Route::get('mark-as-read', 'NotificationController@markAllAsRead')->name('mark-as-read');
             Route::get('clear/{notification_id}', 'NotificationController@clear')->name('clear');
+            Route::get('notification', [NotificationController::class, 'notification'])->name('notification');
         });
 
         Route::group([

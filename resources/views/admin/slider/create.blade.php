@@ -56,16 +56,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xl-6">
+                                    {{-- <div class="col-xl-6"> --}}
                                         {{-- Title Section --}}
 
-                                        <div class="panel panel-default slider-panel">
+                                        {{-- <div class="panel panel-default slider-panel">
                                             <div class="panel-heading text-center">
                                                 <h3>{{ __('Title') }}</h3>
                                             </div>
                                             <div class="panel-body">
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
+                                                <div class="form-group"> --}}
+                                                    {{-- <div class="col-sm-12">
                                                         <div class="panel panel-lang">
                                                             <div class="panel-body">
                                                                 <div class="tab-content">
@@ -115,10 +115,10 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                    </div> --}}
+                                                {{-- </div> --}}
 
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <div class="col-sm-12">
                                                         <div class="row">
                                                             <div class="col-sm-4">
@@ -166,13 +166,13 @@
                                             </div>
                                         </div>
 
-                                        {{-- Title Section Ends --}}
-                                    </div>
+                                        {{-- Title Section Ends
+                                    </div> --}}
                                     <!--FECHAMENTO TAG COL-XL-6-->
 
-                                    <div class="col-xl-6">
+                                    {{-- <div class="col-xl-6">
 
-                                        {{-- Sub Title Section --}}
+                                        {{-- Sub Title Section
                                         <div class="panel panel-default slider-panel">
                                             <div class="panel-heading text-center">
                                                 <h3>{{ __('Sub Title') }}</h3>
@@ -230,9 +230,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <div class="col-sm-12">
                                                         <div class="row">
                                                             <div class="col-sm-4">
@@ -280,13 +280,12 @@
                                             </div>
                                         </div>
 
-                                        {{-- Sub Title Section Ends --}}
-                                    </div>
+                                        {{-- Sub Title Section Ends 
+                                    </div>--}}
                                     <!--FECHAMENTO TAG COL-XL-6-->
 
-                                    <div class="col-xl-6">
+                                    {{-- <div class="col-xl-6">
 
-                                        {{-- Details Section --}}
 
                                         <div class="panel panel-default slider-panel">
                                             <div class="panel-heading text-center">
@@ -398,9 +397,9 @@
                                             </div>
                                         </div>
 
-                                        {{-- Description Section Ends --}}
+                                        {{-- Description Section Ends
 
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-xl-6">
                                         <div class="input-form">
@@ -414,7 +413,7 @@
                                                         id="image-upload">
                                                 </div>
                                                 <p class="text">
-                                                    {{ __('Prefered Size: (650x650) or Rectangular Sized Image') }}
+                                                    {{ __('Prefered Size: (1920x560) or Rectangular Sized Image') }}
                                                 </p>
                                             </div>
                                         </div>

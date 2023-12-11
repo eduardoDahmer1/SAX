@@ -1,4 +1,4 @@
-name: Pipeline Stage Sax 
+name: Pipeline Stage Sax
 
 on:
    workflow_dispatch:
@@ -37,6 +37,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-        script: cd ${{ secrets.WORK_DIR2 }} && ./pipeline-sax-stage.sh
+        script: cd ${{ secrets.WORK_DIR }} && ./pipeline-sax-stage.sh '${{ github.ref_name }}'
     - name: Desconectando do servidor
       run: exit

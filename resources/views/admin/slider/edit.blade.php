@@ -61,8 +61,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xl-6">
-                                        {{-- Title Section --}}
+                                    {{-- <div class="col-xl-6">
+                                        {{-- Title Section
 
                                         <div class="panel panel-default slider-panel">
                                             <div class="panel-heading text-center">
@@ -204,11 +204,11 @@
                                             </div>
                                         </div>
 
-                                        {{-- Title Section Ends --}}
+                                        {{-- Title Section Ends
                                     </div>
 
                                     <div class="col-xl-6">
-                                        {{-- Sub Title Section --}}
+                                        {{-- Sub Title Section
 
                                         <div class="panel panel-default slider-panel">
                                             <div class="panel-heading text-center">
@@ -351,11 +351,11 @@
                                             </div>
                                         </div>
 
-                                        {{-- Sub Title Section Ends --}}
+                                        {{-- Sub Title Section Ends 
                                     </div>
 
                                     <div class="col-xl-6">
-                                        {{-- Details Section --}}
+                                        {{-- Details Section
 
                                         <div class="panel panel-default slider-panel">
                                             <div class="panel-heading text-center">
@@ -499,8 +499,8 @@
                                             </div>
                                         </div>
 
-                                        {{-- Title Section Ends --}}
-                                    </div>
+                                        {{-- Title Section Ends 
+                                    </div> --}}
 
                                     <div class="col-xl-6">
                                         <div class="input-form">
@@ -514,7 +514,7 @@
                                                         id="image-upload">
                                                 </div>
                                                 <p class="text">
-                                                    {{ __('Prefered Size: (650x650) or Rectangular Sized Image') }}
+                                                    {{ __('Prefered Size: (1920x560) or Rectangular Sized Image') }}
                                                 </p>
                                             </div>
                                         </div>
