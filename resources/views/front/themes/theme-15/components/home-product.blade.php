@@ -18,7 +18,7 @@ if ($gs->switch_highlight_currency) {
 
             @if ($prod->vendorPrice() <= $_GET['max'])
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-sm-6">
                     <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                         @if (!is_null($prod->discount_percent))
                             <span class="badge badge-danger descont-card">
@@ -185,7 +185,7 @@ if ($gs->switch_highlight_currency) {
 
             @endif
         @else
-            <div class="col-lg-4 col-6">
+            <div class="col-lg-3 col-sm-6">
 
                 <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
                     @if (!is_null($prod->discount_percent))
@@ -360,7 +360,7 @@ if ($gs->switch_highlight_currency) {
 
     {{-- If This product belongs admin and apply this --}}
 @else
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-3 col-sm-6">
         <a href="{{ route('front.product', $prod->slug) }}" class="item" data-aos="fade-in" data-aos-delay="{{$loop->index}}00">
             @if (!is_null($prod->discount_percent))
                 <span class="badge badge-danger descont-card">
@@ -444,7 +444,7 @@ if ($gs->switch_highlight_currency) {
                     src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
                         ? $prod->photo
                         : asset('storage/images/products/' . $prod->photo) }}"
-                    alt="{{ $prod->showName() }}" width="600" height="600" >
+                    alt="{{ $prod->showName() }}" >
                 @if ($gs->is_rating == 1)
                     <div class="stars">
                         <div class="ratings">
