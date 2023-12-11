@@ -39,30 +39,24 @@
 
 .main-slider .slick-slider .slick-list {
 	margin: 0 auto;
-	width: 100% !important;
-	min-height: 20vh !important;
-	max-height: 50vh !important;
-	/* padding-top: -56.25%; For a 16:9 aspect ratio, adjust as needed */
-
+	width: 100vw !important;
+	max-height: 50vh !important;	
 }
 
 .main-slider .img-holder a > img {
 	width: 100% !important;
 	height: 100% !important;
-	/* aspect-ratio: 16/9; */
-	object-fit: contain;
-	/* object-position: center; */
-}
-
-@media screen and (max-width: 1140px) {
-	.main-slider .slick-slider .slick-list {
-		max-height: 30vh !important;
-	}
+	object-fit: cover;
+	object-position: center center;
 }
 
 @media screen and (max-width: 768px) {
+	.main-slider .slick-slider .slick-list {
+		max-height: 30vh !important;
+	}
+
 	.main-slider .img-holder a > img {
-		width: 100% !important;
+		object-fit: contain;
 	}
 }
 
