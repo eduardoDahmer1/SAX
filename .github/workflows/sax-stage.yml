@@ -1,4 +1,4 @@
-name: Pipeline Stage SAx
+name: Pipeline Stage Sax
 
 on:
    workflow_dispatch:
