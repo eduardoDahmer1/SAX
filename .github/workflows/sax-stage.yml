@@ -1,4 +1,4 @@
-name: Pipeline Stage WownessClub
+name: Pipeline Stage SAx
 
 on:
    workflow_dispatch:
