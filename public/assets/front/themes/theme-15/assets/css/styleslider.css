@@ -40,13 +40,13 @@
 .main-slider .slick-slider .slick-list {
 	margin: 0 auto;
 	width: 100vw !important;
-	max-height: 50vh !important;	
+	max-height: 65vh !important;	
 }
 
 .main-slider .img-holder a > img {
 	width: 100% !important;
 	height: 100% !important;
-	object-fit: cover;
+	object-fit: contain;
 	object-position: center center;
 }
 
