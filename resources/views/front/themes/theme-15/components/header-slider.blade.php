@@ -43,7 +43,7 @@
                     <div class="row justify-content-center">
                         {{-- <h1 class="slider-heading">{{ $data->title_text }}</h1> --}}
                         <div class="img-holder">
-                            <a href="https://shop.saxdepartment.com/category/fashion-sale-47">
+                            <a href="{{ $data->link }}">
                                 <img loading="lazy" class='img-fluid' src="{{ asset('storage/images/sliders/' . $data->photo) }}" alt="image description">
                             </a>
                         </div>
