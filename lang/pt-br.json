@@ -2325,5 +2325,6 @@
     "Look for the product":"Procure o produto",
     "Products name":"Nome do produto",
     "Enter the name of the product you want to associate":"Introduza o nome do produto que pretende associar",
-    "RUC" : "CPF"
+    "RUC" : "CPF",
+    "Search Page": "Pagina de Busca"
 }

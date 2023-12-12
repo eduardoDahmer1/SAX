@@ -707,7 +707,7 @@ $(function ($) {
     var $partner_Slider = $('.partner-slider');
     $partner_Slider.owlCarousel({
         loop: true,
-        dots: true,
+        dots: false,
         autoplay: true,
         margin: 30,
         autoplayTimeout: 3000,
