@@ -18,11 +18,14 @@
         @if(!$productt->promotion_price && $admstore->show_product_prices)
             <span id="sizeprice">{{ $highlight }}</span>
             <input type="hidden" id="previous_price_value" value="{{ round($previous_price_value,2) }}">
-        @else
+        @elseif($productt->promotion_price < $productt->price && $productt->promotion_price > 0)
             <small>
                 <span style="font-weight: 400; text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
             </small>
             <span id="sizeprice">{{$curr->sign}}{{$productt->promotion_price}}</span>
+            <input type="hidden" id="previous_price_value" value="{{ round($previous_price_value,2) }}">
+        @else
+            <span id="sizeprice">{{ $highlight }}</span>
             <input type="hidden" id="previous_price_value" value="{{ round($previous_price_value,2) }}">
         @endif
         @if($curr->id != $scurrency->id)

@@ -198,7 +198,7 @@
 
                                                 @if($admstore->show_product_prices)
                                                     <td class="unit-price quantity">
-                                                        @if($product['item']['promotion_price'] > 0)
+                                                        @if($product['item']['promotion_price'] > 0 && $product['item']['promotion_price'] < $product['item']['price'])
                                                             <p class="product-unit-price">
                                                                 {{ App\Models\Product::convertPrice($product['item']['promotion_price']) }}
                                                             </p>
@@ -273,7 +273,7 @@
 
                                                 @if($admstore->show_product_prices)
                                                     <td class="total-price">
-                                                        @if($product['item']['promotion_price'] > 0)
+                                                        @if($product['item']['promotion_price'] > 0 && $product['item']['promotion_price'] < $product['item']['price'])
                                                             <p id="prc{{ $custom_item_id }}">
                                                                 {{ App\Models\Product::convertPrice($product['item']['promotion_price'] * $product['qty']) }}
                                                             </p>
