@@ -108,7 +108,7 @@ $small = $product->firstCurrencyPrice();
                         @if($gs->show_product_prices)
                             <p class="title">{{ __("Price") }} :</p>
                         @endif
-                        @if($product->promotion_price > 0)
+                        @if($product->promotion_price > 0 && $product->promotion_price < $product->price)
                             <span style=" font-weight: 400; text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
                             <p class="price"><span id="msizeprice">{{$curr->sign}}{{ $product->promotion_price }}</span>
                                 @php
