@@ -41,10 +41,12 @@ class LoginController extends Controller
         }
         //--- Validation Section Ends
 
-        // Attempt to log the user in
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-          return redirect()->route('admin.dashboard');
-        }
+            $redirectUrl = url()->route('admin.dashboard');
+            $decodedUrl = urldecode($redirectUrl);
+            return response()->json($decodedUrl);
+        }      
+        // Attempt to log the user in
 
         // if unsuccessful, then redirect back to the login with the form data
         return response()->json(array('errors' => [ 0 => __("Credentials Doesn't Match !") ]));     
