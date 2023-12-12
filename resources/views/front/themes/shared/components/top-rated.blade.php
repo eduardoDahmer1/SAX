@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 row-theme">
+            <div class="col-lg-10 row-theme">
                 <div class="row">
                     @foreach($top_products as $prod)
                     @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')

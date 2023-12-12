@@ -14,11 +14,11 @@
         </div>
         <div class="row justify-content-center align-items-center">
             @if($ps->best_seller_banner or $ps->best_seller_banner1)
-            <div class="col-xl-10">
+            <div class="col-lg-10">
             @else
             <div class="col-lg-10">
             @endif
-                <div class="row justify-content-center align-items-center">
+                <div class="row">
                     @foreach($best_products as $prod)
                     @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')
                     @endforeach

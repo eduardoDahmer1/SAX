@@ -351,9 +351,9 @@ $(function ($) {
         $trending_slider.owlCarousel({
             items: 5,
             autoplay: false,
-            margin: 0,
+            margin: 100,
             loop: true,
-            dots: true,
+            dots: false,
             nav: true,
             center: true,
             autoplayHoverPause: true,
