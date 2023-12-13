@@ -251,7 +251,7 @@
                                                         <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
                                                     </div>
                                                     <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-end"></p>
-                                                    <p id="frete10" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 text-end">
+                                                    <p id="frete10" class="fw-bold border-bottom-f1 pb-3 mb-3 text-end">
                                                         <b style="font-size: 14px;" class="cart-total fw-bold">+ {{App\Models\Product::convertPrice(10)}}</b>
                                                         <br>
                                                         <b class="cart-total fw-bold"> U$10</b>
