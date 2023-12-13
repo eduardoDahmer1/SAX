@@ -162,11 +162,65 @@
         $($(this).attr('href')).load($(this).data('href'));
     });
     $(document).on('submit', '#bancard-form', function(e) {
+      console.log('hey', e)
         e.preventDefault();
+
+        var ffomrdata = new FormData(this);
+        console.log("ffomrdata", ffomrdata)
+
+        var formData = new FormData();
+        formData.append('_token', "ZHm6OqjycsJUxw4t11HKeM1hF4flif0fsZVmswhP");
+    formData.append('name', "Matteo Carminato22222");
+    formData.append('customer_document', 123456789);
+    formData.append('birthday', '1995-06-18');
+    formData.append('customer_gender', 'M');
+    formData.append('phone', 33333333333333);
+    formData.append('email', 'mcarminato95@gmail.com');
+    formData.append('shipping', 'shipto');
+    formData.append('pickup_location', 'SAX CIUDAD DEL ESTE|1');
+    formData.append('zip', "85856-550");
+    formData.append('address', "xxxxxxxxxxx");
+    formData.append('address_number', "123");
+    formData.append('complement', "");
+    formData.append('district', "");
+    formData.append('country', 173);
+    formData.append('state', 11);
+    formData.append('city', 27);
+    formData.append('diff_address', "");
+    formData.append('shipping_name', '');
+    formData.append('shipping_zip', '');
+    formData.append('shipping_phone', '');
+    formData.append('shipping_address', '');
+    formData.append('shipping_address_number', '');
+    formData.append('shipping_complement', '');
+    formData.append('shipping_district', '');
+    formData.append('shipping_country', '');
+    formData.append('shipping_state', '');
+    formData.append('shipping_city', '');
+    formData.append('order_note', "");
+    formData.append('zimple_phone', '');
+    formData.append('puntoentrega', '');
+    formData.append('puntoidvalue', '');
+    formData.append('aex_city', '0');
+    formData.append('shipping_cost', 3);
+    formData.append('packing_cost', 1);
+    formData.append('dp', '0');
+    formData.append('tax', '0');
+    formData.append('totalQty', '1');
+    formData.append('vendor_shipping_id', '0');
+    formData.append('vendor_packing_id', '0');
+    formData.append('total', '6657200');
+    formData.append('coupon_code', '');
+    formData.append('coupon_discount', '');
+    formData.append('coupon_id', '');
+    formData.append('user_id', '1329');
+
+    console.log("formData", formData)
+
         $.ajax({
           method:"POST",
-          url:$(this).prop('action'),
-          data:new FormData(this),
+          url: "//localhost:8000/new-checkout",
+          data:formData,
           dataType:'JSON',
           contentType: false,
           cache: false,
@@ -183,6 +237,7 @@
                 Bancard.Checkout.createForm('iframe-container', data.process_id);
               }
               $("#iframe-modal").modal('show');
+              document.getElementsByClassName('loader-checkout')[0].classList.remove('d-flex');
             }
           },
           error: function(response)

@@ -1355,6 +1355,8 @@ Route::group([
  */
 Route::get('download-list-pdf', 'Front\FrontendController@downloadListPDF')->name('download-list-pdf');
 
+Route::post('new-checkout', 'App\Http\Controllers\CheckoutController@store')->name('submit-new-checkout');
+
 Route::group(['middleware' => 'maintenance'], function () {
     Route::group([
         'namespace' => 'Front'
@@ -1366,7 +1368,7 @@ Route::group(['middleware' => 'maintenance'], function () {
         Route::group([
             'as' => 'bancard.',
         ], function () {
-            Route::post('bancard-submit', 'BancardController@store')->name('submit');
+            Route::post('bancard-submit', 'App\Http\Controllers\Front\BancardController@store')->name('submit');
             Route::get('bancard-callback', 'BancardController@bancardCallback')->name('notify');
             Route::post('bancard-callback', 'BancardController@bancardFinish')->name('finish');
             Route::post('bancard-rollback/{shop_process_id}', 'BancardController@bancardRollback')->name('rollback');
@@ -1457,7 +1459,7 @@ Route::group(['middleware' => 'maintenance'], function () {
         });
 
         Route::post('cashondelivery', 'CashOnDeliveryController@store')->name('cash.submit');
-        Route::post('bankdeposit', 'BankDepositController@store')->name('bank.submit');
+        Route::post('bankdeposit', 'App\Http\Controllers\Front\BankDepositController@store')->name('bank.submit');
 
         Route::get('addnumcart', 'CartController@addnumcart');
         Route::get('addtonumcart', 'CartController@addtonumcart');
