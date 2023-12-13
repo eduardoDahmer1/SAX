@@ -145,6 +145,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var shippingType = document.querySelectorAll('input[name="shipping"]')
   var newAddress = document.querySelector('.new-address')
   var isTwo = document.getElementById('newaddress')
+  var remove10 = document.querySelector('.price-10')
+  var add10 = document.querySelector('.add10')
 
   shippingType.forEach(input => {
     input.addEventListener('change', () => {
@@ -156,6 +158,8 @@ document.addEventListener('DOMContentLoaded', function () {
         freteText.nextElementSibling.classList.replace('d-block', 'd-none')
         cdeMap.classList.replace('d-flex', 'd-none')
         asuncion.classList.replace('d-flex', 'd-none')
+        remove10.classList.replace('d-block', 'd-none')
+        add10.classList.replace('d-none', 'd-block')
       } else {
         newAddress.classList.replace('d-block', 'd-none')
         frete.classList.add('d-none')
@@ -163,8 +167,12 @@ document.addEventListener('DOMContentLoaded', function () {
         selectLocal.classList.replace('d-flex', 'd-none')
         cdeMap.classList.replace('d-flex', 'd-none')
         asuncion.classList.replace('d-flex', 'd-none')
+        remove10.classList.replace('d-block', 'd-none')
+        add10.classList.replace('d-none', 'd-block')
       }
       if(input.value == 3) {
+        remove10.classList.replace('d-none', 'd-block')
+        add10.classList.add('d-none')
         selectLocal.classList.replace('d-none', 'd-flex')
         cdeMap.classList.replace('d-none', 'd-flex')
         frete.classList.remove('d-none')
@@ -191,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
       freteText.nextElementSibling.innerText = " Asunción"
     }
   })
-  var payType = document.querySelectorAll('input[name="pay-method"]')
+  // var payType = document.querySelectorAll('input[name="pay-method"]')
   payType.forEach(type => {
     type.addEventListener('change', () => {
       if(type.value == 1) {

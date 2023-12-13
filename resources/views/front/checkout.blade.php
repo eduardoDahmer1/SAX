@@ -199,17 +199,17 @@
                                             <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
                                         </div>
                                         <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-left-center">
-                                            <div class="d-flex align-items-center justify-content-center">
+                                            {{-- <div class="d-flex align-items-center justify-content-center">
                                                 <input id="credit" type="radio" name="pay-method" value="1">
                                                 <label for="credit">
                                                     <i class="bi bi-bank"></i>
                                                     <p>Depósito bancario</p>
                                                 </label>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <input id="transfer" type="radio" name="pay-method" value="2">
+                                            </div> --}}
+                                            <div class="d-flex align-items-center justify-content-center color-2">
+                                                <input id="transfer" type="radio" name="pay-method" value="2" checked>
                                                 <label for="transfer">
-                                                    <i class="bi bi-credit-card"></i>
+                                                    <i class="bi bi-credit-card color-2"></i>
                                                     <p>Bancard</p>
                                                 </label>
                                             </div>
@@ -240,7 +240,7 @@
                                                                 '0.00'
                                                                 }}</b></p>
                                                     </div>
-                                                    <h4 class="title text-black">{{ __('Shipping method') }}</h4>
+                                                    <h4 class="title text-black mt-3">{{ __('Shipping method') }}</h4>
                                                     <div class="d-flex flex-wrap">
                                                         <p id="freteText2" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">
                                                             {{__('Pick up in')}}
@@ -250,16 +250,15 @@
                                                         </p>
                                                         <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
                                                     </div>
-                                                    <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none  text-end">
-                                                    </p>
-                                                    <p id="frete10"
-                                                        class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-danger text-end">
-                                                        <b class="cart-total fw-bold">{{App\Models\Product::convertPrice(10)}}</b>
+                                                    <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-end"></p>
+                                                    <p id="frete10" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 text-danger text-end">
+                                                        <b class="cart-total fw-bold">+{{App\Models\Product::convertPrice(10)}}</b><br>
+                                                        <b class="cart-total fw-bold">+U$10</b>
                                                     </p>
                                                     <div class="total-price d-flex justify-content-between">
                                                         <p style="margin-bottom:0px;">{{ __('Total') }}</p>
-                                                        <p><span id="total-cost2">{{ App\Models\Product::signFirstPrice($totalPrice)
-                                                                }}</span></p>
+                                                        <p><span class="add10">{{ App\Models\Product::signFirstPrice($totalPrice + 10) }}</span></p>
+                                                        <p class="d-none price-10"><span id="total-cost2">{{ App\Models\Product::signFirstPrice($totalPrice) }}</span></p>
                                                     </div>
                                                     <div class="d-flex btns2 flex-wrap">
                                                         <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
@@ -2247,7 +2246,7 @@
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8000' + '/checkout/getStatesOptions',
+            url: 'http://localhost' + '/checkout/getStatesOptions',
             data: {
                 location_id: 173 //paraguai
             },
@@ -2269,7 +2268,7 @@
             var selectedValue = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:8000' + '/checkout/getCitiesOptions',
+                url: 'http://localhost' + '/checkout/getCitiesOptions',
                 data: {
                     location_id: selectedValue //paraguai
                 },
