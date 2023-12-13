@@ -32,7 +32,7 @@
                             <div class="preloader" id="preloader_checkout" style="background: url({{ $gs->loaderUrl }}) no-repeat scroll center center; background-color: rgba(0,0,0,0.5); display: none">
                             </div>
                         
-                            <form id="bancard-form" action="" method="POST" class="checkoutform">
+                            <form id="bancard-form" action="" method="POST" class="checkoutform d-flex justify-content-center">
                                 @include('includes.form-success')
                                 @include('includes.form-error')
                                 {{ csrf_field() }}
@@ -54,12 +54,11 @@
                                         </div>
                                         <div class="col-12 d-flex align-items-center bg-top my-4 py-2 d-lg-none d-block">
                                             <h6 class="col-6 text-uppercase">{{ __('Amount') }}</h6>
-                                            <h6 class="col-6 text-uppercase">{{ __('Price') }}</h6>
+                                            <h6 class="col-6 text-uppercase text-left">{{ __('Price') }}</h6>
                                         </div>
                                         <p class="col-lg-2 col-6 m-lg-0 mt-3">{{ $product['qty'] }}</p>
                                         <div class="col-lg-2 prices col-6">
-                                            <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($product['item']['price'])
-                                                }}
+                                            <h5 class="mb-0 fw-semibold">{{ App\Models\Product::convertPrice($product['item']['price']) }}
                                             </h5>
                                             <span>{{ App\Models\Product::convertPriceDolar($product['item']['price']) }}</span>
                                         </div>
@@ -106,7 +105,7 @@
                                                 <button class="btn-back">{{ __('To go back') }}</button>
                                                 <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
                                             </div>
-                                            <div class="col-12 text-center mt-4 d-md-none d-block">
+                                            <div class="col-12 text-center mt-4 d-md-none d-flex btns flex-wrap">
                                                 <button class="btn-back">{{ __('To go back') }}</button>
                                                 <button class="px-5 btn-continue" id="step-2-continue">{{ __('Continue')}}</button>
                                             </div>
@@ -188,7 +187,7 @@
                                                 <button class="btn-back">{{ __('To go back') }}</button>
                                                 <button class="px-5 btn-continue">{{ __('Continue')}}</button>
                                             </div>
-                                            <div class="col-12 text-center mt-4 d-md-none d-block pb-4">
+                                            <div class="col-12 text-center mt-4 d-md-none d-flex pb-4 btns flex-wrap">
                                                 <button class="btn-back">{{ __('To go back') }}</button>
                                                 <button class="px-5 btn-continue">{{ __('Continue')}}</button>
                                             </div>
@@ -199,15 +198,15 @@
                                             <h6 class="col-8 text-uppercase">{{ __('Method') }}</h6>
                                             <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
                                         </div>
-                                        <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-between">
-                                            <div>
+                                        <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-left-center">
+                                            <div class="d-flex align-items-center justify-content-center">
                                                 <input id="credit" type="radio" name="pay-method" value="1">
                                                 <label for="credit">
                                                     <i class="bi bi-bank"></i>
                                                     <p>Depósito bancario</p>
                                                 </label>
                                             </div>
-                                            <div>
+                                            <div class="d-flex align-items-center justify-content-center">
                                                 <input id="transfer" type="radio" name="pay-method" value="2">
                                                 <label for="transfer">
                                                     <i class="bi bi-credit-card"></i>
@@ -222,8 +221,8 @@
                                                     </label>
                                                 </div> -->
                                         </div>
-                                        <div class="col-xl-5">
-                                            <div class="right-area">
+                                        <div class="col-xl-5 px-0">
+                                            <div class="right-area mt-0">
                                                 <div class="order-box order-box-2">
                                                     <h4 class="title text-black">{{ __('PRICE DETAILS') }}</h4>
                                                     <div class="border-bottom-f1">
@@ -262,14 +261,14 @@
                                                         <p><span id="total-cost2">{{ App\Models\Product::signFirstPrice($totalPrice)
                                                                 }}</span></p>
                                                     </div>
-                                                    <div class="d-flex">
+                                                    <div class="d-flex btns2 flex-wrap">
                                                         <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
-                                                        <button type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 mt-5" form="myform">{{ __('Continue') }}</button>
+                                                        <button type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform">{{ __('Continue') }}</button>
                                                     </div> 
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" style="bottom: 0;left: 0;">
+                                        <div class="position-absolute" style="bottom: 30px;left: 0;">
                                             <button class="btn-back px-5 mt-5 d-xl-block d-none">{{ __('To go back') }}</button>
                                         </div>
                                     </div>

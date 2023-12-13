@@ -198,38 +198,17 @@ document.addEventListener('DOMContentLoaded', function () {
         type.nextElementSibling.classList.add('color-2')
         type.nextElementSibling.querySelector('i').classList.add('color-2')
         type.parentNode.classList.add('color-2')
-
         payType[1].nextElementSibling.querySelector('i').classList.remove('color-2')
         payType[1].nextElementSibling.classList.remove('color-2')
         payType[1].parentNode.classList.remove('color-2')
-        payType[2].nextElementSibling.querySelector('i').classList.remove('color-2')
-        payType[2].nextElementSibling.classList.remove('color-2')
-        payType[2].parentNode.classList.remove('color-2')
       }
       if(type.value == 2) {
         type.nextElementSibling.classList.add('color-2')
         type.nextElementSibling.querySelector('i').classList.add('color-2')
         type.parentNode.classList.add('color-2')
-
-        payType[2].nextElementSibling.querySelector('i').classList.remove('color-2')
-        payType[2].nextElementSibling.classList.remove('color-2')
-        payType[2].parentNode.classList.remove('color-2')
         payType[0].nextElementSibling.querySelector('i').classList.remove('color-2')
         payType[0].nextElementSibling.classList.remove('color-2')
         payType[0].parentNode.classList.remove('color-2')
-      }
-      if(type.value == 3) {
-        type.nextElementSibling.classList.add('color-2')
-        type.nextElementSibling.querySelector('i').classList.add('color-2')
-        type.parentNode.classList.add('color-2')
-
-        payType[1].nextElementSibling.querySelector('i').classList.remove('color-2')
-        payType[1].nextElementSibling.classList.remove('color-2')
-        payType[1].parentNode.classList.remove('color-2')
-        payType[0].nextElementSibling.querySelector('i').classList.remove('color-2')
-        payType[0].nextElementSibling.classList.remove('color-2')
-        payType[0].parentNode.classList.remove('color-2')
-
       }
     })
   })

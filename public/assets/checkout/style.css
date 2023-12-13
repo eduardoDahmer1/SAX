@@ -75,6 +75,7 @@ button:last-child {
 }
 .prices h5,span {
   color: #57C22D;
+  font-size: 17px;
 }
 .border-bottom-f1 {
   border-bottom: 1px solid #F1F1F1;
@@ -95,6 +96,18 @@ input[type="text"] {
   border: 1px solid #f1f1f1;
   padding: 6px;
 }
+.justify-content-left-center {
+  justify-content: left;
+}
+@media (max-width:1200px) {
+  .justify-content-left-center {
+    justify-content: center;
+  }
+  .btns2 button {
+    width: 100%;
+    margin: 0 0 10px;
+  }
+}
 @media (max-width:992px) {
   .step-icons i {
   width: 60px;
@@ -103,6 +116,9 @@ input[type="text"] {
 }
 }
 @media (max-width:768px) {
+  .border-bottom-f1 p, .bg-top h6 {
+    text-align: center;
+  }
   .step-icons i {
     width: 50px;
     height: 50px;
@@ -190,7 +206,11 @@ fill: #000;
     font-size: 11px;
   }
   .prices h5 {
-    font-size: 18px;
+    font-size: 16px;
+  }
+  .btns button {
+    width: 100%;
+    margin: 0 0 10px;
   }
 }
 .order-box-2 {
