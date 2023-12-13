@@ -6,6 +6,7 @@
 
     <!-- Icons --> 
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/icofont@1.0.1-alpha.1/icofont.min.css">
 
     <!--Slider Inicial Slick-->
     <link rel="stylesheet" href="{{ asset('assets/front/themes/theme-15/assets/css/slick.min.css') }}">

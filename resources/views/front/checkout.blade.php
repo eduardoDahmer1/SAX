@@ -251,9 +251,10 @@
                                                         <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
                                                     </div>
                                                     <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-end"></p>
-                                                    <p id="frete10" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 text-danger text-end">
-                                                        <b class="cart-total fw-bold">+{{App\Models\Product::convertPrice(10)}}</b><br>
-                                                        <b class="cart-total fw-bold">+U$10</b>
+                                                    <p id="frete10" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 text-end">
+                                                        <b style="font-size: 14px;" class="cart-total fw-bold">+ {{App\Models\Product::convertPrice(10)}}</b>
+                                                        <br>
+                                                        <b class="cart-total fw-bold"> U$10</b>
                                                     </p>
                                                     <div class="total-price d-flex justify-content-between">
                                                         <p style="margin-bottom:0px;">{{ __('Total') }}</p>
@@ -2246,7 +2247,7 @@
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost' + '/checkout/getStatesOptions',
+            url: 'https://stagedevsax.cloudcrow.com.br' + '/checkout/getStatesOptions',
             data: {
                 location_id: 173 //paraguai
             },
@@ -2268,7 +2269,7 @@
             var selectedValue = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost' + '/checkout/getCitiesOptions',
+                url: 'https://stagedevsax.cloudcrow.com.br' + '/checkout/getCitiesOptions',
                 data: {
                     location_id: selectedValue //paraguai
                 },
