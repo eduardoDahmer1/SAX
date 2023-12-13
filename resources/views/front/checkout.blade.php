@@ -37,7 +37,7 @@
                                 @include('includes.form-error')
                                 {{ csrf_field() }}
 
-                                <div class="step col-10 row align-items-center justify-content-center mt-4">
+                                <div class="step col-12 row align-items-center justify-content-center mt-4">
                                     <div class="d-flex align-items-center bg-top my-4 py-2">
                                         <h6 class="col-8 text-uppercase">{{ __('Product') }}</h6>
                                         <h6 class="col-2 d-lg-block d-none text-uppercase">{{ __('Amount') }}</h6>
@@ -75,7 +75,7 @@
                                             <button class="px-5 btn-continue col-md-4 col-lg-3 col-12 mt-4 mt-md-0">{{ __('Continue')}}</button>
                                         </div>
                                     </div>
-                                    <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
+                                    <div class="step col-sm-12 row align-items-center justify-content-center mt-4">
                                         <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
                                             <h5 class="fw-semibold">{{ __('Personal data') }}</h5>
                                         </div>
@@ -112,7 +112,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="step col-sm-10 row align-items-center justify-content-center mt-4">
+                                    <div class="step col-sm-12 row align-items-center justify-content-center mt-4">
                                         <div class="d-flex align-items-center p-0 pb-3 border-bottom-f1">
                                             <h5 class="fw-semibold">{{ __('Shipping method') }}</h5>
                                         </div>
@@ -125,6 +125,8 @@
                                                     <p style="font-size: 14px;" class="mb-0 color-1 px-3">
                                                         {{Auth::guard('web')->user()->address ?? ''}}
                                                     </p>
+                                                    
+                                                    <input type="hidden" name="nc_address" id="nc_address" value="{{Auth::guard('web')->user()->address ?? ''}}"  style="font-size: 14px;" class="mb-0 color-1 px-3" readonly>
                                                 </div>
                                                 <h6 class="px-2 color-3">U$10.00</h6> @endif
                                             </div>
@@ -138,7 +140,7 @@
                                                 <div class="d-block col-12 mt-3 new-address">
                                                     <div class="row">
                                                         <div class="col-md-6 mb-3">
-                                                            <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('Country') }}
+                                                            <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('State') }}
                                                             </p>
                                                             <select class="form-control js-state" name="shipping_state" data-type="shipping"
                                                                 id="shippingState"> </select>
@@ -166,7 +168,7 @@
                                                         <label for="withdrawal">{{ __('Pick up in') }} SAX</label>
                                                     </div>
                                                     <select class="select-local d-none mx-2" name="local" id="local">
-                                                        <option value="1">CDE</option>
+                                                        <option value="1" selected>CDE</option>
                                                         <option value="2">ASUNCIÓN</option>
                                                     </select>
                                                 </div>
@@ -192,7 +194,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="step col-sm-10 row justify-content-between mt-4">
+                                    <div class="step col-sm-12 row justify-content-between mt-4">
                                         <div class="d-flex align-items-center bg-top my-4 py-2 justify-content-between">
                                             <h6 class="col-8 text-uppercase">{{ __('Method') }}</h6>
                                             <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
@@ -262,8 +264,8 @@
                                                     </div>
                                                     <div class="d-flex">
                                                         <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
-                                                        <button type="submit" onclick="disableButton()" id="final-btn" class="mybtn1" form="myform">{{ __('Continue') }}</button>
-                                                    </div>
+                                                        <button type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 mt-5" form="myform">{{ __('Continue') }}</button>
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>
@@ -392,7 +394,7 @@
                                                                 
                                                                 <div class="col-lg-6">
                                                                     <div class=" {{ $digital == 1 ? 'd-none' : '' }}">
-                                                                        <select class="form-control" id="shipop" name="shipping"
+                                                                        <select class="form-control" id="shipop" name="shipping_old"
                                                                             required="" style="margin-bottom: 10px;">
                                                                             <option value="shipto">{{ __('Ship To Address') }}</option>
                                                                             @if($allPickups->count() > 0)
@@ -710,7 +712,7 @@
                                                         <div class="row justify-content-center">
                                                             <div class="col-12 p-0 row">
                                                                 <div class="col-lg-6 {{ $digital == 1 ? 'd-none' : '' }}">
-                                                                    <select class="form-control" id="shipop" name="shipping"
+                                                                    <select class="form-control" id="shipop" name="shipping_old"
                                                                         required="" style="margin-bottom: 10px;">
                                                                         <option value="shipto">{{ __('Ship To Address') }}</option>
                                                                         <option value="pickup">{{ __('Pick Up') }}</option>
@@ -1655,8 +1657,8 @@
                                     name="puntoentrega" value="">
                                 <input type="hidden" id="punto-id" class="puntoid" name="puntoidvalue" value="">
                                 <input type="hidden" id="aex-city" name="aex_city" value="0">
-                                <input type="hidden" id="shipping-cost" name="shipping_cost" value="0">
-                                <input type="hidden" id="packing-cost" name="packing_cost" value="0">
+                                <input type="hidden" id="shipping-cost" name="shipping_cost" value="3">
+                                <input type="hidden" id="packing-cost" name="packing_cost" value="1">
                                 <input type="hidden" name="dp" value="{{ $digital }}">
                                 <input type="hidden" name="tax" value="{{ $gs->tax }}">
                                 <input type="hidden" name="totalQty" value="{{ $totalQty }}">
@@ -1684,6 +1686,13 @@
                                     value="{{ Session::has('coupon') ? Session::get('coupon_id') : '' }}">
                                 <input type="hidden" name="user_id" id="user_id"
                                     value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->id : '' }}">
+
+                                <!-- NEW CHECKOUT-->    
+                                <input id="nc_selectedShipping" name="nc_selectedShipping" type="hidden">
+                                <input id="nc_priceShipping" name="nc_priceShipping" type="hidden">
+                                <input id="nc_typeShipping" name="nc_typeShipping" type="hidden">
+                                <input id="nc_addressShipping" name="nc_addressShipping" type="hidden">
+                                
                             </form>
                         </div>
                     </div>
@@ -2186,6 +2195,54 @@
 @endsection
 
 @section('scripts')
+
+<script>
+    $(document).ready(function () {
+        $('input[name="shipping"]').on('change', function () {
+            // Obter o valor do rádio selecionado
+            var selectedValue = $('input[name="shipping"]:checked').val();
+            $('#nc_addressShipping').val('');   
+
+            // Atualizar o valor do input hidden
+            $('#nc_selectedShipping').val(selectedValue);
+
+            // Atualizar o valor do input de endereço com base na escolha
+            if (selectedValue === '1' || selectedValue === '2') {
+                $('#nc_priceShipping').val(10); 
+                $('#nc_typeShipping').val('shipto');
+                
+                var address = '';
+
+                if (selectedValue === '1'){
+                    var address = $('#nc_address').val();
+                    $('#nc_addressShipping').val(address);
+                }
+
+                if (selectedValue === '2'){
+                    $('#address').on('input', function() {
+                        $('#nc_addressShipping').val($(this).val());
+                    });
+                    
+                }
+            } else {
+                $('#nc_priceShipping').val(0);
+                $('#nc_typeShipping').val('pickup');
+                $('#nc_addressShipping').val('1');
+
+                $('#local').on('change', function () {
+                    var local = $(this).val();
+                    if (local == 1){
+                        $('#nc_addressShipping').val('SAX CIUDAD DEL ESTE|1'); 
+                    }
+                    if (local == 2){
+                        $('#nc_addressShipping').val('SAX ASUNCIÓN|2'); 
+                    } 
+                });          
+            }
+         });
+    });
+</script>
+
 
 <script>
     $(document).ready(function () {

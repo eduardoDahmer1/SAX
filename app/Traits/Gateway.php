@@ -124,6 +124,7 @@ trait Gateway
 
     public function store(Request $request)
     {
+
         $isBrl = Currency::where('is_default', 1)->where('name', 'BRL')->get();
 
         if (!$this->enabled) {
@@ -135,33 +136,35 @@ trait Gateway
             return redirect()->back()->with('unsuccess', __("Sorry, {$this->name} is not available for this store."));
         }
 
+        //REMOVIDO TODAS VALIDAÇÕES BRASILEIRA DE COMPRA CPF E CNPJ
+
         if (config('document.cpf')) {
-            if (strlen($request->customer_document) != 11) {
-                if ($request->ajax()) {
-                    return response()->json([
-                        'unsuccess' => __("Invalid CPF. Please check the Document field")
-                    ], 404);
-                }
-                return redirect()->back()->with('unsuccess', __("Invalid CPF. Please check the Document field"));
-            }
+            // if (strlen($request->customer_document) != 11) {
+            //     if ($request->ajax()) {
+            //         return response()->json([
+            //             'unsuccess' => __("Invalid CPF. Please check the Document field")
+            //         ], 404);
+            //     }
+            //     return redirect()->back()->with('unsuccess', __("Invalid CPF. Please check the Document field"));
+            // }
         } elseif (config('document.cnpj')) {
-            if (strlen($request->customer_document) != 14) {
-                if ($request->ajax()) {
-                    return response()->json([
-                        'unsuccess' => __("Invalid CNPJ. Please check the Document field")
-                    ], 404);
-                }
-                return redirect()->back()->with('unsuccess', __("Invalid CNPJ. Please check the Document field"));
-            }
+            // if (strlen($request->customer_document) != 14) {
+            //     if ($request->ajax()) {
+            //         return response()->json([
+            //             'unsuccess' => __("Invalid CNPJ. Please check the Document field")
+            //         ], 404);
+            //     }
+            //     return redirect()->back()->with('unsuccess', __("Invalid CNPJ. Please check the Document field"));
+            // }
         } elseif (config('document.general') && !empty($isBrl->items)) {
-            if (strlen($request->customer_document) < 11 || (strlen($request->customer_document) > 11 && strlen($request->customer_document) < 14 || strlen($request->customer_document) > 14)) {
-                if ($request->ajax()) {
-                    return response()->json([
-                        'unsuccess' => __("Invalid CPF/CNPJ. Please check the Document field")
-                    ], 404);
-                }
-                return redirect()->back()->with('unsuccess', __("Invalid CPF/CNPJ. Please check the Document field"));
-            }
+            // if (strlen($request->customer_document) < 11 || (strlen($request->customer_document) > 11 && strlen($request->customer_document) < 14 || strlen($request->customer_document) > 14)) {
+            //     if ($request->ajax()) {
+            //         return response()->json([
+            //             'unsuccess' => __("Invalid CPF/CNPJ. Please check the Document field")
+            //         ], 404);
+            //     }
+            //     return redirect()->back()->with('unsuccess', __("Invalid CPF/CNPJ. Please check the Document field"));
+            // }
         }
 
         if ($request->pass_check) {
@@ -291,7 +294,7 @@ trait Gateway
         $ship_error = false;
         $temp_shipping = null;
 
-        if ($request->shipping == "shipto") {
+        if ($request->nc_typeShipping == "shipto") {
             if ($request->diff_address == "value1") {
                 $temp_zip = $request->shipping_zip;
             } else {
@@ -299,43 +302,43 @@ trait Gateway
             }
             $temp_zip = preg_replace('/[^0-9]/', '', $temp_zip);
             if ($request->shipping_cost == "SEDEX") {
-                $sedex_cep = Session::get('correios_sedex_cep');
-                if ($temp_zip != $sedex_cep) {
-                    $ship_error = true;
-                } else {
-                    $this->order['shipping_cost'] = Session::get('correios_sedex_valor');
-                    $this->order['shipping_type'] = "Correios SEDEX";
-                }
+                // $sedex_cep = Session::get('correios_sedex_cep');
+                // if ($temp_zip != $sedex_cep) {
+                //     $ship_error = true;
+                // } else {
+                //     $this->order['shipping_cost'] = Session::get('correios_sedex_valor');
+                //     $this->order['shipping_type'] = "Correios SEDEX";
+                // }
             } elseif ($request->shipping_cost == "PAC") {
-                $pac_cep = Session::get('correios_pac_cep');
-                if ($temp_zip != $pac_cep) {
-                    $ship_error = true;
-                } else {
-                    $this->order['shipping_cost'] = Session::get('correios_pac_valor');
-                    $this->order['shipping_type'] = "Correios PAC";
-                }
+                // $pac_cep = Session::get('correios_pac_cep');
+                // if ($temp_zip != $pac_cep) {
+                //     $ship_error = true;
+                // } else {
+                //     $this->order['shipping_cost'] = Session::get('correios_pac_valor');
+                //     $this->order['shipping_type'] = "Correios PAC";
+                // }
             } elseif (str_starts_with($request->shipping_cost, "AEX_")) {
-                $service_id = explode('_', $request->shipping_cost, 2)[1];
-                $aex_destination = Session::get('aex_destination_'.$service_id);
-                if ($request->aex_city != $aex_destination) {
-                    $ship_error = true;
-                } else {
-                    $this->order['shipping_cost'] = Session::get('aex_value_'.$service_id);
-                    $this->order['shipping_type'] = Session::get('aex_service_'.$service_id);
-                    $aex_city = AexCity::where('codigo_ciudad', $aex_destination)->first();
-                    $aex_internal_note = 'AEX:['.$aex_destination.';'.$service_id.'] '.$aex_city->denominacion.' - '.$aex_city->departamento_denominacion.'|';
-                }
+                // $service_id = explode('_', $request->shipping_cost, 2)[1];
+                // $aex_destination = Session::get('aex_destination_'.$service_id);
+                // if ($request->aex_city != $aex_destination) {
+                //     $ship_error = true;
+                // } else {
+                //     $this->order['shipping_cost'] = Session::get('aex_value_'.$service_id);
+                //     $this->order['shipping_type'] = Session::get('aex_service_'.$service_id);
+                //     $aex_city = AexCity::where('codigo_ciudad', $aex_destination)->first();
+                //     $aex_internal_note = 'AEX:['.$aex_destination.';'.$service_id.'] '.$aex_city->denominacion.' - '.$aex_city->departamento_denominacion.'|';
+                // }
             } elseif (str_starts_with($request->shipping_cost, "MELHORENVIO_")) {
-                $service_id = explode('_', $request->shipping_cost, 2)[1];
-                /* $melhorenvio_destination = Session::get('melhorenvio_destination_'.$service_id); */
-                $melhorenvio_destination = preg_replace('/[^0-9]/', '', Session::get('melhorenvio_destination_'.$service_id));
-                if ($temp_zip != $melhorenvio_destination) {
-                    $ship_error = true;
-                } else {
-                    $this->order['shipping_cost'] = Session::get('melhorenvio_value_'.$service_id);
-                    $this->order['shipping_type'] = Session::get('melhorenvio_service_'.$service_id);
-                    $melhorenvio_internal_note = 'MELHORENVIO:['.$melhorenvio_destination.';'.$service_id.'] '.$this->order['shipping_type'].'|';
-                }
+                // $service_id = explode('_', $request->shipping_cost, 2)[1];
+                // /* $melhorenvio_destination = Session::get('melhorenvio_destination_'.$service_id); */
+                // $melhorenvio_destination = preg_replace('/[^0-9]/', '', Session::get('melhorenvio_destination_'.$service_id));
+                // if ($temp_zip != $melhorenvio_destination) {
+                //     $ship_error = true;
+                // } else {
+                //     $this->order['shipping_cost'] = Session::get('melhorenvio_value_'.$service_id);
+                //     $this->order['shipping_type'] = Session::get('melhorenvio_service_'.$service_id);
+                //     $melhorenvio_internal_note = 'MELHORENVIO:['.$melhorenvio_destination.';'.$service_id.'] '.$this->order['shipping_type'].'|';
+                // }
             } else {
                 if (empty($request->shipping_cost)) {
                     $ship_error = true;
@@ -518,9 +521,9 @@ trait Gateway
 
         
         $cartArray = [];
-        $cartArray['items'] = $cart->items;
+        // $cartArray['items'] = $cart->items;
         $cartArray['totalQty'] = $cart->totalQty;
-        $cartArray['totalPrice'] = $cart->totalPrice;
+        $cartArray['totalPrice'] = $cart->totalPrice + $this->order['shipping_cost'];
 
         $this->order['user_id'] = $request->user_id;
         $this->order['cart'] = $cartArray;
@@ -555,15 +558,15 @@ trait Gateway
         $this->order['customer_state'] = $customer_state;
         $this->order['customer_country'] = $customer_country;
 
-        $this->order['shipping_name'] = $request->shipping_name;
-        $this->order['shipping_document'] = "";
-        $this->order['shipping_email'] = "";
-        $this->order['shipping_zip'] = $request->shipping_zip;
-        $this->order['shipping_phone'] = $request->shipping_phone;
-        $this->order['shipping_address'] = $request->shipping_address;
-        $this->order['shipping_address_number'] = $request->shipping_address_number;
-        $this->order['shipping_district'] = $request->shipping_district;
-        $this->order['shipping_complement'] = $request->shipping_complement;
+        $this->order['shipping_name'] = $request->name;
+        $this->order['shipping_document'] = $customer_document;
+        $this->order['shipping_email'] = $request->email;
+        $this->order['shipping_zip'] = $request->zip;
+        $this->order['shipping_phone'] = $request->phone;
+        $this->order['shipping_address'] = $request->address;
+        $this->order['shipping_address_number'] = $request->address_number;
+        $this->order['shipping_district'] = $request->district;
+        $this->order['shipping_complement'] = $request->complement;
         $this->order['shipping_city'] = $shipping_city;
         $this->order['shipping_state'] = $shipping_state;
         $this->order['shipping_country'] = $shipping_country;
