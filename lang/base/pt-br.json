@@ -1958,9 +1958,9 @@
     "Top Banner Image": "Imagem banner Superior",
     "Top Rated": "Melhores Avalia\u00e7\u00f5es",
     "Top Referrals": "Principais refer\u00eancias",
-    "Top Small": "Pequeno Superior",
-    "Top Small Banner": "Banner pequeno do topo",
-    "Top Small Banners": "Banners pequeno superior",
+    "Top Small": "Exclusivo",
+    "Top Small Banner": "Banner Exclusivo",
+    "Top Small Banners": "Banners Exclusivos",
     "Total": "Total",
     "Total Cost": "Valor Total",
     "Total Customers": "Total de Clientes",
@@ -2342,5 +2342,6 @@
     "Add new address":"Adicionar novo endereço",
     "Department":"Departamento",
     "Receive at my address":"Receber em meu endereço",
-    "To go back":"Voltar"
+    "To go back":"Voltar",
+    "Search Page":"Pagina de Busca"
 }

@@ -1746,9 +1746,9 @@
     "Top Banner Image": "Imagem banner Superior",
     "Top Rated": "Melhores Avalia\u00e7\u00f5es",
     "Top Referrals": "Principais refer\u00eancias",
-    "Top Small": "Pequeno Superior",
-    "Top Small Banner": "Banner pequeno do topo",
-    "Top Small Banners": "Banners pequeno superior",
+    "Top Small": "Exclusivo",
+    "Top Small Banner": "Banner exclusivo",
+    "Top Small Banners": "Banners exclusivos",
     "Total": "Total",
     "Total Cost": "Valor Total",
     "Total Customers": "Total de Clientes",
@@ -2017,5 +2017,6 @@
     "Look for the product":"Procure o produto",
     "Products name":"Nome do produto",
     "Enter the name of the product you want to associate": "Digite o nome do produto que deseja associar",
-    "No size":"Sem tamanho"
+    "No size":"Sem tamanho",
+    "Search Page": "Pagina de Busca"
 }

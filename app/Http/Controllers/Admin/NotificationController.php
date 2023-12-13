@@ -22,10 +22,31 @@ class NotificationController extends Controller
 
   public function show()
   {
-    $notifications = Notification::orderBy('created_at', 'DESC')->get();
-
+    Notification::where('sent', true)->update(['sent' => false]);
+    $notifications = Notification::orderBy('created_at', 'DESC')->paginate(8);
     return view('admin.notification.popup', compact('notifications'));
   }
+
+  public function notification()
+  {
+    $firstEightNotifications = Notification::orderBy('created_at', 'DESC')
+    ->where('sent', 0)
+    ->take(8)
+    ->pluck('id');
+
+    $notifications = Notification::orderBy('created_at', 'DESC')
+    ->where('sent', 0)
+    ->whereNotIn('id', $firstEightNotifications)
+    ->with('order')
+    ->with('user')
+    ->with('product')
+    ->with('conversation')
+    ->paginate(10);
+
+    Notification::whereIn('id', $notifications->pluck('id'))->update(['sent' => true]);
+    return response()->json($notifications);
+  }
+
 
   public function markAllAsRead()
   {

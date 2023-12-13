@@ -33,7 +33,7 @@
                                 $product['item']['measure'] }}</span>
                             x
                             @if($admstore->show_product_prices)
-                                @if($product['item']['promotion_price'] && $product['item']['promotion_price'] > 0)
+                                @if($product['item']['promotion_price'] && $product['item']['promotion_price'] > 0 && $product['item']['promotion_price'] < $product['item']['price'])
                                     <span id="prct{{ $custom_item_id }}">{{
                                         App\Models\Product::convertPrice($product['item']['promotion_price']) }}
                                     </span>

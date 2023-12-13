@@ -864,7 +864,7 @@ a {
     position: initial;
     display: flex;
     justify-content: center;
-    max-width: 260px;
+    max-width: 120px;
 }
 
 @media only screen and (max-width: 414px) {
@@ -1954,12 +1954,16 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 100%;
 }
 
+.partners {
+    padding: 0.5rem 0rem 3rem;
+}
+
 .partners .owl-carousel .owl-item img {
-    max-width: 400px;
+    max-width: 120px;
 }
 
 .menufixed.nav-fixed .logo img {
-    max-height: 60px;
+    max-height: 40px;
 }
 
 .banner-section .img .banner-w100 img{
@@ -2185,7 +2189,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .partner-slider {
-    padding:2rem 0;
+    padding:0rem 0;
 }
 
 .phone-and-accessories .item, .clothing-and-Apparel-Area .item {
