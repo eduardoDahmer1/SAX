@@ -222,22 +222,22 @@
                                                 </div> -->
                                         </div>
                                         @foreach ($bank_accounts as $bank_account)
-                                            <ul class="list-group position-absolute d-none" style="margin-top: 10px;">
+                                            <!-- <ul class="list-group position-absolute data-deposit d-none" style="margin-top: 10px;">
                                                 <li class="list-group-item border-0 px-3"
                                                     style="padding: 5px;">
                                                     {{ strtoupper($bank_account->name) }}</li>
                                                 <li class="list-group-item border-0">
                                                     {!! nl2br(str_replace('', '&nbsp;', $bank_account->info)) !!}</li>
-                                            </ul>
+                                            </ul> -->
                                         @endforeach
                                         @foreach ($bank_accounts as $bank_account)
-                                            <ul class="list-group data-deposit2 order-box-2 mb-2 d-none d-xl-none" style="margin-top: 10px;">
+                                            <!-- <ul class="list-group data-deposit2 order-box-2 mb-2 d-none d-xl-none" style="margin-top: 10px;">
                                                 <li class="list-group-item border-0 px-3"
                                                     style="padding: 5px;">
                                                     {{ strtoupper($bank_account->name) }}</li>
                                                 <li class="list-group-item border-0">
                                                     {!! nl2br(str_replace('', '&nbsp;', $bank_account->info)) !!}</li>
-                                            </ul>
+                                            </ul> -->
                                         @endforeach
                                         <div class="col-xl-5 px-0">
                                             <div class="right-area mt-0">
