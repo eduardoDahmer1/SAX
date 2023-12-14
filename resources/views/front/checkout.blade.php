@@ -222,7 +222,7 @@
                                                 </div> -->
                                         </div>
                                         @foreach ($bank_accounts as $bank_account)
-                                            <ul class="list-group position-absolute data-deposit d-none" style="margin-top: 10px;">
+                                            <ul class="list-group position-absolute d-none" style="margin-top: 10px;">
                                                 <li class="list-group-item border-0 px-3"
                                                     style="padding: 5px;">
                                                     {{ strtoupper($bank_account->name) }}</li>
