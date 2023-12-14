@@ -1029,5 +1029,14 @@
   "Enter the name of the product you want to associate":"Introduzca el nombre del producto que desea asociar",
   "Central Banner Left":"Banner Central Izquierdo",
   "Central Banner Right":"Banner Central Derecha",
+  "Product code":"Código de producto",
+  "items": "itens",
+  "Personal data":"Datos personales",
+  "Pick up in": "Recoger en",
+  "Shipping method": "Método de envío",
+  "Add new address":"Agregar nueva dirección",
+  "Department":"Departamento",
+  "Receive at my address":"Recibir en mi dirección",
+  "To go back":"Para volver",
   "Search Page":"Página de búsqueda"
 }

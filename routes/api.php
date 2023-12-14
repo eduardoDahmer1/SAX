@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\FedexController;
+use App\Http\Controllers\Front\BancardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('auth/login', 'Api\AuthController@login');
+
+
+Route::post('test','App\Http\Controllers\Front\BancardController@store');
 
 Route::group([
     'middleware' => 'api.jwt'
@@ -63,3 +67,5 @@ Route::group([
 ], function () {
     Route::get('auth', [FedexController::class, 'authorization'])->name('fedexauth');
 });
+
+

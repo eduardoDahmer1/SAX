@@ -36,6 +36,7 @@
                       <h6 class="col-2 d-lg-block d-none">QUANTIDADE</h6>
                       <h6 class="col-2 d-lg-block d-none">PREÇO</h6>
                   </div>
+                  @foreach ($products as $product)
                   <div class="d-flex flex-wrap align-items-center p-0 pb-5 border-bottom-f1 mb-4">
                       <div class="col-lg-8 prod-img">
                           <img src="https://i.ibb.co/gSKcHxR/relogio.png" alt="">
@@ -54,24 +55,9 @@
                           <span>U$ 25.00</span>
                       </div>
                   </div>
-                  <div class="d-flex flex-wrap align-items-center p-0 pb-5 border-bottom-f1 mb-4">
-                    <div class="col-lg-8 prod-img">
-                        <img src="https://i.ibb.co/gSKcHxR/relogio.png" alt="">
-                        <div class="pl-4">
-                            <h5 class="fw-normal fs-16">Relógio Integrity Cronógrafo Malha Dourado Rosa</h5>
-                            <p class="color-1">Código do produto: abjd60533</p>
-                        </div>
-                    </div>
-                    <div class="col-12 d-flex align-items-center bg-top my-4 py-2 d-lg-none d-block">
-                        <h6 class="col-6">QUANTIDADE</h6>
-                        <h6 class="col-6">PREÇO</h6>
-                    </div>
-                    <p class="col-lg-2 col-6 m-lg-0 mt-3">1</p>
-                    <div class="col-lg-2 prices col-6">
-                        <h5 class="mb-0 fw-semibold">R$ 123.49</h5>
-                        <span>U$ 25.00</span>
-                    </div>
-                </div>
+                  @endforeach
+        
+                  
                   <div class="bg-top py-5 d-flex flex-wrap justify-content-between mt-3">
                       <div class="prices d-flex justify-content-between px-2 col-12 col-md-7">
                           <p class="color-1 m-0">Total (2 itens):</p>

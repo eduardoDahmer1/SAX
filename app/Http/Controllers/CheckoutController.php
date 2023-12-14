@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Traits;
+namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\City;
 use App\Models\User;
@@ -18,22 +19,23 @@ use App\Models\Pagesetting;
 use App\Models\VendorOrder;
 use Illuminate\Support\Str;
 use App\Models\Notification;
-use Illuminate\Http\Request;
 use App\Classes\GeniusMailer;
 use App\Models\AexCity;
 use App\Models\CustomProduct;
 use App\Models\UserNotification;
 use App\Tbpedidoitens;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\CartAbandonment;
 
-/**
- * Common logic of payment gateways
- */
-trait Gateway
+class CheckoutController extends Controller
 {
+
+    private $baseUrl;
+    private $apiUrl;
+
     /**
      * Gateway allowed currency.
      * null means all currency are allowed.
@@ -122,9 +124,32 @@ trait Gateway
      */
     protected $stateCode;
 
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // if ($payment_method = 'bankdeposit') {
+        //     $this->enabled = true;
+        //     $this->name = __("Bank Deposit");
+        //     $this->checkValue = false;
+        // } else {
+            $this->enabled = true; //config("gateways.bancard");
+            $this->checkCurrency = "PYG";
+            $this->name = "Bancard";
+            $this->credentials = [
+                "publicKey" => $this->storeSettings->bancard_public_key,
+                "privateKey" => $this->storeSettings->bancard_private_key,
+            ];
+    
+            $this->baseUrl = ($this->storeSettings->bancard_mode == 'sandbox' ? 'https://vpos.infonet.com.py:8888' : 'https://vpos.infonet.com.py');
+            $this->apiUrl = "{$this->baseUrl}/vpos/api/0.3";
+        // }
+    }
+
+
     public function store(Request $request)
     {
-
         $isBrl = Currency::where('is_default', 1)->where('name', 'BRL')->get();
 
         if (!$this->enabled) {
@@ -136,35 +161,33 @@ trait Gateway
             return redirect()->back()->with('unsuccess', __("Sorry, {$this->name} is not available for this store."));
         }
 
-        //REMOVIDO TODAS VALIDAÇÕES BRASILEIRA DE COMPRA CPF E CNPJ
-
         if (config('document.cpf')) {
-            // if (strlen($request->customer_document) != 11) {
-            //     if ($request->ajax()) {
-            //         return response()->json([
-            //             'unsuccess' => __("Invalid CPF. Please check the Document field")
-            //         ], 404);
-            //     }
-            //     return redirect()->back()->with('unsuccess', __("Invalid CPF. Please check the Document field"));
-            // }
+            if (strlen($request->customer_document) != 11) {
+                if ($request->ajax()) {
+                    return response()->json([
+                        'unsuccess' => __("Invalid CPF. Please check the Document field")
+                    ], 404);
+                }
+                return redirect()->back()->with('unsuccess', __("Invalid CPF. Please check the Document field"));
+            }
         } elseif (config('document.cnpj')) {
-            // if (strlen($request->customer_document) != 14) {
-            //     if ($request->ajax()) {
-            //         return response()->json([
-            //             'unsuccess' => __("Invalid CNPJ. Please check the Document field")
-            //         ], 404);
-            //     }
-            //     return redirect()->back()->with('unsuccess', __("Invalid CNPJ. Please check the Document field"));
-            // }
+            if (strlen($request->customer_document) != 14) {
+                if ($request->ajax()) {
+                    return response()->json([
+                        'unsuccess' => __("Invalid CNPJ. Please check the Document field")
+                    ], 404);
+                }
+                return redirect()->back()->with('unsuccess', __("Invalid CNPJ. Please check the Document field"));
+            }
         } elseif (config('document.general') && !empty($isBrl->items)) {
-            // if (strlen($request->customer_document) < 11 || (strlen($request->customer_document) > 11 && strlen($request->customer_document) < 14 || strlen($request->customer_document) > 14)) {
-            //     if ($request->ajax()) {
-            //         return response()->json([
-            //             'unsuccess' => __("Invalid CPF/CNPJ. Please check the Document field")
-            //         ], 404);
-            //     }
-            //     return redirect()->back()->with('unsuccess', __("Invalid CPF/CNPJ. Please check the Document field"));
-            // }
+            if (strlen($request->customer_document) < 11 || (strlen($request->customer_document) > 11 && strlen($request->customer_document) < 14 || strlen($request->customer_document) > 14)) {
+                if ($request->ajax()) {
+                    return response()->json([
+                        'unsuccess' => __("Invalid CPF/CNPJ. Please check the Document field")
+                    ], 404);
+                }
+                return redirect()->back()->with('unsuccess', __("Invalid CPF/CNPJ. Please check the Document field"));
+            }
         }
 
         if ($request->pass_check) {
@@ -271,7 +294,7 @@ trait Gateway
                         $produc->license_qty = $final;
                         $produc->update();
 
-                        $temp =  $produc->license;
+                        $temp = $produc->license;
                         $license = $temp[$ttl];
                         $oldCart = Session::has('cart') ? Session::get('cart') : null;
                         $cart = new Cart($oldCart);
@@ -294,7 +317,7 @@ trait Gateway
         $ship_error = false;
         $temp_shipping = null;
 
-        if ($request->nc_typeShipping == "shipto") {
+        if ($request->shipping == "shipto") {
             if ($request->diff_address == "value1") {
                 $temp_zip = $request->shipping_zip;
             } else {
@@ -302,43 +325,43 @@ trait Gateway
             }
             $temp_zip = preg_replace('/[^0-9]/', '', $temp_zip);
             if ($request->shipping_cost == "SEDEX") {
-                // $sedex_cep = Session::get('correios_sedex_cep');
-                // if ($temp_zip != $sedex_cep) {
-                //     $ship_error = true;
-                // } else {
-                //     $this->order['shipping_cost'] = Session::get('correios_sedex_valor');
-                //     $this->order['shipping_type'] = "Correios SEDEX";
-                // }
+                $sedex_cep = Session::get('correios_sedex_cep');
+                if ($temp_zip != $sedex_cep) {
+                    $ship_error = true;
+                } else {
+                    $this->order['shipping_cost'] = Session::get('correios_sedex_valor');
+                    $this->order['shipping_type'] = "Correios SEDEX";
+                }
             } elseif ($request->shipping_cost == "PAC") {
-                // $pac_cep = Session::get('correios_pac_cep');
-                // if ($temp_zip != $pac_cep) {
-                //     $ship_error = true;
-                // } else {
-                //     $this->order['shipping_cost'] = Session::get('correios_pac_valor');
-                //     $this->order['shipping_type'] = "Correios PAC";
-                // }
+                $pac_cep = Session::get('correios_pac_cep');
+                if ($temp_zip != $pac_cep) {
+                    $ship_error = true;
+                } else {
+                    $this->order['shipping_cost'] = Session::get('correios_pac_valor');
+                    $this->order['shipping_type'] = "Correios PAC";
+                }
             } elseif (str_starts_with($request->shipping_cost, "AEX_")) {
-                // $service_id = explode('_', $request->shipping_cost, 2)[1];
-                // $aex_destination = Session::get('aex_destination_'.$service_id);
-                // if ($request->aex_city != $aex_destination) {
-                //     $ship_error = true;
-                // } else {
-                //     $this->order['shipping_cost'] = Session::get('aex_value_'.$service_id);
-                //     $this->order['shipping_type'] = Session::get('aex_service_'.$service_id);
-                //     $aex_city = AexCity::where('codigo_ciudad', $aex_destination)->first();
-                //     $aex_internal_note = 'AEX:['.$aex_destination.';'.$service_id.'] '.$aex_city->denominacion.' - '.$aex_city->departamento_denominacion.'|';
-                // }
+                $service_id = explode('_', $request->shipping_cost, 2)[1];
+                $aex_destination = Session::get('aex_destination_' . $service_id);
+                if ($request->aex_city != $aex_destination) {
+                    $ship_error = true;
+                } else {
+                    $this->order['shipping_cost'] = Session::get('aex_value_' . $service_id);
+                    $this->order['shipping_type'] = Session::get('aex_service_' . $service_id);
+                    $aex_city = AexCity::where('codigo_ciudad', $aex_destination)->first();
+                    $aex_internal_note = 'AEX:[' . $aex_destination . ';' . $service_id . '] ' . $aex_city->denominacion . ' - ' . $aex_city->departamento_denominacion . '|';
+                }
             } elseif (str_starts_with($request->shipping_cost, "MELHORENVIO_")) {
-                // $service_id = explode('_', $request->shipping_cost, 2)[1];
-                // /* $melhorenvio_destination = Session::get('melhorenvio_destination_'.$service_id); */
-                // $melhorenvio_destination = preg_replace('/[^0-9]/', '', Session::get('melhorenvio_destination_'.$service_id));
-                // if ($temp_zip != $melhorenvio_destination) {
-                //     $ship_error = true;
-                // } else {
-                //     $this->order['shipping_cost'] = Session::get('melhorenvio_value_'.$service_id);
-                //     $this->order['shipping_type'] = Session::get('melhorenvio_service_'.$service_id);
-                //     $melhorenvio_internal_note = 'MELHORENVIO:['.$melhorenvio_destination.';'.$service_id.'] '.$this->order['shipping_type'].'|';
-                // }
+                $service_id = explode('_', $request->shipping_cost, 2)[1];
+                /* $melhorenvio_destination = Session::get('melhorenvio_destination_'.$service_id); */
+                $melhorenvio_destination = preg_replace('/[^0-9]/', '', Session::get('melhorenvio_destination_' . $service_id));
+                if ($temp_zip != $melhorenvio_destination) {
+                    $ship_error = true;
+                } else {
+                    $this->order['shipping_cost'] = Session::get('melhorenvio_value_' . $service_id);
+                    $this->order['shipping_type'] = Session::get('melhorenvio_service_' . $service_id);
+                    $melhorenvio_internal_note = 'MELHORENVIO:[' . $melhorenvio_destination . ';' . $service_id . '] ' . $this->order['shipping_type'] . '|';
+                }
             } else {
                 if (empty($request->shipping_cost)) {
                     $ship_error = true;
@@ -346,9 +369,11 @@ trait Gateway
                     $temp_shipping = Shipping::where('id', '=', $request->shipping_cost)->first();
                     if (!empty($temp_shipping)) {
                         $session_ship_price = Session::get('NORMAL-SHIP-' . $request->shipping_cost);
-                        if (empty($session_ship_price) &&
+                        if (
+                            empty($session_ship_price) &&
                             $temp_shipping->shipping_type != 'Free' &&
-                            $temp_shipping->price_free_shipping == 0) {
+                            $temp_shipping->price_free_shipping == 0
+                        ) {
                             $ship_error = true;
                         } else {
                             $this->order['shipping_cost'] = $session_ship_price;
@@ -370,18 +395,18 @@ trait Gateway
         }
 
         // Package validation
-        $temp_package = Package::where('id', '=', $request->packing_cost)->first();
-        if (!empty($temp_package->title)) {
-            $this->order['packing_cost'] = $temp_package->price;
-            $this->order['packing_type'] = $temp_package->title;
-        } else {
-            if ($request->ajax()) {
-                return response()->json([
-                    'unsuccess' => __('Packing Error')
-                ], 404);
-            }
-            return redirect()->back()->with('unsuccess', __('Packing Error'));
-        }
+        // $temp_package = Package::where('id', '=', $request->packing_cost)->first();
+        // if (!empty($temp_package->title)) {
+        //     $this->order['packing_cost'] = $temp_package->price;
+        //     $this->order['packing_type'] = $temp_package->title;
+        // } else {
+        //     if ($request->ajax()) {
+        //         return response()->json([
+        //             'unsuccess' => __('Packing Error')
+        //         ], 404);
+        //     }
+        //     return redirect()->back()->with('unsuccess', __('Packing Error'));
+        // }
 
         if (empty($this->order['shipping_cost'])) {
             $this->order['shipping_cost'] = 0;
@@ -400,9 +425,11 @@ trait Gateway
         }
 
         // Apply free shipping if shipping method is fixed with over price
-        if (!empty($temp_shipping) && $temp_shipping->shipping_type != 'Free' &&
+        if (
+            !empty($temp_shipping) && $temp_shipping->shipping_type != 'Free' &&
             $temp_shipping->price_free_shipping > 0 &&
-            $cart_total >= $temp_shipping->price_free_shipping) {
+            $cart_total >= $temp_shipping->price_free_shipping
+        ) {
             $this->order['shipping_cost'] = 0;
         }
 
@@ -477,9 +504,8 @@ trait Gateway
             $shipping_country = $shipCountry->country_name;
             $shipping_country_id = $shipCountry->id;
         }
-
-        $document = preg_replace('/[^0-9]/', '', $request->document);
-        if (empty($document)) {
+        $customer_document = preg_replace('/[^0-9]/', '', $request->customer_document);
+        if (empty($customer_document)) {
             if ($request->ajax()) {
                 return response()->json([
                     'unsuccess' => __("Sorry, document field only accepts numbers")
@@ -489,12 +515,12 @@ trait Gateway
             return redirect()->back()->withInput()->with('unsuccess', __("Sorry, document field only accepts numbers"));
         }
 
-        $final_internal_note = '#:['.$this->storeSettings->id.';'.$this->storeSettings->domain.'] | ';
+        $final_internal_note = '#:[' . $this->storeSettings->id . ';' . $this->storeSettings->domain . '] | ';
         if (isset($aex_internal_note)) {
-            $final_internal_note = $final_internal_note.$aex_internal_note;
+            $final_internal_note = $final_internal_note . $aex_internal_note;
         }
         if (isset($melhorenvio_internal_note)) {
-            $final_internal_note = $final_internal_note.$melhorenvio_internal_note;
+            $final_internal_note = $final_internal_note . $melhorenvio_internal_note;
         }
 
         $customProducts = env("ENABLE_CUSTOM_PRODUCT", false);
@@ -506,7 +532,7 @@ trait Gateway
             foreach ($cart->items as $prod) {
                 if (!empty($prod['customizable_name']) || !empty($prod['customizable_logo']) || !empty($prod['customizable_gallery'])) {
                     $agreeCustomTerms = __('You agreed with the conditions and terms for custom products');
-                    $final_order_note .= !empty($final_order_note) ? ' | '.$agreeCustomTerms : $agreeCustomTerms;
+                    $final_order_note .= !empty($final_order_note) ? ' | ' . $agreeCustomTerms : $agreeCustomTerms;
                 }
             }
         }
@@ -514,16 +540,16 @@ trait Gateway
             foreach ($cart->items as $prod) {
                 if (!empty($prod['customizable_name']) || !empty($prod['customizable_number'])) {
                     $agreeCustomTerms = __('You reviewed your custom products choices.');
-                    $final_order_note .= !empty($final_order_note) ? ' | '.$agreeCustomTerms : $agreeCustomTerms;
+                    $final_order_note .= !empty($final_order_note) ? ' | ' . $agreeCustomTerms : $agreeCustomTerms;
                 }
             }
         }
 
-        
+
         $cartArray = [];
-        // $cartArray['items'] = $cart->items;
+        $cartArray['items'] = $cart->items;
         $cartArray['totalQty'] = $cart->totalQty;
-        $cartArray['totalPrice'] = $cart->totalPrice + $this->order['shipping_cost'];
+        $cartArray['totalPrice'] = $cart->totalPrice;
 
         $this->order['user_id'] = $request->user_id;
         $this->order['cart'] = $cartArray;
@@ -547,7 +573,7 @@ trait Gateway
 
         $this->order['customer_email'] = $request->email;
         $this->order['customer_name'] = $request->name;
-        $this->order['customer_document'] = $request->document;
+        $this->order['customer_document'] = $request->customer_document;
         $this->order['customer_zip'] = $request->zip;
         $this->order['customer_phone'] = $request->phone;
         $this->order['customer_address'] = $request->address;
@@ -558,15 +584,15 @@ trait Gateway
         $this->order['customer_state'] = $customer_state;
         $this->order['customer_country'] = $customer_country;
 
-        $this->order['shipping_name'] = $request->name;
-        $this->order['shipping_document'] = $request->document;
-        $this->order['shipping_email'] = $request->email;
-        $this->order['shipping_zip'] = $request->zip;
-        $this->order['shipping_phone'] = $request->phone;
-        $this->order['shipping_address'] = $request->address;
-        $this->order['shipping_address_number'] = $request->address_number;
-        $this->order['shipping_district'] = $request->district;
-        $this->order['shipping_complement'] = $request->complement;
+        $this->order['shipping_name'] = $request->shipping_name;
+        $this->order['shipping_document'] = "";
+        $this->order['shipping_email'] = "";
+        $this->order['shipping_zip'] = $request->shipping_zip;
+        $this->order['shipping_phone'] = $request->shipping_phone;
+        $this->order['shipping_address'] = $request->shipping_address;
+        $this->order['shipping_address_number'] = $request->shipping_address_number;
+        $this->order['shipping_district'] = $request->shipping_district;
+        $this->order['shipping_complement'] = $request->shipping_complement;
         $this->order['shipping_city'] = $shipping_city;
         $this->order['shipping_state'] = $shipping_state;
         $this->order['shipping_country'] = $shipping_country;
@@ -596,13 +622,11 @@ trait Gateway
         }
         $this->order->save();
 
-
-
         //APOS A ORDEM, ATUALIZO TODOS OS DADOS DO CLIENTE, E SALVO ELES.
-        $users = User::where('email', $request->personal_email)->first();
+        $users = User::where('email', 'teste@gmail.com')->first();
         $users['email'] = $request->email;
         $users['name'] = $request->name;
-        $users['document'] = $request->document;
+        $users['document'] = $customer_document;
         $users['zip'] = $request->zip;
         $users['phone'] = $request->phone;
         $users['address'] = $request->address;
@@ -615,8 +639,8 @@ trait Gateway
         $users['birth_date'] = $request->customer_birthday;
         $users['gender'] = $request->customer_gender;
         $users['ruc'] = $request->cpf_brasileiro;
-        $users->save();
-
+        // $users->save();
+        
         if (!$this->storeSettings->guest_checkout && $this->storeSettings->is_cart_abandonment) {
             CartAbandonment::where('user_id', Auth::user()->id)->delete();
         }
@@ -638,9 +662,9 @@ trait Gateway
         }
 
         /**
-        * To enable integration with Solução Empresarial, set the WITH_SOLUCAOEMPRESARIAL=true in your .env file
-        * Perform migrations in the path "databse/migrations/solucaoempresarial"
-        */
+         * To enable integration with Solução Empresarial, set the WITH_SOLUCAOEMPRESARIAL=true in your .env file
+         * Perform migrations in the path "databse/migrations/solucaoempresarial"
+         */
         $solucaoEmpresarial = env("WITH_SOLUCAOEMPRESARIAL", false);
 
         if ($solucaoEmpresarial) {
@@ -699,9 +723,9 @@ trait Gateway
                     'nome_cidade' => $this->order['customer_city'],
                     'uf' => $customer_state_initials,
                     'bairro' => $this->order['customer_district'],
-                    'telefone' => $this->order['customer_phone'],
-                    'celular' => $this->order['customer_phone'],
-                    'email' => $this->order['customer_email'],
+                    'telefone' => $this->order['phone'],
+                    'celular' => $this->order['phone'],
+                    'email' => $this->order['email'],
 
                     // 'tipo_contribuinte' => NULL,
                     // 'consumidor_final' => NULL,
@@ -711,7 +735,6 @@ trait Gateway
                 ]
             );
         }
-
         if ($this->order->dp == 1) {
             $track = new OrderTrack;
             $track->title = __('Completed');
@@ -754,7 +777,7 @@ trait Gateway
                 $temp = $product->size_qty;
                 $temp[$prod['size_key']] = $x;
                 $temp1 = implode(',', $temp);
-                $product->size_qty =  $temp1;
+                $product->size_qty = $temp1;
                 $product->stock -= $prod['qty'];
                 $product->update();
                 if ($product->stock <= 5) {
@@ -768,7 +791,7 @@ trait Gateway
                 $temp = $product->color_qty;
                 $temp[$prod['color_key']] = $y;
                 $temp1 = implode(',', $temp);
-                $product->color_qty =  $temp1;
+                $product->color_qty = $temp1;
                 $product->stock -= $prod['qty'];
                 $product->update();
                 if ($product->stock <= 5) {
@@ -782,7 +805,7 @@ trait Gateway
                 $temp = $product->material_qty;
                 $temp[$prod['material_key']] = $z;
                 $temp1 = implode(',', $temp);
-                $product->material_qty =  $temp1;
+                $product->material_qty = $temp1;
                 $product->stock -= $prod['qty'];
                 $product->update();
             } else {
@@ -806,7 +829,7 @@ trait Gateway
 
         foreach ($cart->items as $prod) {
             if ($prod['item']['user_id'] != 0) {
-                $vorder =  new VendorOrder;
+                $vorder = new VendorOrder;
                 $vorder->order_id = $this->order->id;
                 $vorder->user_id = $prod['item']['user_id'];
                 $notf[] = $prod['item']['user_id'];
@@ -884,7 +907,7 @@ trait Gateway
         } else {
             $to = $request->email;
             $subject = __("Your Order Placed!!");
-            $msg = $this->storeSettings->title . "\n" .__("Hello") . " " . $request->name . "!\n" . __("You have placed a new order.") . "\n" .
+            $msg = $this->storeSettings->title . "\n" . __("Hello") . " " . $request->name . "!\n" . __("You have placed a new order.") . "\n" .
                 __("Your order number is") . " " . $this->order->order_number . "." . __("Please wait for your delivery.") . " \n"
                 . __("Thank you");
             $headers = "From: " . $this->storeSettings->from_name . "<" . $this->storeSettings->from_email . ">";
@@ -896,7 +919,7 @@ trait Gateway
             $data = [
                 'to' => Pagesetting::find(1)->contact_email,
                 'subject' => __("New Order Received!!"),
-                'body' => $this->storeSettings->title . "<br>" .__("Hello Admin!") . "<br>" . __("Your store has received a new order.") . "<br>" .
+                'body' => $this->storeSettings->title . "<br>" . __("Hello Admin!") . "<br>" . __("Your store has received a new order.") . "<br>" .
                     __("Order Number is") . " " . $this->order->order_number . "." . __("Please login to your panel to check.") . "<br>" .
                     __("Thank you"),
             ];
@@ -906,7 +929,7 @@ trait Gateway
         } else {
             $to = Pagesetting::find(1)->contact_email;
             $subject = __("New Order Received!!");
-            $msg = $this->storeSettings->title . "<br>" .__("Hello Admin!") . "<br>" . __("Your store has received a new order.") . "<br>" .
+            $msg = $this->storeSettings->title . "<br>" . __("Hello Admin!") . "<br>" . __("Your store has received a new order.") . "<br>" .
                 __("Order Number is") . " " . $this->order->order_number . "." . __("Please login to your panel to check.") . "<br>" .
                 __("Thank you");
             $headers = "From: " . $this->storeSettings->from_name . "<" . $this->storeSettings->from_email . ">";
@@ -958,16 +981,85 @@ trait Gateway
         return redirect()->route('front.cart')->with('unsuccess', __("Error trying to get payment from") . " " . $this->name);
     }
 
-    /**
-     * Custom Gateway Logic.
-     * Must set $this->paymentUrl with the gateway payment url to redirect or
-     * set $this->paymentJson to process in frontend without a redirect.
-     *
-     * @return void
-     */
+
+
     protected function payment()
     {
-        $this->paymentUrl = "";
-        return;
+
+        $payment_method = 'bancard';
+
+        // if ($payment_method == 'bankdeposit') {
+        //     $this->paymentUrl = action('Front\PaymentController@payreturn');
+
+        //     return;
+        // }
+
+        if ($payment_method == 'bancard') {
+
+            $shop_process_id = $this->order->id . time();
+            $amount = number_format($this->cartTotalCurrency["after_costs"], 2, ".", "");
+            $currency = 'PYG';
+
+            $notify_url = action('Front\BancardController@bancardCallback');
+
+            $orderData = [
+                "public_key" => $this->storeSettings->bancard_public_key,
+                "operation" => [
+                    "token" => md5($this->storeSettings->bancard_private_key . $shop_process_id . $amount . $currency), //md5((private_key + shop_process_id + amount + currency)
+                    "shop_process_id" => $shop_process_id,
+                    "amount" => $amount,
+                    "currency" => $currency,
+                    "additional_data" => "",
+                    "description" => "Order #{$this->order->order_number}",
+                    "return_url" => $notify_url,
+                    "cancel_url" => $notify_url
+                ]
+            ];
+
+            if (!empty($this->request->zimple_phone)) {
+                $orderData["operation"]["additional_data"] = $this->request->zimple_phone;
+                $orderData["operation"]["zimple"] = 'S';
+            }
+
+            $json = json_encode($orderData);
+
+            $headers = array(
+                'Content-Type: application/json'
+            );
+
+            $session = curl_init("{$this->apiUrl}/single_buy");
+
+            curl_setopt($session, CURLOPT_POST, true);
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($session, CURLOPT_POSTFIELDS, $json);
+            curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($session, CURLOPT_SSLVERSION, 6);
+
+            $response = curl_exec($session);
+            $error = curl_error($session);
+
+            curl_close($session);
+
+            $bancardResponse = json_decode($response);
+
+            if (isset($bancardResponse->process_id)) {
+                $this->order->charge_id = $shop_process_id;
+                $this->order->save();
+
+                Session::put('bancard', ['shop_process_id' => $shop_process_id, 'order_number' => $this->order->order_number]);
+
+                //$this->paymentUrl = "{$this->baseUrl}/payment/single_buy?process_id={$bancardResponse->process_id}";
+                $this->paymentJson = [
+                    "process_id" => $bancardResponse->process_id,
+                    "is_zimple" => (!empty($this->request->zimple_phone))
+                ];
+                return;
+            }
+
+            Log::debug('bancard_store_response', [$bancardResponse]);
+
+        }
     }
+
 }

@@ -878,6 +878,24 @@ class Product extends LocalizedModel
         }
     }
 
+    public static function convertPriceDolar($price)
+    {
+        $storeSettings = resolve('storeSettings');
+        if (Session::has('currency') && $storeSettings->is_currency) {
+            $curr = Currency::find(Session::get('currency'));
+        } else {
+            $curr = Currency::find($storeSettings->currency_id);
+        }
+
+        $valor_formatado = number_format($price, 2, '.', ',');
+        
+        if ($storeSettings->currency_format == 0) {
+            return 'U$ ' . $valor_formatado;
+        } else {
+            return $price . $curr->sign;
+        }
+    }
+
     public static function vendorConvertPrice($price)
     {
         $storeSettings = resolve('storeSettings');
