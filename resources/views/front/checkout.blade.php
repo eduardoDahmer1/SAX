@@ -32,7 +32,7 @@
                             <div class="preloader" id="preloader_checkout" style="background: url({{ $gs->loaderUrl }}) no-repeat scroll center center; background-color: rgba(0,0,0,0.5); display: none">
                             </div>
                         
-                            <form id="bancard-form" action="" method="POST" class="checkoutform d-flex justify-content-center">
+                            <form id="bancard-form" action="" method="POST" class="checkoutform d-flex justify-content-center replace-bank">
                                 @include('includes.form-success')
                                 @include('includes.form-error')
                                 {{ csrf_field() }}
@@ -199,58 +199,18 @@
                                             <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
                                         </div>
                                         <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-left-center">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <input id="credit" type="radio" name="pay-method" value="1">
-                                                <label for="credit">
-                                                    <i class="bi bi-bank"></i>
-                                                    <p>Depósito bancario</p>
-                                                </label>
-                                            </div>
-                                            <!-- <a class="nav-link payment" data-val="bankDeposit"
-                                                                                data-show="no"
-                                                                                data-form="{{ route('bank.submit') }}"
-                                                                                data-href="{{ route('front.load.payment', ['slug1' => 'cod', 'slug2' => 0]) }}"
-                                                                                id="v-pills-tab13-tab" data-toggle="pill"
-                                                                                href="#v-pills-tab13" role="tab"
-                                                                                aria-controls="v-pills-tab13" aria-selected="false">
-                                                                                <div class="icon">
-                                                                                    <span class="radio"></span>
-                                                                                </div>
-                                                                                <p>
-                                                                                    {{ __('Bank Deposit') }}
-                                                                                    @if ($gs->bank_text != null)
-                                                                                        <small>
-                                                                                            {{ $gs->bank_text }}
-                                                                                        </small>
-                                                                                    @endif
-                                                                                </p>
-                                                                            </a>
-
-                                                                            <a class="nav-link payment" data-val="bancard"
-                                                                            data-show="yes"
-                                                                            data-form="{{ route('bancard.submit') }}"
-                                                                            data-href="{{ route('front.load.payment', ['slug1' => 'bancard', 'slug2' => 0]) }}"
-                                                                            id="v-pills-tab1-tab" data-toggle="pill"
-                                                                            href="#v-pills-tab1" role="tab"
-                                                                            aria-controls="v-pills-tab1" aria-selected="false">
-                                                                            <div class="icon">
-                                                                                <span class="radio"></span>
-                                                                            </div>
-                                                                            <p>
-                                                                                Bancard
-                                                                                @if ($gs->bancard_text != null)
-                                                                                    <small>
-                                                                                        {{ $gs->bancard_text }}
-                                                                                    </small>
-                                                                                @endif
-                                                                            </p>
-                                                                        </a> -->
-
                                             <div class="d-flex align-items-center justify-content-center color-2">
-                                                <input id="transfer" type="radio" name="pay-method" value="2" checked>
+                                                <input id="transfer" type="radio" name="pay-method" value="2" data-form="{{ route('bancard.submit') }}" checked>
                                                 <label for="transfer">
                                                     <i class="bi bi-credit-card color-2"></i>
                                                     <p>Bancard</p>
+                                                </label>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <input id="credit" type="radio" name="pay-method" value="1" data-form="{{ route('bank.submit') }}">
+                                                <label for="credit">
+                                                    <i class="bi bi-bank"></i>
+                                                    <p>Depósito bancario</p>
                                                 </label>
                                             </div>
                                             <!-- <div>
@@ -303,7 +263,7 @@
                                                     </div>
                                                     <div class="d-flex btns2 flex-wrap">
                                                         <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
-                                                        <button type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform">{{ __('Continue') }}</button>
+                                                        <button style="z-index: 9;" type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform">{{ __('Continue') }}</button>
                                                     </div> 
                                                 </div>
                                             </div>

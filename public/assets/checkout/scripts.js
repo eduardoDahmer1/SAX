@@ -199,24 +199,35 @@ document.addEventListener('DOMContentLoaded', function () {
       freteText.nextElementSibling.innerText = " Asunción"
     }
   })
-  // var payType = document.querySelectorAll('input[name="pay-method"]')
+  var payType = document.querySelectorAll('input[name="pay-method"]')
+  var formBank = document.querySelector('.replace-bank')
+  var urlBank = formBank.action
+
+  function replaceBank(newAction) {
+    formBank.action = newAction;
+  }
+      
   payType.forEach(type => {
     type.addEventListener('change', () => {
       if(type.value == 1) {
-        type.nextElementSibling.classList.add('color-2')
-        type.nextElementSibling.querySelector('i').classList.add('color-2')
-        type.parentNode.classList.add('color-2')
-        payType[1].nextElementSibling.querySelector('i').classList.remove('color-2')
-        payType[1].nextElementSibling.classList.remove('color-2')
-        payType[1].parentNode.classList.remove('color-2')
-      }
-      if(type.value == 2) {
+        formBank.setAttribute("id", "myform")
+        replaceBank(type.getAttribute('data-form'))
         type.nextElementSibling.classList.add('color-2')
         type.nextElementSibling.querySelector('i').classList.add('color-2')
         type.parentNode.classList.add('color-2')
         payType[0].nextElementSibling.querySelector('i').classList.remove('color-2')
         payType[0].nextElementSibling.classList.remove('color-2')
         payType[0].parentNode.classList.remove('color-2')
+      }
+      if(type.value == 2) {
+        formBank.setAttribute("id", "bancard-form")
+        replaceBank(type.getAttribute('data-form'))
+        type.nextElementSibling.classList.add('color-2')
+        type.nextElementSibling.querySelector('i').classList.add('color-2')
+        type.parentNode.classList.add('color-2')
+        payType[1].nextElementSibling.querySelector('i').classList.remove('color-2')
+        payType[1].nextElementSibling.classList.remove('color-2')
+        payType[1].parentNode.classList.remove('color-2')
       }
     })
   })
