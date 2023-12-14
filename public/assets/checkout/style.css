@@ -99,6 +99,12 @@ input[type="text"] {
 .justify-content-left-center {
   justify-content: left;
 }
+
+.data-deposit {
+bottom: 0;
+width: 368px;
+border: solid 2px #f1f1f1;
+}
 @media (max-width:1200px) {
   .justify-content-left-center {
     justify-content: center;
@@ -106,6 +112,9 @@ input[type="text"] {
   .btns2 button {
     width: 100%;
     margin: 0 0 10px;
+  }
+  .data-deposit {
+    display: none !important;
   }
 }
 @media (max-width:992px) {

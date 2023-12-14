@@ -201,7 +201,9 @@ document.addEventListener('DOMContentLoaded', function () {
   })
   var payType = document.querySelectorAll('input[name="pay-method"]')
   var formBank = document.querySelector('.replace-bank')
-  var urlBank = formBank.action
+  var dataDeposit = document.querySelector('.data-deposit')
+  var btnDeposit = document.querySelector('.btn-deposit')
+  var dataDeposit2 = document.querySelector('.data-deposit2')
 
   function replaceBank(newAction) {
     formBank.action = newAction;
@@ -210,6 +212,9 @@ document.addEventListener('DOMContentLoaded', function () {
   payType.forEach(type => {
     type.addEventListener('change', () => {
       if(type.value == 1) {
+        dataDeposit.classList.replace('d-none', 'd-block')
+        dataDeposit2.classList.replace('d-none', 'd-block')
+        btnDeposit.style.bottom = '-60px'
         formBank.setAttribute("id", "myform")
         replaceBank(type.getAttribute('data-form'))
         type.nextElementSibling.classList.add('color-2')
@@ -220,6 +225,9 @@ document.addEventListener('DOMContentLoaded', function () {
         payType[0].parentNode.classList.remove('color-2')
       }
       if(type.value == 2) {
+        dataDeposit.classList.replace('d-block', 'd-none')
+        dataDeposit2.classList.replace('d-block', 'd-none')
+        btnDeposit.style.bottom = '30px'
         formBank.setAttribute("id", "bancard-form")
         replaceBank(type.getAttribute('data-form'))
         type.nextElementSibling.classList.add('color-2')
