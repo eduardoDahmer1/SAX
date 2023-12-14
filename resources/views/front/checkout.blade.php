@@ -199,13 +199,13 @@
                                             <h6 class="col-3 d-lg-block d-none text-uppercase">{{ __('Total') }}</h6>
                                         </div>
                                         <div class="pay-method d-flex gap-2 col-xl-7 p-0 mb-4 justify-content-left-center">
-                                            {{-- <div class="d-flex align-items-center justify-content-center">
+                                            <div class="d-flex align-items-center justify-content-center">
                                                 <input id="credit" type="radio" name="pay-method" value="1">
                                                 <label for="credit">
                                                     <i class="bi bi-bank"></i>
                                                     <p>Depósito bancario</p>
                                                 </label>
-                                            </div> --}}
+                                            </div>
                                             <div class="d-flex align-items-center justify-content-center color-2">
                                                 <input id="transfer" type="radio" name="pay-method" value="2" checked>
                                                 <label for="transfer">
@@ -376,7 +376,7 @@
             
                                                                 <!-- Phone -->
                                                                 <div>
-                                                                    <input class="form-control" type="text" name="phone"
+                                                                    <input class="form-control" type="text" name="phone-old"
                                                                         id="billPhone" placeholder="{{ __('Phone Number') }} *"
                                                                         required=""
                                                                         value="{{ session()->get('session_order')['customer_phone'] }}">
@@ -692,7 +692,7 @@
                 
                                                                 <!-- Phone -->
                                                                 <div class="col-lg-6">
-                                                                    <input class="form-control" type="text" name="phone"
+                                                                    <input class="form-control" type="text" name="phone-old"
                                                                         id="billPhone" placeholder="{{ __('Phone Number') }} *"
                                                                         required=""
                                                                         value="{{ Auth::guard('web')->check() ? Auth::guard('web')->user()->phone : old('phone') }}">

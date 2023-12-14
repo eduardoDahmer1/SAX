@@ -478,8 +478,8 @@ trait Gateway
             $shipping_country_id = $shipCountry->id;
         }
 
-        $customer_document = preg_replace('/[^0-9]/', '', $request->customer_document);
-        if (empty($customer_document)) {
+        $document = preg_replace('/[^0-9]/', '', $request->document);
+        if (empty($document)) {
             if ($request->ajax()) {
                 return response()->json([
                     'unsuccess' => __("Sorry, document field only accepts numbers")
@@ -547,7 +547,7 @@ trait Gateway
 
         $this->order['customer_email'] = $request->email;
         $this->order['customer_name'] = $request->name;
-        $this->order['customer_document'] = $customer_document;
+        $this->order['customer_document'] = $request->document;
         $this->order['customer_zip'] = $request->zip;
         $this->order['customer_phone'] = $request->phone;
         $this->order['customer_address'] = $request->address;
@@ -559,7 +559,7 @@ trait Gateway
         $this->order['customer_country'] = $customer_country;
 
         $this->order['shipping_name'] = $request->name;
-        $this->order['shipping_document'] = $customer_document;
+        $this->order['shipping_document'] = $request->document;
         $this->order['shipping_email'] = $request->email;
         $this->order['shipping_zip'] = $request->zip;
         $this->order['shipping_phone'] = $request->phone;
@@ -602,7 +602,7 @@ trait Gateway
         $users = User::where('email', $request->personal_email)->first();
         $users['email'] = $request->email;
         $users['name'] = $request->name;
-        $users['document'] = $customer_document;
+        $users['document'] = $request->document;
         $users['zip'] = $request->zip;
         $users['phone'] = $request->phone;
         $users['address'] = $request->address;
