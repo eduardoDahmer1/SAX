@@ -206,6 +206,46 @@
                                                     <p>Depósito bancario</p>
                                                 </label>
                                             </div>
+                                            <!-- <a class="nav-link payment" data-val="bankDeposit"
+                                                                                data-show="no"
+                                                                                data-form="{{ route('bank.submit') }}"
+                                                                                data-href="{{ route('front.load.payment', ['slug1' => 'cod', 'slug2' => 0]) }}"
+                                                                                id="v-pills-tab13-tab" data-toggle="pill"
+                                                                                href="#v-pills-tab13" role="tab"
+                                                                                aria-controls="v-pills-tab13" aria-selected="false">
+                                                                                <div class="icon">
+                                                                                    <span class="radio"></span>
+                                                                                </div>
+                                                                                <p>
+                                                                                    {{ __('Bank Deposit') }}
+                                                                                    @if ($gs->bank_text != null)
+                                                                                        <small>
+                                                                                            {{ $gs->bank_text }}
+                                                                                        </small>
+                                                                                    @endif
+                                                                                </p>
+                                                                            </a>
+
+                                                                            <a class="nav-link payment" data-val="bancard"
+                                                                            data-show="yes"
+                                                                            data-form="{{ route('bancard.submit') }}"
+                                                                            data-href="{{ route('front.load.payment', ['slug1' => 'bancard', 'slug2' => 0]) }}"
+                                                                            id="v-pills-tab1-tab" data-toggle="pill"
+                                                                            href="#v-pills-tab1" role="tab"
+                                                                            aria-controls="v-pills-tab1" aria-selected="false">
+                                                                            <div class="icon">
+                                                                                <span class="radio"></span>
+                                                                            </div>
+                                                                            <p>
+                                                                                Bancard
+                                                                                @if ($gs->bancard_text != null)
+                                                                                    <small>
+                                                                                        {{ $gs->bancard_text }}
+                                                                                    </small>
+                                                                                @endif
+                                                                            </p>
+                                                                        </a> -->
+
                                             <div class="d-flex align-items-center justify-content-center color-2">
                                                 <input id="transfer" type="radio" name="pay-method" value="2" checked>
                                                 <label for="transfer">
