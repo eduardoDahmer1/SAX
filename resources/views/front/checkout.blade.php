@@ -119,7 +119,7 @@
                                             <!-- retirar no meu endereço -->
                                             <div class="border-bottom-f1 pb-4 d-flex justify-content-between"> @if(Auth::guard('web')->check()
                                                 && Auth::guard('web')->user()->address != '') <div>
-                                                    <input id="myaddress" name="shipping" value="1" type="radio">
+                                                    <input id="myaddress" name="shipping" value="1" type="radio" @checked(isset(Auth::guard('web')->user()->address))>
                                                     <label for="myaddress">{{ __('Receive at my address') }}</label>
                                                     <p style="font-size: 14px;" class="mb-0 color-1 px-3">
                                                         {{Auth::guard('web')->user()->address ?? ''}}
@@ -132,7 +132,7 @@
                                             <!-- adicionar endereço -->
                                             <div class="border-bottom-f1 py-4 d-flex flex-wrap justify-content-between">
                                                 <div>
-                                                    <input id="newaddress" name="shipping" value="2" type="radio" checked>
+                                                    <input id="newaddress" name="shipping" value="2" type="radio" @checked(!isset(Auth::guard('web')->user()->address))>
                                                     <label for="newaddress">{{ __('Add new address') }}</label>
                                                 </div>
                                                 <h6 class="px-2 color-3">U$10.00</h6>
@@ -222,22 +222,22 @@
                                                 </div> -->
                                         </div>
                                         @foreach ($bank_accounts as $bank_account)
-                                            <!-- <ul class="list-group position-absolute data-deposit d-none" style="margin-top: 10px;">
+                                            <ul class="list-group position-absolute data-deposit d-none" style="margin-top: 10px;">
                                                 <li class="list-group-item border-0 px-3"
                                                     style="padding: 5px;">
                                                     {{ strtoupper($bank_account->name) }}</li>
                                                 <li class="list-group-item border-0">
                                                     {!! nl2br(str_replace('', '&nbsp;', $bank_account->info)) !!}</li>
-                                            </ul> -->
+                                            </ul>
                                         @endforeach
                                         @foreach ($bank_accounts as $bank_account)
-                                            <!-- <ul class="list-group data-deposit2 order-box-2 mb-2 d-none d-xl-none" style="margin-top: 10px;">
+                                            <ul class="list-group data-deposit2 order-box-2 mb-2 d-none d-xl-none" style="margin-top: 10px;">
                                                 <li class="list-group-item border-0 px-3"
                                                     style="padding: 5px;">
                                                     {{ strtoupper($bank_account->name) }}</li>
                                                 <li class="list-group-item border-0">
                                                     {!! nl2br(str_replace('', '&nbsp;', $bank_account->info)) !!}</li>
-                                            </ul> -->
+                                            </ul>
                                         @endforeach
                                         <div class="col-xl-5 px-0">
                                             <div class="right-area mt-0">
@@ -263,15 +263,16 @@
                                                         <p id="freteText2" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">
                                                             {{__('Pick up in')}}
                                                         </p>
-                                                        <p id="freteText" style="font-size: 14px;" class="fw-semibold colo-1 pr-1">
+                                                        <p id="freteText" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">
                                                             {{__('Pick up in')}}
                                                         </p>
                                                         <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
                                                     </div>
+                                                    @if(isset(Auth::guard('web')->user()->address))
+                                                    <p id="inMyAddress" style="font-size: 14px;" class="fw-semibold colo-1 pr-1">{{ Auth::guard('web')->user()->address }}</p>
+                                                    @endif
                                                     <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-end"></p>
-                                                    <p id="frete10" class="fw-bold border-bottom-f1 pb-3 mb-3 text-end">
-                                                        <b style="font-size: 14px;" class="cart-total fw-bold">+ {{App\Models\Product::convertPrice(10)}}</b>
-                                                        <br>
+                                                    <p id="frete10" class="fw-bold border-bottom-f1 pb-3 mb-3 text-end"><b style="font-size: 14px;" class="cart-total fw-bold">+ {{App\Models\Product::convertPrice(10)}}</b><br>
                                                         <b class="cart-total fw-bold"> U$10</b>
                                                     </p>
                                                     <div class="total-price d-flex justify-content-between">
@@ -281,7 +282,7 @@
                                                     </div>
                                                     <div class="d-flex btns2 flex-wrap">
                                                         <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
-                                                        <button style="z-index: 9;" type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform">{{ __('Continue') }}</button>
+                                                        <button id="lastBtn" style="z-index: 9;" type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform" disabled>{{ __('Continue') }}</button>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -2265,7 +2266,7 @@
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'https://shop.saxdepartment.com' + '/checkout/getStatesOptions',
+            url: 'https://localhost' + '/checkout/getStatesOptions',
             data: {
                 location_id: 173 //paraguai
             },
@@ -2287,7 +2288,7 @@
             var selectedValue = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'https://shop.saxdepartment.com' + '/checkout/getCitiesOptions',
+                url: 'https://localhost' + '/checkout/getCitiesOptions',
                 data: {
                     location_id: selectedValue //paraguai
                 },
