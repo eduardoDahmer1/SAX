@@ -2,6 +2,7 @@ var iconPerson = document.querySelector('.bi-person-fill')
 var iconTruck = document.querySelector('.bi-truck')
 var isTwo = ''
 var iconCard = document.querySelector('.bi-credit-card')
+var lastBtn = document.getElementById('final-btn')
 document.addEventListener('DOMContentLoaded', function () {
   const steps = document.querySelectorAll('.step');
   let currentStep = 0;
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (currentStep == 3) {
         iconCard.classList.add('color-2')
         iconCard.parentNode.previousElementSibling.classList.add('bg-color-2')
+        lastBtn.disabled = false
       }
       showStep(currentStep);
     } else {
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (currentStep == 2) {
       iconCard.classList.remove('color-2')
       iconCard.parentNode.previousElementSibling.classList.remove('bg-color-2')
+      lastBtn.disabled = true
     }
     if (currentStep == 1) {
       iconTruck.classList.remove('color-2')
@@ -144,13 +147,45 @@ document.addEventListener('DOMContentLoaded', function () {
   var freteText2 = document.getElementById('freteText2')
   var shippingType = document.querySelectorAll('input[name="shipping"]')
   var newAddress = document.querySelector('.new-address')
+  var myaddress = document.querySelector('#inMyAddress')
   var isTwo = document.getElementById('newaddress')
   var remove10 = document.querySelector('.price-10')
   var add10 = document.querySelector('.add10')
 
   shippingType.forEach(input => {
+    window.addEventListener('load', function() {
+      if(input.checked && input.value == 1) {
+        myaddress.previousElementSibling.classList.replace('d-flex', 'd-none')
+        myaddress.classList.remove('d-none')
+        freteText.nextElementSibling.classList.replace('d-none', 'd-block')
+        newAddress.classList.replace('d-block', 'd-none')
+      }
+      if(input.checked && input.value == 2) {
+        if(myaddress) {
+          myaddress.classList.add('d-none')
+        }
+        newAddress.classList.replace('d-none', 'd-block')
+        frete.classList.add('d-none')
+        frete10.classList.remove('d-none')
+        selectLocal.classList.replace('d-flex', 'd-none')
+        freteText.nextElementSibling.classList.replace('d-block', 'd-none')
+        cdeMap.classList.replace('d-flex', 'd-none')
+        asuncion.classList.replace('d-flex', 'd-none')
+        remove10.classList.replace('d-block', 'd-none')
+        add10.classList.replace('d-none', 'd-block')
+      }
+    });
     input.addEventListener('change', () => {
+      if(input.value == 1) {
+        myaddress.previousElementSibling.classList.replace('d-flex', 'd-none')
+        myaddress.classList.remove('d-none')
+        freteText.nextElementSibling.classList.replace('d-none', 'd-block')
+        newAddress.classList.replace('d-block', 'd-none')
+      }
       if(input.value == 2) {
+        if(myaddress) {
+          myaddress.classList.add('d-none')
+        }
         newAddress.classList.replace('d-none', 'd-block')
         frete.classList.add('d-none')
         frete10.classList.remove('d-none')
@@ -171,6 +206,9 @@ document.addEventListener('DOMContentLoaded', function () {
         add10.classList.replace('d-none', 'd-block')
       }
       if(input.value == 3) {
+        if(myaddress) {
+          myaddress.previousElementSibling.classList.replace('d-none','d-flex')
+        }
         remove10.classList.replace('d-none', 'd-block')
         add10.classList.add('d-none')
         selectLocal.classList.replace('d-none', 'd-flex')
