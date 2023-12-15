@@ -521,7 +521,7 @@ trait Gateway
 
         
         $cartArray = [];
-        // $cartArray['items'] = $cart->items;
+        $cartArray['items'] = $cart->items;
         $cartArray['totalQty'] = $cart->totalQty;
         $cartArray['totalPrice'] = $cart->totalPrice + $this->order['shipping_cost'];
 

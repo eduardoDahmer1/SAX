@@ -152,6 +152,7 @@
                                                 $tax = 0;
                                                 $tax_original = 0;
                                             @endphp
+                                            @if(!empty($cart['items'])) {
                                             @foreach ($cart['items'] as $product)
                                                 <tr>
                                                     <td width="30%">
@@ -248,6 +249,7 @@
                                                     @endphp
                                                 </tr>
                                             @endforeach
+                                            @endif
                                         </tbody>
                                         <tfoot>
                                             <tr>
