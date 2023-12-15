@@ -445,108 +445,109 @@
                         </div>
                     </div>
                 @endif
-
-                @foreach ($cart['items'] as $key => $product)
-                    @if (!empty($product['customizable_name']) ||
-                        !empty($product['customizable_number']) ||
-                        !empty($product['customizable_logo']) ||
-                        !empty($product['customizable_gallery']))
-                        <div class="col-lg-6">
-                            <div class="special-box">
-                                <div class="heading-area">
-                                    <h4 class="title">
-                                        {{ __('Custom Products') }}
-                                    </h4>
-                                </div>
-                                <div class="table-responsive-sm">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th width="45%"><strong>{{ __('Product Title') }}:</strong></th>
-                                                <th width="10%">:</th>
-                                                <td><a target="_blank"
-                                                        href="{{ route('front.product', $product['item']['slug']) }}">{{ mb_strlen($product['item']['name'], 'utf-8') > 30
-                                                            ? mb_substr($product['item']['name'], 0, 30, 'utf-8') . '...'
-                                                            : $product['item']['name'] }}</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th width="45%"><strong>{{ __('Product SKU') }}:</strong></th>
-                                                <th width="10%">:</th>
-                                                @php $prod = App\Models\Product::find($product['item']['id']); @endphp
-                                                @if (isset($prod))
-                                                    <td>{{ $prod->sku }}</td>
+                @if(!empty($cart['items'])) {
+                    @foreach ($cart['items'] as $key => $product)
+                        @if (!empty($product['customizable_name']) ||
+                            !empty($product['customizable_number']) ||
+                            !empty($product['customizable_logo']) ||
+                            !empty($product['customizable_gallery']))
+                            <div class="col-lg-6">
+                                <div class="special-box">
+                                    <div class="heading-area">
+                                        <h4 class="title">
+                                            {{ __('Custom Products') }}
+                                        </h4>
+                                    </div>
+                                    <div class="table-responsive-sm">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th width="45%"><strong>{{ __('Product Title') }}:</strong></th>
+                                                    <th width="10%">:</th>
+                                                    <td><a target="_blank"
+                                                            href="{{ route('front.product', $product['item']['slug']) }}">{{ mb_strlen($product['item']['name'], 'utf-8') > 30
+                                                                ? mb_substr($product['item']['name'], 0, 30, 'utf-8') . '...'
+                                                                : $product['item']['name'] }}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="45%"><strong>{{ __('Product SKU') }}:</strong></th>
+                                                    <th width="10%">:</th>
+                                                    @php $prod = App\Models\Product::find($product['item']['id']); @endphp
+                                                    @if (isset($prod))
+                                                        <td>{{ $prod->sku }}</td>
+                                                    @endif
+                                                </tr>
+                                                @if (env('ENABLE_CUSTOM_PRODUCT') || env('ENABLE_CUSTOM_PRODUCT_NUMBER'))
+                                                    @if (!empty($product['customizable_name']))
+                                                        <tr>
+                                                            <th width="45%"><strong>{{ __('Custom Name') }}:</strong></th>
+                                                            <th width="10%">:</th>
+                                                            <td>{{ $product['customizable_name'] }}</td>
+                                                        </tr>
+                                                    @endif
                                                 @endif
-                                            </tr>
-                                            @if (env('ENABLE_CUSTOM_PRODUCT') || env('ENABLE_CUSTOM_PRODUCT_NUMBER'))
-                                                @if (!empty($product['customizable_name']))
-                                                    <tr>
-                                                        <th width="45%"><strong>{{ __('Custom Name') }}:</strong></th>
-                                                        <th width="10%">:</th>
-                                                        <td>{{ $product['customizable_name'] }}</td>
-                                                    </tr>
+                                                @if (env('ENABLE_CUSTOM_PRODUCT_NUMBER'))
+                                                    @if (!empty($product['customizable_number']))
+                                                        <tr>
+                                                            <th width="45%"><strong>{{ __('Custom Number') }}:</strong>
+                                                            </th>
+                                                            <th width="10%">:</th>
+                                                            <td>{{ $product['customizable_number'] }}</td>
+                                                        </tr>
+                                                    @endif
                                                 @endif
-                                            @endif
-                                            @if (env('ENABLE_CUSTOM_PRODUCT_NUMBER'))
-                                                @if (!empty($product['customizable_number']))
-                                                    <tr>
-                                                        <th width="45%"><strong>{{ __('Custom Number') }}:</strong>
-                                                        </th>
-                                                        <th width="10%">:</th>
-                                                        <td>{{ $product['customizable_number'] }}</td>
-                                                    </tr>
-                                                @endif
-                                            @endif
-                                            @if (env('ENABLE_CUSTOM_PRODUCT'))
-                                                @if (!empty($product['customizable_logo']))
-                                                    <tr class="mb-2">
-                                                        <th width="45%"><strong>{{ __('Custom Logo') }}:</strong></th>
-                                                        <th width="10%">:</th>
-                                                        <td width="45%">
-                                                            <a href="{{ route('admin-customprod-download', $product['customizable_logo']) }}"
-                                                                class="{{ isset($product['customizable_logo']) ? '' : 'collapse' }}">
-                                                                <button class="btn btn uploadLogoBtn">
-                                                                    <p>
-                                                                        <i class="fa fa-download"></i>
-                                                                        {{ __('Download File') }}
-                                                                    </p>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                                @if (!empty($product['customizable_gallery']))
-                                                    <tr>
-                                                        <th width="45%">
-                                                            <strong>{{ __('Custom Gallery Image') }}:</strong></th>
-                                                        <th width="10%">:</th>
-                                                        @php $gal = App\Models\CategoryGallery::where('customizable_gallery', $product['customizable_gallery'])->first(); @endphp
-                                                        <td>
-                                                            <div style="display:inline-block;">
-                                                                <div
-                                                                    style="position:relative;display:flex;justify-content:center;align-items:center;">
-                                                                    @if (isset($gal))
-                                                                        <span
-                                                                            class="galleryId">{{ $gal->id }}</span>
-                                                                    @endif
-                                                                    <img src="{{ asset('storage/images/galleries/' . $product['customizable_gallery']) }}"
-                                                                        style="width:60px;border-radius:30px;"
-                                                                        alt="">
+                                                @if (env('ENABLE_CUSTOM_PRODUCT'))
+                                                    @if (!empty($product['customizable_logo']))
+                                                        <tr class="mb-2">
+                                                            <th width="45%"><strong>{{ __('Custom Logo') }}:</strong></th>
+                                                            <th width="10%">:</th>
+                                                            <td width="45%">
+                                                                <a href="{{ route('admin-customprod-download', $product['customizable_logo']) }}"
+                                                                    class="{{ isset($product['customizable_logo']) ? '' : 'collapse' }}">
+                                                                    <button class="btn btn uploadLogoBtn">
+                                                                        <p>
+                                                                            <i class="fa fa-download"></i>
+                                                                            {{ __('Download File') }}
+                                                                        </p>
+                                                                    </button>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+                                                    @if (!empty($product['customizable_gallery']))
+                                                        <tr>
+                                                            <th width="45%">
+                                                                <strong>{{ __('Custom Gallery Image') }}:</strong></th>
+                                                            <th width="10%">:</th>
+                                                            @php $gal = App\Models\CategoryGallery::where('customizable_gallery', $product['customizable_gallery'])->first(); @endphp
+                                                            <td>
+                                                                <div style="display:inline-block;">
+                                                                    <div
+                                                                        style="position:relative;display:flex;justify-content:center;align-items:center;">
+                                                                        @if (isset($gal))
+                                                                            <span
+                                                                                class="galleryId">{{ $gal->id }}</span>
+                                                                        @endif
+                                                                        <img src="{{ asset('storage/images/galleries/' . $product['customizable_gallery']) }}"
+                                                                            style="width:60px;border-radius:30px;"
+                                                                            alt="">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
 
-                                                    </tr>
+                                                        </tr>
+                                                    @endif
                                                 @endif
-                                            @endif
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
+                        @endif
+                    @endforeach
+                @endif
             </div>
             <div class="row">
                 <div class="col-lg-12 order-details-table">
@@ -566,6 +567,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if(!empty($cart['items'])) {
                                     @foreach ($cart['items'] as $key => $product)
                                         <tr>
                                             <td><input type="hidden" value="{{ $key }}"
@@ -658,6 +660,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
