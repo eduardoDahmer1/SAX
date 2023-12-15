@@ -2,7 +2,7 @@ var iconPerson = document.querySelector('.bi-person-fill')
 var iconTruck = document.querySelector('.bi-truck')
 var isTwo = ''
 var iconCard = document.querySelector('.bi-credit-card')
-var lastBtn = document.getElementById('lastBtn')
+var lastBtn = document.getElementById('final-btn')
 document.addEventListener('DOMContentLoaded', function () {
   const steps = document.querySelectorAll('.step');
   let currentStep = 0;

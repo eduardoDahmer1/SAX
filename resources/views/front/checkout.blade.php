@@ -282,7 +282,7 @@
                                                     </div>
                                                     <div class="d-flex btns2 flex-wrap">
                                                         <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
-                                                        <button id="lastBtn" style="z-index: 9;" type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform" disabled>{{ __('Continue') }}</button>
+                                                        <button style="z-index: 9;" type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform" disabled>{{ __('Continue') }}</button>
                                                     </div> 
                                                 </div>
                                             </div>
