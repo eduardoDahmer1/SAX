@@ -136,7 +136,7 @@
                                                     <label for="newaddress">{{ __('Add new address') }}</label>
                                                 </div>
                                                 <h6 class="px-2 color-3">U$10.00</h6>
-                                                <div class="d-block col-12 mt-3 new-address">
+                                                <div @class(['d-none' => isset(Auth::guard('web')->user()->address), 'col-12', 'mt-3', 'new-address'])>
                                                     <div class="row">
                                                         <div class="col-md-6 mb-3">
                                                             <p style="font-size: 14px;" class="m-0 color-1 fw-semibold px-1">{{ __('State') }}
@@ -260,17 +260,12 @@
                                                     </div>
                                                     <h4 class="title text-black mt-3">{{ __('Shipping method') }}</h4>
                                                     <div class="d-flex flex-wrap">
-                                                        <p id="freteText2" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">
-                                                            {{__('Pick up in')}}
-                                                        </p>
                                                         <p id="freteText" style="font-size: 14px;" class="fw-semibold colo-1 pr-1 d-none">
                                                             {{__('Pick up in')}}
                                                         </p>
                                                         <p style="font-size: 14px;" class="fw-semibold colo-1 m-0 d-none">CDE</p>
                                                     </div>
-                                                    @if(isset(Auth::guard('web')->user()->address))
-                                                    <p id="inMyAddress" style="font-size: 14px;" class="fw-semibold colo-1 pr-1">{{ Auth::guard('web')->user()->address }}</p>
-                                                    @endif
+                                                    <p style="font-size: 14px;" class="primeSax fw-semibold colo-1 m-0 d-block">{{ __('Prime SAX Shipping') }}</p>
                                                     <p id="freteGratis" class="fw-bold color-4 border-bottom-f1 pb-3 mb-3 d-none text-end"></p>
                                                     <p id="frete10" class="fw-bold border-bottom-f1 pb-3 mb-3 text-end"><b style="font-size: 14px;" class="cart-total fw-bold">+ {{App\Models\Product::convertPrice(10)}}</b><br>
                                                         <b class="cart-total fw-bold"> U$10</b>

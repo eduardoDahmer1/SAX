@@ -103,8 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
           } else {
             nextStep();
             freteText.classList.add('d-none')
-            freteText2.classList.replace('d-none', 'd-block')
-            freteText2.innerText = address.value + ', ' + shippingCity.options[shippingCity.selectedIndex].text + ' - ' + shippingState.options[shippingState.selectedIndex].text
           }
         }
         else {
@@ -144,13 +142,13 @@ document.addEventListener('DOMContentLoaded', function () {
   var frete = document.getElementById('freteGratis')
   var frete10 = document.getElementById('frete10')
   var freteText = document.getElementById('freteText')
-  var freteText2 = document.getElementById('freteText2')
   var shippingType = document.querySelectorAll('input[name="shipping"]')
   var newAddress = document.querySelector('.new-address')
   var myaddress = document.querySelector('#inMyAddress')
   var isTwo = document.getElementById('newaddress')
   var remove10 = document.querySelector('.price-10')
   var add10 = document.querySelector('.add10')
+  var saxFrete = document.querySelector('.primeSax')
 
   shippingType.forEach(input => {
     window.addEventListener('load', function() {
@@ -158,12 +156,11 @@ document.addEventListener('DOMContentLoaded', function () {
         myaddress.previousElementSibling.classList.replace('d-flex', 'd-none')
         myaddress.classList.remove('d-none')
         freteText.nextElementSibling.classList.replace('d-none', 'd-block')
-        newAddress.classList.replace('d-block', 'd-none')
+        newAddress.classList.add('d-none')
+        saxFrete.classList.replace('d-none', 'd-block')
       }
       if(input.checked && input.value == 2) {
-        if(myaddress) {
-          myaddress.classList.add('d-none')
-        }
+        saxFrete.classList.replace('d-none', 'd-block')
         newAddress.classList.replace('d-none', 'd-block')
         frete.classList.add('d-none')
         frete10.classList.remove('d-none')
@@ -177,15 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     input.addEventListener('change', () => {
       if(input.value == 1) {
-        myaddress.previousElementSibling.classList.replace('d-flex', 'd-none')
-        myaddress.classList.remove('d-none')
-        freteText.nextElementSibling.classList.replace('d-none', 'd-block')
-        newAddress.classList.replace('d-block', 'd-none')
-      }
-      if(input.value == 2) {
-        if(myaddress) {
-          myaddress.classList.add('d-none')
-        }
+        saxFrete.classList.replace('d-none', 'd-block')
         newAddress.classList.replace('d-none', 'd-block')
         frete.classList.add('d-none')
         frete10.classList.remove('d-none')
@@ -194,28 +183,31 @@ document.addEventListener('DOMContentLoaded', function () {
         cdeMap.classList.replace('d-flex', 'd-none')
         asuncion.classList.replace('d-flex', 'd-none')
         remove10.classList.replace('d-block', 'd-none')
+        freteText.classList.replace('d-block', 'd-none')
         add10.classList.replace('d-none', 'd-block')
-      } else {
-        newAddress.classList.replace('d-block', 'd-none')
+      }
+      if(input.value == 2) {
+        saxFrete.classList.replace('d-none', 'd-block')
+        newAddress.classList.replace('d-none', 'd-block')
         frete.classList.add('d-none')
         frete10.classList.remove('d-none')
         selectLocal.classList.replace('d-flex', 'd-none')
+        freteText.classList.replace('d-block', 'd-none')
+        freteText.nextElementSibling.classList.replace('d-block', 'd-none')
         cdeMap.classList.replace('d-flex', 'd-none')
         asuncion.classList.replace('d-flex', 'd-none')
         remove10.classList.replace('d-block', 'd-none')
         add10.classList.replace('d-none', 'd-block')
       }
       if(input.value == 3) {
-        if(myaddress) {
-          myaddress.previousElementSibling.classList.replace('d-none','d-flex')
-        }
+        newAddress.classList.replace('d-block', 'd-none')
+        saxFrete.classList.replace('d-block', 'd-none')
         remove10.classList.replace('d-none', 'd-block')
         add10.classList.add('d-none')
         selectLocal.classList.replace('d-none', 'd-flex')
         cdeMap.classList.replace('d-none', 'd-flex')
         frete.classList.remove('d-none')
         frete10.classList.add('d-none')
-        freteText2.classList.add('d-none')
         freteText.classList.replace('d-none', 'd-block')
         frete.innerText = "FREE"
         freteText.nextElementSibling.classList.replace('d-none', 'd-block')
@@ -226,13 +218,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if(selectLocal.value == 1) {
       cdeMap.classList.replace('d-none', 'd-flex')
       asuncion.classList.replace('d-flex', 'd-none')
-      freteText2.classList.add('d-none')
       freteText.classList.replace('d-none', 'd-block')
       freteText.nextElementSibling.innerText = " CDE"
     } else {
       cdeMap.classList.replace('d-flex', 'd-none')
       asuncion.classList.replace('d-none', 'd-flex')
-      freteText2.classList.add('d-none')
       freteText.classList.replace('d-none', 'd-block')
       freteText.nextElementSibling.innerText = " Asunción"
     }
