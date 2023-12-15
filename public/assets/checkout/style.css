@@ -101,9 +101,15 @@ input[type="text"] {
 }
 
 .data-deposit {
-bottom: 0;
-width: 368px;
-border: solid 2px #f1f1f1;
+  bottom: -1px;
+  font-size: 14px;
+  width: 458px;
+  border: solid 2px #f1f1f1;
+}
+@media (max-width:1400px) {
+  .data-deposit {
+    width: 388px;
+  }
 }
 @media (max-width:1200px) {
   .justify-content-left-center {
@@ -115,6 +121,10 @@ border: solid 2px #f1f1f1;
   }
   .data-deposit {
     display: none !important;
+  }
+  .data-deposit2 {
+    font-size: 14px;
+    padding:10px 10px !important;
   }
 }
 @media (max-width:992px) {
