@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Jobs\ProcessOrderJob;
 use App\Jobs\OrderBilling;
 use App\Mail\RedplayLicenseMail;
+use App\Classes\GeniusMailer;
 use App\Models\License;
 use App\Models\Order;
 use App\Models\Pickup;
@@ -19,10 +20,35 @@ class OrderObserver
 {
     public function updating(Order $order)
     {
-        if (
-            config('features.wedding_list')
-            && $order->payment_status == 'Completed'
-        ) {
+        if($order->payment_status == 'Completed') {
+            if($order->shipping == 3) {
+                $data = [
+                    'to' => $order->email,
+                    'type' => "new_order2",
+                    'cname' => $order->custumer_name,
+                    'oamount' => "",
+                    'aname' => "",
+                    'aemail' => "",
+                    'wtitle' => "",
+                    'onumber' => $order->order_number,
+                ];
+            } else {
+                $data = [
+                    'to' => $request->email,
+                    'type' => "new_order",
+                    'cname' => $request->name,
+                    'oamount' => "",
+                    'aname' => "",
+                    'aemail' => "",
+                    'wtitle' => "",
+                    'onumber' => $this->order->order_number,
+                ];
+            }
+    
+            $mailer = new GeniusMailer();
+            $mailer->sendAutoOrderMail($data, $order->id);
+        }
+        if (config('features.wedding_list') && $order->payment_status == 'Completed') {
             $ids = [];
             foreach ($order->weddingProducts->toArray() as $item) {
                 $ids[] = $item['pivot']['wedding_product_id'];
