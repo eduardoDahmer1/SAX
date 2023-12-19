@@ -865,7 +865,6 @@ trait Gateway
         unset($this->order['shipping_state_id']);
         unset($this->order['shipping_state_initials']);
         unset($this->order['shipping_country_id']);
-        dd($this->storeSettings->is_smtp);
 
         //Sending Email To Admin
         if ($this->storeSettings->is_smtp == 1) {
