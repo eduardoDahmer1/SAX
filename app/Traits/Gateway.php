@@ -865,19 +865,31 @@ trait Gateway
         unset($this->order['shipping_state_id']);
         unset($this->order['shipping_state_initials']);
         unset($this->order['shipping_country_id']);
-
         //Sending Email To Buyer
         if ($this->storeSettings->is_smtp == 1) {
-            $data = [
-                'to' => $request->email,
-                'type' => "new_order",
-                'cname' => $request->name,
-                'oamount' => "",
-                'aname' => "",
-                'aemail' => "",
-                'wtitle' => "",
-                'onumber' => $this->order->order_number,
-            ];
+            if($this->order['shipping'] == 3) {
+                $data = [
+                    'to' => $request->email,
+                    'type' => "new_order2",
+                    'cname' => $request->name,
+                    'oamount' => "",
+                    'aname' => "",
+                    'aemail' => "",
+                    'wtitle' => "",
+                    'onumber' => $this->order->order_number,
+                ];
+            } else {
+                $data = [
+                    'to' => $request->email,
+                    'type' => "new_order",
+                    'cname' => $request->name,
+                    'oamount' => "",
+                    'aname' => "",
+                    'aemail' => "",
+                    'wtitle' => "",
+                    'onumber' => $this->order->order_number,
+                ];
+            }
 
             $mailer = new GeniusMailer();
             $mailer->sendAutoOrderMail($data, $this->order->id);
