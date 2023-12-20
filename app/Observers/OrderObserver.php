@@ -6,6 +6,7 @@ use App\Jobs\ProcessOrderJob;
 use App\Jobs\OrderBilling;
 use App\Mail\RedplayLicenseMail;
 use App\Classes\GeniusMailer;
+use App\Models\Generalsetting;
 use App\Models\License;
 use App\Models\Order;
 use App\Models\Pickup;
