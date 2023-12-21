@@ -834,7 +834,7 @@ class FrontendController extends Controller
     public function getStatesOptions(Request $request)
     {
         if ($request->location_id) {
-            $states = State::where('country_id', $request->location_id)->get();
+            $states = State::where('country_id', $request->location_id)->orderBy('name')->get();
             $options = '';
             foreach ($states as $state) {
                 $options .= "<option value='" . $state->id . "'>" . $state->name . "</option>";
@@ -845,7 +845,7 @@ class FrontendController extends Controller
     public function getCitiesOptions(Request $request)
     {
         if ($request->location_id) {
-            $cities = City::where('state_id', $request->location_id)->get();
+            $cities = City::where('state_id', $request->location_id)->orderBy('name')->get();
             $options = '';
             foreach ($cities as $city) {
                 $options .= "<option value='" . $city->id . "'>" . $city->name . "</option>";
