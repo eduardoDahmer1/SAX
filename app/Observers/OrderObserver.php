@@ -5,6 +5,8 @@ namespace App\Observers;
 use App\Jobs\ProcessOrderJob;
 use App\Jobs\OrderBilling;
 use App\Mail\RedplayLicenseMail;
+use App\Classes\GeniusMailer;
+use App\Models\Generalsetting;
 use App\Models\License;
 use App\Models\Order;
 use App\Models\Pickup;
@@ -19,10 +21,7 @@ class OrderObserver
 {
     public function updating(Order $order)
     {
-        if (
-            config('features.wedding_list')
-            && $order->payment_status == 'Completed'
-        ) {
+        if (config('features.wedding_list') && $order->payment_status == 'Completed') {
             $ids = [];
             foreach ($order->weddingProducts->toArray() as $item) {
                 $ids[] = $item['pivot']['wedding_product_id'];
@@ -91,7 +90,47 @@ class OrderObserver
             $url = 'https://saxpy.dyndns.org:444/EcommerceApi/production.php?' . http_build_query($parameters);
             OrderBilling::dispatch($url, $order);
         }
-         
+        
+        if($order->payment_status === 'Completed') {
+            $gs = Generalsetting::findOrFail(1);
+            //Sending Email To Buyer
+            if ($gs->is_smtp == 1) {
+                if($order->shipping == 3) {
+                    $data = [
+                        'to' => $order->customer_email,
+                        'type' => "new_order2",
+                        'cname' => $order->customer_name,
+                        'oamount' => "$order->pay_amount",
+                        'aname' => "",
+                        'aemail' => "",
+                        'wtitle' => "",
+                        'onumber' => $order->order_number,
+                    ];
+                } else {
+                    $data = [
+                        'to' => $order->customer_email,
+                        'type' => "new_order",
+                        'cname' => $order->customer_name,
+                        'oamount' => "$order->pay_amount",
+                        'aname' => "",
+                        'aemail' => "",
+                        'wtitle' => "",
+                        'onumber' => $order->order_number,
+                    ];
+                }
+
+                $mailer = new GeniusMailer();
+                $mailer->sendAutoOrderMail($data, $order->id);
+            } else {
+                $to = $order->customer_email;
+                $subject = __("Your Order Placed!!");
+                $msg = $gs->title . "\n" .__("Hello") . " " . $order->customer_name . "!\n" . __("You have placed a new order.") . "\n" .
+                    __("Your order number is") . " " . $order->order_number . "." . __("Please wait for your delivery.") . " \n"
+                    . __("Thank you");
+                $headers = "From: " . $gs->from_name . "<" . $gs->from_email . ">";
+                mail($to, $subject, $msg, $headers);
+            }
+        }
     }
 
     public function created(Order $order)
