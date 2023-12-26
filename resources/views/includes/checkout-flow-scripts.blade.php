@@ -129,6 +129,7 @@
     });
     $('#final-btn').on('click', function() {
       ck = 1;
+      $(this).prop('disabled', true)
       $('.checkoutform').submit();
     })
     $('.payment').on('click', function() {

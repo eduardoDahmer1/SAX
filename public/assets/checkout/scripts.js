@@ -2,7 +2,7 @@ var iconPerson = document.querySelector('.bi-person-fill')
 var iconTruck = document.querySelector('.bi-truck')
 var isTwo = ''
 var iconCard = document.querySelector('.bi-credit-card')
-var lastBtn = document.getElementById('final-btn')
+
 document.addEventListener('DOMContentLoaded', function () {
   const steps = document.querySelectorAll('.step');
   let currentStep = 0;
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (currentStep == 3) {
         iconCard.classList.add('color-2')
         iconCard.parentNode.previousElementSibling.classList.add('bg-color-2')
-        lastBtn.disabled = false
       }
       showStep(currentStep);
     } else {
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (currentStep == 2) {
       iconCard.classList.remove('color-2')
       iconCard.parentNode.previousElementSibling.classList.remove('bg-color-2')
-      lastBtn.disabled = true
     }
     if (currentStep == 1) {
       iconTruck.classList.remove('color-2')
