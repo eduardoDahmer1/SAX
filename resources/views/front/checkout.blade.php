@@ -166,9 +166,12 @@
                                                         <input id="withdrawal" name="shipping" value="3" type="radio">
                                                         <label for="withdrawal">{{ __('Pick up in') }} SAX</label>
                                                     </div>
-                                                    <select class="select-local d-none mx-2" name="local" id="local">
-                                                        <option value="1" selected>CDE</option>
-                                                        <option value="2">ASUNCIÓN</option>
+                                                    <select class="select-local d-none mx-2" name="pickup_location" id="local">
+                                                        @foreach ($allPickups as $pickup)
+                                                            <option value="{{ $pickup->id }}">
+                                                                {{ $pickup->location }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <span style="font-size: 14px;">FREE</span>
@@ -417,7 +420,7 @@
                                                                     </div>
                 
                                                                     <div class=" d-none" id="shipshow">
-                                                                        <select class="form-control" name="pickup_location"
+                                                                        <select class="form-control"
                                                                             style="margin-bottom: 10px;">
                                                                             @foreach ($allPickups as $pickup)
                                                                                 <option value="{{ $pickup->location }}|{{ $pickup->id }}">
@@ -732,7 +735,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-6 d-none" id="shipshow">
-                                                                    <select class="form-control" name="pickup_location"
+                                                                    <select class="form-control"
                                                                         style="margin-bottom: 10px;">
                                                                         @foreach ($allPickups as $pickup)
                                                                             <option value="{{ $pickup->location }}|{{ $pickup->id }}">

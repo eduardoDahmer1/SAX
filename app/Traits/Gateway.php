@@ -572,11 +572,11 @@ trait Gateway
         $this->order['shipping_country'] = $shipping_country;
         $this->order['puntoentrega'] = $request->puntoentrega;
         $this->order['puntoid'] = $request->puntoidvalue;
+        
         // check if product is digital
-        if ($request->shipping == "pickup") {
-            $values = explode('|', $request->pickup_location);
-            $this->order['pickup_location'] = $values[0];
-            $this->order['store_id'] = intval($values[1]);
+        if ($request->shipping == 3) {
+            $this->order['pickup_location'] = $request->pickup_location;
+            $this->order['store_id'] = intval($request->pickup_location);
         }
 
         if ($this->order['dp'] == 1) {
