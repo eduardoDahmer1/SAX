@@ -2202,11 +2202,6 @@
         myModalEl.addEventListener('click', event => {
             document.getElementsByClassName('loader-checkout')[0].classList.add('d-flex')
         })
-        $(document).ready(function(){ 
-            $('#iframe-modal').on('shown.bs.modal', function (e) {
-                document.getElementsByClassName('loader-checkout')[0].classList.remove('d-flex') 
-            })
-        });
     </script>
 @endsection
 
@@ -2340,6 +2335,30 @@
 
     billPhone.addEventListener("change", function() {
         document.getElementById("customer_phone").value = billPhone.value;
+    });
+</script>
+
+<script>
+    $(document).ready(function(){ 
+        $('#iframe-modal').on('shown.bs.modal', function (e) {
+            document.getElementsByClassName('loader-checkout')[0].classList.remove('d-flex')
+        })
+        $('#iframe-modal').on('hide.bs.modal', function (e) {
+            $.ajax({
+                url: '/bancard-close-modal',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        })
     });
 </script>
 

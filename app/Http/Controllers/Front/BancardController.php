@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Traits\Gateway;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -99,7 +100,7 @@ class BancardController extends Controller
         Log::debug('bancard_store_response', [$bancardResponse]);
     }
 
-    public function bancardCallback()
+    public function bancardCallback(Request $request)
     {
         $shop_process_id = Session::get('bancard')['shop_process_id'];
 
@@ -162,6 +163,19 @@ class BancardController extends Controller
             return redirect(route('payment.return'));
         } else {
             Log::debug('bancard_callback_response', [$bancardResponse]);
+
+            $order = $request->session()->get('order');
+            $cartData = $order->cart;
+            foreach($cartData['items'] as $product) {
+                $productId = $product['item']['id'];
+                $qty = $product['qty'];
+                $product = Product::find($productId);
+                if ($product) {
+                    $product->stock += $qty;
+                    $product->save();
+                }
+            }
+
             if($bancardResponse->confirmation->response_code == "57"){
                 return redirect(route('front.checkout'))->with('unsuccess', __("Bancard minimum value not reached. Cart value was below U$1."));
             }
@@ -262,6 +276,20 @@ class BancardController extends Controller
                 "status" => 404,
                 "message" => __("Not Found")
             ], 404);
+        }
+    }
+
+    public function bancardCloseModal(Request $request) {
+        $order = $request->session()->get('order');
+        $cartData = $order->cart;
+        foreach($cartData['items'] as $product) {
+            $productId = $product['item']['id'];
+            $qty = $product['qty'];
+            $product = Product::find($productId);
+            if ($product) {
+                $product->stock += $qty;
+                $product->save();
+            }
         }
     }
 }
