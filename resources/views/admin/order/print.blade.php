@@ -86,14 +86,19 @@
                     <span><strong> {{__('CEC Number')}} :</strong> {{$order->number_cec}}</span><br>
                     @if ($order->dp == 0)
                         <span> <strong>{{ __('Shipping Method') }} :</strong>
-                            @if ($order->shipping == 'pickup')
+                            @if ($order->shipping == 3)
                                 {{ __('Pick Up') }}
                             @else
                                 {{ __('Ship To Address') }}
                             @endif
                         </span><br>
                     @endif
-                    @if ($order->shipping != 'pickup')
+                    @if ($order->shipping == 3)
+                        <span><strong>{{ __('Retirar em') }} :</strong>
+                            {{$order->pickup_location}}
+                        </span><br>
+                    @endif
+                    @if ($order->shipping != 3)
                         <span> <strong>{{ __('Shipping Type') }} :</strong> {{ $order->shipping_type }}</span><br>
                         @if ($order->puntoentrega != null)
                             <span> <strong>{{ __('Delivery Point') }}

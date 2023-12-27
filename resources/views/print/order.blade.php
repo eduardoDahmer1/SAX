@@ -30,6 +30,11 @@
                             @endif
                         </span><br>
                         @endif
+                        @if ($order->shipping == 3)
+                            <span><strong>{{ __('Retirar em') }} :</strong>
+                                {{$order->pickup_location}}
+                            </span><br>
+                        @endif
                         <span> <strong>{{ __('Payment Method') }} :</strong> {{$order->method}}</span><br>
                         @if($order->method=="Bank Deposit")
                         <div style="margin-top: 10px; font-size: small;">
