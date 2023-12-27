@@ -168,7 +168,7 @@
                                                     </div>
                                                     <select class="select-local d-none mx-2" name="pickup_location" id="local">
                                                         @foreach ($allPickups as $pickup)
-                                                            <option value="{{ $pickup->id }}">
+                                                            <option value="{{ $pickup->location }}|{{ $pickup->id }}">
                                                                 {{ $pickup->location }}
                                                             </option>
                                                         @endforeach

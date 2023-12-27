@@ -356,7 +356,7 @@
                                             <th width="10%">:</th>
                                             <td>{{ $order->packing_type }}</td>
                                         </tr>
-                                        @if ($order->shipping == 'pickup')
+                                        @if ($order->shipping == 3)
                                             <tr>
                                                 <th width="45%"><strong>{{ __('Pickup Location') }}:</strong></th>
                                                 <th width="10%">:</th>

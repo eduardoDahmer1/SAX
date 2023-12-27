@@ -575,8 +575,9 @@ trait Gateway
         
         // check if product is digital
         if ($request->shipping == 3) {
-            $this->order['pickup_location'] = $request->pickup_location;
-            $this->order['store_id'] = intval($request->pickup_location);
+            $values = explode('|', $request->pickup_location);
+            $this->order['pickup_location'] = $values[0];
+            $this->order['store_id'] = intval($values[1]);
         }
 
         if ($this->order['dp'] == 1) {
