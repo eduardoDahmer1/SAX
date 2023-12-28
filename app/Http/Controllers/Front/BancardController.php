@@ -284,7 +284,6 @@ class BancardController extends Controller
     }
 
     public function bancardCloseModal(Request $request) {
-        
         $order = $request->session()->get('order');
         $cartData = $order->cart;
         foreach($cartData['items'] as $product) {
