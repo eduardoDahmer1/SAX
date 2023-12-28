@@ -166,6 +166,7 @@ class BancardController extends Controller
 
             $order = $request->session()->get('order');
             $cartData = $order->cart;
+
             foreach($cartData['items'] as $product) {
                 $productId = $product['item']['id'];
                 $qty = $product['qty'];
@@ -175,6 +176,9 @@ class BancardController extends Controller
                     $product->save();
                 }
             }
+
+            $order->delete();
+            $request->session()->forget('order');
 
             if($bancardResponse->confirmation->response_code == "57"){
                 return redirect(route('front.checkout'))->with('unsuccess', __("Bancard minimum value not reached. Cart value was below U$1."));
@@ -280,6 +284,7 @@ class BancardController extends Controller
     }
 
     public function bancardCloseModal(Request $request) {
+        
         $order = $request->session()->get('order');
         $cartData = $order->cart;
         foreach($cartData['items'] as $product) {
@@ -291,5 +296,8 @@ class BancardController extends Controller
                 $product->save();
             }
         }
+
+        $order->delete();
+        $request->session()->forget('order');
     }
 }
