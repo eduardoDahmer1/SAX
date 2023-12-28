@@ -445,7 +445,7 @@
                         </div>
                     </div>
                 @endif
-                @if(!empty($cart['items'])) {
+                @if(!empty($cart['items']))
                     @foreach ($cart['items'] as $key => $product)
                         @if (!empty($product['customizable_name']) ||
                             !empty($product['customizable_number']) ||
@@ -567,7 +567,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($cart['items'])) {
+                                @if(!empty($cart['items']))
                                     @foreach ($cart['items'] as $key => $product)
                                         <tr>
                                             <td><input type="hidden" value="{{ $key }}"
