@@ -1515,61 +1515,67 @@ $(function ($) {
 
         });
 
+        let clickCount = 0
 
         $(document).on("click", "#qaddcrt", function () {
-            var qty = $('.qttotal').html();
-            var pid = $("[name='associatedProductsBySize']:checked").attr('data-product-id') ? $("[name='associatedProductsBySize']:checked").attr('data-product-id') : $("#product_id").val();
-            var customizable_gallery = $("#customizable_gallery").val();
-            var customizable_name = $("#customizable_name").val();
-            var customizable_number = $("#customizable_number").val();
-            var customizable_gallery_count = ($("#customizable_gallery_count").val() === undefined) ? "": $("#customizable_gallery_count").val();
-            var customizable_logo = $("#image-upload").val();
-            var agree_terms = $("#agreeCustomTerms").val();
-            var is_customizable_number = $("#is_customizable_number").val();
+            clickCount++
+            console.log(clickCount)
 
-            if (customizable_gallery == null) {
-                customizable_gallery = '';
-            }
-
-            if (customizable_name == null) {
-                customizable_name = '';
-            }
-
-            if (customizable_number == null) {
-                customizable_number = '';
-            }
-
-            if (customizable_logo == null) {
-                customizable_logo = '';
-            }
-            if (agree_terms == null) {
-                agree_terms = 0;
-            }
-            if (is_customizable_number == null) {
-                is_customizable_number = 0;
-            }
-
-            if ($('.product-attr').length > 0) {
-                values = $(".product-attr:checked").map(function () {
-                    return $(this).val();
-                }).get();
-
-                keys = $(".product-attr:checked").map(function () {
-                    return $(this).data('key');
-                }).get();
-
-                prices = $(".product-attr:checked").map(function () {
-                    return $(this).data('price');
-                }).get();
-
-            }
-            if (typeof fbq != 'undefined') {
-                $('#preloader').fadeIn();
-                setTimeout(function () {
-                    window.location = mainurl + "/addtonumcart?id=" + pid + "&qty=" + qty + "&customizable_logo=" + customizable_logo + "&agree_terms=" + agree_terms + "&customizable_name=" + customizable_name + "&customizable_number=" + customizable_number + "&customizable_gallery=" + customizable_gallery + "&customizable_gallery_count=" + customizable_gallery_count + "&size=" + sizes + "&color=" + colors.substring(1, colors.length) + "&material=" + materials + "&size_qty=" + size_qty + "&size_price=" + size_price + "&size_key=" + size_key + "&color_qty=" + color_qty + "&color_price=" + color_price + "&color_key=" + color_key + "&material_qty=" + material_qty + "&material_price=" + material_price + "&material_key=" + material_key + "&keys=" + keys + "&values=" + values + "&prices=" + prices + "&is_customizable_number=" + is_customizable_number;
-                }, 1000);
-            } else {
-                window.location = mainurl + "/addtonumcart?id=" + pid + "&qty=" + qty + "&customizable_logo=" + customizable_logo + "&agree_terms=" + agree_terms + "&customizable_name=" + customizable_name + "&customizable_number=" + customizable_number + "&customizable_gallery=" + customizable_gallery + "&customizable_gallery_count=" + customizable_gallery_count + "&size=" + sizes + "&color=" + colors.substring(1, colors.length) + "&material=" + materials + "&size_qty=" + size_qty + "&size_price=" + size_price + "&size_key=" + size_key + "&color_qty=" + color_qty + "&color_price=" + color_price + "&color_key=" + color_key + "&keys=" + keys + "&material_qty=" + material_qty + "&material_price=" + material_price + "&material_key=" + material_key + "&values=" + values + "&prices=" + prices + "&is_customizable_number=" + is_customizable_number;
+            if(clickCount === 1) {
+                var qty = $('.qttotal').html();
+                var pid = $("[name='associatedProductsBySize']:checked").attr('data-product-id') ? $("[name='associatedProductsBySize']:checked").attr('data-product-id') : $("#product_id").val();
+                var customizable_gallery = $("#customizable_gallery").val();
+                var customizable_name = $("#customizable_name").val();
+                var customizable_number = $("#customizable_number").val();
+                var customizable_gallery_count = ($("#customizable_gallery_count").val() === undefined) ? "": $("#customizable_gallery_count").val();
+                var customizable_logo = $("#image-upload").val();
+                var agree_terms = $("#agreeCustomTerms").val();
+                var is_customizable_number = $("#is_customizable_number").val();
+    
+                if (customizable_gallery == null) {
+                    customizable_gallery = '';
+                }
+    
+                if (customizable_name == null) {
+                    customizable_name = '';
+                }
+    
+                if (customizable_number == null) {
+                    customizable_number = '';
+                }
+    
+                if (customizable_logo == null) {
+                    customizable_logo = '';
+                }
+                if (agree_terms == null) {
+                    agree_terms = 0;
+                }
+                if (is_customizable_number == null) {
+                    is_customizable_number = 0;
+                }
+    
+                if ($('.product-attr').length > 0) {
+                    values = $(".product-attr:checked").map(function () {
+                        return $(this).val();
+                    }).get();
+    
+                    keys = $(".product-attr:checked").map(function () {
+                        return $(this).data('key');
+                    }).get();
+    
+                    prices = $(".product-attr:checked").map(function () {
+                        return $(this).data('price');
+                    }).get();
+    
+                }
+                if (typeof fbq != 'undefined') {
+                    $('#preloader').fadeIn();
+                    setTimeout(function () {
+                        window.location = mainurl + "/addtonumcart?id=" + pid + "&qty=" + qty + "&customizable_logo=" + customizable_logo + "&agree_terms=" + agree_terms + "&customizable_name=" + customizable_name + "&customizable_number=" + customizable_number + "&customizable_gallery=" + customizable_gallery + "&customizable_gallery_count=" + customizable_gallery_count + "&size=" + sizes + "&color=" + colors.substring(1, colors.length) + "&material=" + materials + "&size_qty=" + size_qty + "&size_price=" + size_price + "&size_key=" + size_key + "&color_qty=" + color_qty + "&color_price=" + color_price + "&color_key=" + color_key + "&material_qty=" + material_qty + "&material_price=" + material_price + "&material_key=" + material_key + "&keys=" + keys + "&values=" + values + "&prices=" + prices + "&is_customizable_number=" + is_customizable_number;
+                    }, 1000);
+                } else {
+                    window.location = mainurl + "/addtonumcart?id=" + pid + "&qty=" + qty + "&customizable_logo=" + customizable_logo + "&agree_terms=" + agree_terms + "&customizable_name=" + customizable_name + "&customizable_number=" + customizable_number + "&customizable_gallery=" + customizable_gallery + "&customizable_gallery_count=" + customizable_gallery_count + "&size=" + sizes + "&color=" + colors.substring(1, colors.length) + "&material=" + materials + "&size_qty=" + size_qty + "&size_price=" + size_price + "&size_key=" + size_key + "&color_qty=" + color_qty + "&color_price=" + color_price + "&color_key=" + color_key + "&keys=" + keys + "&material_qty=" + material_qty + "&material_price=" + material_price + "&material_key=" + material_key + "&values=" + values + "&prices=" + prices + "&is_customizable_number=" + is_customizable_number;
+                }
             }
 
         });

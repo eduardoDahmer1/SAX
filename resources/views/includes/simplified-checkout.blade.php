@@ -23,7 +23,7 @@
                                 <div class="row mt-30">
                                     <div class="col-lg-12" style="text-align: right">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-                                        <button class="btn btn-success" type="submit">{{ __('Submit') }}</button>
+                                        <button onclick="btnDisabled(this)" class="btn btn-success" type="submit">{{ __('Submit') }}</button>
                                     </div>
                                 </div>
                             </form>
@@ -33,4 +33,13 @@
             </div>
         </div>
     </div>
+    <script>
+        let clickCount = 0
+        function btnDisabled(button) {
+            clickCount++
+            if(clickCount != 1) {
+                button.disabled = true
+            }
+        }
+    </script>
 
