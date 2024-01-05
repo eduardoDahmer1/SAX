@@ -57,7 +57,7 @@ class OrderController extends Controller
                 ['method', '<>', 'Simplified']
             ]);
         } else {
-            $datas = Order::where('method', '<>', 'Simplified')->select('id', 'currency_sign', 'currency_value', 'order_number', 'pay_amount', 'status', 'method', 'payment_status', 'customer_email', 'customer_name', 'totalQty', 'shipping_cost', 'shipping_type', 'shipping_country', 'shipping_city', 'shipping_state', 'shipping_document');
+            $datas = Order::where('method', '<>', 'Simplified')->select('id', 'currency_sign', 'currency_value', 'order_number', 'pay_amount', 'status', 'method', 'payment_status', 'customer_email', 'customer_name', 'created_at', 'totalQty', 'shipping_cost', 'shipping_type', 'shipping_country', 'shipping_city', 'shipping_state', 'shipping_document');
         }
         $datas = $datas->orderBy('id', 'desc');
 
