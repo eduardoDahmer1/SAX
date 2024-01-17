@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-12 row-theme">
                 <div class="flash-deals">
-                    <div class="flas-deal-slider">
+                    <div class="flas-deal-slider d-flex justify-content-center align-items-center">
                         @foreach($discount_products as $prod)
 
                         @include('front.themes.'.env('THEME', 'theme-01').'.components.flash-product')

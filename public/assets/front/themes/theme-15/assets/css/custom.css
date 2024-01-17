@@ -147,6 +147,20 @@
     right: 30px;
 }
 
+.slider-banners-excluse .item-slider {
+    min-height: 150px;
+    height: 300px;
+    width: 100%;
+}
+
+.slider-banners-excluse .item-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* object-position: center; */
+    /* aspect-ratio: 16/9; */
+}
+
 /* Estilo para menu mobile */
 
 .menu-navigation.drop_open > li {

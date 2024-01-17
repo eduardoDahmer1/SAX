@@ -8,7 +8,7 @@ if ($gs->switch_highlight_currency) {
 }
 @endphp
 
-<div class="col-lg-3 col-md-3 col-6 remove-padding">
+<div class="col-xlg-6 col-md-6 col-6 remove-padding">
     <a class="item" href="{{ route('front.product', $prod->slug) }}">
         @if (!is_null($prod->discount_percent))
             <span class="badge badge-danger descont-card">

@@ -5,11 +5,11 @@
     @else
     <section>
         @endif
-        <div class="container">
+        <div class="container px-4">
             @foreach($bottom_small_banners->chunk(3) as $chunk)
             <div class="row {{ env(" THEME")=="theme-08" ? "justify-content-center" : "" }}">
                 @foreach($chunk as $img)
-                <div class="col-10 col-lg-4">
+                <div class="col-12 col-lg-4">
                     <div class="left">
 
                         <a class="banner-effect shadow-banner" href="{{ $img->link }}" target="_blank">

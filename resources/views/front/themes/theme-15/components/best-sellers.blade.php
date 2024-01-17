@@ -12,20 +12,20 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center align-items-center">
             @if($ps->best_seller_banner or $ps->best_seller_banner1)
             <div class="col-lg-10">
             @else
-            <div class="col-lg-12">
+            <div class="col-lg-10">
             @endif
                 <div class="row">
                     @foreach($best_products as $prod)
-                        @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')
+                    @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')
                     @endforeach
                 </div>
             </div>
 
-            <div class="col-lg-2 remove-padding d-none d-lg-block">
+            <div class="col-lg-4 remove-padding d-none d-lg-block">
                 <div class="aside">
                     @if($ps->best_seller_banner)
                     <a class="banner-effect sider-bar-align" href="{{ $ps->best_seller_banner_link }}">
@@ -41,8 +41,8 @@
                     @endif
                 </div>
             </div>
-            
         </div>
+    </div>
 </section>
 <!-- Phone and Accessories Area start-->
 @endif

@@ -11,11 +11,11 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center align-items-center">
             @if($ps->best_seller_banner or $ps->best_seller_banner1)
             <div class="col-lg-10">
                 @else
-                <div class="col-lg-12">
+                <div class="col-lg-10">
                     @endif
                     <div class="row row-theme">
                         @foreach($best_products as $prod)

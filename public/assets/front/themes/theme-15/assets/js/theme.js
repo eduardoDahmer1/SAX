@@ -408,9 +408,9 @@ $(function ($) {
         $trending_slider.owlCarousel({
             items: 4,
             autoplay: false,
-            margin: 0,
+            margin: 24,
             loop: true,
-            dots: true,
+            dots: false,
             nav: false,
             center: false,
             autoplayHoverPause: true,
@@ -418,7 +418,7 @@ $(function ($) {
             smartSpeed: 800,
             responsive: {
                 0: {
-                    items: 2
+                    items: 1
                 },
                 414: {
                     items: 2
