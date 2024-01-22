@@ -1357,8 +1357,6 @@ Route::group([
  */
 Route::get('download-list-pdf', 'Front\FrontendController@downloadListPDF')->name('download-list-pdf');
 
-Route::post('new-checkout', 'App\Http\Controllers\CheckoutController@store')->name('submit-new-checkout');
-
 Route::group(['middleware' => 'maintenance'], function () {
     Route::group([
         'namespace' => 'Front'

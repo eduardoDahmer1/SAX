@@ -55,8 +55,12 @@ class EmailTemplatesTableSeeder extends Seeder
                 'email_type' => 'cart_abandonment',
                 'status' => 1,
             ),
+            6 =>
+            array (
+                'id' => 7,
+                'email_type' => 'new_order2',
+                'status' => 1,
+            ),
         ));
-
-
     }
 }
