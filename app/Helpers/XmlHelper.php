@@ -154,8 +154,11 @@ class XmlHelper
             $numeroFatura = $xml->createElement('NumeroFatura', sprintf("%'.08d", $order->id));
             $data = $xml->createElement('Data', $order->created_at->format('Y-m-d h:i:s'));
             $idPedido = $xml->createElement('IdPedido', $order->order_number);
-            $envio = $xml->createElement('Envio', $order->shipping == 'pickup' ? 'Retirar no local' : 'Enviar para o endereço');
+            $envio = $xml->createElement('Envio', $order->shipping == 3 ? 'Retirar no local' : 'Enviar para o endereço');
             $tipoEnvio = $xml->createElement('TipoEnvio', $order->shipping_type);
+            if($order->shipping == 3) {
+                $locadRetirada = $xml->createElement('LocalRetirada', $order->pickup_location);
+            }
             $tipoEmbalagem = $xml->createElement('TipoEmbalagem', $order->packing_type);
             $metodoPagamento = $xml->createElement('MetodoPagamento', $order->method);
 
@@ -164,6 +167,9 @@ class XmlHelper
             $detalhes->append($idPedido);
             $detalhes->append($envio);
             $detalhes->append($tipoEnvio);
+            if($order->shipping == 3) {
+                $detalhes->append($locadRetirada);
+            }
             $detalhes->append($tipoEmbalagem);
             $detalhes->append($metodoPagamento);
 

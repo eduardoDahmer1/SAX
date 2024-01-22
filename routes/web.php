@@ -1372,6 +1372,7 @@ Route::group(['middleware' => 'maintenance'], function () {
             Route::get('bancard-callback', 'BancardController@bancardCallback')->name('notify');
             Route::post('bancard-callback', 'BancardController@bancardFinish')->name('finish');
             Route::post('bancard-rollback/{shop_process_id}', 'BancardController@bancardRollback')->name('rollback');
+            Route::post('/bancard-close-modal', 'BancardController@bancardCloseModal')->name('bancard.close.modal');
         });
 
         /** Mercadopago */

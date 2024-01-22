@@ -2,7 +2,7 @@
 <!-- Trending Item Area Start -->
 <section class="trending">
     <div class="container">
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-12 remove-padding">
                 <div class="section-top">
                     <h2 class="section-title">
@@ -19,7 +19,6 @@
                     @endforeach
                 </div>
             </div>
-
         </div>
     </div>
 </section>

@@ -310,6 +310,15 @@ a {
     padding: 4rem 0;
 }
 
+.phone-and-accessories .item {
+    margin: 0;
+}
+
+.phone-and-accessories .item img {
+    margin: 0;
+    padding: 0rem;
+}
+
 .item {
     overflow: visible !important;
     position: relative;
@@ -320,11 +329,13 @@ a {
     -o-transition: unset;
     transition: unset;
     transition: all .3s;
-    height: 95%;
+    height: 100%;
     background-color: #fff;
 }
 
 .item .item-img img {
+    width: 100%;
+    height: 100%;
     padding: 1rem;
 }
 
@@ -355,7 +366,8 @@ a {
 .item .info {
     text-align: initial;
     background-color: transparent;
-    padding: 10px 0;
+    padding: 0px 0;
+    width: 100%;
 }
 
 .item .info .name {
@@ -1378,7 +1390,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .flash-deals .flas-deal-slider .item {
     margin: 20px 10px;
-    min-height: 470px;
+    min-height: 370px;
 }
 
 .full-stars {
@@ -1438,7 +1450,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trending-item-slider .owl-stage {
-    padding: 24px 0;
+    padding: 24px 0px;
+    margin: 0 auto;
 }
 
 .item:hover .item-cart-area {

@@ -69,6 +69,8 @@
                                                 title='{{ __('Customer Name') }}'></i></th>
                                         <th><i class="icofont-phone-circle icofont-lg" data-toggle="tooltip"
                                                 title='{{ __('Customer Phone') }}'></i></th>
+                                        <th><i class="icofont-calendar icofont-lg" data-toggle="tooltip"
+                                                title='{{ __('Customer Calendar') }}'></i></th>
                                         <th><i class="icofont-numbered icofont-lg" data-toggle="tooltip"
                                                 title='{{ __('Order Number') }}'></i></th>
                                         <th><i class="icofont-cart icofont-lg" data-toggle="tooltip"
@@ -241,6 +243,10 @@
                     name: 'customer_phone'
                 },
                 {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
                     data: 'order_number',
                     name: 'order_number'
                 },
@@ -261,6 +267,14 @@
                     name: 'status'
                 }
             ],
+            columnDefs: [
+            {
+                targets: 3,
+                render: function(data, type, row) {
+                    return moment(data).format('DD-MMM-YYYY HH:mm:ss');
+                }
+            }
+        ],
             language: {
                 url: '{{ $datatable_translation }}',
                 processing: '<img src="{{ $admstore->adminLoaderUrl }}">'

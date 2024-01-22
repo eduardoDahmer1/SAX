@@ -356,7 +356,7 @@
                                             <th width="10%">:</th>
                                             <td>{{ $order->packing_type }}</td>
                                         </tr>
-                                        @if ($order->shipping == 'pickup')
+                                        @if ($order->shipping == 3)
                                             <tr>
                                                 <th width="45%"><strong>{{ __('Pickup Location') }}:</strong></th>
                                                 <th width="10%">:</th>
@@ -445,7 +445,7 @@
                         </div>
                     </div>
                 @endif
-                @if(!empty($cart['items'])) {
+                @if(!empty($cart['items']))
                     @foreach ($cart['items'] as $key => $product)
                         @if (!empty($product['customizable_name']) ||
                             !empty($product['customizable_number']) ||
@@ -567,7 +567,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($cart['items'])) {
+                                @if(!empty($cart['items']))
                                     @foreach ($cart['items'] as $key => $product)
                                         <tr>
                                             <td><input type="hidden" value="{{ $key }}"

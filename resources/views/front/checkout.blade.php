@@ -166,9 +166,12 @@
                                                         <input id="withdrawal" name="shipping" value="3" type="radio">
                                                         <label for="withdrawal">{{ __('Pick up in') }} SAX</label>
                                                     </div>
-                                                    <select class="select-local d-none mx-2" name="local" id="local">
-                                                        <option value="1" selected>CDE</option>
-                                                        <option value="2">ASUNCIÓN</option>
+                                                    <select class="select-local d-none mx-2" name="pickup_location" id="local">
+                                                        @foreach ($allPickups as $pickup)
+                                                            <option value="{{ $pickup->location }}|{{ $pickup->id }}">
+                                                                {{ $pickup->location }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <span style="font-size: 14px;">FREE</span>
@@ -277,7 +280,7 @@
                                                     </div>
                                                     <div class="d-flex btns2 flex-wrap">
                                                         <button class="btn-back d-xl-none d-block">{{ __('To go back') }}</button>
-                                                        <button style="z-index: 9;" type="submit" onclick="disableButton()" id="final-btn" class="btn-back px-5 w-100" form="myform" disabled>{{ __('Continue') }}</button>
+                                                        <button style="z-index: 9;" type="submit" id="final-btn" class="btn-back px-5 w-100" form="myform">{{ __('Continue') }}</button>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -417,7 +420,7 @@
                                                                     </div>
                 
                                                                     <div class=" d-none" id="shipshow">
-                                                                        <select class="form-control" name="pickup_location"
+                                                                        <select class="form-control"
                                                                             style="margin-bottom: 10px;">
                                                                             @foreach ($allPickups as $pickup)
                                                                                 <option value="{{ $pickup->location }}|{{ $pickup->id }}">
@@ -732,7 +735,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-lg-6 d-none" id="shipshow">
-                                                                    <select class="form-control" name="pickup_location"
+                                                                    <select class="form-control"
                                                                         style="margin-bottom: 10px;">
                                                                         @foreach ($allPickups as $pickup)
                                                                             <option value="{{ $pickup->location }}|{{ $pickup->id }}">
@@ -2199,11 +2202,6 @@
         myModalEl.addEventListener('click', event => {
             document.getElementsByClassName('loader-checkout')[0].classList.add('d-flex')
         })
-        $(document).ready(function(){ 
-            $('#iframe-modal').on('shown.bs.modal', function (e) {
-                document.getElementsByClassName('loader-checkout')[0].classList.remove('d-flex') 
-            })
-        });
     </script>
 @endsection
 
@@ -2337,6 +2335,30 @@
 
     billPhone.addEventListener("change", function() {
         document.getElementById("customer_phone").value = billPhone.value;
+    });
+</script>
+
+<script>
+    $(document).ready(function(){ 
+        $('#iframe-modal').on('shown.bs.modal', function (e) {
+            document.getElementsByClassName('loader-checkout')[0].classList.remove('d-flex')
+        })
+        $('#iframe-modal').on('hide.bs.modal', function (e) {
+            $.ajax({
+                url: '/bancard-close-modal',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        })
     });
 </script>
 
