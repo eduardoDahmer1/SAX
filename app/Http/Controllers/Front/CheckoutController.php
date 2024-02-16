@@ -176,6 +176,7 @@ class CheckoutController extends Controller
         }
         $total = $cart->totalPrice;
         $coupon = Session::has('coupon') ? Session::get('coupon') : 0;
+        
 
         if ($this->storeSettings->tax != 0) {
             $tax = ($total / 100) * $this->storeSettings->tax;
@@ -186,7 +187,9 @@ class CheckoutController extends Controller
             $total = $total + 0;
         } else {
             $total = Session::get('coupon_total');
+            
             $total = str_replace($curr->sign, '', $total) + round(0 * $curr->value, 2);
+            $total = $total / $curr->value;
         }
 
         // If a user is Authenticated then there is no problm user can go for checkout
