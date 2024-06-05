@@ -1429,7 +1429,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .item .item-cart-area {
-    bottom: -35px;
     position: absolute;
     transition: all linear .3s;
     padding-bottom: 0;
@@ -1455,7 +1454,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .item:hover .item-cart-area {
-    bottom: -35px;
     transition: all linear .3s;
     padding: 0;
     transition: all linear .2s;
