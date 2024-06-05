@@ -291,7 +291,7 @@ background:<?php echo $theme_color_1; ?>; }
 .login-btn {
 background-color: <?php echo $theme_color_1; ?>;
 border-color: <?php echo $theme_color_1; ?>;
-color: <?php echo $text_color_1; ?> !important;
+color: white !important;
 }
 .product-details-page #product-details-tab .top-menu-area ul li a::after {
 background: <?php echo $theme_color_1; ?>;}
@@ -426,8 +426,7 @@ background: <?php echo $theme_color_1; ?>;
 }
 
 .item .item-cart-area {
-    bottom: -35px;
-    position: absolute;
+    position: relative;
     transition: all linear .3s;
     padding-bottom: 0;
     background: <?php echo $theme_color_2; ?>;
@@ -894,7 +893,7 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .item:hover .extra-list {
-    background-color: #fff;
+    background-color: transparent;
 }
 
 .item .item-img .extra-list ul li span {
@@ -915,7 +914,7 @@ color: <?php echo $theme_color_1; ?>;
 }
 
 .footer {
-    background-color: <?php echo $text_color_2; ?>;
+    background-color: <?php echo $text_color_1; ?>;
 }
 
 .footer .footer-info-area .text p, .footer .footer-widget ul li a,
@@ -1014,7 +1013,7 @@ color: #fff;
 
 .badge-primary{
     background-color: <?php echo $theme_color_2; ?>;
-    color:  <?php echo $text_color_2; ?>;
+    color:  white;
 }
 
 .top-header {
