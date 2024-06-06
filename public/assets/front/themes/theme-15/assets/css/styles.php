@@ -867,7 +867,7 @@ color: <?php echo $theme_color_1; ?>;
 
 
 .item .item-img .sell-area .sale {
-    color: <?php echo $text_color_1; ?>;
+    color: white;
     background: <?php echo $theme_color_1; ?>;
 }
 
