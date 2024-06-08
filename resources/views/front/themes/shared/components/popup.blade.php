@@ -12,7 +12,7 @@
                
                     <div class="subscribePreloader__thumb">
                         @if (!empty($gs->popup_background))
-                        <a href="https://shop.saxdepartment.com/brand/dia-das-maes-1537">
+                        <a href="https://saxdepartment.com/datas-especiais">
                             <img src="{{ $gs->popup_backgroundUrl }}">
                         </a>
                         @endif
