@@ -1459,10 +1459,6 @@ h1, h2, h3, h4, h5, h6 {
     transition: all linear .2s;
 }
 
-.categori-item-area .item:hover .item-cart-area {
-    bottom: -25px;
-}
-
 .flash-deals .item .item-cart-area {
     bottom:3rem;
 }
