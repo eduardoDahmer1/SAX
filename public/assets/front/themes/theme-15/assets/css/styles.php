@@ -126,7 +126,7 @@ z-index: 100;
 .sub-categori .right-area .categori-item-area .item .item-img .extra-list ul li a
 {
 background: <?php echo $theme_color_1; ?>;
-color: <?php echo $text_color_1; ?>;
+color: <?php echo $text_color_2; ?>;
 }
 
 .section-top .link,
@@ -462,8 +462,8 @@ background: <?php echo $theme_color_2; ?>!important;
 
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a,
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart:hover a {
-color: <?php echo $text_color_2; ?>;
-border: 1px solid <?php echo $text_color_2; ?>;
+color: <?php echo $theme_color_1; ?>;
+border: 1px solid <?php echo $theme_color_1; ?>;
 background: transparent;
 }
 
@@ -474,7 +474,7 @@ background: transparent;
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.compare:hover a {
 border: 1px solid transparent;
 background: transparent;
-color: <?php echo $text_color_2; ?>;
+color: <?php echo $theme_color_2; ?>;
 }
 
 .seller-info .content .title {
@@ -939,7 +939,7 @@ color: #fff;
 }
 
 .footer .fotter-social-links ul li a {
-    color: <?php echo $text_color_2; ?>;
+    color: <?php echo $text_color_1; ?>;
     background-color: #fff;
     border-color: transparent;
 }
@@ -955,7 +955,7 @@ color: #fff;
 
 .icon-filter {
     background-color: <?php echo $theme_color_1; ?>;
-    fill: <?php echo $text_color_1; ?>;
+    fill: white;
 }
 
 .sub-categori .left-area .tags-area .body-area .sub-title {

@@ -264,7 +264,7 @@
         </div>
     </div>
 @else
-    @include('front.themes.theme-11.components.no-prod-found')
+    @include('front.themes.shared.components.no-prod-found')
 @endif
 @if (isset($ajax_check))
     <script type="text/javascript">
