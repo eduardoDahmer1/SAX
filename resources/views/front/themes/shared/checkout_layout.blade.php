@@ -27,7 +27,7 @@
         <link rel="stylesheet"
             href="{{ asset(
                 'assets/front/themes/' .
-                    env('THEME', 'theme-01') .
+                    env('THEME', 'theme-15') .
                     '/assets/css/styles _checkout.php?' .
                     'theme_color_1=' .
                     str_replace('#', '', $gs->colors) .

@@ -1,4 +1,4 @@
-@extends('front.themes.' . env('THEME', 'theme-01') . '.layout')
+@extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('content')
 <div class="container-fluid mt-2 mb-5">
     <div class="row px-5">

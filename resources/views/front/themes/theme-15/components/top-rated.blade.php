@@ -15,7 +15,7 @@
             <div class="col-lg-10 row-theme">
                 <div class="row">
                     @foreach($top_products as $prod)
-                    @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')
+                    @include('front.themes.'.env('THEME', 'theme-15').'.components.home-product')
                     @endforeach
                 </div>
             </div>
