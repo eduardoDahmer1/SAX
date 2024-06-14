@@ -102,12 +102,12 @@
         <!-- stylesheet -->
         <link rel="stylesheet" href="{{ asset('assets/front/themes/shared/assets/css/rtl/all.css') }}">
         <link rel="stylesheet"
-            href="{{ asset('assets/front/themes/' . env('THEME', 'theme-01') . '/assets/css/rtl/rtl.css') }}">
+            href="{{ asset('assets/front/themes/' . env('THEME', 'theme-15') . '/assets/css/rtl/rtl.css') }}">
         <!--Updated CSS-->
         <link rel="stylesheet"
             href="{{ asset(
                 'assets/front/themes/' .
-                    env('THEME', 'theme-01') .
+                    env('THEME', 'theme-15') .
                     '/assets/css/rtl/styles.php?' .
                     'color=' .
                     str_replace('#', '', $gs->colors) .
@@ -134,12 +134,12 @@
         <!-- stylesheet -->
         <link rel="stylesheet" href="{{ asset('assets/front/themes/shared/assets/css/all.css') }}">
         <link rel="stylesheet"
-            href="{{ asset('assets/front/themes/' . env('THEME', 'theme-01') . '/assets/css/theme.css') }}">
+            href="{{ asset('assets/front/themes/' . env('THEME', 'theme-15') . '/assets/css/theme.css') }}">
         <!--Updated CSS-->
         <link rel="stylesheet"
             href="{{ asset(
                 'assets/front/themes/' .
-                    env('THEME', 'theme-01') .
+                    env('THEME', 'theme-15') .
                     '/assets/css/styles.php?' .
                     'theme_color_1=' .
                     str_replace('#', '', $gs->colors) .
@@ -185,7 +185,7 @@
     @yield('before-footer')
 
     @includeFirst([
-        'front.themes.' . env('THEME', 'theme-01') . '.components.footer',
+        'front.themes.' . env('THEME', 'theme-15') . '.components.footer',
         'front.themes.shared.components.footer',
     ])
 
@@ -237,7 +237,7 @@
     <script src="{{ asset('assets/front/themes/shared/assets/js/simple-lightbox.min.js') }}"></script>
 
     <!-- theme -->
-    <script src="{{ asset('assets/front/themes/' . env('THEME', 'theme-01') . '/assets/js/theme.js') }}"></script>
+    <script src="{{ asset('assets/front/themes/' . env('THEME', 'theme-15') . '/assets/js/theme.js') }}"></script>
     <!-- shared -->
     <script src="{{ asset('assets/front/themes/shared/assets/js/shared.js') }}"></script>
 

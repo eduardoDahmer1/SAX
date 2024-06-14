@@ -1,4 +1,4 @@
-<!-- @extends('front.themes.' . env('THEME', 'theme-01') . '.layout') -->
+<!-- @extends('front.themes.' . env('THEME', 'theme-15') . '.layout') -->
 
 @section('content')
     <input type="hidden" id="has_temporder" value="false">

@@ -21,7 +21,7 @@
                     <div class="row row-theme">
                         @foreach($big_products as $prod)
 
-                        @include('front.themes.'.env('THEME', 'theme-01').'.components.home-product')
+                        @include('front.themes.'.env('THEME', 'theme-15').'.components.home-product')
                         @endforeach
                     </div>
                 </div>

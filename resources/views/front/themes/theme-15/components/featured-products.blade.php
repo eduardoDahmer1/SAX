@@ -16,7 +16,7 @@
             <div class="col-lg-10">
                 <div class="trending-item-slider w-100 d-flex justify-content-center align-items-center">
                     @foreach($feature_products as $prod)
-                    @include('front.themes.'.env('THEME', 'theme-01').'.components.slider-product')
+                    @include('front.themes.'.env('THEME', 'theme-15').'.components.slider-product')
                     @endforeach
                 </div>
             </div>
