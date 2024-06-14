@@ -10,7 +10,7 @@
             <h3>{{ __('Some products that may be of interest to you:') }}</h3>
             <div class="trending-item-slider">
                 @foreach ($feature_products as $prod)
-                    @include('front.themes.theme-11.components.slider-product')
+                    @include('front.themes.theme-15.components.slider-product')
                 @endforeach
             </div>
         </div>
