@@ -6,7 +6,7 @@
             @foreach($chunk as $img)
             <div class="col-lg-12">
                 <div class="img">
-                    <a class="{{ env('THEME') == " theme-08" ? "" : "banner-effect" }} banner-w100"
+                    <a class="{{ env('THEME') == " theme-15" ? "" : "banner-effect" }} banner-w100"
                         href="{{ $img->link }}">
                         <figure>
                             <img src="{{asset('storage/images/banners/'.$img->photo)}}" alt="Banner">
