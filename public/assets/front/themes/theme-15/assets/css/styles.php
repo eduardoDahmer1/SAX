@@ -341,7 +341,7 @@ background: <?php echo $theme_color_1; ?>; }
 
 .upload-img .file-upload-area .upload-file span {
 background: <?php echo $theme_color_1; ?>;
-color: <?php echo $text_color_1; ?>;
+color: white;
 }
 .thankyou .content .icon {
 color: <?php echo $theme_color_1; ?>; }
