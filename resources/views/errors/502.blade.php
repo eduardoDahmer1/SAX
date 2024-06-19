@@ -1,11 +1,11 @@
-<!-- resources/views/errors/500.blade.php -->
+<!-- resources/views/errors/502.blade.php -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="5">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erro 500 - Ocorreu um problema!</title>
+    <title>Erro 502 - Bad Gateway!</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,8 +25,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Erro 500 - Ocorreu um problema!</h1>
-        <p>O servidor encontrou um problema interno. A página será recarregada automaticamente em breve.</p>
+        <h1>Erro 502 - Bad Gateway!</h1>
+        <p>O servidor encontrou um erro ao acessar um gateway. A página será recarregada automaticamente em breve.</p>
     </div>
     <script>
         setTimeout(function() {

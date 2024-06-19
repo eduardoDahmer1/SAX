@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,9 +48,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
+        // Custom handling for 500 and 502 errors
+        if ($e instanceof HttpException) {
+            $statusCode = $e->getStatusCode();
+            if ($statusCode == Response::HTTP_INTERNAL_SERVER_ERROR) {
+                return response()->view('errors.500', [], 500);
+            }
+            if ($statusCode == Response::HTTP_BAD_GATEWAY) {
+                return response()->view('errors.502', [], 502);
+            }
+        }
+
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json($e->getMessage());
         }
+
         return parent::render($request, $e);
     }
 
