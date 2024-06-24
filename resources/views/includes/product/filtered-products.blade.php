@@ -170,10 +170,11 @@
         @endif
         @if ( $loop->index == 7)
             @if($admstore->pagesettings->banner_search1 || $admstore->pagesettings->banner_search2)
-                <div class="col-lg-4 py-1 pr-lg-2 remove-padding">
+            <!-- Banner dinamico pagina de busca -->
+                <!-- <div class="col-lg-4 py-1 pr-lg-2 remove-padding">
                     <img src="{{ $admstore->pagesettings->banner_search1 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search1) : asset('assets/images/noimage.png') }}" alt="Banner Bottom">
-                </div>
-                <div class="col-lg-8 py-1 remove-padding">
+                </div> -->
+                <div class="col-lg-12 py-1 remove-padding">
                     <div class="w-100 h-100" 
                         style="
                         background-image:url({{ $admstore->pagesettings->banner_search2 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search2) : asset('assets/images/noimage.png') }});
