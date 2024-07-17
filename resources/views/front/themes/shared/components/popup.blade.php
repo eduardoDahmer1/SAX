@@ -12,7 +12,7 @@
                
                     <div class="subscribePreloader__thumb">
                         @if (!empty($gs->popup_background))
-                        <a href="https://saxdepartment.com/datas-especiais">
+                        <a href="https://wa.link/4pxnh9">
                             <img src="{{ $gs->popup_backgroundUrl }}">
                         </a>
                         @endif
