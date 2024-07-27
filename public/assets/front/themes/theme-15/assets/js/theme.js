@@ -40,17 +40,29 @@ $(function ($) {
             $(idMenu).toggle('fast');
         })
 
-        $('.button-open-search').on('click', function (e) {
-            let boxSearch = document.querySelector('.search-box')   
-            $(boxSearch).toggleClass('open-search');
-
-            let iconSearchButton = document.querySelector('.iconSearchButton')
-            if ($(iconSearchButton).hasClass('bi-search')) {
-                $(iconSearchButton).removeClass('bi-search').addClass('bi-x-lg');
-            } else {
-                $(iconSearchButton).removeClass('bi-x-lg').addClass('bi-search');
-            }
-        })
+        $(document).ready(function () {
+            $('.button-open-search').on('click', function (e) {
+                e.stopPropagation(); // Impede que o clique no botão feche a caixa imediatamente
+                let boxSearch = $('.search-box');
+                boxSearch.toggleClass('open-search');
+        
+                let iconSearchButton = $('.iconSearchButton');
+                if (iconSearchButton.hasClass('bi-search')) {
+                    iconSearchButton.removeClass('bi-search').addClass('bi-x-lg');
+                } else {
+                    iconSearchButton.removeClass('bi-x-lg').addClass('bi-search');
+                }
+            });
+        
+            // Fecha o input de busca quando clica fora da caixa de busca
+            $(document).on('click', function (e) {
+                if (!$('.search-box').is(e.target) && $('.search-box').has(e.target).length === 0) {
+                    $('.search-box').removeClass('open-search');
+                    $('.iconSearchButton').removeClass('bi-x-lg').addClass('bi-search');
+                }
+            });
+        });
+         
 
         /*------addClass/removeClass categories-------*/
         var w = window.innerWidth;
