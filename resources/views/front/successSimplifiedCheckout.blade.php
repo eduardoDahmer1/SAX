@@ -39,36 +39,56 @@
                             PHP_EOL.PHP_EOL;
 
                             if($order->customer_name) {
-                            $linkSimplifiedCheckout .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
-                            PHP_EOL;
+                                $linkSimplifiedCheckout .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
+                                PHP_EOL;
                             }
                             if($order->customer_phone) {
-                            $linkSimplifiedCheckout .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+                                $linkSimplifiedCheckout .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->location) {
+                                $linkSimplifiedCheckout .= "_*" . __("Location") . ": " . $order->location . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->delivery_method) {
+                                $linkSimplifiedCheckout .= "_*" . __("Delivery Method") . ": " . $order->delivery_method . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->description) {
+                                $linkSimplifiedCheckout .= "_*" . __("Description") . ": " . $order->description . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->payment_method) {
+                            $linkSimplifiedCheckout .= "_*" . __("Payment Method") . ": " . $order->payment_method . "*_" .
                             PHP_EOL;
+                            }
+                            if($order->payment) {
+                                $linkSimplifiedCheckout .= "_*" . __("Payment") . ": " . $order->payment . "*_" .
+                                PHP_EOL;
                             }
 
                             $linkSimplifiedCheckout .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
 
                             foreach($tempcart->items as $product) {
-                            $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
-                            $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
-                            if($admstore->show_product_prices){
-                                $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
-                                number_format($product['item']['price'] * $order->currency_value,
-                                $order_curr->decimal_digits,
-                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
-                            }
-                            $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
-                            $product['item']['slug']])).PHP_EOL.PHP_EOL;
-                            $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+                                if($admstore->show_product_prices){
+                                    $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
+                                    number_format($product['item']['price'] * $order->currency_value,
+                                    $order_curr->decimal_digits,
+                                    $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                                }
+                                $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
+                                $product['item']['slug']])).PHP_EOL.PHP_EOL;
+                                $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
                             }
                             if ($order->tax) {
-                            $linkSimplifiedCheckout .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
                             }
                             if ($order->coupon_code) {
-                            $linkSimplifiedCheckout .= "*" . __("Discount") . "*: " . $order->currency_sign .
-                            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Discount") . "*: " . $order->currency_sign .
+                                number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
                             }
                             if($admstore->show_product_prices){
                                 $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
@@ -101,36 +121,56 @@
                             PHP_EOL.PHP_EOL;
 
                             if($order->customer_name) {
-                            $linkSimplifiedCheckout .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
-                            PHP_EOL;
+                                $linkSimplifiedCheckout .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
+                                PHP_EOL;
                             }
                             if($order->customer_phone) {
-                            $linkSimplifiedCheckout .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+                                $linkSimplifiedCheckout .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->location) {
+                                $linkSimplifiedCheckout .= "_*" . __("Location") . ": " . $order->location . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->delivery_method) {
+                                $linkSimplifiedCheckout .= "_*" . __("Delivery Method") . ": " . $order->delivery_method . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->description) {
+                                $linkSimplifiedCheckout .= "_*" . __("Description") . ": " . $order->description . "*_" .
+                                PHP_EOL;
+                            }
+                            if($order->payment_method) {
+                            $linkSimplifiedCheckout .= "_*" . __("Payment Method") . ": " . $order->payment_method . "*_" .
                             PHP_EOL;
+                            }
+                            if($order->payment) {
+                                $linkSimplifiedCheckout .= "_*" . __("Payment") . ": " . $order->payment . "*_" .
+                                PHP_EOL;
                             }
 
                             $linkSimplifiedCheckout .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
 
                             foreach($tempcart->items as $product) {
-                            $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
-                            $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
-                            if($admstore->show_product_prices){
-                                $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
-                                number_format($product['item']['price'] * $order->currency_value,
-                                $order_curr->decimal_digits,
-                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
-                            }
-                            $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
-                            $product['item']['slug']])).PHP_EOL.PHP_EOL;
-                            $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+                                if($admstore->show_product_prices){
+                                    $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
+                                    number_format($product['item']['price'] * $order->currency_value,
+                                    $order_curr->decimal_digits,
+                                    $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                                }
+                                $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
+                                $product['item']['slug']])).PHP_EOL.PHP_EOL;
+                                $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
                             }
                             if ($order->tax) {
-                            $linkSimplifiedCheckout .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
                             }
                             if ($order->coupon_code) {
-                            $linkSimplifiedCheckout .= "*" . __("Discount") . "*: " . $order->currency_sign .
-                            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Discount") . "*: " . $order->currency_sign .
+                                number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
+                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
                             }
                             if($admstore->show_product_prices){
                                 $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
@@ -148,7 +188,7 @@
                             <p class="text"> {{ __("If the conversation page does not open automatically") . " " }} </p>
                             <a class="btn btn-success m-3" id="link-simplified" href="{{$linkMobile}}"
                                 target="_blank"><span class="heading" style="font-size: 20px"><i
-                                        class="icofont-verification-check"></i>{{ __("Click Here") }}</span></a>
+                                    class="icofont-verification-check"></i>{{ __("Click Here") }}</span></a>
                             <br>
                             <a href="{{ route('front.index') }}" class="link">{{ __("Get Back To Our Homepage") }}</a>
                         </div>

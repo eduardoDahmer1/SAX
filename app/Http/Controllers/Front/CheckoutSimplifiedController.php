@@ -51,164 +51,170 @@ class CheckoutSimplifiedController extends Controller
 
     public function create(Request $request)
     {
+        // Verifica se o checkout simplificado está habilitado e se o request não está vazio
         if (!$this->storeSettings->is_simplified_checkout || empty($request->all())) {
             return view('errors.404');
         }
-
+    
+        // Verifica se há produtos no carrinho
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success', __("You don't have any product to checkout."));
         }
-
-        if (Session::has('currency')) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
-        }
+    
+        // Captura a moeda
+        $curr = Currency::find(Session::get('currency', $this->storeSettings->currency_id));
         $first_curr = Currency::where('id', '=', 1)->first();
-
+    
         $order = new Order;
-
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $totalQty = $cart->totalQty;
-        $item_number = Str::random(4).time();
+        $item_number = Str::random(4) . time();
         $coupon_disc = Session::get('coupon') / $curr->value;
         $success_url = action('Front\PaymentController@payreturnSimplifidCheckout');
-
+    
+        // Verifica as quantidades dos produtos
         foreach ($cart->items as $key => $prod) {
             if (!empty($prod['max_quantity']) && ($prod['qty'] > $prod['max_quantity'])) {
-                return redirect()->route('front.cart')->with('unsuccess', __('Max quantity of :prod  is :qty!', ['prod' => $prod['item']['name'], 'qty' => $prod['max_quantity']]));
+                return redirect()->route('front.cart')->with('unsuccess', __('Max quantity of :prod is :qty!', ['prod' => $prod['item']['name'], 'qty' => $prod['max_quantity']]));
             }
-
+    
             if (!empty($prod['item']['stock']) && ($prod['qty'] > $prod['item']['stock'])) {
-                return redirect()->route('front.cart')->with('unsuccess', __('The stock of :prod  is :qty!', ['prod' => $prod['item']['name'], 'qty' => $prod['item']['stock']]));
+                return redirect()->route('front.cart')->with('unsuccess', __('The stock of :prod is :qty!', ['prod' => $prod['item']['name'], 'qty' => $prod['item']['stock']]));
             }
         }
-
-        if (Session::has('coupon_total')) {
-            $cart_total = Session::get('coupon_total') / $curr->value;
-        } elseif (Session::has('coupon_total1')) {
-            $cart_total = Session::get('coupon_total1') / $curr->value;
-        } else {
-            $cart_total = $oldCart->totalPrice * (1+($this->storeSettings->tax / 100));
-        }
-
-        $cart_total = $cart_total + $order['packing_cost'] + $order['shipping_cost'];   //Cart total on currency 1
-        $cart_total_currency = $cart_total * $curr->value;  // Cart total on default currency
-
+    
+        // Calcula o total do carrinho
+        $cart_total = Session::has('coupon_total') ? Session::get('coupon_total') / $curr->value : (Session::has('coupon_total1') ? Session::get('coupon_total1') / $curr->value : $oldCart->totalPrice * (1 + ($this->storeSettings->tax / 100)));
+    
+        // Adiciona custos de embalagem e frete
+        $cart_total += $order['packing_cost'] + $order['shipping_cost'];
+        $cart_total_currency = $cart_total * $curr->value;
+    
+        // Prepara o pedido
         $order['cart'] = [
             'items' => $cart->items,
             'totalQty' => $cart->totalQty,
             'totalPrice' => $cart->totalPrice
         ];
-
+        
         $order['totalQty'] = $totalQty;
         $order['pay_amount'] = round($cart_total, 2);
         $order['method'] = 'Simplified';
         $order['order_number'] = $item_number;
         $order['payment_status'] = "Pending";
-
         $order['user_id'] = $request->user_id;
         $order['tax'] = $this->storeSettings->tax;
         $order['coupon_code'] = Session::get('coupon');
         $order['coupon_discount'] = $coupon_disc;
-        $order['payment_status'] = "Pending";
         $order['currency_sign'] = $curr->sign;
         $order['currency_value'] = $curr->value;
-
         $order['customer_email'] = " ";
-
-        if (!$request->name) {
-            $order['customer_name'] = " ";
-        } else {
-            $order['customer_name'] = $request->name;
-        }
-
-        if (!$request->phone) {
-            $order['customer_phone'] = " ";
-        } else {
-            $order['customer_phone'] = $request->phone;
-        }
-
+        $order['customer_name'] = $request->name ?? " ";
+        $order['customer_phone'] = $request->phone ?? " ";
         $order['customer_country'] = " ";
         $order['shipping_cost'] = 0;
-
+    
+        // Adiciona os novos campos
+        $order['location'] = $request->location;
+        $order['delivery_method'] = $request->delivery_method;
+        $order['description'] = $request->description;
+        $order['payment_method'] = $request->payment_method;
+        $order['payment'] = $request->payment;
+    
+        // Salva o pedido
         $order->save();
-
+    
+        // Rastreia o pedido
         $track = new OrderTrack;
         $track->title = __('Pending');
         $track->text = __('You have successfully placed your order.');
         $track->order_id = $order->id;
         $track->save();
-
+    
+        // Cria uma notificação
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();
-
+    
+        // Atualiza o uso do cupom
         if ($request->coupon_id != "") {
             $coupon = Coupon::findOrFail($request->coupon_id);
             $coupon->used++;
             if ($coupon->times != null) {
-                $i = (int)$coupon->times;
-                $i--;
-                $coupon->times = (string)$i;
+                $coupon->times = (string)((int)$coupon->times - 1);
             }
             $coupon->update();
         }
-
+    
+        // Atualiza o estoque dos produtos
         foreach ($cart->items as $prod) {
-            $x = (string) $prod['size_qty'];
-            $y = (string) $prod['color_qty'];
-            $z = (string) $prod['material_qty'];
+            $x = (string)$prod['size_qty'];
+            $y = (string)$prod['color_qty'];
+            $z = (string)$prod['material_qty'];
             $product = Product::findOrFail($prod['item']['id']);
+            
             if (!empty($x)) {
-                $x = (int) $x;
-                $x = $x - $prod['qty'];
-                $temp = $product->size_qty;
-                $temp[$prod['size_key']] = $x;
-                $temp1 = implode(',', $temp);
-                $product->size_qty =  $temp1;
-                $product->stock -= $prod['qty'];
-                $product->update();
+                $product->size_qty = $this->updateSizeQty($product->size_qty, $prod['size_key'], $prod['qty']);
             } elseif (!empty($y)) {
-                $y = (int) $y;
-                $y = $y - $prod['qty'];
-                $temp = $product->color_qty;
-                $temp[$prod['color_key']] = $y;
-                $temp1 = implode(',', $temp);
-                $product->color_qty =  $temp1;
-                $product->stock -= $prod['qty'];
-                $product->update();
+                $product->color_qty = $this->updateColorQty($product->color_qty, $prod['color_key'], $prod['qty']);
             } elseif (!empty($z)) {
-                $z = (int) $z;
-                $z = $z - $prod['qty'];
-                $temp = $product->material_qty;
-                $temp[$prod['material_key']] = $z;
-                $temp1 = implode(',', $temp);
-                $product->material_qty =  $temp1;
-                $product->stock -= $prod['qty'];
-                $product->update();
+                $product->material_qty = $this->updateMaterialQty($product->material_qty, $prod['material_key'], $prod['qty']);
             } else {
-                $x = (string) $prod['stock'];
-                if ($x != null) {
-                    if ($product->stock != null) {
-                        $product->stock -= $prod['qty'];
-                    }
-                    $product->update();
-                }
+                $product->stock -= $prod['qty'];
             }
+            
             if ($product->stock <= 5) {
                 $notification = new Notification;
                 $notification->product_id = $product->id;
                 $notification->save();
             }
+            $product->update();
         }
-
-        $notf = null;
-
+    
+        // Cria pedidos de fornecedores
+        $this->createVendorOrders($cart, $order);
+    
+        // Limpa o carrinho e as sessões temporárias
+        Session::forget(['cart', 'already', 'coupon', 'coupon_code', 'coupon_total', 'coupon_total1', 'coupon_percentage']);
+        Session::put('temporder', $order);
+        Session::put('tempcart', $cart);
+    
+        // Envia email para o administrador
+        $this->sendAdminEmail($order);
+    
+        return redirect($success_url);
+    }
+    
+    // Funções auxiliares
+    protected function updateSizeQty($sizeQty, $sizeKey, $qty)
+    {
+        $sizeQty = (array) explode(',', $sizeQty);
+        $sizeQty[$sizeKey] -= $qty;
+        return implode(',', $sizeQty);
+    }
+    
+    protected function updateColorQty($colorQty, $colorKey, $qty)
+    {
+        $colorQty = (array) explode(',', $colorQty);
+        $colorQty[$colorKey] -= $qty;
+        return implode(',', $colorQty);
+    }
+    
+    protected function updateMaterialQty($materialQty, $materialKey, $qty)
+    {
+        $materialQty = (array) explode(',', $materialQty);
+        $materialQty[$materialKey] -= $qty;
+        return implode(',', $materialQty);
+    }
+    
+    protected function createVendorOrders($cart, $order)
+    {
+        $notf = [];
+    
         foreach ($cart->items as $prod) {
             if ($prod['item']['user_id'] != 0) {
-                $vorder =  new VendorOrder;
+                $vorder = new VendorOrder;
                 $vorder->order_id = $order->id;
                 $vorder->user_id = $prod['item']['user_id'];
                 $notf[] = $prod['item']['user_id'];
@@ -218,10 +224,10 @@ class CheckoutSimplifiedController extends Controller
                 $vorder->save();
             }
         }
-
+    
+        // Notificações para usuários
         if (!empty($notf)) {
             $users = array_unique($notf);
-
             foreach ($users as $user) {
                 $notification = new UserNotification;
                 $notification->user_id = $user;
@@ -229,42 +235,21 @@ class CheckoutSimplifiedController extends Controller
                 $notification->save();
             }
         }
-        if (Session::has('temporder')) {
-            Session::forget('temporder');
-        }
-        Session::put('temporder', $order);
-        Session::put('tempcart', $cart);
-
-        Session::forget('cart');
-
-        Session::forget('already');
-        Session::forget('coupon');
-        Session::forget('coupon_code');
-        Session::forget('coupon_total');
-        Session::forget('coupon_total1');
-        Session::forget('coupon_percentage');
-
-        //Sending Email To Admin
-        if ($this->storeSettings->is_smtp == 1) {
-            $data = [
-                'to' => Pagesetting::find(1)->contact_email,
-                'subject' => __("New Order Received!"),
-                'body' => $this->storeSettings->title . "<br>" .__("Hello Admin!")."<br>".__("Your store has received a new order.")."<br>".
-                    __("Order Number is")." ".$order->order_number.".".__("Please login to your panel to check.")."<br>".
-                    __("Thank you"),
-            ];
-
-            $mailer = new GeniusMailer();
-            $mailer->sendAdminMail($data, $order->id);
-        } else {
-            $to = Pagesetting::find(1)->contact_email;
-            $subject = __("New Order Received!");
-            $msg =  $this->storeSettings->title . "<br>" .__("Hello Admin!")."<br>".__("Your store has received a new order.")."<br>".
-                __("Order Number is")." ".$order->order_number.".".__("Please login to your panel to check.")."<br>".
-                __("Thank you");
-            $headers = "From: ".$this->storeSettings->from_name."<".$this->storeSettings->from_email.">";
-            mail($to, $subject, $msg, $headers);
-        }
-        return redirect($success_url);
     }
+    
+    protected function sendAdminEmail($order)
+    {
+        $data = [
+            'to' => Pagesetting::find(1)->contact_email,
+            'subject' => __("New Order Received!"),
+            'body' => $this->storeSettings->title . "<br>" . __("Hello Admin!") . "<br>" .
+                __("Your store has received a new order.") . "<br>" .
+                __("Order Number is") . " " . $order->order_number . "." . __("Please login to your panel to check.") . "<br>" .
+                __("Thank you"),
+        ];
+    
+        $mailer = new GeniusMailer();
+        $mailer->sendAdminMail($data, $order->id);
+    }
+    
 }
