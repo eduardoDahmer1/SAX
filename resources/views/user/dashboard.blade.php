@@ -17,6 +17,8 @@
                             <h4 class="title">
                                 {{ __("Account Information") }}
                             </h4>
+                                <p> {{ __("Make sure to confirm all your details so we can speed up your purchase, if it is pending click on the link below") }}</p>
+                                <a href="{{ route('user-profile') }}">Editar perfil</a>
                         </div>
                         <div class="edit-info-area"></div>
                         <div class="main-info">
