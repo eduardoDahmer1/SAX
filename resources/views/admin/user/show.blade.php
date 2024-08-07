@@ -83,6 +83,18 @@
                                                     <td>{{ $data->city }}</td>
                                                 </tr>
                                             @endif
+                                            @if ($data->country != null)
+                                                <tr>
+                                                    <th>{{ __('Country') }}</th>
+                                                    <td>{{ $data->country }}</td>
+                                                </tr>
+                                            @endif
+                                            @if ($data->complement != null)
+                                                <tr>
+                                                    <th>{{ __('Complement') }}</th>
+                                                    <td>{{ $data->complement }}</td>
+                                                </tr>
+                                            @endif
                                             @if ($data->fax != null)
                                                 <tr>
                                                     <th>{{ __('Fax') }}</th>
