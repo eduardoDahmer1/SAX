@@ -83,6 +83,12 @@
                                 </li>
                                 @endif
 
+                                @if($user->country != null)
+                                <li>
+                                    <p><span class="user-title">{{ __("Country") }}:</span> {{ $user->country }}</p>
+                                </li>
+                                @endif
+
                                 @if(config("features.marketplace") && $gs->is_affilate == 1)
                                 <li>
                                     <p><span class="user-title">{{ __("Affiliate Bonus") }}:</span>
