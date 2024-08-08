@@ -323,14 +323,14 @@ background: <?php echo $theme_color_1; ?>;
 }
 .login-area .submit-btn {
 background:<?php echo $theme_color_2; ?>;
-color:<?php echo $text_color_2; ?>;
+color: white;
 }
 
 .comment-log-reg-tabmenu .nav-tabs .nav-link {
 background: #000000; }
 .comment-log-reg-tabmenu .nav-tabs .nav-link.active {
 background: <?php echo $theme_color_1; ?>;
-color: <?php echo $text_color_1; ?>;
+color: white;
 }
 
 .user-dashbord .user-profile-info-area .links li.active a, .user-dashbord .user-profile-info-area .links li:hover a {
