@@ -77,7 +77,7 @@
                                                 @if ($socials->g_check == 1)
                                                     <li>
                                                         <a href="{{ route('social-provider', 'google') }}">
-                                                            <i class="fab google"></i>
+                                                            <i><img src="{{asset('assets/images/theme15/google24px.png')}}"></i>
                                                         </a>
                                                     </li>
                                                 @endif
