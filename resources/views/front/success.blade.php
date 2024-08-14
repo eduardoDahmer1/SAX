@@ -25,6 +25,12 @@
     font-size: 18px;
     font-weight: 600;
 }
+.color-text-wpp{
+    background: green;
+    padding: 1em;
+    border-radius: 7px;
+    color: white;
+}
 </style>
 @section('content')
 <!-- Breadcrumb Area Start -->
@@ -190,7 +196,7 @@
                                                             @else
                                                             <h5>{{ __("PickUp Location") }}</h5>
                                                             <address>
-                                                                {{ __("Address:") }} {{$order->pickup_location}}<br>
+                                                                {{ __("Address:") }} {{$order->customer_city}}, {{$order->customer_address}}, {{$order->customer_zip}}<br>
                                                             </address>
                                                             @endif
                                                         </div>
@@ -439,7 +445,7 @@
                             "&text=" . urlencode($linkWpp);
                             @endphp
 
-                            <a class="text" href="{{$link}}">
+                            <a class="text color-text-wpp" href="{{$link}}">
                                 {{ __("Click here to complete your purchase on our Whatsapp") }}
                             </a>
                         </div>
