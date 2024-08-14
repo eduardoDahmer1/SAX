@@ -61,7 +61,7 @@
                                 </span><br>
                             @endif
                             @if ($order->shipping == 3)
-                                <span><strong>{{ __('Retirar em') }} :</strong>
+                                
                                     {{$order->pickup_location}}
                                 </span><br>
                             @endif
@@ -156,7 +156,7 @@
                                                 $tax = 0;
                                                 $tax_original = 0;
                                             @endphp
-                                            @if(!empty($cart['items'])) {
+                                            @if(!empty($cart['items'])) 
                                             @foreach ($cart['items'] as $product)
                                                 <tr>
                                                     <td width="30%">

@@ -942,11 +942,15 @@ color: #fff;
     color: <?php echo $text_color_1; ?>;
     background-color: #fff;
     border-color: transparent;
+    justify-content: center;
+align-items: center;
+display: flex;
 }
 .footer .fotter-social-links ul li a:hover {
     color: <?php echo $text_color_1; ?>;
     background-color: <?php echo $theme_color_1; ?>;
     border-color: <?php echo $text_color_1; ?>;
+
 }
 
 #services-carousel .owl-controls .owl-nav .owl-prev, #services-carousel .owl-controls .owl-nav .owl-next {
