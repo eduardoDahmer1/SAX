@@ -52,6 +52,7 @@
                                             <div class="pl-sm-4 pl-1">
                                                 <h5 class="fw-normal fs-16">{{ $product['item']->name }}</h5>
                                                 <p class="color-1">{{ __('Product code') }}: {{ $product['item']->sku }}</p>
+                                                <h5>Tamanho: {{ $product['item']['measure'] }}{{ str_replace('-', ' ', $product['size']) }}</h5>
                                             </div>
                                         </div>
                                         <div class="col-12 d-flex align-items-center bg-top my-4 py-2 d-lg-none d-block">
