@@ -72,6 +72,7 @@
                             foreach($tempcart->items as $product) {
                                 $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
                                 $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Size") . "*: " . $product['size'].PHP_EOL;
                                 if($admstore->show_product_prices){
                                     $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
                                     number_format($product['item']['price'] * $order->currency_value,
@@ -154,6 +155,7 @@
                             foreach($tempcart->items as $product) {
                                 $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
                                 $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+                                $linkSimplifiedCheckout .= "*" . __("Size") . "*: " . $product['dize'].PHP_EOL;
                                 if($admstore->show_product_prices){
                                     $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
                                     number_format($product['item']['price'] * $order->currency_value,
