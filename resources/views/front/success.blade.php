@@ -456,107 +456,109 @@
             @endif
 </section>
 
-                            @php
-                            $linkSimplifiedCheckout = "*| " . __('New Order - Simplified Checkout') . " |*" .
-                            PHP_EOL.PHP_EOL;
+            @php
+            $linkSimplifiedCheckout = "*| " . __('New Order - Simplified Checkout') . " |*" .
+            PHP_EOL.PHP_EOL;
 
-                            if($order->customer_name) {
-                            $linkSimplifiedCheckout .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
-                            PHP_EOL;
-                            }
-                            if($order->customer_phone) {
-                            $linkSimplifiedCheckout .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
-                            PHP_EOL;
-                            }
+            if($order->customer_name) {
+            $linkSimplifiedCheckout .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
+            PHP_EOL;
+            }
+            if($order->customer_phone) {
+            $linkSimplifiedCheckout .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+            PHP_EOL;
+            }
 
-                            $linkSimplifiedCheckout .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
+            $linkSimplifiedCheckout .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
 
-                            foreach($tempcart->items as $product) {
-                            $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
-                            $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
-                            if($admstore->show_product_prices){
-                                $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
-                                number_format($product['item']['price'] * $order->currency_value,
-                                $order_curr->decimal_digits,
-                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
-                            }
-                            $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
-                            $product['item']['slug']])).PHP_EOL.PHP_EOL;
-                            $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
-                            }
-                            if ($order->tax) {
-                            $linkSimplifiedCheckout .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
-                            }
-                            if ($order->coupon_code) {
-                            $linkSimplifiedCheckout .= "*" . __("Discount") . "*: " . $order->currency_sign .
-                            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
-                            }
-                            if($admstore->show_product_prices){
-                                $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
-                                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
-                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
-                            }
-                            $linkSimplifiedCheckout .= "_" . __("Order Number") . " - " . $order->order_number .
-                            "_".PHP_EOL;
-                            $linkSimplifiedCheckout .= "_" . __("Date") . " - " .
-                            Carbon\Carbon::now()->toDateTimeString() . "_";
+            foreach($tempcart->items as $product) {
+            $linkSimplifiedCheckout .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
+            $linkSimplifiedCheckout .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+            $linkSimplifiedCheckout .= "*" . __("Size") . "*: " . $product['size'].PHP_EOL;
+            if($admstore->show_product_prices){
+                $linkSimplifiedCheckout .= "*" . __("Price") . "*: " . $order->currency_sign .
+                number_format($product['item']['price'] * $order->currency_value,
+                $order_curr->decimal_digits,
+                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+            }
+            $linkSimplifiedCheckout .= (route('front.product', ['slug' =>
+            $product['item']['slug']])).PHP_EOL.PHP_EOL;
+            $linkSimplifiedCheckout .= "*---------------------------------*".PHP_EOL.PHP_EOL;
+            }
+            if ($order->tax) {
+            $linkSimplifiedCheckout .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
+            }
+            if ($order->coupon_code) {
+            $linkSimplifiedCheckout .= "*" . __("Discount") . "*: " . $order->currency_sign .
+            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
+            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+            }
+            if($admstore->show_product_prices){
+                $linkSimplifiedCheckout .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
+                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
+                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+            }
+            $linkSimplifiedCheckout .= "_" . __("Order Number") . " - " . $order->order_number .
+            "_".PHP_EOL;
+            $linkSimplifiedCheckout .= "_" . __("Date") . " - " .
+            Carbon\Carbon::now()->toDateTimeString() . "_";
 
-                            $linkMobile = "https:///api.whatsapp.com/send?1=pt_BR&phone=" .
-                            $gs->simplified_checkout_number . "&text=" . urlencode($linkSimplifiedCheckout);
-                            @endphp
+            $linkMobile = "https:///api.whatsapp.com/send?1=pt_BR&phone=" .
+            $gs->simplified_checkout_number . "&text=" . urlencode($linkSimplifiedCheckout);
+            @endphp
 
 
 
-                            @php
-                            $linkWpp = "*| " . __('New Order - Simplified Checkout') . " |*" .
-                            PHP_EOL.PHP_EOL;
+            @php
+            $linkWpp = "*| " . __('New Order - Simplified Checkout') . " |*" .
+            PHP_EOL.PHP_EOL;
 
-                            if($order->customer_name) {
-                            $linkWpp .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
-                            PHP_EOL;
-                            }
-                            if($order->customer_phone) {
-                            $linkWpp .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
-                            PHP_EOL;
-                            }
+            if($order->customer_name) {
+            $linkWpp .= "_*" . __("Name") . ": " . $order->customer_name . "*_" .
+            PHP_EOL;
+            }
+            if($order->customer_phone) {
+            $linkWpp .= "_*" . __("Phone") . ": " . $order->customer_phone . "*_" .
+            PHP_EOL;
+            }
 
-                            $linkWpp .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
+            $linkWpp .= PHP_EOL . "*---------------------------------*".PHP_EOL.PHP_EOL;
 
-                            foreach($tempcart->items as $product) {
-                            $linkWpp .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
-                            $linkWpp .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
-                            if($admstore->show_product_prices){
-                                $linkWpp .= "*" . __("Price") . "*: " . $order->currency_sign .
-                                number_format($product['item']['price'] * $order->currency_value,
-                                $order_curr->decimal_digits,
-                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
-                            }
-                            $linkWpp .= (route('front.product', ['slug' =>
-                            $product['item']['slug']])).PHP_EOL.PHP_EOL;
-                            $linkWpp .= "*---------------------------------*".PHP_EOL.PHP_EOL;
-                            }
-                            if ($order->tax) {
-                            $linkWpp .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
-                            }
-                            if ($order->coupon_code) {
-                            $linkWpp .= "*" . __("Discount") . "*: " . $order->currency_sign .
-                            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
-                            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
-                            }
-                            if($admstore->show_product_prices){
-                                $linkWpp .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
-                                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
-                                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
-                            }
-                            $linkWpp .= "_" . __("Order Number") . " - " . $order->order_number .
-                            "_".PHP_EOL;
-                            $linkWpp .= "_" . __("Date") . " - " .
-                            Carbon\Carbon::now()->toDateTimeString() . "_";
+            foreach($tempcart->items as $product) {
+            $linkWpp .= "*" . __("Product") . "*: " . $product['item']['name'].PHP_EOL;
+            $linkWpp .= "*" . __("Quantity") . "*: " . $product['qty'].PHP_EOL;
+            $linkWpp .= "*" . __("Size") . "*: " . $product['size'].PHP_EOL;
+            if($admstore->show_product_prices){
+                $linkWpp .= "*" . __("Price") . "*: " . $order->currency_sign .
+                number_format($product['item']['price'] * $order->currency_value,
+                $order_curr->decimal_digits,
+                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+            }
+            $linkWpp .= (route('front.product', ['slug' =>
+            $product['item']['slug']])).PHP_EOL.PHP_EOL;
+            $linkWpp .= "*---------------------------------*".PHP_EOL.PHP_EOL;
+            }
+            if ($order->tax) {
+            $linkWpp .= "*" . __("Tax") . "*: " . $order->tax . "%" .PHP_EOL;
+            }
+            if ($order->coupon_code) {
+            $linkWpp .= "*" . __("Discount") . "*: " . $order->currency_sign .
+            number_format($order->coupon_discount * $order->currency_value, $order_curr->decimal_digits,
+            $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL;
+            }
+            if($admstore->show_product_prices){
+                $linkWpp .= "*" . __("Order Amount") . "*: " . $order->currency_sign .
+                number_format($order->pay_amount * $order->currency_value, $order_curr->decimal_digits,
+                $order_curr->decimal_separator,$order_curr->thousands_separator).PHP_EOL.PHP_EOL;
+            }
+            $linkWpp .= "_" . __("Order Number") . " - " . $order->order_number .
+            "_".PHP_EOL;
+            $linkWpp .= "_" . __("Date") . " - " .
+            Carbon\Carbon::now()->toDateTimeString() . "_";
 
-                            $link = "https://web.whatsapp.com/send?1=pt_BR&phone=" . $gs->simplified_checkout_number .
-                            "&text=" . urlencode($linkWpp);
-                            @endphp
+            $link = "https://web.whatsapp.com/send?1=pt_BR&phone=" . $gs->simplified_checkout_number .
+            "&text=" . urlencode($linkWpp);
+            @endphp
 
 <!-- Small modal -->
 
