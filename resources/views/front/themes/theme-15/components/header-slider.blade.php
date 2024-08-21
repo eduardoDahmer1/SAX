@@ -37,7 +37,7 @@
         <!-- Main Slider of the page -->
         <div id="main-slider">
           @foreach ($sliders as $data)
-            {{-- <Slide of the page --> --}}
+            <!-- Slide of the page  -->
             <div class="slide">
                 <div class="container-fluid">
                     <div class="row justify-content-center">

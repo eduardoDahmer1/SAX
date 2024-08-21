@@ -500,6 +500,7 @@
 @media (max-width:576px) {
 	.slick-dots li button, .slick-dots li button::before  {
 		font-size: 18px;
+		display: none !important;
 	}
 }
 
