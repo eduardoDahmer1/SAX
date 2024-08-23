@@ -114,8 +114,8 @@ a {
     z-index: 999999;
     box-shadow: 0 0 30px -10px #3e3e3e4f;
     animation: .4s linear showSearch;
-}
-
+} 
+ 
  @media (max-width:991px){
     #profile-icon i {
         font-size: 2rem;
