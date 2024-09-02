@@ -22,6 +22,9 @@
   font-size: 40px;
   line-height: 0;
 }
+.logo-checkout{
+  width: 10em;
+}
 .step-icons .line {
   background-color: #ABABAB;
   height: 2px;
