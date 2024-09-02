@@ -63,7 +63,7 @@
             @include('includes.form-error')
             {{ csrf_field() }}
 
-    <header class="bg-black text-center py-3 mb-5"><img style="width:10em;" src="{{ asset('storage/images/logobranca.png') }}" alt=""></header>
+    <header class="bg-black text-center py-3 mb-5"><img class="logo-checkout" loading="lazy" src="{{ $gs->footerLogoUrl }}" alt="{{ $gs->title }}"></header>
     <div class="container">
         <div class="row justify-content-center">
             <div class="step-icons d-flex col-10 col-md-8 align-items-center">
