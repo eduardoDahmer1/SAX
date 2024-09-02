@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/checkout/style.css') }}">
 
 
- <header class="bg-black text-center py-3 mb-5"><img src="https://i.ibb.co/1dFF5PK/logosax.png" alt=""></header>
+ <header class="bg-black text-center py-3 mb-5"><img src="{{ asset('storage/images/logobranca.png') }}" alt=""></header>
 
 @section('content')
     <input type="hidden" id="has_temporder" value="false">
