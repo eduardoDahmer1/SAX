@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/checkout/style.css') }}">
 
 
- <header class="bg-black text-center py-3 mb-5"><img src="{{ asset('storage/images/logobranca.png') }}" alt=""></header>
+ <header class="bg-black text-center py-3 mb-5"><img class="logo-checkout" loading="lazy" src="{{ $gs->footerLogoUrl }}" alt="{{ $gs->title }}"></header>
 
 @section('content')
     <input type="hidden" id="has_temporder" value="false">
