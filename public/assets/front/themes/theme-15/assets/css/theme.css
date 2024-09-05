@@ -1803,8 +1803,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo-header .helpful-links .icons-header {
-    width: auto;
-    height: 28px;
+    width: 2em;
+    height: auto;
+    max-width: none !important;
 }
 
 .logo-header .helpful-links ul li[data-toggle="tooltip"], .logo-header .helpful-links ul li[data-toggle="tooltip"] {
@@ -1844,6 +1845,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 576px){
+    .logo-header .helpful-links ul li[data-toggle="tooltip"]{
+        margin-top: 10px !important;
+    }
     .right-content .nice-select:after {
         right: 20px;
     }
@@ -2008,6 +2012,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media only screen and (max-width: 414px) {
+    .helpful-links-inner {
+        display: flow !important;
+        justify-content: center;
+    }
     .top-header .left-content .list ul li .language-selector i {
         top: 3px;
     }
@@ -2722,4 +2730,8 @@ border: 1px solid #00000026;
 }
 .logo-checkout{
 width: 10em;
+}
+.algin-simplify-checkout{
+justify-content: center;
+display: flex;
 }
