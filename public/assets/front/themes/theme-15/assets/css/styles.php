@@ -854,7 +854,7 @@ font-weight: 600;
 
 .logo-header .helpful-links ul li.my-dropdown .cart .icon span {
     color: #fff;
-    background: <?php echo $text_color_2; ?>;
+    background: #3FC600;
 }
 
 .toggle-password{

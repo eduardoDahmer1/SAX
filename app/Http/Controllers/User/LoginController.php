@@ -67,9 +67,18 @@ class LoginController extends Controller
                 return response()->json(route('user-package'));
                 }
             }
+          // // Login as User - previous example 
+          // // return response()->json(1);
+          // return response()->json(route('user-dashboard'));
+          // }
+          // // Login as User
+          // return response()->json(route('user-dashboard'));
+          // // Login as User - previous example
+
+          
           // Login as User
           // return response()->json(1);
-          return redirect()->back();          
+          return response()->json(route('user-dashboard'));
           }
           // Login as User
           return response()->json(route('user-dashboard'));
