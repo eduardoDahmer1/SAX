@@ -149,16 +149,16 @@ class CheckoutSimplifiedController extends Controller
     
         // Atualiza o estoque dos produtos
         foreach ($cart->items as $prod) {
-            $x = (string)$prod['size_qty'];
-            $y = (string)$prod['color_qty'];
-            $z = (string)$prod['material_qty'];
+            $x = $prod['size_qty'];
+            $y = $prod['color_qty'];
+            $z = $prod['material_qty'];
             $product = Product::findOrFail($prod['item']['id']);
             
-            if (!empty($x)) {
+            if (is_string($x) && !empty($x)) {
                 $product->size_qty = $this->updateSizeQty($product->size_qty, $prod['size_key'], $prod['qty']);
-            } elseif (!empty($y)) {
+            } elseif (is_string($y) && !empty($y)) {
                 $product->color_qty = $this->updateColorQty($product->color_qty, $prod['color_key'], $prod['qty']);
-            } elseif (!empty($z)) {
+            } elseif (is_string($z) && !empty($z)) {
                 $product->material_qty = $this->updateMaterialQty($product->material_qty, $prod['material_key'], $prod['qty']);
             } else {
                 $product->stock -= $prod['qty'];
@@ -189,23 +189,32 @@ class CheckoutSimplifiedController extends Controller
     // Funções auxiliares
     protected function updateSizeQty($sizeQty, $sizeKey, $qty)
     {
-        $sizeQty = (array) explode(',', $sizeQty);
-        $sizeQty[$sizeKey] -= $qty;
-        return implode(',', $sizeQty);
+        if (is_string($sizeQty)) {
+            $sizeQty = explode(',', $sizeQty);
+            $sizeQty[$sizeKey] -= $qty;
+            return implode(',', $sizeQty);
+        }
+        return $sizeQty; // Retorna sem alteração se não for uma string
     }
     
     protected function updateColorQty($colorQty, $colorKey, $qty)
     {
-        $colorQty = (array) explode(',', $colorQty);
-        $colorQty[$colorKey] -= $qty;
-        return implode(',', $colorQty);
+        if (is_string($colorQty)) {
+            $colorQty = explode(',', $colorQty);
+            $colorQty[$colorKey] -= $qty;
+            return implode(',', $colorQty);
+        }
+        return $colorQty; // Retorna sem alteração se não for uma string
     }
     
     protected function updateMaterialQty($materialQty, $materialKey, $qty)
     {
-        $materialQty = (array) explode(',', $materialQty);
-        $materialQty[$materialKey] -= $qty;
-        return implode(',', $materialQty);
+        if (is_string($materialQty)) {
+            $materialQty = explode(',', $materialQty);
+            $materialQty[$materialKey] -= $qty;
+            return implode(',', $materialQty);
+        }
+        return $materialQty; // Retorna sem alteração se não for uma string
     }
     
     protected function createVendorOrders($cart, $order)
