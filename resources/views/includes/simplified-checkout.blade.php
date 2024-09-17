@@ -5,6 +5,10 @@
                 <div class="product-description">
                     <div class="body-area">
                         @include('includes.admin.form-error')
+                        @php
+                        // Verificando se ENABLE_SAX_BRIDAL está habilitado no .env
+                        $isBridalEnabled = env('ENABLE_SAX_BRIDAL', false);
+                        @endphp
                         <form id="geniusformdata" action="{{ route('front.simplified_checkout-create') }}" method="GET" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row">
@@ -19,6 +23,8 @@
                                     <input type="text" id="customer_phone" class="input-field" name="phone" placeholder="{{ __('Phone') }}" required>
                                 </div>
                             </div>
+                            
+                            @if(!$isBridalEnabled)
                             <div class="row">
                                 <div class="col-lg-12">
                                     <label for="delivery_method">{{ __('Delivery or Collection?') }} *</label>
@@ -63,6 +69,8 @@
                                     </select>
                                 </div>
                             </div>
+                            @endif
+                            
                             <div class="row mt-30">
                                 <div class="col-lg-12" style="text-align: right">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
