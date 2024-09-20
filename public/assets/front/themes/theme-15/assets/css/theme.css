@@ -1439,10 +1439,8 @@ h1, h2, h3, h4, h5, h6 {
     transition: all linear .3s;
     padding: 1rem 0;
 }
-/* 
-.categori-item .item .item-img, .categori-item-area .item .item-img {
-    background: #F6F6F6;
-} */
+
+/* categori-item .item .item-img, .categori-item-area .item .item-img */    
 
 .stars {
     padding: 1rem 0 0;
