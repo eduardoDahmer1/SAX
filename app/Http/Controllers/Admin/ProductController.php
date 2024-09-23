@@ -449,7 +449,7 @@ class ProductController extends Controller
             list($type, $image) = explode(';', $image);
             list(, $image)      = explode(',', $image);
             $image = base64_decode($image);
-            $image_name = time() . Str::random(8) . '.png';
+            $image_name = time() . Str::random(8) . '.webp';
             $path = 'storage/images/products/' . $image_name;
             file_put_contents($path, $image);
             $input['photo'] = $image_name;
