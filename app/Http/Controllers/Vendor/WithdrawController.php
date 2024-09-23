@@ -28,13 +28,7 @@ class WithdrawController extends Controller
             return $next($request);
         });
     }
-
     public function datatables(){
-        /*
-        <td>{{$withdraw->created_at->diffForHumans()}}</td>
-        <td>{{$sign->sign}}{{ round($withdraw->amount * $sign->value , 2) }}</td>
-        <td>{{__(ucfirst($withdraw->status))}}</td>
-        */
         $datas = Withdraw::where('user_id','=',Auth::guard('web')->user()->id)->where('type','=','vendor')->orderBy('id','desc');
         $sign = Currency::find(1);
         return Datatables::of($datas)
@@ -65,13 +59,11 @@ class WithdrawController extends Controller
         return view('vendor.withdraw.index');
     }
 
-
     public function create()
     {
         $sign = Currency::find(1);
         return view('vendor.withdraw.create' ,compact('sign'));
     }
-
 
     public function store(Request $request)
     {
@@ -108,6 +100,5 @@ class WithdrawController extends Controller
             }
         }
             return response()->json(array('errors' => [ 0 => __('Please enter a valid amount.') ])); 
-
     }
 }

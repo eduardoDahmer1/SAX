@@ -84,19 +84,15 @@ class PagoparController extends Controller
         );
 
         $session = curl_init("{$this->apiUrl}/iniciar-transaccion");
-
         curl_setopt($session, CURLOPT_POST, true);
         curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($session, CURLOPT_POSTFIELDS, $json);
         curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($session, CURLOPT_SSLVERSION, 6);
-
         $response = curl_exec($session);
         $error = curl_error($session);
-
         curl_close($session);
-
         $pagoparResponse = json_decode($response);
         if ($pagoparResponse->respuesta){
             $this->order->charge_id = $pagoparResponse->resultado[0]->data;
@@ -108,7 +104,6 @@ class PagoparController extends Controller
 
         Log::debug('pagopar_payment_response', [$pagoparResponse]);
     }
-
 
     public function pagoparCallback(Request $request)
     {
@@ -193,27 +188,20 @@ class PagoparController extends Controller
         );
 
         $session = curl_init("{$this->baseUrl}/api/pedidos/1.1/traer");
-
         curl_setopt($session, CURLOPT_POST, true);
         curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($session, CURLOPT_POSTFIELDS, $data);
         curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($session, CURLOPT_SSLVERSION, 6);
-
         $response = curl_exec($session);
         $error = curl_error($session);
-
         curl_close($session);
-
         $pagoparResponse = json_decode($response);
         $pagoparOrder = $pagoparResponse->resultado[0];
-
         $order->payment_status = $pagoparOrder->pagado ? 'Completed' : 'Pending';
         $order->txnid = $pagoparOrder->numero_pedido;
-
         $order->update();
-
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();

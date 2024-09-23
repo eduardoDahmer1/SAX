@@ -1,388 +1,186 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-use stdClass;
 
 class MercadoLivre extends CachedModel
 {
     protected $table = 'mercadolivre';
-
+    protected $fillable = ['app_id', 'client_secret', 'access_token', 'refresh_token'];
+    public $timestamps = true;
     private $gallery_array = [];
     private $shipping_array = [];
 
-    /* Data which will receive mass assignment. */
-    protected $fillable = [
-        'app_id',
-        'client_secret',
-        'access_token',
-        'refresh_token'
-    ];
+    public function curlPost($url, $headers = [], $data = []): array
+    {
+        return $this->curlRequest($url, $headers, $data, 'POST');
+    }
 
-    public $timestamps = true;
-
-    /* General curlPost function to send API requests to Meli. */
-    public function curlPost($url, $headers = [], $data = []) : array
+    public function curlPut($url, $headers = [], $data = []): array
+    {
+        return $this->curlRequest($url, $headers, $data, 'PUT');
+    }
+    public function curlGet($url, $headers = []): array
+    {
+        return $this->curlRequest($url, $headers, [], 'GET');
+    }
+    private function curlRequest($url, $headers, $data, $method): array
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
+        curl_setopt_array($curl, [
             CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => json_encode($data),
-        ));
+            CURLOPT_CUSTOMREQUEST => $method,
+        ]);
         $resp = curl_exec($curl);
-        $resp = (array) json_decode($resp);
-        return $resp;
+        return (array) json_decode($resp);
     }
 
-    /* General curlPost function to send API requests to Meli. */
-    public function curlPut($url, $headers = [], $data = []) : array
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_POST => 1,
-            CURLOPT_POSTFIELDS => json_encode($data),
-        ));
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
-        $resp = curl_exec($curl);
-        $resp = (array) json_decode($resp);
-        return $resp;
-    }
-
-    /* General curlGet function to send API requests to Meli. */
-    public function curlGet($url, $headers = []) : array
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_HTTPHEADER => $headers,
-        ));
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-        $resp = curl_exec($curl);
-        $resp = (array) json_decode($resp);
-        return $resp;
-    }
-
-    /* Sync store Product format with Meli Product format and returns it. */
     public function productBusinessLogic(Product $product, $category_brand)
     {
-        // Condition 2 = new / 1 = used
-        $condition = "new";
-        if($product->product_condition != 0) {
-            if($product->product_condition == 1) {
-                $condition = "used";
-            }
-        }
-        // TODO: tratar +60 chars
-        $name = $product->mercadolivre_name . " - No Ofertar";
-        if(env("APP_ENV") == "production") {
-            $name = $product->mercadolivre_name;
-        }
+        $condition = $product->product_condition == 1 ? "used" : "new";
+        $name = env("APP_ENV") == "production" ? $product->mercadolivre_name : $product->mercadolivre_name . " - No Ofertar";
 
-        $attributes = $this->getProductAttributes($product) ?? null;
-
-        if(!$attributes) {
+        $attributes = $this->getProductAttributes($product);
+        if (!$attributes) {
             return redirect()->route('admin-prod-index')->with('error', __("Nenhum atributo foi cadastrado. Acesse Ações -> Editar -> Mercado Livre e cadastre os Atributos para melhorar seu anúncio."));
         }
 
-        $categoryId = $category_brand['category_id'];
-
-        $businessLogic = [
+        return [
             "title" => $name,
-            "category_id" => $categoryId,
+            "category_id" => $category_brand['category_id'],
             "price" => $product->mercadolivre_price ?? $product->price,
             "currency_id" => "BRL",
             "available_quantity" => $product->stock,
             "buying_mode" => "buy_it_now",
             "condition" => $condition,
             "listing_type_id" => $product->mercadolivre_listing_type_id,
-            "sale_terms" => [
-                [
-                    "id" => "WARRANTY_TYPE",
-                    "name" => "Tipo de Garantia",
-                    "value_id" => $product->mercadolivre_warranty_type_id,
-                    "value_name" => $product->mercadolivre_warranty_type_name,
-                    "value_struct" => null,
-                    "values" => [
-                        [
-                            "id" => $product->mercadolivre_warranty_type_id,
-                            "name" => $product->mercadolivre_warranty_type_name,
-                            "struct" => null,
-                        ],
-                    ],
-                ], [
-                    "id" => "WARRANTY_TIME",
-                    "value_name" => $product->mercadolivre_warranty_time . ' ' . $product->mercadolivre_warranty_time_unit
-                ],
-            ],
+            "sale_terms" => $this->getSaleTerms($product),
             "pictures" => $this->getPicturesArray($product),
-            "shipping" => [
-                "mode" => "custom",
-                "local_pick_up" => Pickup::count() > 0 ? true : false,
-                "free_shipping" => false, //TODO: Option to change THIS.
-                "costs" => $this->getPaidShippings(),
-            ],
+            "shipping" => $this->getShippingData(),
             "attributes" => $attributes,
         ];
-
-        if($product->mercadolivre_without_warranty)
-            array_pop($businessLogic['sale_terms']);
-
-        return $businessLogic;
     }
 
-    /* Sync store Product format with Meli Product format and returns it. */
     public function productUpdateBusinessLogic(Product $product, $category_brand)
     {
-        // TODO: tratar +60 chars
-        $name = $product->mercadolivre_name . " - No Ofertar";
-        if(env("APP_ENV") == "production") {
-            $name = $product->mercadolivre_name;
-        }
+        $name = env("APP_ENV") == "production" ? $product->mercadolivre_name : $product->mercadolivre_name . " - No Ofertar";
 
-        $attributes = $this->getProductAttributes($product) ?? null;
-
-        if(!$attributes) {
+        $attributes = $this->getProductAttributes($product);
+        if (!$attributes) {
             return redirect()->route('admin-prod-index')->with('error', __("Nenhum atributo foi cadastrado. Acesse Ações -> Editar -> Mercado Livre e cadastre os Atributos para melhorar seu anúncio."));
         }
-
-        $businessLogic = [
+        return [
             "title" => $name,
             "price" => $product->mercadolivre_price ?? $product->price,
             "currency_id" => "BRL",
             "available_quantity" => $product->stock,
-            "sale_terms" => [
-                [
-                    "id" => "WARRANTY_TYPE",
-                    "name" => "Tipo de Garantia",
-                    "value_id" => $product->mercadolivre_warranty_type_id,
-                    "value_name" => $product->mercadolivre_warranty_type_name,
-                    "value_struct" => null,
-                    "values" => [
-                        [
-                            "id" => $product->mercadolivre_warranty_type_id,
-                            "name" => $product->mercadolivre_warranty_type_name,
-                            "struct" => null,
-                        ],
-                    ],
-                ], [
-                    "id" => "WARRANTY_TIME",
-                    "value_name" => $product->mercadolivre_warranty_time . ' ' . $product->mercadolivre_warranty_time_unit
-                ]
-            ],
+            "sale_terms" => $this->getSaleTerms($product),
             "pictures" => $this->getPicturesArray($product),
-            "shipping" => [
-                "mode" => "custom",
-                "local_pick_up" => Pickup::count() > 0 ? true : false,
-                "free_shipping" => false, //TODO: Option to change THIS.
-                "costs" => $this->getPaidShippings(),
-            ],
+            "shipping" => $this->getShippingData(),
             "attributes" => $attributes,
         ];
-
-        if($product->mercadolivre_without_warranty)
-            array_pop($businessLogic['sale_terms']);
-
-        return $businessLogic;
     }
 
-    // Gets all product attributes from store database.
+    private function getSaleTerms(Product $product): array
+    {
+        $saleTerms = [
+            [
+                "id" => "WARRANTY_TYPE",
+                "name" => "Tipo de Garantia",
+                "value_id" => $product->mercadolivre_warranty_type_id,
+                "value_name" => $product->mercadolivre_warranty_type_name,
+                "values" => [[
+                    "id" => $product->mercadolivre_warranty_type_id,
+                    "name" => $product->mercadolivre_warranty_type_name,
+                ]],
+            ],
+            [
+                "id" => "WARRANTY_TIME",
+                "value_name" => $product->mercadolivre_warranty_time . ' ' . $product->mercadolivre_warranty_time_unit,
+            ],
+        ];
+
+        if ($product->mercadolivre_without_warranty) {
+            array_pop($saleTerms);
+        }
+
+        return $saleTerms;
+    }
     public function getProductAttributes(Product $product)
     {
-        $attrs = (json_decode($product->mercadolivre_category_attributes, true));
-
-        $arr = [];
-
-        if(!$attrs) {
-            return false;
-        }
-
-        foreach($attrs as $id => $attr) {
-            if(!is_null($attr['value'])){
-                array_push($arr, [
-                    'id' => $id,
-                    'value_name' => $attr['value']
-                ]);
-            }
-        }
-        return $arr;
+        $attrs = json_decode($product->mercadolivre_category_attributes, true);
+        return $attrs ? array_filter(array_map(function ($id, $attr) {
+            return !is_null($attr['value']) ? ['id' => $id, 'value_name' => $attr['value']] : null;
+        }, array_keys($attrs), $attrs)) : false;
     }
 
-    /*
-    *   Returns current warranty for a given product.
-    */
-    public function getProductWarranties(Product $product)
+    public function getShippingData(): array
     {
-        return [];
-    }
-
-    /*
-    * Returns Warranty for a specific Category.
-    */
-    public function getWarranties(string $categoryId)
-    {
-        if(!$categoryId)
-            return null;
-
-        $meli = self::first();
-
-        $url = config('mercadolivre.api_base_url') . "categories/{$categoryId}/sale_terms";
-
-        $headers = [
-            "Authorization: Bearer ". $meli->access_token
+        return [
+            "mode" => "custom",
+            "local_pick_up" => Pickup::count() > 0,
+            "free_shipping" => false,
+            "costs" => $this->getPaidShippings(),
         ];
-
-        $warranties = [];
-
-        foreach($this->curlGet($url, $headers) as $saleTerm)
-        {
-            if($saleTerm->id === "WARRANTY_TYPE" || $saleTerm->id === "WARRANTY_TIME")
-                array_push($warranties, (array) $saleTerm);
-        }
-
-        return $warranties;
     }
 
-    /*
-    * Set all pictures for $product in a specific Array. First it gets the Product Photo then the galleries.
-    */
-    public function getPicturesArray(Product $product)
+    public function getPaidShippings(): array
     {
-        $this->gallery_array = [];
-        $galleries = Gallery::where('product_id', $product->id)->get();
-        $this->gallery_array[0]['source'] = asset('storage/images/products/' . $product->photo);
-        if($galleries) {
-            foreach($galleries as $key => $gallery) {
-                $this->gallery_array[$key + 1]['source'] = asset('storage/images/galleries/'.$gallery->photo);
-            }
-        }
-        return $this->gallery_array;
+        return Shipping::where('status', 1)->where('price', '>', 0)->get()->map(function ($shipping) {
+            return [
+                'description' => $shipping->title,
+                'cost' => $shipping->price,
+            ];
+        })->toArray();
     }
-
-    // Find the first paid shipping option to send to Meli.
-    // TODO: Review this function and make sure its just what documentation requires.
-    public function getPaidShippings()
-    {
-        $this->shipping_array = [];
-        $shippings = Shipping::where('status', 1)->where('price', '>', 0)->get();
-        foreach($shippings as $key => $shipping) {
-            $this->shipping_array[$key]['description'] = $shipping->title;
-            $this->shipping_array[$key]['cost'] = $shipping->price;
-        }
-        return $this->shipping_array;
-    }
-
-    // Find Meli Category ID since a $product->mercadolivre_name is given
     public function getCategoryId($name)
     {
-        if(!$name) return null;
-        // Get current credentials for Meli
+        if (!$name) return null;
         $meli = self::first();
-        // Prepare data for Request
         $url = config('mercadolivre.api_base_url') . "sites/MLB/domain_discovery/search?limit=1&q=" . urlencode($name);
-
-        $headers = [
-            "Authorization: Bearer ". $meli->access_token
-        ];
-
+        $headers = ["Authorization: Bearer " . $meli->access_token];
         return $this->curlGet($url, $headers)[0]->category_id;
     }
-
-    // Gets all category attributes for product CRUD edit.
     public function getCategoryAttributes($category_id)
     {
-        // Get current credentials for Meli
         $meli = self::first();
-        // Prepare data for Request
-        $url = config('mercadolivre.api_base_url') . "categories/".$category_id."/attributes";
-
-        $headers = [
-            "Authorization: Bearer ". $meli->access_token
-        ];
-
+        $url = config('mercadolivre.api_base_url') . "categories/" . $category_id . "/attributes";
+        $headers = ["Authorization: Bearer " . $meli->access_token];
         $resp = $this->curlGet($url, $headers);
 
-        if(isset($resp['status'])) {
+        if (isset($resp['status'])) {
             return;
         }
-
-        $arr = [];
-
-        foreach($resp as $attribute) {
+        return array_reduce($resp, function ($arr, $attribute) {
             $arr[$attribute->id] = [
                 'name' => $attribute->name,
                 'value' => null,
-                'required' => isset($attribute->tags->required) ? true : false,
-                'value_type' => $attribute->value_type
+                'required' => isset($attribute->tags->required),
+                'value_type' => $attribute->value_type,
+                'values' => $attribute->values ?? null,
+                'allowed_units' => $attribute->allowed_units ?? null,
+                'value_max_length' => $attribute->value_max_length ?? null,
+                'tooltip' => $attribute->tooltip ?? null,
+                'hint' => $attribute->hint ?? null,
             ];
-
-            # campos select / valores fixos
-            if(isset($attribute->values))
-            {
-                $arr[$attribute->id]['values'] = $attribute->values;
-            }
-
-            # campos select / valores livres
-            if(isset($attribute->allowed_units))
-            {
-                $arr[$attribute->id]['allowed_units'] = $attribute->allowed_units;
-            }
-
-            # max length
-            if(isset($attribute->value_max_length))
-            {
-                $arr[$attribute->id]['value_max_length'] = $attribute->value_max_length;
-            }
-
-            if(isset($attribute->tooltip))
-            {
-                $arr[$attribute->id]['tooltip'] = $attribute->tooltip;
-            }
-
-            if(isset($attribute->hint))
-            {
-                $arr[$attribute->id]['hint'] = $attribute->hint;
-            }
-        }
-        return json_encode($arr);
+            return $arr;
+        }, []);
     }
-
     public function getListingTypes()
     {
-        // Get current credentials for Meli
         $meli = self::first();
-        // Prepare data for Request
         $url = config('mercadolivre.api_base_url') . "sites/MLB/listing_types";
-
-        $headers = [
-            "Authorization: Bearer ". $meli->access_token
-        ];
-
-        $resp = $this->curlGet($url, $headers);
-
-        return $resp;
+        $headers = ["Authorization: Bearer " . $meli->access_token];
+        return $this->curlGet($url, $headers);
     }
-
     public function getListingTypeDetail($listingTypeId)
     {
-        // Get current credentials for Meli
         $meli = self::first();
-        // Prepare data for Request
-        $url = config('mercadolivre.api_base_url') . "sites/MLB/listing_types/". $listingTypeId;
-
-        $headers = [
-            "Authorization: Bearer ". $meli->access_token
-        ];
-
-        $resp = $this->curlGet($url, $headers);
-
-        return $resp;
+        $url = config('mercadolivre.api_base_url') . "sites/MLB/listing_types/" . $listingTypeId;
+        $headers = ["Authorization: Bearer " . $meli->access_token];
+        return $this->curlGet($url, $headers);
     }
 }

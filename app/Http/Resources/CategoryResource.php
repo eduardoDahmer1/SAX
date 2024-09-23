@@ -8,7 +8,6 @@ class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
@@ -19,12 +18,10 @@ class CategoryResource extends JsonResource
             "status" => $this->status,
             "ref_code" => $this->ref_code
         ];
-        
         $translations = $this->translations()->get(['locale','name']);
         foreach ($translations as $translation) {
             $category[$translation->locale]['name'] = $translation->name;
         }
-
         return $category;
     }
 }

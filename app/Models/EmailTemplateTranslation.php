@@ -10,10 +10,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class EmailTemplateTranslation extends CachedModel
 {
     use LogsActivity;
-
     public $timestamps = false;
     protected $fillable = ['email_subject', 'email_body'];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -21,7 +19,6 @@ class EmailTemplateTranslation extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->properties = $activity->properties->put('email_template_id', $this->email_template_id);

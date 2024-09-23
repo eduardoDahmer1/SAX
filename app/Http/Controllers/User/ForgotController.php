@@ -80,10 +80,8 @@ class ForgotController extends Controller
       return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
     }
     //--- Validation Section Ends
-
     $password = $request->password;
     $tokenData = User::where('password_reset', $token)->firstOrFail();
-
     $user = User::where([
       'password_reset' => $token,
       'email' => $tokenData->email
@@ -92,7 +90,6 @@ class ForgotController extends Controller
     $user->password = Hash::make($password);
     $user->password_reset = null;
     $user->update();
-
       //--- Redirect Section
       $msg = __('Password reseted successfully. You can login with your new password now.');
       return response()->json($msg);

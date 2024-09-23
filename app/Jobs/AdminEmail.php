@@ -18,7 +18,6 @@ class AdminEmail implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
      * @return void
      */
     public function __construct(private stdClass $objDemo, private array $mailData)
@@ -27,7 +26,6 @@ class AdminEmail implements ShouldQueue
 
     /**
      * Execute the job.
-     *
      * @return void
      */
     public function handle()

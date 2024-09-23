@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Spatie\Activitylog\LogOptions;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class AttributeOptionTranslation extends CachedModel
 {
     use LogsActivity;
-
-
     public $timestamps = false;
     protected $fillable = ['name', 'description'];
 
@@ -22,12 +19,13 @@ class AttributeOptionTranslation extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
-        $activity->properties = $activity->properties->put('attribute_option_id', $this->attribute_option_id);
-        $activity->properties = $activity->properties->put('locale', $this->locale);
-        $activity->causer_id = auth('admin')->user()->id;
+        $activity->properties = $activity->properties
+            ->put('attribute_option_id', $this->attribute_option_id)
+            ->put('locale', $this->locale);
+
+        $activity->causer_id = auth('admin')->id();
         $activity->causer_type = Admin::class;
     }
 }

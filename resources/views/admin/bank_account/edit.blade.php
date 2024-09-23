@@ -16,7 +16,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-xl-6">
                                     <div class="input-form">
@@ -24,20 +23,15 @@
                                         <input type="text" class="input-field" name="name" placeholder="{{ __('Bank Name') }}" required="" value="{{$data->name}}">
                                     </div>
                                 </div>
-
                                 <div class="col-xl-6">
                                     <div class="input-form">
                                         <h4 class="heading">{{ __('Account info') }} *</h4>
                                         <textarea type="textarea" placeholder="{{ __('Account info') }}" class="input-field" name="info" required="" value="{{$data->info}}" rows="5" cols="33">{{$data->info}}</textarea>
                                     </div>
                                 </div>
-                            
-                            </div> <!--FECHAMENTO TAG ROW-->
-                        
+                            </div>
                             <div class="row justify-content-center">
-                              
                                     <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
-                                
                             </div>
                         </form>
                     </div>

@@ -5,14 +5,10 @@ namespace App\Models;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
-
 class AttributeOption extends LocalizedModel
 {
     use LogsActivity;
-
-
     protected $with = ['translations'];
-
     public $translatedAttributes = ['name', 'description'];
     protected $fillable = ['attribute_id'];
 
@@ -23,7 +19,6 @@ class AttributeOption extends LocalizedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function attribute()
     {
         return $this->belongsTo('App\Models\Attribute')->withDefault(function ($data) {
@@ -32,7 +27,6 @@ class AttributeOption extends LocalizedModel
             }
         });
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->causer_id = auth('admin')->user()->id;

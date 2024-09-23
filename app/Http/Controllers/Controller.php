@@ -46,7 +46,6 @@ class Controller extends BaseController
 
             $this->middleware('set.locale');
         }
-
         if (app()->runningInConsole()) {
             $this->storeSettings = new Generalsetting;
         }
@@ -67,12 +66,10 @@ class Controller extends BaseController
     public function removeEmptyTranslations(array $input, LocalizedModel $model = null, $remove_all = false)
     {
         $removed = [];
-
         foreach ($this->locales as $locale) {
             if ($locale->locale === $this->lang->locale && !$remove_all) {
                 continue;
             }
-
             if (isset($input[$locale->locale])) {
                 $input[$locale->locale] = array_filter($input[$locale->locale]);
                 if (empty($input[$locale->locale])) {
@@ -81,7 +78,6 @@ class Controller extends BaseController
                 }
             }
         }
-
         if ($model) {
             $model->deleteTranslations($removed);
         }
@@ -93,10 +89,8 @@ class Controller extends BaseController
      * Keep required fields with translations, if they are provided, or set
      * the translations with the language 1 field. Required fields cannot be
      * null on database.
-     *
      * If a LocalizedModel is provided, set the required input with existing
      * data from the model.
-     *
      * @param array $input The fields from a form
      * @param array $fields The required field names from the database
      * @param LocalizedModel $model A model to get existing data from

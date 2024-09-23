@@ -1,17 +1,12 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-
 class Generalsetting extends LocalizedModel
 {
     use LogsActivity;
-
-
     protected $with = ['translations'];
-
     protected $translatedAttributes = [
         'title',
         'footer',
@@ -217,7 +212,6 @@ class Generalsetting extends LocalizedModel
             ->logOnlyDirty();
     }
 
-
     public function upload($name, $file, $oldname)
     {
         $file->move('storage/images', $name);
@@ -232,77 +226,62 @@ class Generalsetting extends LocalizedModel
     {
         return $this->hasOne('App\Models\Pagesetting', 'store_id');
     }
-
     public function products()
     {
         return $this->belongsToMany('App\Models\Product', 'product_store', 'store_id', 'product_id');
     }
-
     public function banners()
     {
         return $this->belongsToMany('App\Models\Banner', 'banner_store', 'store_id', 'banner_id');
     }
-
     public function sliders()
     {
         return $this->belongsToMany('App\Models\Slider', 'slider_store', 'store_id', 'slider_id');
     }
-
     public function defaultLang()
     {
         return $this->belongsTo('App\Models\Language', 'lang_id');
     }
-
     public function melhorenvio()
     {
         return $this->belongsTo('App\Models\MelhorenvioConf', 'melhorenvio_id')->withDefault();
     }
-
     public function fedex()
     {
         return $this->belongsTo('App\Models\FedexConf', 'fedex_id')->withDefault();
     }
-
     public function getFaviconUrlAttribute()
     {
         return $this->favicon ? asset("storage/images/{$this->favicon}") : asset('assets/images/favicon.png');
     }
-
     public function getLogoUrlAttribute()
     {
         return $this->logo ? asset("storage/images/{$this->logo}") : asset('assets/images/logo_azul.png');
     }
-
     public function getInvoiceLogoUrlAttribute()
     {
         return $this->invoice_logo ? asset("storage/images/{$this->invoice_logo}") : asset('assets/images/logo_azul.png');
     }
-
     public function getFooterLogoUrlAttribute()
     {
         return $this->footer_logo ? asset("storage/images/{$this->footer_logo}") : asset('assets/images/logo_branca.png');
     }
-
     public function getAdminLoaderUrlAttribute()
     {
         return $this->admin_loader ? asset("storage/images/{$this->admin_loader}") : asset('assets/images/loader.gif');
     }
-
     public function getLoaderUrlAttribute()
     {
         return $this->loader ? asset("storage/images/{$this->loader}") : asset('assets/images/loader.gif');
     }
-
     public function getErrorBannerUrlAttribute()
     {
         return $this->error_banner ? asset("storage/images/{$this->error_banner}") : asset('assets/images/404.png');
     }
-
     public function getUserImageUrlAttribute()
     {
         return $this->user_image ? asset("storage/images/{$this->user_image}") : asset('assets/images/user.jpg');
     }
-
     public function getPopupBackgroundUrlAttribute()
     {
         return asset("storage/images/{$this->popup_background}");

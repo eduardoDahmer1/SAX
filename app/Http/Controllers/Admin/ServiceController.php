@@ -93,7 +93,6 @@ class ServiceController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Service();
         $input = $this->removeEmptyTranslations($request->all());
@@ -104,7 +103,6 @@ class ServiceController extends Controller
         }
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -138,7 +136,6 @@ class ServiceController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Service::findOrFail($id);
         $input = $this->removeEmptyTranslations($request->all(), $data);
@@ -154,7 +151,6 @@ class ServiceController extends Controller
         }
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);

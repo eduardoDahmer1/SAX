@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Session;
 class MollyController extends Controller
 {
 
-
   public function __construct()
     {
         //Set Spripe Keys
@@ -67,7 +66,6 @@ class MollyController extends Controller
      $sub['details'] = $subs->details;
      $sub['method'] = 'Molly';     
 
-
     $settings = Generalsetting::findOrFail(1);
 
         $payment = Mollie::api()->payments()->create([
@@ -91,17 +89,13 @@ class MollyController extends Controller
 
  }
 
-
-
 public function notify(Request $request){
 
         $sub = Session::get('molly_data');
         $input = Session::get('user_data');
         $order = Session::get('order_data');
-
         $success_url = action('User\PaypalController@payreturn');
         $cancel_url = action('User\PaypalController@paycancle');
-
         $payment = Mollie::api()->payments()->get(Session::get('payment_id'));
 
         if($payment->status == 'paid'){
@@ -119,12 +113,10 @@ public function notify(Request $request){
                     $order->method = $sub['method'];
                     $order->txnid = $payment->id;;
                     $order->status = 1;
-
         $user = User::findOrFail($order->user_id);
         $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
         $subs = Subscription::findOrFail($order->subscription_id);
         $settings = Generalsetting::findOrFail(1);
-
 
         $today = Carbon::now()->format('Y-m-d');
         $user->is_vendor = 2;
@@ -175,13 +167,10 @@ public function notify(Request $request){
             mail($user->email,'Your Vendor Account Activated','Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.',$headers);
         }
 
-
         Session::forget('payment_id');
         Session::forget('molly_data');
         Session::forget('user_data');
         Session::forget('order_data');
-
-
 
             return redirect($success_url);
         }

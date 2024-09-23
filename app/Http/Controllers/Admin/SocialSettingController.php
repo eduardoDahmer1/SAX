@@ -18,9 +18,7 @@ class SocialSettingController extends Controller
     public function socialupdate(Request $request)
     {
         //--- Validation Section
-
         //--- Validation Section Ends
-
         //--- Logic Section
         $input = $request->all(); 
         $data = Socialsetting::findOrFail(1);   
@@ -34,14 +32,11 @@ class SocialSettingController extends Controller
 
     }
 
-
     // Spcial Settings All post requests will be done in this method
     public function socialupdateall(Request $request)
     {
         //--- Validation Section
-
         //--- Validation Section Ends
-
         //--- Logic Section
         $input = $request->all(); 
         $data = Socialsetting::findOrFail(1);   
@@ -66,14 +61,12 @@ class SocialSettingController extends Controller
 
         $data->update($input);
         //--- Logic Section Ends
-        
         //--- Redirect Section        
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);      
         //--- Redirect Section Ends               
 
     }
-
 
     public function index()
     {
@@ -93,7 +86,6 @@ class SocialSettingController extends Controller
         return view('admin.socialsetting.google',compact('data'));
     }
 
-
     public function facebookup($status)
     {
         $data = Socialsetting::findOrFail(1);
@@ -108,5 +100,4 @@ class SocialSettingController extends Controller
         $data->g_check = $status;
         $data->update();
     }
-
 }

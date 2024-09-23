@@ -47,8 +47,6 @@ class UserController extends Controller
         return view('user.profile', compact('user'))->with(['countries' => $countries]);
     }
 
-
-
     public function profileupdate(Request $request)
     {
         //--- Validation Section
@@ -59,7 +57,6 @@ class UserController extends Controller
             'email' => 'unique:users,email,'.Auth::user()->id,
             'document' => 'numeric'
         ];
-
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -131,7 +128,6 @@ class UserController extends Controller
         return response()->json($msg);
     }
 
-
     public function package()
     {
         if (!config("features.marketplace")) {
@@ -143,7 +139,6 @@ class UserController extends Controller
         $package = $user->subscribes()->where('status', 1)->orderBy('id', 'desc')->first();
         return view('user.package.index', compact('user', 'subs', 'package'));
     }
-
 
     public function vendorrequest($id)
     {
@@ -171,24 +166,18 @@ class UserController extends Controller
         $firstCurrency = Currency::find(1);
         $settings = Generalsetting::findOrFail(1);
         $today = Carbon::now()->format('Y-m-d');
-
         $input = $request->all();
-
         $user->is_vendor = 2;
         $user->date = date('Y-m-d', strtotime($today . ' + ' . $subs->days . ' days'));
         $user->mail_sent = 1;
         $user->is_vendor_verified = 0;
 
         $user->update($input);
-
         /* Delete all old verifications for this user */
         Verification::where('user_id', $user->id)->delete();
-
         /* Delete all previous subscriptions for this user */
         UserSubscription::where('user_id', $user->id)->delete();
-
         $sub = new UserSubscription;
-
         $sub->user_id = $user->id;
         $sub->subscription_id = $subs->id;
         $sub->title = $subs->title;
@@ -200,7 +189,6 @@ class UserController extends Controller
         $sub->details = $subs->details;
         $sub->method = 'Store';
         $sub->status = 1;
-
         $sub->save();
 
         if ($settings->is_smtp == 1) {
@@ -223,7 +211,6 @@ class UserController extends Controller
         return redirect()->route('vendor-verify');
     }
 
-
     public function favorite($id1, $id2)
     {
         $fav = new FavoriteSeller();
@@ -238,7 +225,6 @@ class UserController extends Controller
         $favorites = FavoriteSeller::where('user_id', '=', $user->id)->get();
         return view('user.favorite', compact('user', 'favorites'));
     }
-
 
     public function favdelete($id)
     {

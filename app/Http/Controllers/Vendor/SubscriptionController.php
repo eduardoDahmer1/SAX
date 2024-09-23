@@ -20,9 +20,7 @@ class SubscriptionController extends Controller
     public function __construct()
     {
         parent::__construct();
-
         $this->middleware('auth');
-
         $this->middleware(function ($request, $next) {
             $user = Auth::guard('web')->user();
             if($user->checkWarning())
@@ -36,7 +34,6 @@ class SubscriptionController extends Controller
             return $next($request);
         });
     }
-
     public function index(){
         if(!config("features.marketplace")) {
             return redirect()->route("user-dashboard")->withErrors("Marketplace not enabled");

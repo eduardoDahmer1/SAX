@@ -47,7 +47,6 @@ class PaystackController extends Controller
                 return redirect()->back()->with('unsuccess', "This Email Already Exist.");
             }
         }
-
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success', "You don't have any product to checkout.");
         }
@@ -196,7 +195,6 @@ class PaystackController extends Controller
         }
 
         $notf = null;
-
         foreach ($cart->items as $prod) {
             if ($prod['item']['user_id'] != 0) {
                 $vorder =  new VendorOrder;
@@ -234,7 +232,6 @@ class PaystackController extends Controller
         Session::forget('coupon_percentage');
 
         //Sending Email To Buyer
-
         if ($gs->is_smtp == 1) {
             $data = [
                 'to' => $request->email,
@@ -263,7 +260,6 @@ class PaystackController extends Controller
                 'subject' => "New Order Recieved!!",
                 'body' => "Hello Admin!<br>Your store has received a new order.<br>Order Number is ".$order->order_number.".Please login to your panel to check. <br>Thank you.",
             ];
-
             $mailer = new GeniusMailer();
             $mailer->sendCustomMail($data);
         } else {

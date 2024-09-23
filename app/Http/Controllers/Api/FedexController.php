@@ -50,7 +50,6 @@ class FedexController extends Controller
                     'access_token' => $response['access_token']
                 ]);
             };
-
             return $response;
         } catch (HttpException $e) {
             return $e->getMessage();

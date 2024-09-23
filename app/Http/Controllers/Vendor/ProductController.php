@@ -135,19 +135,16 @@ class ProductController extends Controller
         ->rawColumns(['name', 'status', 'action'])
         ->toJson(); //--- Returning Json Data To Client Side
     }
-
     //*** GET Request
     public function index()
     {
         return view('vendor.product.index');
     }
-
     //*** GET Request
     public function types()
     {
         return view('vendor.product.types');
     }
-
     //*** GET Request
     public function createPhysical()
     {
@@ -157,7 +154,6 @@ class ProductController extends Controller
         $storesList = Generalsetting::all();
         return view('vendor.product.create.physical',compact('cats','sign','brands','storesList'));
     }
-
     //*** GET Request
     public function createDigital()
     {
@@ -165,7 +161,6 @@ class ProductController extends Controller
         $sign = $curr = Currency::find($this->storeSettings->currency_id);
         return view('vendor.product.create.digital',compact('cats','sign'));
     }
-
     //*** GET Request
     public function createLicense()
     {
@@ -173,7 +168,6 @@ class ProductController extends Controller
         $sign = $curr = Currency::find($this->storeSettings->currency_id);
         return view('vendor.product.create.license',compact('cats','sign'));
     }
-
     //*** GET Request
     public function fastedit($id)
     {
@@ -181,7 +175,6 @@ class ProductController extends Controller
         $sign = Currency::where('id','=',1)->first();
         return view('vendor.product.fastedit',compact('data','sign'));
     }
-
     //*** POST Request
     public function fasteditsubmit(Request $request, $id)
     {
@@ -189,9 +182,7 @@ class ProductController extends Controller
         $rules = [
             'price'       => 'required'
         ];
-
         $validator = Validator::make($request->all(), $rules);
-
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
@@ -199,19 +190,15 @@ class ProductController extends Controller
 
         //-- Logic Section
         $data = Product::findOrFail($id);
-
         // Remove base product info
         $data->being_sold = false;
         $data->vendor_min_price = 0;
         $data->vendor_max_price = 0;
-
         $data->update($input);
-
         // Find admin product
         $base_prod = Product::where('user_id', 0)->where('slug', $data->slug)->first();
         $max = $base_prod->vendor_max_price;
         $min = $base_prod->vendor_min_price;
-
         // For each vendor product, works with its price
         foreach(Product::where('user_id', '!=', 0)->where('slug', $data->slug)->get() as $v_prod){
             // Price higher than max price
@@ -237,7 +224,6 @@ class ProductController extends Controller
             $base_prod->update();
         }
         //-- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Product Updated Successfully.');
         return response()->json($msg);
@@ -267,7 +253,6 @@ class ProductController extends Controller
             $storesList = Generalsetting::all();
             $currentStores = $data->stores()->pluck('id')->toArray();
 
-
             if($data->type == 'Digital')
                 return view('vendor.product.edit.digital',compact('cats','data','sign'));
             elseif($data->type == 'License')
@@ -278,7 +263,6 @@ class ProductController extends Controller
         } else{
             return redirect()->route('vendor-prod-index');
         }
-
     }
 
     //*** GET Request
@@ -336,7 +320,6 @@ class ProductController extends Controller
             $new->sku = Str::random(3).substr(time(), 6,8).Str::random(3);
             $new->ref_code = $new->sku;
             $new->product_type = "normal";
-
             $new->photo = $old->photo;
             $new->thumbnail = $old->thumbnail;
             $new->price = ($request->price) ? $request->price : $old->price;
@@ -357,7 +340,6 @@ class ProductController extends Controller
             $new->vendor_min_price = 0;
             $new->vendor_max_price = 0;
             $new->Push();
-
             // Associate with stores
             if($old->has('stores')) {
                 $new->stores()->sync($old->stores);
@@ -450,12 +432,10 @@ class ProductController extends Controller
             }
         }
         $data->delete();
-
         // Find admin product
         $base_prod = Product::where('user_id', 0)->where('slug', $data->slug)->first();
         $max = $base_prod->vendor_max_price;
         $min = $base_prod->vendor_min_price;
-
         // For each vendor product, works with its price
         foreach(Product::where('user_id', '!=', 0)->where('slug', $data->slug)->get() as $v_prod){
             // Price higher than max price
@@ -488,7 +468,6 @@ class ProductController extends Controller
             $admin_prod->being_sold = 0;
             $admin_prod->update();
         }
-
         //--- Redirect Section
         $msg = __('Product Deleted Successfully.');
         return response()->json($msg);

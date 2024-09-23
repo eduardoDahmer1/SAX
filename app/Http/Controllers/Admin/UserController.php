@@ -74,7 +74,6 @@ class UserController extends Controller
         $data = User::findOrFail($id);
         return view('admin.user.show', compact('data', 'currencies'));
     }
-
     //*** GET Request
     public function ban($id1, $id2)
     {
@@ -82,14 +81,12 @@ class UserController extends Controller
         $user->ban = $id2;
         $user->update();
     }
-
     //*** GET Request
     public function edit($id)
     {
         $data = User::findOrFail($id);
         return view('admin.user.edit', compact('data'));
     }
-
     //*** POST Request
     public function update(Request $request, $id)
     {
@@ -134,20 +131,17 @@ class UserController extends Controller
             }
         }
 
-
         if ($user->shippings->count() > 0) {
             foreach ($user->shippings as $gal) {
                 $gal->delete();
             }
         }
 
-
         if ($user->packages->count() > 0) {
             foreach ($user->packages as $gal) {
                 $gal->delete();
             }
         }
-
 
         if ($user->ratings->count() > 0) {
             foreach ($user->ratings as $gal) {
@@ -245,7 +239,6 @@ class UserController extends Controller
         if ($user->products->count() > 0) {
 
 // PRODUCT
-
             foreach ($user->products as $prod) {
                 if ($prod->galleries->count() > 0) {
                     foreach ($prod->galleries as $gal) {
@@ -295,8 +288,6 @@ class UserController extends Controller
         }
         // OTHER SECTION
 
-
-
         if ($user->senders->count() > 0) {
             foreach ($user->senders as $gal) {
                 if ($gal->messages->count() > 0) {
@@ -307,7 +298,6 @@ class UserController extends Controller
                 $gal->delete();
             }
         }
-
 
         if ($user->recievers->count() > 0) {
             foreach ($user->recievers as $gal) {
@@ -320,7 +310,6 @@ class UserController extends Controller
             }
         }
 
-
         if ($user->conversations->count() > 0) {
             foreach ($user->conversations as $gal) {
                 if ($gal->messages->count() > 0) {
@@ -331,7 +320,6 @@ class UserController extends Controller
                 $gal->delete();
             }
         }
-
 
         if ($user->vendororders->count() > 0) {
             foreach ($user->vendororders as $gal) {
@@ -344,11 +332,7 @@ class UserController extends Controller
                 $gal->delete();
             }
         }
-
-
         // OTHER SECTION ENDS
-
-
         //If Photo Doesn't Exist
         if ($user->photo == null) {
             $user->delete();

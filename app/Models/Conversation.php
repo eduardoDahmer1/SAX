@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends CachedModel
 {
-
 	public function sent()
 	{
 	    return $this->belongsTo('App\Models\User', 'sent_user')->withDefault(function ($data) {
@@ -15,7 +14,6 @@ class Conversation extends CachedModel
 			}
 		});
 	}
-
 	public function recieved()
 	{
 	    return $this->belongsTo('App\Models\User', 'recieved_user')->withDefault(function ($data) {
@@ -24,7 +22,6 @@ class Conversation extends CachedModel
 			}
 		});
 	}
-
 	public function messages()
 	{
 	    return $this->hasMany('App\Models\Message');

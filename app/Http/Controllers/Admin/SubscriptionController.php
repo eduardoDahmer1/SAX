@@ -83,7 +83,6 @@ class SubscriptionController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Subscription();
         $input = $this->withRequiredFields($request->all(), ['title']);
@@ -91,10 +90,8 @@ class SubscriptionController extends Controller
         if ($input['limit'] == 0) {
             $input['allowed_products'] = 0;
         }
-
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section        
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -125,7 +122,6 @@ class SubscriptionController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Subscription::findOrFail($id);
         $input = $this->withRequiredFields($request->all(), ['title']);
@@ -135,7 +131,6 @@ class SubscriptionController extends Controller
          }
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section     
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);      

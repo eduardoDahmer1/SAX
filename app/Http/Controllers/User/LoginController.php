@@ -29,18 +29,15 @@ class LoginController extends Controller
                   'email'   => 'required|email',
                   'password' => 'required'
                 ];
-
         $validator = Validator::make($request->all(), $rules);
         
         if ($validator->fails()) {
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
       // Attempt to log the user in
       if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
         // if successful, then redirect to their intended location
-
         // Check If Email is verified or not
           if(Auth::guard('web')->user()->email_verified == 'No')
           {
@@ -67,17 +64,6 @@ class LoginController extends Controller
                 return response()->json(route('user-package'));
                 }
             }
-          // // Login as User - previous example 
-          // // return response()->json(1);
-          // return response()->json(route('user-dashboard'));
-          // }
-          // // Login as User
-          // return response()->json(route('user-dashboard'));
-          // // Login as User - previous example
-
-          
-          // Login as User
-          // return response()->json(1);
           return response()->json(route('user-dashboard'));
           }
           // Login as User

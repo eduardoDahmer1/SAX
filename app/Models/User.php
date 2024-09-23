@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\File;
 use Astrotomic\Translatable\Translatable;
@@ -12,12 +11,8 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 class User extends Authenticatable implements TranslatableContract
 {
     use Translatable;
-
     protected $translatedAttributes = ['shop_message'];
-
     use LogsActivity;
-
-
     protected $fillable = [
         'name',
         'photo',
@@ -72,12 +67,9 @@ class User extends Authenticatable implements TranslatableContract
         'gender',
         'ruc',
     ];
-
-
     protected $hidden = [
         'password', 'remember_token'
     ];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -85,7 +77,6 @@ class User extends Authenticatable implements TranslatableContract
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function IsVendor()
     {
         if ($this->is_vendor == 2) {
@@ -93,29 +84,23 @@ class User extends Authenticatable implements TranslatableContract
         }
         return false;
     }
-
-
     public function cartabandonments()
     {
         return $this->hasMany('App\Models\CartAbandonment');
     }
-
     public function orders()
     {
         return $this->hasMany('App\Models\Order');
     }
-
     public function weddingProducts()
     {
         return $this->belongsToMany(Product::class, 'wedding_products')
             ->using(WeddingProduct::class)->withPivot(['buyer_id', 'id', 'buyed_at']);
     }
-
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
     }
-
     public function replies()
     {
         return $this->hasMany('App\Models\Reply');
@@ -150,8 +135,6 @@ class User extends Authenticatable implements TranslatableContract
     {
         return $this->hasMany('App\Models\Notification');
     }
-
-    // Multi Vendor
 
     public function products()
     {
@@ -233,7 +216,6 @@ class User extends Authenticatable implements TranslatableContract
     {
         return $this->verifies()->where('admin_warning', '=', '1')->orderBy('id', 'desc')->first()->warning_reason;
     }
-
     public function getVendorPhotoAttribute($value)
     {
         if (!$this->photo) {
@@ -244,7 +226,6 @@ class User extends Authenticatable implements TranslatableContract
             return asset("storage/images/users/".$this->photo);
         }
     }
-
     public function getPhotoUrlAttribute()
     {
         return $this->photo ? asset("storage/images/users/{$this->photo}") : asset('assets/images/user.jpg');

@@ -144,7 +144,6 @@ class ImportController extends Controller
             //--- Validation Section Ends
 
         }
-
         //--- Logic Section
         $data = new Product;
         $sign = Currency::where('id', '=', 1)->first();
@@ -173,7 +172,6 @@ class ImportController extends Controller
 
         //-- Translations Section
         // Will check each field in language 1 and then for each other language
-
         // Check Seo
         if (!empty($input[$this->lang->locale]['meta_tag'])) {
             $input[$this->lang->locale]['meta_tag'] = implode(',', $input[$this->lang->locale]['meta_tag']);
@@ -219,7 +217,6 @@ class ImportController extends Controller
             }
         }
         //-- End Translations Section
-
         // Check Physical
         if ($request->type == "Physical") {
 
@@ -232,9 +229,6 @@ class ImportController extends Controller
                 return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
             }
             //--- Validation Section Ends
-
-
-
             // Check Condition
             if ($request->product_condition_check == "") {
                 $input['product_condition'] = 0;
@@ -276,7 +270,6 @@ class ImportController extends Controller
         }
 
         // Check License
-
         if ($request->type == "License") {
 
             if (in_array(null, $request->license) || in_array(null, $request->license_qty)) {
@@ -292,10 +285,8 @@ class ImportController extends Controller
         $input['price'] = ($input['price'] / $sign->value);
         $input['previous_price'] = ($input['previous_price'] / $sign->value);
         $input['product_type'] = "affiliate";
-
         // Save Data
         $data->fill($input)->save();
-
         // Set SLug
         $prod = Product::find($data->id);
         if ($prod->type != 'Physical') {
@@ -331,12 +322,10 @@ class ImportController extends Controller
             }
         }
         //logic Section Ends
-
         //associates with stores
         if($request->has('stores')) {
             $prod->stores()->sync($input['stores']);
         }
-
         //--- Redirect Section
         $msg = __('New Affiliate Product Added Successfully.') . '<a href="' . route('admin-import-index') . '">' . __('View Product Lists.') . '</a>';
         return response()->json($msg);
@@ -374,16 +363,12 @@ class ImportController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
-
         //-- Logic Section
         $data = Product::findOrFail($id);
         $sign = Currency::where('id', '=', 1)->first();
         $input = $this->withRequiredFields($request->all(), ['name']);
-
         //-- Translations Section
         // Will check each field in language 1 and then for each other language
-
         // Check Seo
         if (!empty($input[$this->lang->locale]['meta_tag'])) {
             $input[$this->lang->locale]['meta_tag'] = implode(',', $input[$this->lang->locale]['meta_tag']);
@@ -438,7 +423,6 @@ class ImportController extends Controller
             }
         }
         //-- End of Translations Section
-
         //Check Types
         if ($request->type_check == 1) {
             $input['link'] = null;
@@ -457,7 +441,6 @@ class ImportController extends Controller
             $input['photo'] = $request->photolink;
         }
 
-
         // Check Physical
         if ($data->type == "Physical") {
 
@@ -470,8 +453,6 @@ class ImportController extends Controller
                 return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
             }
             //--- Validation Section Ends
-
-
             // Check Condition
             if ($request->product_condition_check == "") {
                 $input['product_condition'] = 0;
@@ -483,7 +464,6 @@ class ImportController extends Controller
             }
 
             // Check Size
-
             if (empty($request->size_check)) {
                 $input['size'] = null;
                 $input['size_qty'] = null;
@@ -550,7 +530,6 @@ class ImportController extends Controller
         }
 
         //-- Logic Section Ends
-
         if ($data->photo != null) {
             if (file_exists(public_path() . '/storage/images/thumbnails/' . $data->thumbnail)) {
                 unlink(public_path() . '/storage/images/thumbnails/' . $data->thumbnail);
@@ -568,7 +547,6 @@ class ImportController extends Controller
         $img->save(public_path() . '/storage/images/thumbnails/' . $thumbnail);
         $prod->thumbnail  = $thumbnail;
         $prod->update();
-
         //--- Redirect Section
         $msg = __('Product Updated Successfully.') . '<a href="' . route('admin-import-index') . '">' . __('View Product Lists.') . '</a>';
         return response()->json($msg);

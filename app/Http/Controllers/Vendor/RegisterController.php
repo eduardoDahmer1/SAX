@@ -30,7 +30,6 @@ class RegisterController extends Controller
 	        }    		
     	}
 
-
         //--- Validation Section
 
         $rules = [
@@ -155,7 +154,6 @@ class RegisterController extends Controller
 	        $notification->save();
             Auth::guard('web')->login($user); 
             return redirect()->route('user-dashboard')->with('success',__('Email Verified Successfully'));
-        
     		}
     		else {
     		return redirect()->back();	

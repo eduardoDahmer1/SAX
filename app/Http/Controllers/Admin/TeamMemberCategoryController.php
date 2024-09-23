@@ -76,13 +76,11 @@ class TeamMemberCategoryController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new TeamMemberCategory;
         $input = $this->removeEmptyTranslations($request->all());
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -118,24 +116,20 @@ class TeamMemberCategoryController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = TeamMemberCategory::findOrFail($id);
         $input = $this->removeEmptyTranslations($request->all(), $data);
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);
         //--- Redirect Section Ends
-
     }
 
     //*** GET Request
     public function destroy($id)
     {
-
         try {
             $data = TeamMemberCategory::findOrFail($id);
             $data->delete();
@@ -143,7 +137,6 @@ class TeamMemberCategoryController extends Controller
             $msg = [ 'msg' => __('Remove team member first !') ];
             return response()->json(array('errors' =>  $msg));
         }
-
         //--- Check If there any team member available, If Available Then Delete it
         $data->delete();
         //--- Redirect Section

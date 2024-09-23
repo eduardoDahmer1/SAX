@@ -85,7 +85,6 @@ class PackageController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Package();
         $input = $this->removeEmptyTranslations($request->all());
@@ -118,7 +117,6 @@ class PackageController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }      
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Package::findOrFail($id);
         $input = $this->withRequiredFields($request->all(), ['title', 'subtitle']);

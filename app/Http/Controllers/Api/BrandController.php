@@ -13,7 +13,6 @@ class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -24,7 +23,6 @@ class BrandController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -37,7 +35,6 @@ class BrandController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -53,7 +50,6 @@ class BrandController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -76,7 +72,6 @@ class BrandController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

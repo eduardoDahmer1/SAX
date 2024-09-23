@@ -8,7 +8,6 @@ class BrandResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
@@ -20,7 +19,6 @@ class BrandResource extends JsonResource
             "name" => $this->name,
             "ref_code" => $this->ref_code
         ];
-        
         return $brand;
     }
 }

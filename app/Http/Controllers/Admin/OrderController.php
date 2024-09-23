@@ -60,7 +60,6 @@ class OrderController extends Controller
             $datas = Order::where('method', '<>', 'Simplified')->select('id', 'currency_sign', 'currency_value', 'order_number', 'pay_amount', 'status', 'method', 'payment_status', 'customer_email', 'customer_name', 'created_at', 'totalQty', 'shipping_cost', 'shipping_type', 'shipping_country', 'shipping_city', 'shipping_state', 'shipping_document');
         }
         $datas = $datas->orderBy('id', 'desc');
-
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
             ->editColumn('order_number', function (Order $data) {
@@ -151,7 +150,6 @@ class OrderController extends Controller
             $datas = Order::where('method', '=', 'Simplified')->orderBy('id', 'desc');
         }
         $datas = $datas->orderBy('id', 'desc');
-
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
             ->editColumn('customer_name', function (Order $data) {
@@ -315,7 +313,6 @@ class OrderController extends Controller
     {
         //--- Logic Section
         $data = Order::findOrFail($id);
-
         $input = $request->all();
         if ($data->status == "completed") {
             // Then Save Without Changing it.
@@ -356,7 +353,6 @@ class OrderController extends Controller
                 }
             }
 
-
             //on delivery
             if ($input['status'] == "on delivery") {
                 foreach ($data->vendororders as $vorder) {
@@ -383,8 +379,6 @@ class OrderController extends Controller
                     mail($to, $subject, $msg, $headers);
                 }
             }
-
-
 
             if ($input['status'] == "completed") {
                 foreach ($data->vendororders as $vorder) {
@@ -476,7 +470,6 @@ class OrderController extends Controller
                 }
             }
 
-
             $data->update($input);
             $title = __(ucwords($request->status));
             $order_track = new OrderTrack;
@@ -506,7 +499,6 @@ class OrderController extends Controller
             return response()->json($msg);
             //--- Redirect Section Ends
         }
-
         //--- Redirect Section
         $msg = __('Status Updated Successfully.');
         return response()->json($msg);

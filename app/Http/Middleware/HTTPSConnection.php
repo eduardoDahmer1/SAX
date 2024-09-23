@@ -18,13 +18,9 @@ class HTTPSConnection {
                 }
             }
 
-
             return $next($request);
 
     }
 
 }
-
-
-
 ?>

@@ -93,8 +93,6 @@ public function store(Request $request)
     return redirect($payment->getCheckoutUrl(), 303);
 }
 
-
-
 public function notify(Request $request)
 {
     $paypal_data = Session::get('paypal_data');
@@ -132,7 +130,6 @@ public function notify(Request $request)
 
         $settings = Generalsetting::findOrFail(1);
         $order = new Order;
-
         $order['user_id'] = $paypal_data['user_id'];
         $order['cart'] = $cart;
         $order['totalQty'] = $paypal_data['totalQty'];
@@ -166,10 +163,8 @@ public function notify(Request $request)
         $order['tax'] = $paypal_data['tax'];
         $order['dp'] = $paypal_data['dp'];
         $order['txnid'] = $payment->id;
-
         $order['vendor_shipping_id'] = $paypal_data['vendor_shipping_id'];
         $order['vendor_packing_id'] = $paypal_data['vendor_packing_id'];
-
         if ($order['dp'] == 1) {
             $order['status'] = 'completed';
         }
@@ -185,7 +180,6 @@ public function notify(Request $request)
             $order['affilate_charge'] = $sub;
         }
         $order->save();
-
 
         if ($order->dp == 1) {
             $track = new OrderTrack;
@@ -238,7 +232,6 @@ public function notify(Request $request)
             }
         }
 
-
         foreach ($cart->items as $prod) {
             $x = (string)$prod['stock'];
             if ($x != null) {
@@ -252,7 +245,6 @@ public function notify(Request $request)
                 }
             }
         }
-
 
         $notf = null;
 
@@ -279,11 +271,9 @@ public function notify(Request $request)
             }
         }
 
-
         $gs = Generalsetting::find(1);
 
         //Sending Email To Buyer
-
         if ($gs->is_smtp == 1) {
             $data = [
                 'to' => $paypal_data['email'],

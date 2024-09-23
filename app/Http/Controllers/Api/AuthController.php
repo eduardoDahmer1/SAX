@@ -25,7 +25,6 @@ class AuthController extends Controller
 
     /**
      * Log the user out (Invalidate the token).
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout()
@@ -37,7 +36,6 @@ class AuthController extends Controller
 
     /**
      * Get the authenticated User.
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function me()
@@ -57,9 +55,7 @@ class AuthController extends Controller
 
     /**
      * Get the token array structure.
-     *
      * @param  string $token
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)

@@ -24,7 +24,6 @@ class OrderBilling implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
      * @return void
      */
     public function __construct($url, Order $order)
@@ -34,18 +33,15 @@ class OrderBilling implements ShouldQueue
     }
     /**
      * Execute the job.
-     *
      * @return void
      */
     public function handle()
     {
         try {
             $response = Http::withoutVerifying()->post($this->url);
-
             if ($response->failed()) {
                 Log::debug('Erro na API Consoft');
             }
-    
             if ($response->successful()) {
                 foreach ($response->collect() as $data) {
                     if ($data['estatus'] == 0) {

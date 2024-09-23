@@ -97,7 +97,6 @@ class MercadoLivreController extends Controller
         return response()->json($msg);
     }
 
-
     /* Lists a Product on Mercado Livre */
     public function sendItem($id)
     {
@@ -127,9 +126,7 @@ class MercadoLivreController extends Controller
         
         $category = $this->searchCategory($product);
         $data = FacadesMercadoLivre::productBusinessLogic($product, $category);
-
         $resp = FacadesMercadoLivre::curlPost($url, $headers, $data);
-
         // if errors are thrown
         if(array_key_exists('status', $resp) && $resp['status'] == 400) {
             $errors = [];

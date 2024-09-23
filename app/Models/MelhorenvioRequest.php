@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
 class MelhorenvioRequest extends CachedModel
 {
     protected $table = 'melhorenvio_requests';
@@ -30,7 +28,6 @@ class MelhorenvioRequest extends CachedModel
     ];
 
     public $timestamps = false;
-
     public function service()
     {
     	return $this->belongsTo('App\Models\MelhorenvioService', 'service_id')->withDefault(function ($data) {

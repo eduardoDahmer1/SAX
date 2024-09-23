@@ -57,7 +57,6 @@ class GalleryController extends Controller
                   {
                     $gallery = new Gallery;
 
-
         $img = Image::make($file->getRealPath())->resize(800, 800);
         $thumbnail = time().Str::random(8).'.jpg';
         $img->save(public_path().'/storage/images/galleries/'.$thumbnail);

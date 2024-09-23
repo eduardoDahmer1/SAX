@@ -34,7 +34,6 @@ class CrudGenerator extends Command
         file_put_contents(app_path("/Models/{$name}.php"), $modelTemplate);
     }
 
-
     protected function controller($name)
     {
         $controllerTemplate = str_replace(

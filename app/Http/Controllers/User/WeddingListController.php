@@ -31,7 +31,6 @@ class WeddingListController extends Controller
             "success" => $message,
         ]);
     }
-
     /**
      * Display a resource.
      */
@@ -68,7 +67,6 @@ class WeddingListController extends Controller
                 )
             ]);
         }
-
         return redirect()->route('product.cart.redirect.wedding', [$user->id, $product_id]);
     }
 

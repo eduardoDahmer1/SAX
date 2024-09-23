@@ -85,7 +85,6 @@ class CouponController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }   
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Coupon();
         $input = $request->all();
@@ -122,7 +121,6 @@ class CouponController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }        
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Coupon::findOrFail($id);
         $input = $request->all();
@@ -130,7 +128,6 @@ class CouponController extends Controller
         $input['end_date'] = Carbon::parse($input['end_date'])->format('Y-m-d');
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section     
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);    
@@ -143,7 +140,6 @@ class CouponController extends Controller
             $data->status = $id2;
             $data->update();
         }
-
 
     //*** GET Request Delete
     public function destroy($id)

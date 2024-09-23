@@ -66,7 +66,6 @@ class PayPalController extends Controller
 
     public function payment()
     {
-
         $notify_url = action('Front\PayPalController@paypalCallback');
 
         $payer = new Payer();
@@ -77,21 +76,16 @@ class PayPalController extends Controller
         ->setCurrency($this->checkCurrency)
         ->setQuantity(1)
         ->setPrice(round($this->cartTotal["before_costs"], 2));
-
         $itemList = new ItemList();
         $itemList->setItems(array($item));
-
         $details = new Details();
-
         $details->setShipping($this->order->shipping_cost)
         ->setTax($this->order->tax)
         ->setSubtotal(round($this->cartTotal["before_costs"], 2));
-
         $amount = new Amount();
         $amount->setCurrency($this->checkCurrency)
         ->setTotal($this->order->pay_amount)
         ->setDetails($details);
-
         $transaction = new Transaction();
         $transaction->setAmount($amount)
         ->setItemList($itemList)
@@ -131,13 +125,10 @@ class PayPalController extends Controller
             $transaction = new Transaction();
             $amount = new Amount();
             $details = new Details();
-    
             $details->setSubtotal($order->pay_amount - $order->shipping_cost);
-    
             //retrieving invoice number to pass to order
             $invoice_number = $payment->getTransactions();
             $invoice_number = $invoice_number[0];
-    
             $amount->setCurrency($this->checkCurrency);
             $amount->setTotal($order->pay_amount);
             $amount->setDetails($details);
@@ -156,7 +147,6 @@ class PayPalController extends Controller
                     }
     
                     $order->update($data);
-    
                     $notification = new Notification;
                     $notification->order_id = $order->id;
                     $notification->save();

@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
 class CategoryGallery extends CachedModel
 {
     protected $table = 'categories_gallery';

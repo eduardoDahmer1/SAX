@@ -59,9 +59,7 @@
                 </div>
             </div>
         </div>
-
         {{-- Category name --}}
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -82,12 +80,8 @@
                 </div>
             </div>
         </div>
-
         {{-- End Category name --}}
-
         {{-- DataTable --}}
-
-
         <div class="product-area">
             <div class="row">
                 <div class="col-lg-12">
@@ -113,7 +107,6 @@
         </div>
         {{-- DataTable ends --}}
     </div>
-
     <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -134,9 +127,7 @@
             </div>
         </div>
     </div>
-
     {{-- DELETE MODAL --}}
-
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -148,8 +139,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-                <!-- Modal body -->
                 <div class="modal-body">
                     <p class="text-center">
                         {{ __('You are about to delete this Attribute. Everything under this attribute will be deleted') }}.
@@ -157,7 +146,6 @@
                     <p class="text-center">{{ __('Do you want to proceed?') }}</p>
                 </div>
 
-                <!-- Modal footer -->
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Cancel') }}</button>
                     <a class="btn btn-danger btn-ok">{{ __('Delete') }}</a>
@@ -166,11 +154,8 @@
             </div>
         </div>
     </div>
-
     {{-- DELETE MODAL ENDS --}}
-
     {{-- ATTRIBUTE MODAL --}}
-
     <div class="modal fade" id="attribute" tabindex="-1" role="dialog" aria-labelledby="attribute" aria-hidden="true">
 
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -193,7 +178,6 @@
             </div>
         </div>
     </div>
-
     {{-- ATTRIBUTE MODAL ENDS --}}
 @endsection
 @section('scripts')
@@ -203,7 +187,6 @@
                 $(this).find("form").remove();
             });
             $(document).ready(function() {
-                // First access - CurrentPage
                 if (sessionStorage.getItem("CurrentPage") == undefined) {
                     sessionStorage.setItem("CurrentPage", 0);
                 }
