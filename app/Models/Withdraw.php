@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
 class Withdraw extends CachedModel
 {
     protected $fillable = [
@@ -15,7 +13,6 @@ class Withdraw extends CachedModel
         'updated_at', 
         'status'
     ];
-
     public function user()
     {
         return $this->belongsTo('App\Models\User')->withDefault(function ($data) {

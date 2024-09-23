@@ -48,7 +48,6 @@ class RedeController extends Controller
     {
         // Configuração da loja em modo sandbox ou produção
         $store = new \Rede\Store($this->credentials["PV"], $this->credentials["TOKEN"], $this->environment);
-
         //--------------------------------------------- begin sanitization ---------------------------------------------
         $cardNumber = preg_replace('/[^0-9]/', null, $request->get('cardNumber'));
         if (empty($cardNumber)) {
@@ -104,7 +103,6 @@ class RedeController extends Controller
         //--------------------------------------------- end sanitization ---------------------------------------------
 
         $method = $request->get('kind');
-
         // Transação que será autorizada
         $transaction = (new \Rede\Transaction($request->get('Amount'), $request->get('reference'), 'pedido' . time()))->$method(
             $cardNumber,

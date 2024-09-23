@@ -33,7 +33,6 @@ class StripeController extends Controller
         Config::set('services.stripe.secret', $stripe->stripe_secret);
     }
 
-
     public function store(Request $request){
         $this->validate($request, [
             'shop_name'   => 'unique:users',
@@ -155,6 +154,4 @@ class StripeController extends Controller
         }
         return back()->with('unsuccess', 'Please Enter Valid Credit Card Informations.');
     }
-
-
 }

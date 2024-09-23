@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Observers;
-
 use App\Jobs\ProcessOrderJob;
 use App\Jobs\OrderBilling;
 use App\Mail\RedplayLicenseMail;
@@ -33,7 +32,6 @@ class OrderObserver
             ]);
         }
     }
-
     public function createWeddingProducts(Order $order)
     {
         if (config('features.wedding_list') && session()->has('weddings')) {
@@ -49,13 +47,6 @@ class OrderObserver
             Session::remove("weddings");
         }
     }
-
-    /**
-     * Handle the order "updated" event.
-     *
-     * @param Order $order
-     * @return void
-     */
     public function updated(Order $order)
     {
         if (config('features.redplay_digital_product')) {
@@ -77,7 +68,6 @@ class OrderObserver
                 }
             }
         }
-
         if (env('ENABLE_ORDER') && $order->payment_status === 'Completed') {
             $parameters = [
                 'cod' => env('ORDER_COD'),
@@ -192,11 +182,9 @@ class OrderObserver
                 'cep' => $order->customer_zip,
                 'moe' => $order->currency_sign,
                 'fre' => $order->shipping_cost,
-                
             ];
             $url = 'https://saxpy.dyndns.org:444/EcommerceApi/production.php?' . http_build_query($parameters);
             ProcessOrderJob::dispatch($url, $order);
-            
         }
     }
 }

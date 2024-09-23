@@ -81,7 +81,6 @@ class StaffController extends Controller
             return response()->json('Impossible to create user with such role.');
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Admin();
         $input = $request->all();
@@ -94,13 +93,11 @@ class StaffController extends Controller
         $input['password'] = bcrypt($request['password']);
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
         //--- Redirect Section Ends
     }
-
 
     public function edit($id)
     {

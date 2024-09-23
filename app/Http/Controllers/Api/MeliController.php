@@ -18,7 +18,6 @@ class MeliController extends Controller
 {
     /**
      * Treatment for Meli callback. It can for example be used to save authorization code at database.
-     *
      * @return \Illuminate\Http\Response
     */
     public function callback(Request $request)
@@ -38,7 +37,6 @@ class MeliController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function notifications(Request $request)

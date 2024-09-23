@@ -17,8 +17,6 @@ class BackInStockController extends Controller
     {
         $product = Product::find($product_id);
         $product_slug = $product->slug;
-
-        /* Sometimes products become available when user is already writing his email to subscribe. */
         if($product->stock > 0) {
             return redirect()->route('front.product', $product_slug)->with('success', __('Good news! This product is already available!'));
         }

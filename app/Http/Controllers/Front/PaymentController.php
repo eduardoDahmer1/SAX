@@ -52,7 +52,6 @@ class PaymentController extends Controller
             }
         }
 
-
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         if (Session::has('currency')) {
@@ -94,22 +93,17 @@ class PaymentController extends Controller
         $item_amount = $request->total;
 
         $querystring = '';
-
         // Firstly Append paypal account to querystring
         $querystring .= "?business=".urlencode($paypal_email)."&";
-
         // Append amount& currency (£) to quersytring so it cannot be edited in html
-
         //The item name and amount can be brought in dynamically by querying the $_POST['item_number'] variable.
         $querystring .= "item_name=".urlencode($item_name)."&";
         $querystring .= "amount=".urlencode($item_amount)."&";
         $querystring .= "item_number=".urlencode($item_number)."&";
-
         $querystring .= "cmd=".urlencode(stripslashes($request->cmd))."&";
         $querystring .= "bn=".urlencode(stripslashes($request->bn))."&";
         $querystring .= "lc=".urlencode(stripslashes($request->lc))."&";
         $querystring .= "currency_code=".urlencode(stripslashes($request->currency_code))."&";
-
         // Append paypal return addresses
         $querystring .= "return=".urlencode(stripslashes($return_url))."&";
         $querystring .= "cancel_return=".urlencode(stripslashes($cancel_url))."&";
@@ -151,7 +145,6 @@ class PaymentController extends Controller
         $order['dp'] = $request->dp;
         $order['puntoentrega'] = $request->puntoentrega;
         $order['puntoid'] = $request->puntoidvalue;
-
         $order['vendor_shipping_id'] = $request->vendor_shipping_id;
         $order['vendor_packing_id'] = $request->vendor_packing_id;
 
@@ -198,10 +191,6 @@ class PaymentController extends Controller
             }
         }
 
-
-
-
-
         foreach ($cart->items as $prod) {
             $x = (string)$prod['stock'];
             if ($x != null) {
@@ -216,9 +205,7 @@ class PaymentController extends Controller
             }
         }
 
-
         $notf = null;
-
         foreach ($cart->items as $prod) {
             if ($prod['item']['user_id'] != 0) {
                 $vorder =  new VendorOrder;
@@ -246,14 +233,10 @@ class PaymentController extends Controller
         }
         Session::put('temporder', $order);
         Session::put('tempcart', $cart);
-
-
-
         Session::forget('cart');
 
         return redirect('https://www.paypal.com/cgi-bin/webscr'.$querystring);
     }
-
 
         public function paycancle()
         {
@@ -308,8 +291,6 @@ class PaymentController extends Controller
             return view('front.successSimplifiedCheckout', compact('tempcart', 'order', 'first_curr', 'order_curr', 'linkSimplifiedCheckout'));
         }
 
-
-
 public function notify(Request $request)
 {
     $raw_post_data = file_get_contents('php://input');
@@ -322,8 +303,6 @@ public function notify(Request $request)
         }
     }
     //return $myPost;
-
-
     // Read the post from PayPal system and add 'cmd'
     $req = 'cmd=_notify-validate';
     if (function_exists('get_magic_quotes_gpc')) {
@@ -337,7 +316,6 @@ public function notify(Request $request)
         }
         $req .= "&$key=$value";
     }
-
     /*
      * Post IPN data back to PayPal to validate the IPN data is genuine
      * Without this step anyone can fake IPN data
@@ -355,7 +333,6 @@ public function notify(Request $request)
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
-
     // Set TCP timeout to 30 seconds
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close', 'User-Agent: company-name'));

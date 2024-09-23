@@ -8,7 +8,6 @@ class OrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
@@ -85,7 +84,6 @@ class OrderResource extends JsonResource
             "cart_items" => $cart_items,
             "puntoentrega" => $this->puntoentrega
         ];
-
         return $order;
     }
 }

@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Support\Facades\Session;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Cart extends CachedModel
@@ -11,7 +9,6 @@ class Cart extends CachedModel
     public $items = null;
     public $totalQty = 0;
     public $totalPrice = 0;
-
     protected $storeSettings;
     protected $storeLocale;
 
@@ -24,21 +21,16 @@ class Cart extends CachedModel
 
         return json_encode($cart, $options);
     }
-
     public function __construct($oldCart = null)
     {
         parent::__construct();
-
         $this->storeSettings = resolve('storeSettings');
-
         $this->storeLocale = (Session::has('language') ? Language::find(Session::get('language')) : Language::find($this->storeSettings->lang_id));
-
         if ($oldCart && is_object($oldCart)) {
             $this->items = $oldCart->items;
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
         }
-
         if ($oldCart && is_array($oldCart)) {
             $this->items = $oldCart['items'];
             $this->totalQty = $oldCart['totalQty'];
@@ -151,11 +143,9 @@ class Cart extends CachedModel
         if (!empty($keys)) {
             $storedItem['keys'] = $keys;
         }
-
         if (!empty($max_quantity)) {
             $storedItem['max_quantity'] = $max_quantity;
         }
-
         if (!empty($values)) {
             $storedItem['values'] = $values;
         }
@@ -165,7 +155,6 @@ class Cart extends CachedModel
         } else {
             $price_aux = $storedItem['item']->attributes['price'];
         }
-
         if (!empty($item->whole_sell_qty)) {
             $ultimo = 0;
             foreach (array_combine($item->whole_sell_qty, $item->whole_sell_discount) as $whole_sell_qty => $whole_sell_discount) {
@@ -192,11 +181,7 @@ class Cart extends CachedModel
     }
 
     // **************** ADD TO CART ENDS *******************
-
-
-
     // **************** ADD TO CART MULTIPLE *******************
-
     public function addnum($item, $id, $qty, $size, $color, $material, $customizable_gallery, $customizable_name, $customizable_number, $customizable_logo, $agree_terms, $size_qty, $size_price, $size_key, $color_qty, $color_price, $color_key, $material_qty, $material_price, $material_key, $keys, $values)
     {
         $size_cost = 0;
@@ -380,10 +365,7 @@ class Cart extends CachedModel
 
 
     // **************** ADD TO CART MULTIPLE ENDS *******************
-
-
     // **************** ADDING QUANTITY *******************
-
     public function adding($item, $id, $size_qty, $size_price, $color_qty, $color_price, $material_qty, $material_price)
     {
         $storedItem = ['qty' => 0,'size_key' => 0, 'size_qty' =>  $item->size_qty, 'color_qty' => $item->color_qty, 'max_quantity' =>  $item->max_quantity, 'size_price' => $item->size_price, 'color_price' => $item->color_price, 'size' => $item->size, 'color' => $item->color, 'stock' => $item->stock, 'price' => $item->price, 'item' => $item, 'license' => '', 'dp' => '0','keys' => '', 'values' => ''];
@@ -429,10 +411,7 @@ class Cart extends CachedModel
     }
 
     // **************** ADDING QUANTITY ENDS *******************
-
-
     // **************** REDUCING QUANTITY *******************
-
     public function reducing($item, $id, $size_qty, $size_price, $color_qty, $color_price, $material_qty, $material_price)
     {
         $storedItem = ['qty' => 0,'size_key' => 0, 'color_qty' => $item->color_qty, 'color_price' => $item->color_price,'material_qty' => $item->material_qty, 'material_price' => $item->material_price, 'size_qty' =>  $item->size_qty, 'size_price' => $item->size_price, 'max_quantity' =>  $item->max_quantity,'size' => $item->size, 'color' => $item->color,'material' => $item->material, 'stock' => $item->stock, 'price' => $item->price, 'item' => $item, 'license' => '', 'dp' => '0','keys' => '', 'values' => ''];
@@ -477,7 +456,6 @@ class Cart extends CachedModel
     }
 
     // **************** REDUCING QUANTITY ENDS *******************
-
     public function updateLicense($id, $license)
     {
         $this->items[$id]['license'] = $license;

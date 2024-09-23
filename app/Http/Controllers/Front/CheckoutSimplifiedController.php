@@ -64,7 +64,6 @@ class CheckoutSimplifiedController extends Controller
         // Captura a moeda
         $curr = Currency::find(Session::get('currency', $this->storeSettings->currency_id));
         $first_curr = Currency::where('id', '=', 1)->first();
-    
         $order = new Order;
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
@@ -86,11 +85,9 @@ class CheckoutSimplifiedController extends Controller
     
         // Calcula o total do carrinho
         $cart_total = Session::has('coupon_total') ? Session::get('coupon_total') / $curr->value : (Session::has('coupon_total1') ? Session::get('coupon_total1') / $curr->value : $oldCart->totalPrice * (1 + ($this->storeSettings->tax / 100)));
-    
         // Adiciona custos de embalagem e frete
         $cart_total += $order['packing_cost'] + $order['shipping_cost'];
         $cart_total_currency = $cart_total * $curr->value;
-    
         // Prepara o pedido
         $order['cart'] = [
             'items' => $cart->items,
@@ -121,22 +118,18 @@ class CheckoutSimplifiedController extends Controller
         $order['description'] = $request->description;
         $order['payment_method'] = $request->payment_method;
         $order['payment'] = $request->payment;
-    
         // Salva o pedido
         $order->save();
-    
         // Rastreia o pedido
         $track = new OrderTrack;
         $track->title = __('Pending');
         $track->text = __('You have successfully placed your order.');
         $track->order_id = $order->id;
         $track->save();
-    
         // Cria uma notificação
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();
-    
         // Atualiza o uso do cupom
         if ($request->coupon_id != "") {
             $coupon = Coupon::findOrFail($request->coupon_id);
@@ -146,7 +139,7 @@ class CheckoutSimplifiedController extends Controller
             }
             $coupon->update();
         }
-    
+
         // Atualiza o estoque dos produtos
         foreach ($cart->items as $prod) {
             $x = $prod['size_qty'];
@@ -174,12 +167,10 @@ class CheckoutSimplifiedController extends Controller
     
         // Cria pedidos de fornecedores
         $this->createVendorOrders($cart, $order);
-    
         // Limpa o carrinho e as sessões temporárias
         Session::forget(['cart', 'already', 'coupon', 'coupon_code', 'coupon_total', 'coupon_total1', 'coupon_percentage']);
         Session::put('temporder', $order);
         Session::put('tempcart', $cart);
-    
         // Envia email para o administrador
         $this->sendAdminEmail($order);
     

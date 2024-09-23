@@ -20,21 +20,14 @@ use Illuminate\Support\Facades\File;
 class Pay42PixController extends Controller
 {
     use Gateway;
-
     private const INVALID_API_KEY = 1;
-
     private $currency;
-
     private $appUrl;
-
     private $dueDate;
-
     private $documentType;
-
     public function __construct()
     {
         parent::__construct();
-
         $this->enabled = config("gateways.pay42");
         $this->checkCurrency = $this->storeSettings->pay42_currency;
         $this->name = "Pay42 Pix";
@@ -73,10 +66,8 @@ class Pay42PixController extends Controller
         if(strlen($phone) < 10) {
             $this->paymentErrors['phone'] = __('Invalid Phone number. It should have 10 or 11 digits');
         }
-
         $zipcode = $this->order->customer_zip;
         $zipcode = preg_replace('/[^0-9]/', null, $zipcode);
-
         $cart_total_without_shipping = $this->cartTotal["before_costs"] + $this->order['packing_cost'];
         $cart_total_without_shipping_currency = $cart_total_without_shipping * $this->order['currency_value'];
        
@@ -205,35 +196,26 @@ class Pay42PixController extends Controller
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-
         File::makeDirectory('assets/temp/'.$transaction_id);
-
         $ifp = fopen('assets/temp/'.$transaction_id.'/qrcode.png', 'wb' );
-
         fwrite($ifp, $result);
-
         // clean up the file resource
         fclose( $ifp ); 
-
         $qrcode = asset("assets/temp/$transaction_id/qrcode.png");
-
         return $qrcode;
     }
 
     public function notify(Request $request){
         
         Log::notice("Pay42 pix Notification: ", [$request->all()]);
-
         $webhook = $request->all();
 
         //paid
         if ($webhook['status'] == 1){
-
             $updateDetails = [
                 'payment_status' => 'Completed',
                 'status' => 'processing'
             ];
-    
             $order = Order::where('id',$webhook['transaction_id'])
             ->update($updateDetails);
 
@@ -259,7 +241,6 @@ class Pay42PixController extends Controller
 
     }
 
-    
     /* As notificações podem ser apenas uma rota recebendo um post da api (pay42), deve ser criado uma rota para receber o webhook ao confirmar o pix .
     Sobre o cartão, a confirmação é feita na hora ou não
     O boleto deve funcionar da mesma forma do pix

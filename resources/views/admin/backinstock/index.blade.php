@@ -26,8 +26,7 @@
                             <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th><i class="icofont-envelope icofont-lg" data-toggle="tooltip"
-                                                title='{{ __('Email') }}'></i></th>
+                                        <th><i class="icofont-envelope icofont-lg" data-toggle="tooltip" title='{{ __('Email') }}'></i></th>
                                         <th>{{ __('Product') }}</th>
                                     </tr>
                                 </thead>
@@ -38,13 +37,10 @@
             </div>
         </div>
     </div>
-
     {{-- DELETE MODAL ENDS --}}
 @endsection
-
 @section('scripts')
     {{-- DATA TABLE --}}
-
     <script type="text/javascript">
         var table = $('#geniustable').DataTable({
             stateSave: true,
@@ -69,15 +65,9 @@
                 processing: '<img src="{{ $admstore->adminLoaderUrl }}">'
             },
             initComplete: function(settings, json) {
-                /*
-                 * Restoring current page via Session Storage
-                 */
                 $(document).ready(function() {
                     table.page(parseInt(sessionStorage.getItem("CurrentPage"))).draw(false);
                 });
-                /*
-                 * Setando no Cookie a página atual
-                 */
                 $("#geniustable").on('page.dt', function() {
                     sessionStorage.setItem("CurrentPage", table.page());
                 });
@@ -86,7 +76,6 @@
     </script>
     <script>
         $(document).ready(function() {
-            // First access - CurrentPage
             if (sessionStorage.getItem("CurrentPage") == undefined) {
                 sessionStorage.setItem("CurrentPage", 0);
             }

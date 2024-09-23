@@ -38,9 +38,7 @@ use App\Models\SubcategoryTranslation;
 use Illuminate\Support\Facades\Session;
 use App\Models\ChildcategoryTranslation;
 use Illuminate\Support\Facades\DB as FacadeDB;
-
 use function League\Csv\delimiter_detect;
-
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -436,7 +434,6 @@ class ProductController extends Controller
         $sign = Currency::where('id', '=', 1)->first();
         $input = $this->withRequiredFields($request->all(), ['name']);
         $input['show_price'] = (bool) $request->show_price ?? false;
-
         // Check File
         if ($file = $request->file('file')) {
             $name = time() . $file->getClientOriginalName();
@@ -456,7 +453,6 @@ class ProductController extends Controller
         }
         //-- Translations Section
         // Will check each field in language 1 and then for each other language
-
         // Check Seo
         if (!empty($input[$this->lang->locale]['meta_tag'])) {
             $input[$this->lang->locale]['meta_tag'] = implode(',', $input[$this->lang->locale]['meta_tag']);
@@ -506,7 +502,6 @@ class ProductController extends Controller
             }
         }
         //-- End Translations Section
-
         // Check Physical
         if ($request->type == "Physical") {
             if ($request->api) {
@@ -533,8 +528,6 @@ class ProductController extends Controller
                 return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
             }
             //--- Validation Section Ends
-
-
             // Check Condition
             if ($request->product_condition_check == "") {
                 $input['product_condition'] = 0;
@@ -569,7 +562,6 @@ class ProductController extends Controller
                     $input['stock'] = $stck;
                 }
             }
-
 
             // Check Whole Sale
             if (empty($request->whole_check)) {
@@ -659,7 +651,6 @@ class ProductController extends Controller
                 }
             }
 
-
             // Check Measurement
             if ($request->measure_check == "") {
                 $input['measure'] = null;
@@ -667,7 +658,6 @@ class ProductController extends Controller
         }
 
         // Check License
-
         if ($request->type == "License") {
             if (in_array(null, $request->license) || in_array(null, $request->license_qty)) {
                 $input['license'] = null;
@@ -680,7 +670,6 @@ class ProductController extends Controller
         // Conert Price According to Currency
         $input['price'] = (floatval($input['price']) / $sign->value);
         $input['previous_price'] = (floatval($input['previous_price']) / $sign->value);
-
         // store filtering attributes for physical product
         $attrArr = [];
         if (!empty($request->category_id)) {
@@ -736,8 +725,6 @@ class ProductController extends Controller
             }
         }
 
-
-
         if (empty($attrArr)) {
             $input['attributes'] = null;
         } else {
@@ -792,7 +779,6 @@ class ProductController extends Controller
                 FacadeDB::table('associated_products')->insert($productWithAssociations);
             }
         }
-    
         # Validate Redplay
         if ($request->redplay_login && $request->redplay_password && $request->redplay_code) {
             $redplayData = Product::sanitizeRedplayData([
@@ -815,7 +801,6 @@ class ProductController extends Controller
                 if (!$license) {
                     $license = new License;
                 }
-
                 $license->product_id = $data->id;
                 $license->login = $redplay['login'];
                 $license->password = $redplay['password'];
@@ -894,7 +879,6 @@ class ProductController extends Controller
         }
 
         //logic Section Ends
-
         //--- Redirect Section
         if ($request->has('bulk_form')) {
             return response()->json([
@@ -1147,7 +1131,6 @@ class ProductController extends Controller
         /* -----------------------
         *   NOME, CATEGORIA & ATRIBUTOS DE CATEGORIA
         * -----------------------*/
-
         $extraData = [];
         $warranties = [];
         $withoutWarrantyId = null;
@@ -1183,7 +1166,6 @@ class ProductController extends Controller
             /* -----------------------
             *   GARANTIA
             * -----------------------*/
-
             $warranties = MercadoLivre::getWarranties($meli_category_id);
             $withoutWarrantyId = null;
 
@@ -1203,7 +1185,6 @@ class ProductController extends Controller
         /* -----------------------
         *   TIPO DE ANÚNCIO
         * -----------------------*/
-
         $listingTypes = MercadoLivre::getListingTypes();
 
         $listingTypesWithDetails = [];
@@ -1243,7 +1224,6 @@ class ProductController extends Controller
         if (!Product::where('id', $id)->exists()) {
             return redirect()->route('admin.dashboard')->with('unsuccess', __('Sorry the page does not exist.'));
         }
-
         // Start Get info from Old Product
         $old = Product::findOrFail($id);
         if ($old->category_id) {
@@ -1260,7 +1240,6 @@ class ProductController extends Controller
         $sign = Currency::where('id', '=', 1)->first();
         $storesList = Generalsetting::all();
         $currentStores = $old->stores()->pluck('id')->toArray();
-
         // Replicate into a new product and change what's necessary
         $new = $old->replicateWithTranslations();
         $new->slug = Str::slug($new->name, '-') . '-' . strtolower(Str::random(3) . $new->id . Str::random(3));
@@ -1301,7 +1280,6 @@ class ProductController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //-- Logic Section
         $data = Product::findOrFail($id);
         $associated_colors = $request->input('associated_colors', []);
@@ -1347,7 +1325,6 @@ class ProductController extends Controller
                 }
             }
 
-
             if (!$productWithAssociations) {
                 FacadeDB::table('associated_products')->insert($productWithAssociations);
             }
@@ -1375,10 +1352,8 @@ class ProductController extends Controller
         //$input = $this->removeEmptyTranslations($request->all(), $data);
         $input = $this->withRequiredFields($request->except(['photo', 'thumbnail']), ['name']);
         $input['show_price'] = (bool) $request->show_price ?? false;
-
         //-- Translations Section
         // Will check each field in language 1 and then for each other language
-
         // Check Seo
         if (!empty($input[$this->lang->locale]['meta_tag'])) {
             $input[$this->lang->locale]['meta_tag'] = implode(',', $input[$this->lang->locale]['meta_tag']);
@@ -1435,7 +1410,6 @@ class ProductController extends Controller
             }
         }
         //-- End of Translations Section
-
         //Check Types
         if ($request->type_check == 1) {
             $input['link'] = null;
@@ -1447,7 +1421,6 @@ class ProductController extends Controller
             }
             $input['file'] = null;
         }
-
 
         // Check Physical
         if ($data->type == "Physical") {
@@ -1467,7 +1440,6 @@ class ProductController extends Controller
                 return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
             }
             //--- Validation Section Ends
-
             // Check Size
             if (empty($request->size_check)) {
                 $input['size'] = null;
@@ -1498,17 +1470,14 @@ class ProductController extends Controller
                 if ($request->free_shipping == "") {
                     $input['free_shipping'] = null;
                 }
-
                 // Check Condition
                 if ($request->product_condition_check == "") {
                     $input['product_condition'] = 0;
                 }
-
                 // Check Shipping Time
                 if ($request->shipping_time_check == "") {
                     $input['ship'] = null;
                 }
-
                 // Check Whole Sale
                 if (empty($request->whole_check)) {
                     $input['whole_sell_qty'] = null;
@@ -1826,9 +1795,7 @@ class ProductController extends Controller
             }
         }
 
-
         //-- Logic Section Ends
-
         //--- Redirect Section
         if ($request->has('bulk_form')) {
             return response()->json([
@@ -1842,7 +1809,6 @@ class ProductController extends Controller
         }
 
         session()->flash('success', __('Product Updated Successfully.'));
-
         return response()->json(['redirect' => route('admin-prod-index')]);
         //--- Redirect Section Ends
     }
@@ -1851,7 +1817,6 @@ class ProductController extends Controller
     {
         //-- Logic Section
         $data = Product::findOrFail($id);
-
         $input['mercadolivre_name'] = $request->mercadolivre_name;
         $input['mercadolivre_description'] = $request->mercadolivre_description;
         $input['mercadolivre_listing_type_id'] = $request->listing_type_id;
@@ -1887,7 +1852,6 @@ class ProductController extends Controller
         }
 
         $data->update($input);
-
         # Checks if UPDATE ON MERCADO LIVRE checkbox exists to create or edit Announcement.
         if ($request->has('update_check')) {
             return redirect()->route($data->mercadolivre_id ? 'admin-prod-meli-update' : 'admin-prod-meli-send', $data->id);
@@ -1950,7 +1914,6 @@ class ProductController extends Controller
 
         $data->update($input);
         //-- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Highlight Updated Successfully.');
         return response()->json($msg);
@@ -2022,7 +1985,6 @@ class ProductController extends Controller
         $data->slug = $new_slug;
         $data->update($input);
         //-- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Product Updated Successfully.');
         return response()->json($msg);
@@ -2147,7 +2109,6 @@ class ProductController extends Controller
         $msg = __('Product Deleted Successfully.');
         return response()->json($msg);
         //--- Redirect Section Ends
-
         // PRODUCT DELETE ENDS
     }
 

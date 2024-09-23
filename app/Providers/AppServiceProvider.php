@@ -25,88 +25,57 @@ use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
         Blade::component('front.themes.theme-15.components.header', Theme15::class);
+        
         if (!app()->runningInConsole()) {
-            // use bootstrap instead of tailwind
             Paginator::useBootstrap();
+            $currentUrl = str_replace(['http://', 'https://'], '', url()->current());
+            $storeSettings = Generalsetting::whereRaw("'{$currentUrl}' LIKE CONCAT(domain,'%')")->first() ?? $this->getStoreSettings();
 
-            $currentUrl = str_replace(
-                ['http://', 'https://'],
-                '',
-                url()->current()
-            );
-            # Disable Cache for Multistore
-            $storeSettings = Generalsetting::whereRaw("'{$currentUrl}' LIKE CONCAT(domain,'%')")->first();
-
-            if (!$storeSettings || empty($storeSettings->domain)) {
-                $storeSettings = $this->getStoreSettings();
-            }
-
-            # Get populated StoreSettings cache after migrations run (application ready) if current $storeSettings has no ID (empty)
-            # This is useful if cache:clear is not run after db:seed
             if (!$storeSettings->id && Schema::hasTable('generalsettings') && Generalsetting::count() > 0) {
-                return $this->forgetGeneralSettingsCache();
+                $this->forgetGeneralSettingsCache();
             }
 
-            # When saving or updating Generalsetting, just forget Cache and instantiate a new object.
-            Generalsetting::saving(function () {
-                return $this->forgetGeneralSettingsCache();
-            });
-
-            Generalsetting::updated(function () {
-                return $this->forgetGeneralSettingsCache();
-            });
+            Generalsetting::saving(fn() => $this->forgetGeneralSettingsCache());
+            Generalsetting::updated(fn() => $this->forgetGeneralSettingsCache());
 
             Order::observe(OrderObserver::class);
 
-            if (!app()->runningInConsole()) {
-                if (env('APP_ENV') == 'production') {
-                    URL::forceScheme('https');
-                }
-
-                $locales = Language::all();
-                $storeLocale = $locales->find($storeSettings->lang_id);
-                $currencies = Currency::all();
-                $storeCurrency = $currencies->find($storeSettings->currency_id);
-
-                $lang = $locales->find(1);
-
-                $this->prepareLocaleFiles($locales);
-
-                app()->instance('storeLocale', $storeLocale);
-                app()->instance('locales', $locales);
-                app()->instance('storeCurrency', $storeCurrency);
-                app()->instance('currencies', $currencies);
-                app()->instance('lang', $lang);
+            if (env('APP_ENV') === 'production') {
+                URL::forceScheme('https');
             }
+
+            $locales = Language::all();
+            $storeLocale = $locales->find($storeSettings->lang_id);
+            $currencies = Currency::all();
+            $storeCurrency = $currencies->find($storeSettings->currency_id);
+            $lang = $locales->find(1);
+
+            $this->prepareLocaleFiles($locales);
+
+            app()->instance('storeLocale', $storeLocale);
+            app()->instance('locales', $locales);
+            app()->instance('storeCurrency', $storeCurrency);
+            app()->instance('currencies', $currencies);
+            app()->instance('lang', $lang);
             app()->instance('storeSettings', $storeSettings);
         }
 
         if (app()->runningInConsole()) {
-            $storeSettings = new Generalsetting;
-            app()->instance('storeSettings', $storeSettings);
+            app()->instance('storeSettings', new Generalsetting);
         }
 
-        Blade::if('wedding', fn () => config('features.wedding_list'));
+        Blade::if('wedding', fn() => config('features.wedding_list'));
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         if (env('REDIRECT_HTTPS')) {
             $this->app['request']->server->set('HTTPS', true);
         }
+        
         Collection::macro('paginate', function ($perPage, $total = null, $page = null, $pageName = 'page') {
             $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
             return new LengthAwarePaginator(
@@ -124,23 +93,15 @@ class AppServiceProvider extends ServiceProvider
 
     protected function getStoreSettings()
     {
-        # Remember Generalsetting Cache for one hour. It will be invalidated if Generalsetting is updated or saved in any way.
-        return Cache::remember("storeSettings", 60 * 60, function () {
-            # Return empty object if there's no migration yet
-            if (!Schema::hasTable('generalsettings')) {
-                return new Generalsetting;
-            }
-            return Generalsetting::where('is_default', 1)->first();
+        return Cache::remember("storeSettings", 3600, function () {
+            return Schema::hasTable('generalsettings') ? Generalsetting::where('is_default', 1)->first() : new Generalsetting;
         });
     }
 
     protected function forgetGeneralSettingsCache()
     {
-        if (Cache::has("storeSettings")) {
-            Cache::forget("storeSettings");
-        }
-        $storeSettings = $this->getStoreSettings();
-        return $storeSettings;
+        Cache::forget("storeSettings");
+        return $this->getStoreSettings();
     }
 
     private function prepareLocaleFiles($locales)

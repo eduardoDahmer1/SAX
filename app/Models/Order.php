@@ -11,7 +11,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Order extends CachedModel
 {
     use LogsActivity;
-
     protected $fillable = [
         'user_id',
         'cart',
@@ -66,11 +65,9 @@ class Order extends CachedModel
         'created' => OrderObserver::class,
         'updated' => OrderObserver::class,
     ];
-    
     protected $casts = [
         'cart' => 'array'
     ];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -78,34 +75,27 @@ class Order extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
     public function weddingProducts()
     {
         return $this->belongsToMany(WeddingProduct::class, 'order_wedding_product', 'order_id', 'wedding_product_id')
             ->withPivot('wedding_product_id');
     }
-    
     public function vendororders()
     {
         return $this->hasMany('App\Models\VendorOrder');
     }
-
     public function tracks()
     {
         return $this->hasMany('App\Models\OrderTrack', 'order_id');
     }
-
     public function melhorenvio_requests()
     {
         $order_store_id = explode(';', trim(strstr(strstr($this->internal_note, '#:['), ']', true), '#:['))[0];
-
         $melhorenvio_requests = MelhorenvioRequest::where('order_id', $this->id)->get();
-
         $orderStoreSettings = Generalsetting::find($order_store_id);
         if (!isset($orderStoreSettings)) {
             $orderStoreSettings = resolve('storeSettings');
@@ -157,7 +147,6 @@ class Order extends CachedModel
                 $request->canceled_at = $orderinfo->canceled_at;
                 $request->expired_at = $orderinfo->expired_at;
                 $request->tracking = $orderinfo->tracking;
-
                 $request->save();
             }
             if (empty($request->preview_url)) {
@@ -184,18 +173,15 @@ class Order extends CachedModel
         return $query->where('method', 'Pagamento Externo via Mercado Livre');
         ;
     }
-
     public static function scopeMercadoLivreOrdersCompleted($query)
     {
         return $query->MercadoLivreOrders()->where('status', 'completed');
     }
-
     public static function scopeMercadoLivreOrdersPending($query)
     {
         return $query->MercadoLivreOrders()->where('status', 'pending');
         ;
     }
-
     public static function scopeMercadoLivreOrdersProcessing($query)
     {
         return $query->MercadoLivreOrders()->where('status', 'processing');

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Session;
 class PagseguroController extends Controller
 {
     use Gateway;
-
     const PAYMENT_STATUS_WAITING = "1";
     const PAYMENT_STATUS_NOT_FINISH = "2";
     const PAYMENT_STATUS_PAID = "3";
@@ -21,7 +20,6 @@ class PagseguroController extends Controller
     const PAYMENT_STATUS_DISPUTE = "5";
     const PAYMENT_STATUS_CHARGEBACK = "6";
     const PAYMENT_STATUS_CANCELED = "7";
-
     public function __construct()
     {
         return; // not compatible yet
@@ -72,10 +70,8 @@ class PagseguroController extends Controller
         $payment->setRedirectUrl(action('Front\PaymentController@payreturn'));
 
         // Set your customer information.
-
         # Créditos do algoritmo abaixo
         # https://sounoob.com.br/resolvendo-o-erro-sendername-invalid-do-pagseguro-usando-php/
-
         # Remove números
         $name = preg_replace('/\d/', '', $this->order->customer_name);
         # Remove tabulações e quebras de linha
@@ -92,7 +88,6 @@ class PagseguroController extends Controller
         }
         # Retorna o nome a uma string novamente
         $name = implode(' ', $name);
-
         $payment->setSender()->setName($name);
         $payment->setSender()->setEmail($this->order->customer_email);
         $payment->setShipping()->setAddressRequired()->withParameters('FALSE');

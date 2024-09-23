@@ -18,10 +18,7 @@ use Validator;
 
 class PaystackController extends Controller
 {
-
-
     public function check(Request $request){
-
         //--- Validation Section
         $rules = [
                'shop_name'   => 'unique:users',
@@ -52,7 +49,6 @@ class PaystackController extends Controller
         $item_number = str_random(4).time();
         $item_amount = $subs->price;
         $item_currency = $subs->currency_code;
-
 
                     $today = Carbon::now()->format('Y-m-d');
                     $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
@@ -116,9 +112,5 @@ class PaystackController extends Controller
                     }
 
                     return redirect()->route('user-dashboard')->with('success','Vendor Account Activated Successfully');
-
-
-         }       
-
-
+         }      
     }

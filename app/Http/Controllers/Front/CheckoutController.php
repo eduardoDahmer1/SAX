@@ -111,21 +111,6 @@ class CheckoutController extends Controller
         //busca os locais de retirada com as condicoes.
         $allPickups = Pickup::all();
         
-        // $pickups = Pickup::whereHas('products', function (Builder $query) use ($productsId, $productsQty) {
-        //     $query->whereIn('product_id', $productsId)->where('pickup_product.stock', ">", 0);
-        //     $conditions = [];
-        //     foreach ($productsId as $key => $productId) {
-        //         $conditions[] = "SUM(CASE WHEN product_id = {$productId} THEN pickup_product.stock >= {$productsQty[$key]} ELSE 0 END)";
-        //     }
-        //     $query->havingRaw(implode(' + ', $conditions) . ' = ' . count($productsId));
-        // })->get();
-
-        // $thisPickup = false;
-
-        // if($pickups->count() == 1) {
-        //     $thisPickup = $pickups->first();
-        // }
-
         if ($this->storeSettings->multiple_shipping == 1) {
             $user = null;
             foreach ($cart->items as $prod) {
@@ -933,7 +918,6 @@ class CheckoutController extends Controller
             ];
 
             /* $items_with_measures = $cart->getItemsWithMeasures(); */
-
             $options = (object)[
                 "insurance_value" => $insurance_value,
                 "receipt"  => $this->storeSettings->melhorenvio->receipt,
@@ -943,7 +927,6 @@ class CheckoutController extends Controller
             ];
 
             $services = implode(",", $this->storeSettings->melhorenvio->selected_services);
-
             $melhorenvio = new MelhorEnvio($this->storeSettings->melhorenvio->token, $this->storeSettings->melhorenvio->production);
             $melhorenvio_response = $melhorenvio->getRates($melhorenvio_origin, $dest_zipcode, $package, null, $options, $services);
 

@@ -88,7 +88,6 @@ class PaghiperPixController extends Controller
         $headers[] = "Accept-Charset: " . $charSet;
         $headers[] = "Accept-Encoding: " . $mediaType;
         $headers[] = "Content-Type: " . $mediaType . ";charset=" . $charSet;
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->apiUrl);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -96,7 +95,6 @@ class PaghiperPixController extends Controller
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
         $result = curl_exec($ch);
         $json = json_decode($result, true);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

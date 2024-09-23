@@ -58,13 +58,11 @@ class SliderController extends Controller
     {
         return view('vendor.slider.index');
     }
-
     //*** GET Request
     public function create()
     {
         return view('vendor.slider.create');
     }
-
     //*** POST Request
     public function store(Request $request)
     {
@@ -72,9 +70,7 @@ class SliderController extends Controller
         $rules = [
                'photo'      => 'required|mimes:jpeg,jpg,png,svg,webp',
                 ];
-
         $validator = Validator::make($request->all(), $rules);
-
         if ($validator->fails()) {
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
@@ -101,7 +97,6 @@ class SliderController extends Controller
         return response()->json($msg);
         //--- Redirect Section Ends
     }
-
     //*** GET Request
     public function edit($id)
     {
@@ -123,7 +118,6 @@ class SliderController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Slider::findOrFail($id);
         $input = $request->all();
@@ -147,7 +141,6 @@ class SliderController extends Controller
         return response()->json($msg);
         //--- Redirect Section Ends
     }
-
     //*** GET Request Delete
     public function destroy($id)
     {

@@ -40,9 +40,6 @@ class PaytmController extends Controller
      $item_number = str_random(4).time();
      $item_amount = $subs->price;
 
-
-
-
                     $sub = new UserSubscription;
                     $sub->user_id = $user->id;
                     $sub->subscription_id = $subs->id;
@@ -66,7 +63,6 @@ class PaytmController extends Controller
 
 	public function handlePaytmRequest( $order_id, $amount ) {
     $gs = Generalsetting::first();
-
 		// Load all functions of encdec_paytm.php and config-paytm.php
 		$this->getAllEncdecFunc();
 		// $this->getConfigPaytmSettings();
@@ -359,7 +355,6 @@ class PaytmController extends Controller
         $order = UserSubscription::where('user_id','=',Session::get('item_number'))
             ->orderBy('created_at','desc')->first();
 
-
         $user = User::findOrFail($order->user_id);
         $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
         $subs = Subscription::findOrFail($order->subscription_id);
@@ -392,7 +387,6 @@ class PaytmController extends Controller
         }
         $user->mail_sent = 1;
         $user->update($input);
-
 
         $data['txnid'] = $transaction_id;
         $data['status'] = 1;

@@ -87,7 +87,6 @@ class PaghiperController extends Controller
         );
 
         $data_post = json_encode($orderData);
-
         $mediaType = "application/json"; // formato da requisição
         $charSet = "UTF-8";
         $headers = array();

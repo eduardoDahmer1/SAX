@@ -257,7 +257,6 @@ class InstamojoController extends Controller
             $gs = Generalsetting::find(1);
 
             //Sending Email To Buyer
-
             if ($gs->is_smtp == 1) {
                 $data = [
                     'to' => $request->email,
@@ -297,27 +296,19 @@ class InstamojoController extends Controller
                 mail($to, $subject, $msg, $headers);
             }
 
-
             Session::put('tempcart', $cart);
-
             Session::forget('cart');
-
             Session::forget('already');
             Session::forget('coupon');
             Session::forget('coupon_total');
             Session::forget('coupon_total1');
             Session::forget('coupon_percentage');
 
-
-
             return redirect($redirect_url);
         } catch (Exception $e) {
             print('Error: ' . $e->getMessage());
         }
     }
-
-
-
 
 public function notify(Request $request)
 {

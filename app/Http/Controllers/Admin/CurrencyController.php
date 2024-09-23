@@ -126,7 +126,6 @@ class CurrencyController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Currency();
         $input = $request->all();
@@ -158,13 +157,11 @@ class CurrencyController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }                
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Currency::findOrFail($id);
         $input = $request->all();
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section     
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);      

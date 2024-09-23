@@ -10,8 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class BlogTranslation extends CachedModel
 {
     use LogsActivity;
-
-
     public $timestamps = false;
     protected $fillable = ['title', 'details', 'meta_tag', 'meta_description', 'tags'];
 
@@ -22,7 +20,6 @@ class BlogTranslation extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->properties = $activity->properties->put('blog_id', $this->blog_id);

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -9,12 +8,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Rating extends CachedModel
 {
     use LogsActivity;
-
-
     protected $fillable = ['user_id','product_id','review','rating','review_date'];
     public $timestamps = false;
     protected $dates = ['review_date'];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -22,7 +18,6 @@ class Rating extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function product()
     {
         return $this->belongsTo('App\Models\Product')->withDefault(function ($data) {

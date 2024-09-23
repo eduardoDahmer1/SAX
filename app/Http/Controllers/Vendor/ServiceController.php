@@ -12,11 +12,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ServiceController extends Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-
         $this->middleware('auth');
 
         $this->middleware(function ($request, $next) {
@@ -72,7 +70,6 @@ class ServiceController extends Controller
             ->rawColumns(['photo', 'action'])
             ->toJson(); //--- Returning Json Data To Client Side
     }
-
     //*** GET Request
     public function index()
     {
@@ -80,13 +77,11 @@ class ServiceController extends Controller
         dd($user); */
         return view('vendor.service.index');
     }
-
     //*** GET Request
     public function create()
     {
         return view('vendor.service.create');
     }
-
     //*** POST Request
     public function store(Request $request)
     {
@@ -107,7 +102,6 @@ class ServiceController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Service();
         $input = $this->removeEmptyTranslations($request->all());
@@ -119,20 +113,17 @@ class ServiceController extends Controller
         $input['user_id'] = Auth::user()->id;
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
         //--- Redirect Section Ends
     }
-
     //*** GET Request
     public function edit($id)
     {
         $data = Service::findOrFail($id);
         return view('vendor.service.edit',compact('data'));
     }
-
     //*** POST Request
     public function update(Request $request, $id)
     {
@@ -147,7 +138,6 @@ class ServiceController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Service::findOrFail($id);
         $input = $request->all();
@@ -165,13 +155,11 @@ class ServiceController extends Controller
             }
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);
         //--- Redirect Section Ends
     }
-
     //*** GET Request Delete
     public function destroy($id)
     {

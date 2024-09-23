@@ -110,7 +110,6 @@ class SliderController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Slider();
         $input = $this->withRequiredFields($request->all(), ['name']);
@@ -122,13 +121,10 @@ class SliderController extends Controller
         }
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         $slider = Slider::find($data->id);
-
         if ($request->has('stores')) {
             $slider->stores()->sync($input['stores']);
         }
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -160,7 +156,6 @@ class SliderController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Slider::findOrFail($id);
         $input = $this->withRequiredFields($request->all(), ['name']);
@@ -176,13 +171,11 @@ class SliderController extends Controller
         }
         $data->update($input);
         //--- Logic Section Ends
-
         //associates with stores
         $data->stores()->detach();
         if ($request->has('stores')) {
             $data->stores()->sync($input['stores']);
         }
-
         //--- Redirect Section
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);

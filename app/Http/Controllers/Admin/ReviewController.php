@@ -95,7 +95,6 @@ class ReviewController extends Controller
         }
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -131,7 +130,6 @@ class ReviewController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Review::findOrFail($id);
         $input = $this->removeEmptyTranslations($request->all(), $data);
@@ -147,7 +145,6 @@ class ReviewController extends Controller
         }
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);

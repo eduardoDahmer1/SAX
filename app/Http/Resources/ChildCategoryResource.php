@@ -20,12 +20,10 @@ class ChildCategoryResource extends JsonResource
             "status" => $this->status,
             "ref_code" => $this->ref_code
         ];
-        
         $translations = $this->translations()->get(['locale','name']);
         foreach ($translations as $translation) {
             $child_category[$translation->locale]['name'] = $translation->name;
         }
-
         return $child_category;
     }
 }

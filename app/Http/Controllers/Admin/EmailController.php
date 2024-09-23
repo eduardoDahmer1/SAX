@@ -154,9 +154,6 @@ class EmailController extends Controller
         //--- Redirect Section Ends  
     }
 
-
-    
-
     public function update(Request $request, $id)
     {
         //--- Validation Section
@@ -183,5 +180,4 @@ class EmailController extends Controller
         return response()->json($msg);    
         //--- Redirect Section Ends  
     }
-
 }

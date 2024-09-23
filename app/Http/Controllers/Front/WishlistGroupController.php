@@ -12,7 +12,6 @@ class WishlistGroupController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -24,7 +23,6 @@ class WishlistGroupController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -39,7 +37,6 @@ class WishlistGroupController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  \App\Models\WishlistGroup  $wishlistGroup
      * @return \Illuminate\Http\Response
      */
@@ -60,7 +57,6 @@ class WishlistGroupController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  \App\Models\WishlistGroup  $wishlistGroup
      * @return \Illuminate\Http\Response
      */
@@ -75,7 +71,6 @@ class WishlistGroupController extends Controller
 
         /**
      * Display the specified resource.
-     *
      * @param  \App\Models\WishlistGroup  $wishlistGroup
      * @return \Illuminate\Http\Response
      */

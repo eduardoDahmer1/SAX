@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use App\Enums\AssociationType;
 use stdClass;
 use App\Models\Currency;
@@ -18,11 +17,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Product extends LocalizedModel
 {
     use LogsActivity;
-
-
     protected $storeSettings;
-  
-
     protected $with = ['translations'];
 
     public $translatedAttributes = [
@@ -182,7 +177,6 @@ class Product extends LocalizedModel
     {
         return $this->associatedProducts()->wherePivot('association_type', AssociationType::Look);
     }
-
     public function category()
     {
         return $this->belongsTo('App\Models\Category')->withDefault(function ($data) {
@@ -214,37 +208,30 @@ class Product extends LocalizedModel
     {
         return $this->hasMany('App\Models\Gallery');
     }
-
     public function pickups()
     {
         return $this->belongsToMany(Pickup::class);
     }
-
     public function galleries360()
     {
         return $this->hasMany('App\Models\Gallery360');
     }
-
     public function ratings()
     {
         return $this->hasMany('App\Models\Rating');
     }
-
     public function wishlists()
     {
         return $this->hasMany('App\Models\Wishlist');
     }
-
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
     }
-
     public function clicks()
     {
         return $this->hasMany('App\Models\ProductClick');
     }
-
     public function user()
     {
         return $this->belongsTo('App\Models\User')->withDefault(function ($data) {
@@ -253,44 +240,36 @@ class Product extends LocalizedModel
             }
         });
     }
-
     public function associatedProducts(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'associated_products', 'product_id', 'associated_product_id');
     }
-
     public function fatherProducts(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'associated_products', 'associated_product_id', 'product_id');
     }
-
     public function reports()
     {
         return $this->hasMany('App\Models\Report', 'user_id');
     }
-
     public function stores()
     {
         return $this->belongsToMany('App\Models\Generalsetting', 'product_store', 'product_id', 'store_id');
     }
-
     public function scopeByStore($query)
     {
         return $query->whereHas('stores', function ($query) {
             $query->where('store_id', $this->storeSettings->id);
         });
     }
-
     public function scopeIsActive($query)
     {
         return $query->where('products.status', 1);
     }
-
     public function scopeIsBeingSold($query)
     {
         return $query->where('products.being_sold', 1);
     }
-
     public function vendorPrice()
     {
         $price = $this->price;
@@ -300,10 +279,6 @@ class Product extends LocalizedModel
         $price += $price * (($this->storeSettings->product_percent) / 100);
         return $price;
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
     protected function image(): Attribute
     {
         return Attribute::make(
@@ -312,7 +287,6 @@ class Product extends LocalizedModel
                 : asset('storage/images/products/' . $this->photo),
         );
     }
-
     public function vendorSizePrice()
     {
         $price = $this->price;
@@ -339,7 +313,6 @@ class Product extends LocalizedModel
         }
 
         // Attribute Section
-
         $attributes = $this->attributes["attributes"];
         if (!empty($attributes)) {
             $attrArr = json_decode($attributes, true);
@@ -357,12 +330,10 @@ class Product extends LocalizedModel
             }
         }
 
-
         // Attribute Section Ends
         $price += $price * (($this->storeSettings->product_percent) / 100);
         return $price;
     }
-
 
     public function setCurrency()
     {
@@ -415,19 +386,7 @@ class Product extends LocalizedModel
         if (!$this->storeSettings->show_product_prices || !$this->show_price) {
             return '';
         }
-
-        // if ($this->price > $this->promotion_price && $this->promotion_price > 0)  {
-        //     $price = $this->promotion_price;
-        //     if ($this->user_id != 0) {
-        //         $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
-        //     }
-        // }else{
             $price = $this->price; 
-
-        //     if ($this->user_id != 0) {
-        //         $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
-        //     }
-        // }
 
         if ($this->user_id != 0) {
             $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
@@ -444,18 +403,16 @@ class Product extends LocalizedModel
         }
 
         // Attribute Section
-
         $attributes = $this->attributes["attributes"];
         if (!empty($attributes)) {
             $attrArr = json_decode($attributes, true);
         }
-        // dd($attrArr);
+
         if (!empty($attrArr)) {
             foreach ($attrArr as $attrKey => $attrVal) {
                 if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
                     foreach ($attrVal['values'] as $optionKey => $optionVal) {
                         $price += $attrVal['prices'][$optionKey];
-                        // only the first price counts
                         break;
                     }
                 }
@@ -463,16 +420,12 @@ class Product extends LocalizedModel
         }
 
         // Attribute Section Ends
-
         $curr = Currency::where('id', '=', 1)->first();
-
         //Add product_percent on price
         $price += $price * (($this->storeSettings->product_percent) / 100);
         $price = round(($price) * $curr->value, 2);
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
  
-
-
         if ($this->storeSettings->currency_format == 0) {
             return $curr->sign . $price;
         } else {
@@ -506,7 +459,6 @@ class Product extends LocalizedModel
         }
 
         // Attribute Section
-
         $attributes = $this->attributes["attributes"];
         if (!empty($attributes)) {
             $attrArr = json_decode($attributes, true);
@@ -524,17 +476,12 @@ class Product extends LocalizedModel
             }
         }
 
-
         // Attribute Section Ends
-
-
         if (Session::has('currency') && $this->storeSettings->is_currency) {
             $curr = Currency::find(Session::get('currency'));
         } else {
             $curr = Currency::find($this->storeSettings->currency_id);
         }
-
-
 
         $price = round(($price) * $curr->value, 2);
         //Add product_percent on price
@@ -573,7 +520,6 @@ class Product extends LocalizedModel
         }
 
         // Attribute Section
-
         $attributes = $this->attributes["attributes"];
         if (!empty($attributes)) {
             $attrArr = json_decode($attributes, true);
@@ -591,17 +537,13 @@ class Product extends LocalizedModel
             }
         }
 
-
         // Attribute Section Ends
-
 
         if (Session::has('currency') && $this->storeSettings->is_currency) {
             $curr = Currency::find(Session::get('currency'));
         } else {
             $curr = Currency::find($this->storeSettings->currency_id);
         }
-
-
 
         $price = round(($price) * $curr->value, 2);
         //Add product_percent on price
@@ -640,12 +582,10 @@ class Product extends LocalizedModel
         }
 
         // Attribute Section
-
         $attributes = $this->attributes["attributes"];
         if (!empty($attributes)) {
             $attrArr = json_decode($attributes, true);
         }
-        // dd($attrArr);
         if (!empty($attrArr)) {
             foreach ($attrArr as $attrKey => $attrVal) {
                 if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
@@ -658,9 +598,7 @@ class Product extends LocalizedModel
             }
         }
 
-
         // Attribute Section Ends
-
 
         if (Session::has('currency') && $this->storeSettings->is_currency) {
             $curr = Currency::find(Session::get('currency'));
@@ -668,10 +606,7 @@ class Product extends LocalizedModel
             $curr = Currency::find($this->storeSettings->currency_id);
         }
 
-
-
         $price = round(($price) * $curr->value, 2);
-        //Add product_percent on price
         $price += $price * (($this->storeSettings->product_percent) / 100);
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
         if ($this->storeSettings->currency_format == 0) {
@@ -727,12 +662,10 @@ class Product extends LocalizedModel
         }
 
         // Attribute Section
-
         $attributes = $this->attributes["attributes"];
         if (!empty($attributes)) {
             $attrArr = json_decode($attributes, true);
         }
-        // dd($attrArr);
         if (!empty($attrArr)) {
             foreach ($attrArr as $attrKey => $attrVal) {
                 if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
@@ -744,18 +677,12 @@ class Product extends LocalizedModel
                 }
             }
         }
-
-
         // Attribute Section Ends
-
-
         if (Session::has('currency') && $this->storeSettings->is_currency) {
             $curr = Currency::find(Session::get('currency'));
         } else {
             $curr = Currency::find($this->storeSettings->currency_id);
         }
-
-
 
         $price = round(($price) * $curr->value, 2);
         //Add product_percent on price
@@ -782,35 +709,6 @@ class Product extends LocalizedModel
         if ($this->user_id != 0) {
             $price = $this->previous_price + $this->storeSettings->fixed_commission + ($this->previous_price / 100) * $this->storeSettings->percentage_commission;
         }
-
-        //     if(!empty($this->size)){
-        //         $price += $this->size_price[0];
-        //     }
-
-        // // Attribute Section
-
-        // $attributes = $this->attributes["attributes"];
-        //   if(!empty($attributes)) {
-        //       $attrArr = json_decode($attributes, true);
-        //   }
-        //   // dd($attrArr);
-        //   if (!empty($attrArr)) {
-        //       foreach ($attrArr as $attrKey => $attrVal) {
-        //         if (is_array($attrVal) && array_key_exists("details_status",$attrVal) && $attrVal['details_status'] == 1) {
-
-        //             foreach ($attrVal['values'] as $optionKey => $optionVal) {
-        //               $price += $attrVal['prices'][$optionKey];
-        //               // only the first price counts
-        //               break;
-        //             }
-
-        //         }
-        //       }
-        //   }
-
-
-        // Attribute Section Ends
-
 
         if (Session::has('currency') && $this->storeSettings->is_currency) {
             $curr = Currency::find(Session::get('currency'));
@@ -950,7 +848,6 @@ class Product extends LocalizedModel
         $tags = array_unique(explode(',', $tagz));
         return $tags;
     }
-
 
     public function getSizeAttribute($value)
     {
@@ -1221,9 +1118,6 @@ class Product extends LocalizedModel
         return $redPlayArray;
     }
 
-    /**
-     * Bulk Edit Change Price Logic
-     */
     public function applyBulkEditChangePrice(string $action, $newPrice)
     {
         if (!$newPrice) {
@@ -1249,33 +1143,23 @@ class Product extends LocalizedModel
     {
         return $newPrice;
     }
-
     private function addPricePercentage(float $percentage)
     {
         return $this->price + (($percentage / 100) * $this->price);
     }
-
     private function decreasePricePercentage(float $percentage)
     {
         return $this->price - (($percentage / 100) * $this->price);
     }
-
     private function addPriceValue(float $newPrice)
     {
         return $this->price + $newPrice;
     }
-
     private function decreasePriceValue(float $newPrice)
     {
         return $this->price - $newPrice;
     }
 
-    /**
-     * Scope a query to only include popular users.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function scopeWithStock($query)
     {
         return $query->whereRaw('(stock > 0 or stock is null)')->orWhereHas('associatedProducts', function (Builder $query) {

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 use App\Support\Database\CacheQueryBuilder;
 use Cache;
@@ -9,7 +8,6 @@ use Cache;
 class CachedModel extends Model
 {
     use CacheQueryBuilder;
-
     public static function boot()
     {
         static::creating(function ($model) {
@@ -19,11 +17,9 @@ class CachedModel extends Model
         static::updating(function ($model) {
             Cache::store('request')->tags($model->getTable())->flush();
         });
-
         static::deleting(function ($model) {
             Cache::store('request')->tags($model->getTable())->flush();
         });
-        
         parent::boot();
     }
 }

@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
 class MelhorenvioCompany extends CachedModel
 {
     protected $table = 'melhorenvio_companies';
@@ -13,7 +11,6 @@ class MelhorenvioCompany extends CachedModel
         'name',
         'picture'
     ];
-
     public $timestamps = false;
 
     public function services()

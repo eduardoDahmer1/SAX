@@ -81,9 +81,7 @@ class LanguageController extends Controller
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
-
         //--- Validation Section Ends
-
         //--- Logic Section
         $input = $request->all();
         $data = new Language();
@@ -109,7 +107,6 @@ class LanguageController extends Controller
 
         $data->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -211,7 +208,6 @@ class LanguageController extends Controller
 
     /**
      * Get translation strings from frontend views
-     *
      * @return array
      */
     private function getTranslationKeys()

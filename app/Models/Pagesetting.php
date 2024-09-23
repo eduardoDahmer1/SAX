@@ -1,17 +1,12 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-
 class Pagesetting extends LocalizedModel
 {
     use LogsActivity;
-
-
     protected $with = ['translations'];
-
     public $translatedAttributes = ['contact_success', 'contact_title', 'contact_text', 'side_title', 'side_text'];
     protected $fillable = [
         'contact_email',
@@ -50,9 +45,7 @@ class Pagesetting extends LocalizedModel
         'banner_search2',
         'banner_search3',
     ];
-
     public $timestamps = false;
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -60,7 +53,6 @@ class Pagesetting extends LocalizedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function upload($name, $file, $oldname)
     {
         $file->move('storage/images/banners', $name);

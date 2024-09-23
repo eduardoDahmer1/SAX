@@ -112,17 +112,13 @@ class CartController extends Controller
         }
 
         // Set Size
-
         $size = '';
         if (!empty($prod->size)) {
             $size = trim($prod->size[0]);
         }
         $size = str_replace(' ', '-', $size);
 
-
-
         // Set Color
-
         $color = '';
         if (!empty($prod->color)) {
             foreach ($prod->color as $key => $color) {
@@ -136,7 +132,6 @@ class CartController extends Controller
         $color = str_replace('#', '', $color);
 
         // Set material
-
         $material = '';
         if (!empty($prod->material)) {
             foreach ($prod->material as $key => $material) {
@@ -156,7 +151,6 @@ class CartController extends Controller
         $customizable_logo = '';
         $agree_terms = 0;
 
-
         if ($prod->user_id != 0) {
             $prc = $prod->price + $this->storeSettings->fixed_commission + ($prod->price/100) * $this->storeSettings->percentage_commission ;
             $prod->price = round($prc, 2);
@@ -166,8 +160,6 @@ class CartController extends Controller
         }
 
         // Set Attribute
-
-
         if (!empty($prod->attributes) && $this->storeSettings->attribute_clickable) {
             $attrArr = json_decode($prod->attributes, true);
 
@@ -199,12 +191,9 @@ class CartController extends Controller
         $keys = rtrim($keys, ',');
         $values = rtrim($values, '~');
 
-
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-
         $cart->add($prod, $prod->id, $material, $size, $color, $customizable_gallery, $customizable_name, $customizable_number, $customizable_logo, $agree_terms, $keys, $values);
-
         $custom_item_id = $id.$size.$color.$material.$customizable_gallery.$customizable_name.$customizable_number.$customizable_logo.str_replace(str_split(' ,'), '', $values);
         $custom_item_id = str_replace(array( '\'', '"', ',', '.', ' ', ';', '<', '>' ), '', $custom_item_id);
 
@@ -297,16 +286,13 @@ class CartController extends Controller
         }
 
         // Set Size
-
         $size = '';
         if (!empty($prod->size)) {
             $size = trim($prod->size[0]);
         }
         $size = str_replace(' ', '-', $size);
 
-
         // Set Color
-
         $color = '';
         if (!empty($prod->color)) {
             foreach ($prod->color as $key => $color) {
@@ -340,7 +326,6 @@ class CartController extends Controller
         $agree_terms = 0;
 
         // Vendor Comission
-
         if ($prod->user_id != 0) {
             $prc = $prod->price + $this->storeSettings->fixed_commission + ($prod->price/100) * $this->storeSettings->percentage_commission;
             $prod->price = round($prc, 2);
@@ -349,10 +334,7 @@ class CartController extends Controller
             $prod->price += $prod->price * ($this->storeSettings->product_percent / 100);
         }
 
-
         // Set Attribute
-
-
         if (!empty($prod->attributes)) {
             $attrArr = json_decode($prod->attributes, true);
 
@@ -383,10 +365,8 @@ class CartController extends Controller
         }
         $keys = rtrim($keys, ',');
         $values = rtrim($values, '~');
-
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-
         $cartError = false;
 
         $cart->add($prod, $prod->id, $material, $size, $color, $customizable_gallery, $customizable_name, $customizable_number, $customizable_logo, $agree_terms, $keys, $values);
@@ -490,7 +470,6 @@ class CartController extends Controller
         //Fixing variable src paht name
         $customizable_gallery = strstr($customizable_gallery_src, 'thumbnails/');
         $customizable_gallery = str_replace("thumbnails/", "", $customizable_gallery);
-
         $file = str_replace("\\", '/', $customizable_logo);
         $imgName = str_replace("C:/fakepath/", "", $file);
         if (file_exists('storage/images/custom-logo/' . $imgName)) {
@@ -636,7 +615,6 @@ class CartController extends Controller
         $cart->addnum($prod, $prod->id, $qty, $size, $color, $material, $customizable_gallery, $customizable_name, $customizable_number, $customizable_logo, $agree_terms, $size_qty, $size_price, $size_key, $color_qty, $color_price, $color_key, $material_qty, $material_price, $material_key, $keys, $values);
         $custom_item_id = $id.$size.$color.$material.$customizable_gallery.$customizable_name.$customizable_number.$customizable_logo.str_replace(str_split(' ,'), '', $values);
         $custom_item_id = str_replace(array( '\'', '"', ',', '.', ' ', ';', '<', '>' ), '', $custom_item_id);
-
         $customProducts = env("ENABLE_CUSTOM_PRODUCT", false);
         $customProductsNumber = env("ENABLE_CUSTOM_PRODUCT_NUMBER", false);
 
@@ -663,16 +641,6 @@ class CartController extends Controller
         }
         if ($customProductsNumber && !$customProducts) {
             if ($is_customizable_number) {
-                /* if(empty($cart->items[$custom_item_id]['customizable_name']) || empty($cart->items[$custom_item_id]['customizable_number'])){
-                    $data["empty_data"] = __("You must fill all the custom product fields.");
-                    $cartError = true;
-                }
-                if(!empty($cart->items[$custom_item_id]['customizable_name']) && !empty($cart->items[$custom_item_id]['customizable_number'])){
-                    if((int)$cart->items[$custom_item_id]['customizable_number'] <= 0 || (int)$cart->items[$custom_item_id]['customizable_number'] > 99){
-                        $data["empty_data"] = __("Please enter a valid number!");
-                        $cartError = true;
-                    }
-                } */
             }
         }
         if ($cart->items[$custom_item_id]['dp'] == 1) {
@@ -733,8 +701,6 @@ class CartController extends Controller
         return response()->json($data);
     }
 
-
-
     public function addtonumcart()
     {
         Session::forget('already');
@@ -775,7 +741,6 @@ class CartController extends Controller
         //Fixing variable src paht name
         $customizable_gallery = strstr($customizable_gallery_src, 'thumbnails/');
         $customizable_gallery = str_replace("thumbnails/", "", $customizable_gallery);
-
         $file = str_replace("\\", '/', $customizable_logo);
         $imgName = str_replace("C:/fakepath/", "", $file);
         if (file_exists('storage/images/custom-logo/' . $imgName)) {
@@ -938,15 +903,6 @@ class CartController extends Controller
         }
         if ($customProductsNumber && !$customProducts) {
             if ($is_customizable_number) {
-                /* if(empty($cart->items[$custom_item_id]['customizable_name']) || empty($cart->items[$custom_item_id]['customizable_number'])){
-                    return redirect()->back()->with('unsuccess', __("You must fill all the custom product fields."));
-                }
-                if(!empty($cart->items[$custom_item_id]['customizable_name']) || !empty($cart->items[$custom_item_id]['customizable_number'])){
-                    if((int)$cart->items[$custom_item_id]['customizable_number'] <= 0 || (int)$cart->items[$custom_item_id]['customizable_number'] > 99){
-                        return redirect()->back()->with('unsuccess', __("Please enter a valid number!"));
-                    }
-
-                } */
             }
         }
         if ($cart->items[$custom_item_id]['dp'] == 1) {
@@ -1098,8 +1054,6 @@ class CartController extends Controller
             }
         }
 
-
-
         if (!empty($prod->license_qty)) {
             $lcheck = 1;
             foreach ($prod->license_qty as $ttl => $dtl) {
@@ -1239,7 +1193,6 @@ class CartController extends Controller
             }
         }
 
-
         if (!empty($prod->license_qty)) {
             $lcheck = 1;
             foreach ($prod->license_qty as $ttl => $dtl) {
@@ -1318,7 +1271,6 @@ class CartController extends Controller
 
         return response()->json($data);
     }
-
 
     public function removecart($id)
     {
@@ -1550,7 +1502,6 @@ class CartController extends Controller
         $code = $request->code;
         $coupon = Coupon::where('code', $code)->first();
         /* Validation */
-
         // There is no Coupon
         if (!$coupon) {
             $data["not_found"] = __("This coupon doesn't exist.");
@@ -1568,7 +1519,6 @@ class CartController extends Controller
         }
 
         //Total price of the item(s) in the cart
-
         $cart = new Cart(Session::get('cart'));
         if ($coupon->category_id) {
             $couponCategories = [];
@@ -1675,15 +1625,12 @@ class CartController extends Controller
         $data[3] = $coupon->id;
         $data[5] = 1;
         $data[6] = round($total, 2);
-
         Session::put('coupon_total1', $data[0]);
         Session::put('coupon', $data[2]);
         Session::put('coupon_code', $code);
         Session::put('coupon_id', $coupon->id);
         Session::forget('coupon_total');
-
         Session::put('coupon_percentage', $data[4]);
-
         $data["success"] = __("Coupon Found");
         return response()->json($data);
     }

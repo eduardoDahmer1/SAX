@@ -56,7 +56,6 @@ class VendorController extends Controller
         return view('admin.generalsetting.vendor_color');
     }
 
-
     //*** GET Request
     public function subsdatatables()
     {
@@ -77,10 +76,7 @@ class VendorController extends Controller
                             }) 
                             ->rawColumns(['action'])
                             ->toJson(); //--- Returning Json Data To Client Side
-
-
     }
-
 
 	//*** GET Request
     public function subs()
@@ -116,8 +112,6 @@ class VendorController extends Controller
         $data = User::findOrFail($id);
         return view('admin.vendor.edit',compact('data'));
     }
-
-
 
 	//*** GET Request
     public function verify($id)
@@ -218,7 +212,6 @@ class VendorController extends Controller
         return view('admin.vendor.show',compact('data'));
     }
     
-
     //*** GET Request
     public function secret($id)
     {
@@ -228,7 +221,6 @@ class VendorController extends Controller
         return redirect()->route('vendor-dashboard');
     }
     
-
 	//*** GET Request
     public function destroy($id)
     {
@@ -340,5 +332,4 @@ class VendorController extends Controller
             return response()->json($msg);      
             //--- Redirect Section Ends   
         }
-
 }

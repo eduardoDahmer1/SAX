@@ -135,6 +135,4 @@ class VendorController extends Controller
 
         }
     }
-
-
 }

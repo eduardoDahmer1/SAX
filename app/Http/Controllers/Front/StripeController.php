@@ -38,7 +38,6 @@ class StripeController extends Controller
         Config::set('services.stripe.secret', $stripe->stripe_secret);
     }
 
-
       public function store(Request $request)
       {
           if ($request->pass_check) {
@@ -201,7 +200,6 @@ class StripeController extends Controller
                           $track->save();
                       }
 
-
                       $notification = new Notification;
                       $notification->order_id = $order->id;
                       $notification->save();
@@ -229,7 +227,6 @@ class StripeController extends Controller
                           }
                       }
 
-
                       foreach ($cart->items as $prod) {
                           $x = (string)$prod['stock'];
                           if ($x != null) {
@@ -245,7 +242,6 @@ class StripeController extends Controller
                       }
 
                       $notf = null;
-
                       foreach ($cart->items as $prod) {
                           if ($prod['item']['user_id'] != 0) {
                               $vorder =  new VendorOrder;
@@ -270,9 +266,7 @@ class StripeController extends Controller
                       }
 
                       $gs = Generalsetting::find(1);
-
                       //Sending Email To Buyer
-
                       if ($gs->is_smtp == 1) {
                           $data = [
                               'to' => $request->email,
@@ -319,7 +313,6 @@ class StripeController extends Controller
                       Session::put('temporder', $order);
                       Session::put('tempcart', $cart);
                       Session::forget('cart');
-
                       Session::forget('already');
                       Session::forget('coupon');
                       Session::forget('coupon_total');

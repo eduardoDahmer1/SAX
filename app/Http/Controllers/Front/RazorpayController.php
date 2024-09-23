@@ -105,8 +105,6 @@ class RazorpayController extends Controller
             }
         }
 
-
-
         $orderData = [
             'receipt'         => $item_number,
             'amount'          => $item_amount * 100, // 2000 rupees in paise
@@ -119,9 +117,6 @@ class RazorpayController extends Controller
         $razorpayOrderId = $razorpayOrder['id'];
 
         session(['razorpay_order_id'=> $razorpayOrderId]);
-
-
-
 
         $order['user_id'] = $request->user_id;
         $order['cart'] = $cart;
@@ -188,7 +183,6 @@ class RazorpayController extends Controller
             $track->save();
         }
 
-
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();
@@ -215,7 +209,6 @@ class RazorpayController extends Controller
                 $product->update();
             }
         }
-
 
         foreach ($cart->items as $prod) {
             $x = (string)$prod['stock'];
@@ -259,7 +252,6 @@ class RazorpayController extends Controller
         $gs = Generalsetting::find(1);
 
         //Sending Email To Buyer
-
         if ($gs->is_smtp == 1) {
             $data = [
                 'to' => $request->email,
@@ -301,7 +293,6 @@ class RazorpayController extends Controller
 
         Session::put('tempcart', $cart);
         Session::forget('cart');
-
 
         $displayAmount = $amount = $orderData['amount'];
 
@@ -348,7 +339,6 @@ class RazorpayController extends Controller
 
         return view('front.razorpay-checkout', compact('data', 'displayCurrency', 'json', 'notify_url'));
     }
-
 
     public function razorCallback(Request $request)
     {

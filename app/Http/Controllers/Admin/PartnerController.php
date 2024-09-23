@@ -49,13 +49,11 @@ class PartnerController extends Controller
     {
         return view('admin.partner.index');
     }
-
     //*** GET Request
     public function create()
     {
         return view('admin.partner.create');
     }
-
     //*** POST Request
     public function store(Request $request)
     {
@@ -75,7 +73,6 @@ class PartnerController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Partner();
         $input = $request->all();

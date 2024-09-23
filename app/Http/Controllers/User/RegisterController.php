@@ -20,13 +20,11 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-
     	$gs = Generalsetting::findOrFail(1);
 
 		if ($gs->is_capcha == 1 && $request->codes != session('captcha_string')){
 			return response()->json(array('errors' => [ 0 => __('Please enter Correct Captcha Code.') ]));    
 		}  
-
         //--- Validation Section
         $rules = [
 		        'email'   => 'required|email|unique:users',
@@ -50,7 +48,6 @@ class RegisterController extends Controller
 		$input['verification_link'] = $token;
 		$input['affilate_code'] = md5($request->name.$request->email);
 		// $user->birth_date = $input['birthday'];
-		
 		if(!empty($request->vendor)) {
 			//--- Validation Section
 			$rules = [

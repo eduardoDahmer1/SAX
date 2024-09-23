@@ -43,13 +43,11 @@ class PaymentGatewayController extends Controller
     {
         return view('admin.payment.index');
     }
-
     //*** GET Request
     public function create()
     {
         return view('admin.payment.create');
     }
-
     //*** POST Request
     public function store(Request $request)
     {
@@ -86,20 +84,16 @@ class PaymentGatewayController extends Controller
     {
         //--- Validation Section
         $rules = ['title' => 'unique:payment_gateways,title,'.$id];
-
         $validator = Validator::make($request->all(), $rules);
-        
         if ($validator->fails()) {
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }        
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = PaymentGateway::findOrFail($id);
         $input = $request->all();  
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section     
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);    
@@ -113,7 +107,6 @@ class PaymentGatewayController extends Controller
             $data->status = $id2;
             $data->update();
         }
-
 
     //*** GET Request Delete
     public function destroy($id)

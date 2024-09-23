@@ -83,7 +83,6 @@ class RoleController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Role();
         $input = $this->removeEmptyTranslations($request->all());
@@ -95,7 +94,6 @@ class RoleController extends Controller
 
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -127,7 +125,6 @@ class RoleController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Role::findOrFail($id);
         $input = $this->removeEmptyTranslations($request->all(), $data);
@@ -138,7 +135,6 @@ class RoleController extends Controller
         }
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);

@@ -15,15 +15,10 @@ use Illuminate\Support\Facades\Session;
 class Pay42CardController extends Controller
 {
     use Gateway;
-
     private const INVALID_API_KEY = 1;
-
     private $currency;
-
     private $appUrl;
-
     private $documentType;
-
     public function __construct()
     {
         parent::__construct();
@@ -76,7 +71,6 @@ class Pay42CardController extends Controller
         $amount = $order['pay_amount'] * $order['currency_value'];
         $phone = $order['customer_phone'];
         $customerZipCode = $order['customer_zip'];
-
         if(!isset($cartTotal)){
             return redirect()->route('front.checkout');
         }
@@ -170,7 +164,6 @@ class Pay42CardController extends Controller
         }
 
         //***End of card validations
-
         $cnpj = strlen($documentNumber);
         if($cnpj === 14 ){
             $this->documentType = "CNPJ";
@@ -221,10 +214,8 @@ class Pay42CardController extends Controller
         # If any exception...
         if($httpCode !== 200) {
             Log::debug('pay42_pix_response', [$json]);
-
             $order = Order::where('id',$transactionId)
             ->update(['status' => 'declined']);
-
             if(isset($json['message'])) return redirect()->route('front.checkout')->withInput()->with('unsuccess', $json['message']);
             return redirect()->route('front.checkout');
         }
@@ -297,16 +288,10 @@ class Pay42CardController extends Controller
 
         Session::put('temporder', $oldCart);
 
-
         if (Session::has("order")) {
             Session::forget('order');
         }
 
         return redirect(route('payment.return'));
-
-
-
     }
-        
 }
-

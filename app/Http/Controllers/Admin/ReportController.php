@@ -69,7 +69,6 @@ class ReportController extends Controller
 	        return view('admin.report.show',compact('data'));
 	    }
 
-
 	    //*** GET Request Delete
 		public function destroy($id)
 		{

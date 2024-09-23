@@ -1,5 +1,4 @@
 @extends('layouts.load')
-
 @section('content')
 <div class="top-area">
     <div class="row">
@@ -9,17 +8,15 @@
                     {{ csrf_field() }}
                     <input type="hidden" id="cid" name="category_id" value="{{ $data->id }}">
                     <input type="file" name="gallery[]" class="hidden" id="uploadgallery" accept="image/*" multiple>
-                    <label for="image-upload" id="cat_gallery"><i class="icofont-upload-alt"></i>{{ __("Upload File")
-                        }}</label>
+                    <label for="image-upload" id="cat_gallery"><i class="icofont-upload-alt"></i>{{ __("Upload File") }}</label>
                 </form>
             </div>
         </div>
         <div class="col-sm-6">
-            <a href="javascript:;" class="upload-done" data-dismiss="modal"> <i class="fas fa-check"></i>
-                {{ __("Done") }}</a>
+            <a href="javascript:;" class="upload-done" data-dismiss="modal"><i class="fas fa-check"></i>{{ __("Done") }}</a>
         </div>
-        <div class="col-sm-12 text-center">(
-            <small>{{ __("You can upload multiple Images") }}.</small> )
+        <div class="col-sm-12 text-center">
+            <small>{{ __("You can upload multiple Images") }}.</small>
         </div>
     </div>
 </div>
@@ -27,29 +24,21 @@
     <div class="selected-image">
         <div class="row">
             <div>
-                <span>
-
-                </span>
+                <span></span>
             </div>
         </div>
     </div>
 </div>
-</div>
-
 @endsection
-
 @section('scripts')
 <script>
     $(document).ready(function() {
         var cid = $('#cid').val();
         $('.selected-image .row').html('');
-        $('.selected-image .row').html('');
         $.ajax({
             type: 'GET',
             url: '{{ route("admin-categorygallery-show") }}',
-            data: {
-                id: cid
-            },
+            data: { id: cid },
             success: function(data) {
                 if (data[0] == 0) {
                     $('.selected-image .row').addClass('justify-content-center');
@@ -74,25 +63,16 @@
                     } else {
                         $('.selected-image .row').removeClass('justify-content-center');
                         $('.selected-image .row h3').remove();
-                        var arr = $.map(data[1], function(el) {
-                            return el
-                        });
+                        var arr = $.map(data[1], function(el) { return el });
                         for (var l in arr) {
                             $('.selected-image .row').append('<div class="col-sm-4">' +
                                 '<div class="img gallery-img">' +
                                 '<span class="remove-img"><i class="fas fa-times"></i>' +
                                 '<input type="hidden" value="' + arr[l]['id'] + '">' +
                                 '</span>' +
-                                '<div class="gallery-img-id"><span>' + arr[l]['id'] +
-                                '</span></div>' +
-                                '<a href="' + '{{asset("storage/images/galleries")."/"}}' + arr[
-                                    l][
-                                    'customizable_gallery'
-                                ] + '" target="_blank">' +
-                                '<img src="' + '{{asset("storage/images/galleries")."/"}}' + arr[
-                                    l][
-                                    'customizable_gallery'
-                                ] + '" alt="gallery image">' +
+                                '<div class="gallery-img-id"><span>' + arr[l]['id'] + '</span></div>' +
+                                '<a href="{{ asset("storage/images/galleries") . "/" }}' + arr[l]['customizable_gallery'] + '" target="_blank">' +
+                                '<img src="{{ asset("storage/images/galleries") . "/" }}' + arr[l]['customizable_gallery'] + '" alt="gallery image">' +
                                 '</a>' +
                                 '</div>' +
                                 '</div>');
@@ -103,7 +83,6 @@
         });
     });
 </script>
-
 <script>
     $(document).on('click', '.remove-img', function() {
         var id = $(this).find('input[type=hidden]').val();
@@ -111,25 +90,18 @@
         $.ajax({
             type: 'GET',
             url: '{{ route("admin-categorygallery-delete") }}',
-            data: {
-                id: id
-            }
+            data: { id: id }
         });
     });
 </script>
-
 <script>
-    // spoof the actual file input
     $(document).on('click', '#cat_gallery', function() {
         $('#uploadgallery').click();
     });
-
-    // when the file input changes, submit the upload
     $('#uploadgallery').change(function() {
         $('#form-gallery').submit();
     });
 </script>
-
 <script>
     $(document).on('submit', '#form-gallery', function() {
         $.ajax({
@@ -144,21 +116,15 @@
                 if (data != 0) {
                     $('.selected-image .row').removeClass('justify-content-center');
                     $('.selected-image .row h3').remove();
-                    var arr = $.map(data, function(el) {
-                        return el
-                    });
+                    var arr = $.map(data, function(el) { return el });
                     for (var m in arr) {
                         $('.selected-image .row').append('<div class="col-sm-4">' +
                             '<div class="img gallery-img">' +
                             '<span class="remove-img"><i class="fas fa-times"></i>' +
                             '<input type="hidden" value="' + arr[m]['id'] + '">' +
                             '</span>' +
-                            '<a href="' + '{{asset("storage/images/galleries")."/"}}' + arr[m][
-                                'customizable_gallery'
-                            ] + '" target="_blank">' +
-                            '<img src="' + '{{asset("storage/images/galleries")."/"}}' + arr[m][
-                                'customizable_gallery'
-                            ] + '" alt="gallery image">' +
+                            '<a href="{{ asset("storage/images/galleries") . "/" }}' + arr[m]['customizable_gallery'] + '" target="_blank">' +
+                            '<img src="{{ asset("storage/images/galleries") . "/" }}' + arr[m]['customizable_gallery'] + '" alt="gallery image">' +
                             '</a>' +
                             '</div>' +
                             '</div>');

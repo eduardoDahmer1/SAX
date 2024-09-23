@@ -135,12 +135,10 @@ class BrandController extends Controller
         }
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //-----Creating automatic slug
         $brand = Brand::find($data->id);
         $brand->slug = Str::slug($data->name, '-').'-'.strtolower($data->id);
         $brand->update();
-
         //--- Redirect Section
         if ($request->api) {
             return response()->json(array('status' => 'ok'), Response::HTTP_CREATED);
@@ -194,7 +192,6 @@ class BrandController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Brand::findOrFail($id);
         $input = $request->all();
@@ -226,7 +223,6 @@ class BrandController extends Controller
 
         $data->update($input);
         //--- Logic Section Ends
-
         //----Slug automatic
         $data = Brand::findOrFail($id);
         $data->slug = Str::slug($data->name, '-').'-'.strtolower($data->id);

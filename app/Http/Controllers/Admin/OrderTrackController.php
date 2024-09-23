@@ -16,7 +16,6 @@ class OrderTrackController extends Controller
         parent::__construct();
     }
 
-
    //*** GET Request
     public function index($id)
     {
@@ -31,13 +30,9 @@ class OrderTrackController extends Controller
         return view('admin.order.track-load',compact('order'));
     }
 
-
     public function add()
     {
-
-
         //--- Logic Section
-
         $title = $_GET['title'];
 
         $ck = OrderTrack::where('order_id','=',$_GET['id'])->where('title','=',$title)->first();
@@ -54,13 +49,8 @@ class OrderTrackController extends Controller
             $data->text = $_GET['text'];
             $data->save();            
         }
-
-
         //--- Logic Section Ends
-
-
     }
-
 
     //*** POST Request
     public function store(Request $request)
@@ -79,17 +69,14 @@ class OrderTrackController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         $input = $this->withRequiredFields($request->all(), ['title']);
         $data = new OrderTrack;
         $data->fill($input)->save();
-
         //--- Redirect Section  
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
         //--- Redirect Section Ends  
     }
-
 
     //*** POST Request
     public function update(Request $request, $id)
@@ -108,13 +95,11 @@ class OrderTrackController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = OrderTrack::findOrFail($id);
         $input = $this->withRequiredFields($request->all(), ['title']);
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section          
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);    

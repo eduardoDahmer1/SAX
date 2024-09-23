@@ -139,8 +139,6 @@ class CategoryController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
-
         //--- Logic Section
         $data = new Category();
         $input = $this->removeEmptyTranslations($request->all());
@@ -198,7 +196,6 @@ class CategoryController extends Controller
 
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         // Add To Gallery If any
         $lastid = $data->id;
         if ($files = $request->file('gallery')) {
@@ -264,7 +261,6 @@ class CategoryController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Category::findOrFail($id);
         $input = $this->removeEmptyTranslations($request->all(), $data);
@@ -335,9 +331,7 @@ class CategoryController extends Controller
         $data = Category::findOrFail($id);
         $data->slug = Str::slug($data->name, '-').'-'.strtolower($data->id);
         $data->update($input);
-
         //--- Logic Section Ends
-
         //--- Redirect Section
         if ($request->api) {
             return response()->json(array('status' => 'ok'));
@@ -366,7 +360,6 @@ class CategoryController extends Controller
         $data->presentation_position = $newPos;
         $data->update();
     }
-
 
     //*** GET Request Delete
     public function destroy($id)
