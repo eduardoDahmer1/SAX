@@ -16,7 +16,6 @@ class PageSettingController extends Controller
         parent::__construct();
     }
 
-
     protected $rules =
     [
         'best_seller_banner' => 'mimes:jpeg,jpg,png,svg,gif,webp',
@@ -28,7 +27,6 @@ class PageSettingController extends Controller
         'banner_search3' => 'mimes:jpeg,jpg,png,svg,gif,webp',
     ];
 
-
     protected $customs =
     [
         'best_seller_banner.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
@@ -39,7 +37,6 @@ class PageSettingController extends Controller
         'banner_search2.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
         'banner_search3.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
     ];
-
 
     // Page Settings All post requests will be done in this method
     public function update(Request $request)
@@ -98,12 +95,10 @@ class PageSettingController extends Controller
             $input['big_save_banner1'] = $name;
         }
 
-
         $data->update($input);
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);
     }
-
 
     public function homeupdate(Request $request)
     {
@@ -243,8 +238,6 @@ class PageSettingController extends Controller
         return response()->json($msg);
         //--- Redirect Section Ends
     }
-
-
 
     public function contact()
     {

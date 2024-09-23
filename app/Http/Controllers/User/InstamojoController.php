@@ -77,7 +77,6 @@ try {
 
      Session::put('subscription',$sub);
 
-
         $data['total'] =  $item_amount;
         $data['return_url'] = $notify_url;
         $data['cancel_url'] = $cancel_url;
@@ -91,15 +90,9 @@ catch (Exception $e) {
 
  }
 
-
-
-
 public function notify(Request $request){
 
     $data = $request->all();
-
-
-
         $sub = Session::get('subscription');
 
 $input = Session::get('user_data');
@@ -109,9 +102,7 @@ $input = Session::get('user_data');
         $success_url = action('User\PaypalController@payreturn');
         $cancel_url = action('User\PaypalController@paycancle');
 
-
         if($sub['pay_id'] == $data['payment_request_id']){
-
 
                     $order = new UserSubscription;
                     $order->user_id = $sub['user_id'];
@@ -127,15 +118,10 @@ $input = Session::get('user_data');
                     $order->txnid = $data['payment_id'];
                     $order->status = 1;
 
-
-
-
-
         $user = User::findOrFail($order->user_id);
         $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
         $subs = Subscription::findOrFail($order->subscription_id);
         $settings = Generalsetting::findOrFail(1);
-
 
         $today = Carbon::now()->format('Y-m-d');
         $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
@@ -188,7 +174,6 @@ $input = Session::get('user_data');
             $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
             mail($user->email,'Your Vendor Account Activated','Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.',$headers);
         }
-
 
 Session::forget('subscription');
 

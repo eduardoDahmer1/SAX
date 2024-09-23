@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
 class AdminUserConversation extends CachedModel
 {
 	public function user()
@@ -14,7 +12,6 @@ class AdminUserConversation extends CachedModel
 			}
 		});
 	}
-
 	public function admin()
 	{
 	    return $this->belongsTo('App\Models\Admin')->withDefault(function ($data) {
@@ -23,12 +20,10 @@ class AdminUserConversation extends CachedModel
 			}
 		});
 	}
-
 	public function messages()
 	{
 	    return $this->hasMany('App\Models\AdminUserMessage','conversation_id');
 	}
-
 	public function notifications()
 	{
 	    return $this->hasMany('App\Models\UserNotification','conversation1_id');

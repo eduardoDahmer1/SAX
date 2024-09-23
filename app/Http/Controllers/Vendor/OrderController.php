@@ -19,9 +19,7 @@ class OrderController extends Controller
     public function __construct()
     {
         parent::__construct();
-
         $this->middleware('auth');
-
         $this->middleware(function ($request, $next) {
             $user = Auth::guard('web')->user();
             if ($user->checkWarning()) {
@@ -135,8 +133,6 @@ class OrderController extends Controller
             $input['status'] = "completed";
             $data->update($input);
             //--- Logic Section Ends
-
-
             //--- Redirect Section
             $msg = __('Status Updated Successfully.');
             return response()->json($msg);
@@ -169,7 +165,6 @@ class OrderController extends Controller
                 }
             }
 
-
             //on delivery
             if ($input['status'] == "on delivery") {
                 foreach ($data->vendororders as $vorder) {
@@ -196,8 +191,6 @@ class OrderController extends Controller
                     mail($to, $subject, $msg, $headers);
                 }
             }
-
-
 
             if ($input['status'] == "completed") {
                 foreach ($data->vendororders as $vorder) {
@@ -243,7 +236,6 @@ class OrderController extends Controller
                 }
             }
 
-
             $data->update($input);
             $title = __(ucwords($request->status));
             $order_track = new OrderTrack;
@@ -273,7 +265,6 @@ class OrderController extends Controller
             return response()->json($msg);
             //--- Redirect Section Ends
         }
-
         //--- Redirect Section
         $msg = __('Status Updated Successfully.');
         return response()->json($msg);
@@ -298,8 +289,6 @@ class OrderController extends Controller
         $msg = __('Successfully Changed The License Key.');
         return response()->json($msg);
     }
-
-
 
     public function invoice($slug)
     {

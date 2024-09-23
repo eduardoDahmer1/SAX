@@ -4,18 +4,12 @@ namespace App\Providers;
 
 use App\Models\Generalsetting;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 use Throwable;
 
 class MailConfigServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
     public function boot()
     {
         try {
@@ -23,19 +17,15 @@ class MailConfigServiceProvider extends ServiceProvider
                 $storeSettings = Generalsetting::where('is_default', 1)->first();
 
                 if ($storeSettings) {
-                    $mail_driver = "sendmail";
-
-                    if ($storeSettings->header_email == 'smtp') {
-                        $mail_driver = 'smtp';
-                    }
+                    $mail_driver = $storeSettings->header_email === 'smtp' ? 'smtp' : 'sendmail';
 
                     $config = [
-                        "driver" => $mail_driver ?? config('mail.driver'),
+                        "driver" => $mail_driver,
                         "host" => $storeSettings->smtp_host ?? config('mail.host'),
                         "port" => $storeSettings->smtp_port ?? config('mail.port'),
                         "from" => [
                             "address" => $storeSettings->from_email ?? config('mail.from.address'),
-                            "name" => $storeSettings->from_name ?? config('mail.from.name')
+                            "name" => $storeSettings->from_name ?? config('mail.from.name'),
                         ],
                         "encryption" => $storeSettings->email_encryption ?? config('mail.encryption'),
                         "username" => $storeSettings->smtp_user ?? config('mail.username'),
@@ -46,15 +36,10 @@ class MailConfigServiceProvider extends ServiceProvider
                 }
             }
         } catch (Throwable $e) {
-            return; //service provider boots everytime. Schema is not available at this point
+            return;
         }
     }
 
-    /**
-     * Register services.
-     *
-     * @return void
-     */
     public function register()
     {
     }

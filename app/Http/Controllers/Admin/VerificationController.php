@@ -127,7 +127,6 @@ class VerificationController extends Controller
 
     }
 
-
     //*** GET Request
     public function status($id1,$id2)
     {
@@ -144,7 +143,6 @@ class VerificationController extends Controller
 
     }
 
-
     //*** GET Request
     public function destroy($id)
     {
@@ -160,10 +158,4 @@ class VerificationController extends Controller
         //--- Redirect Section Ends
 
     }
-
-
-
-
-
-
 }

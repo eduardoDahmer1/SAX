@@ -24,7 +24,6 @@ class PaytmController extends Controller
 {
     /**
     * Display a listing of the resource.
-    *
     * @return \Illuminate\Http\Response
     */
     public function index()
@@ -33,7 +32,6 @@ class PaytmController extends Controller
     }
     /**
      * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -41,7 +39,6 @@ class PaytmController extends Controller
     }
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -178,7 +175,6 @@ class PaytmController extends Controller
             $track->save();
         }
 
-
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();
@@ -249,7 +245,6 @@ class PaytmController extends Controller
         $gs = Generalsetting::find(1);
 
         //Sending Email To Buyer
-
         if ($gs->is_smtp == 1) {
             $data = [
                 'to' => $request->email,
@@ -295,17 +290,13 @@ class PaytmController extends Controller
         }
         Session::put('temporder', $order);
         Session::put('tempcart', $cart);
-
         Session::forget('cart');
-
         Session::forget('already');
         Session::forget('coupon');
         Session::forget('coupon_total');
         Session::forget('coupon_total1');
         Session::forget('coupon_percentage');
-
         //return redirect($success_url);
-
         $data_for_request = $this->handlePaytmRequest($item_number, $item_amount);
         $paytm_txn_url = 'https://securegw-stage.paytm.in/theia/processTransaction';
         $paramList = $data_for_request['paramList'];
@@ -339,7 +330,6 @@ class PaytmController extends Controller
             'paramList' => $paramList
         );
     }
-
 
     public function getAllEncdecFunc()
     {
@@ -616,7 +606,6 @@ class PaytmController extends Controller
         } elseif ($gs->paytm_mode == 'live') {
             define('PAYTM_ENVIRONMENT', 'PROD'); // PROD
         }
-
         define('PAYTM_MERCHANT_KEY', $gs->paytm_secret); //Change this constant's value with Merchant key downloaded from portal
         define('PAYTM_MERCHANT_MID', $gs->paytm_merchant); //Change this constant's value with MID (Merchant ID) received from Paytm
         define('PAYTM_MERCHANT_WEBSITE', $gs->paytm_website); //Change this constant's value with Website name received from Paytm

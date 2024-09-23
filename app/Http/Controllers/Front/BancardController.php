@@ -236,7 +236,6 @@ class BancardController extends Controller
         ];
 
         $json = json_encode($data);
-
         $headers = array(
             'Content-Type: application/json'
         );
@@ -252,9 +251,7 @@ class BancardController extends Controller
 
         $response = curl_exec($session);
         $error = curl_error($session);
-
         curl_close($session);
-
         $bancardResponse = json_decode($response);
 
         if (isset($bancardResponse->status) && $bancardResponse->status == "success") {

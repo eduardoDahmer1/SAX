@@ -186,7 +186,6 @@ class BannerController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Banner::findOrFail($id);
         $input = $request->all();
@@ -202,7 +201,6 @@ class BannerController extends Controller
         }
         $data->update($input);
         //--- Logic Section Ends
-
         //associates with stores
         $data->stores()->detach();
         if ($request->has('stores')) {

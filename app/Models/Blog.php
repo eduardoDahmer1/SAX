@@ -9,18 +9,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Blog extends LocalizedModel
 {
     use LogsActivity;
-
-
     protected $with = ['translations'];
-
     protected $translatedAttributes = ['title', 'details', 'meta_tag', 'meta_description', 'tags'];
-
     protected $fillable = ['category_id', 'photo', 'source', 'views', 'updated_at', 'status'];
-
     protected $dates = ['created_at'];
-
     public $timestamps = false;
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -28,7 +21,6 @@ class Blog extends LocalizedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public static function boot()
     {
         parent::boot();
@@ -37,7 +29,6 @@ class Blog extends LocalizedModel
             $model->created_at = $model->freshTimestamp();
         });
     }
-
     public function category()
     {
         return $this->belongsTo('App\Models\BlogCategory', 'category_id')->withDefault(function ($data) {
@@ -46,7 +37,6 @@ class Blog extends LocalizedModel
             }
         });
     }
-
     public function getTagsAttribute($value)
     {
         if ($value == null) {
@@ -54,7 +44,6 @@ class Blog extends LocalizedModel
         }
         return explode(',', $value);
     }
-
     public function getMetaTagAttribute($value)
     {
         if ($value == null) {

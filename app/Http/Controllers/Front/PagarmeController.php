@@ -44,10 +44,8 @@ class PagarmeController extends Controller
         $phone = $this->order->customer_phone;
         $phone = preg_replace('/[^0-9]/', null, $phone); // remove non numbers
         $phone = "+" . $phone;
-
         $zipcode = $this->order->customer_zip;
         $zipcode = preg_replace('/[^0-9]/', null, $zipcode);
-
         $document = $this->order->customer_document;
         $document = preg_replace('/[^0-9]/', null, $document);
 
@@ -115,7 +113,6 @@ class PagarmeController extends Controller
                 $notification->order_id = $order->id;
                 $notification->save();
 
-                
                 $json = [
                     "success" => $transaction->id
                 ];

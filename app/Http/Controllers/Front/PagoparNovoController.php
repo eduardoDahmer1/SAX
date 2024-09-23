@@ -175,9 +175,7 @@ class PagoparNovoController extends Controller
         $request = $this->client->post($this->apiUrl."/pedidos/1.1/traer", [
             'json' => $data
         ]);
-
         $response = $request->getBody();
-
         $decoded_data = json_decode($response);
 
         if ($decoded_data->respuesta === true) {
@@ -198,7 +196,6 @@ class PagoparNovoController extends Controller
                 Session::forget('order');
             }
         }
-
         Log::debug("Check Order Status Pagopar", [$decoded_data, $data]);
         return response()->json($decoded_data->resultado);
     }

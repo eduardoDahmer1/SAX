@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
-
 class TeamMember extends CachedModel
 {
     use LogsActivity;

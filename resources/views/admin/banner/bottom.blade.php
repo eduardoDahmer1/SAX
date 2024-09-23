@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('styles')
-    <style type="text/css">
+    <style>
         .mr-breadcrumb .links .action-list li {
             display: block;
         }
@@ -11,15 +11,9 @@
             max-height: 240px;
         }
 
-
-        .mr-breadcrumb .links .action-list .go-dropdown-toggle {
-            padding-left: 20px;
-            padding-right: 30px;
-        }
-
+        .mr-breadcrumb .links .action-list .go-dropdown-toggle,
         .add-btn {
-            padding-left: 20px;
-            padding-right: 30px;
+            padding: 0 30px;
             margin-bottom: 20px;
         }
     </style>
@@ -31,15 +25,9 @@
                 <div class="col-lg-12">
                     <h4 class="heading">{{ __('Bottom Small') }}</h4>
                     <ul class="links">
-                        <li>
-                            <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin-ps-best-seller') }}">{{ __('Banners') }} </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin-sb-bottom') }}">{{ __('Bottom Small') }}</a>
-                        </li>
+                        <li><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
+                        <li><a href="{{ route('admin-ps-best-seller') }}">{{ __('Banners') }}</a></li>
+                        <li><a href="{{ route('admin-sb-bottom') }}">{{ __('Bottom Small') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +37,7 @@
                         <li>
                             <div class="action-list godropdown">
                                 <select id="store_filters" class="process go-dropdown-toggle">
-                                    <option value="">{{ __('All Stores') }} </option>
+                                    <option value="">{{ __('All Stores') }}</option>
                                     @foreach ($storesList as $store)
                                         <option value='{{ $store->id }}'>{{ $store->domain }}</option>
                                     @endforeach
@@ -65,10 +53,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="mr-table allproduct">
-
                         @include('includes.admin.form-success')
-
-                        <div class="table-responsiv">
+                        <div class="table-responsive">
                             <table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -87,11 +73,8 @@
             </div>
         </div>
     </div>
-
     {{-- ADD / EDIT MODAL --}}
-
     <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
-
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="submit-loader">
@@ -103,164 +86,99 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-
-                </div>
+                <div class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
                 </div>
             </div>
         </div>
     </div>
-
-    {{-- ADD / EDIT MODAL ENDS --}}
-
     {{-- DELETE MODAL --}}
-
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <div class="modal-header d-block text-center">
                     <h4 class="modal-title d-inline-block">{{ __('Confirm Delete') }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <p class="text-center">{{ __('You are about to delete this Banner.') }}</p>
-                    <p class="text-center">{{ __('Do you want to proceed?') }}</p>
+                <div class="modal-body text-center">
+                    <p>{{ __('You are about to delete this Banner.') }}</p>
+                    <p>{{ __('Do you want to proceed?') }}</p>
                 </div>
-
-                <!-- Modal footer -->
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Cancel') }}</button>
                     <a class="btn btn-danger btn-ok">{{ __('Delete') }}</a>
                 </div>
-
             </div>
         </div>
     </div>
-
-    {{-- DELETE MODAL ENDS --}}
 @endsection
-
 @section('scripts')
-    {{-- DATA TABLE --}}
-
-    <script type="text/javascript">
-        // Number of rows selected
-        var qtde = 0;
-
-        // Defined table reset manually
-        function tableRowCountReset() {
-            qtde = 0;
-            sessionStorage.setItem("CurrentPage", 0);
-        }
-
+<script type="text/javascript">
+    $(document).ready(function() {
         var table = $('#geniustable').DataTable({
             stateSave: true,
             stateDuration: -1,
             ordering: false,
-            stateLoadParams: function(settings, data) {
-                // Persist Store filter selection based on SessionStorage
-                var selectedStore = sessionStorage.getItem('SelectedStoreFilter');
-                $("#store_filters").val(selectedStore);
-
-            },
-            stateDuration: -1,
             processing: true,
             serverSide: true,
             ajax: '{{ route('admin-sb-datatables', 'BottomSmall') }}',
-            columns: [{
-                    data: 'action',
-                    searchable: false,
-                    orderable: false
-                },
-                {
-                    data: 'photo',
-                    name: 'photo',
-                    searchable: false,
-                    orderable: false
-                },
-                {
-                    data: 'link',
-                    name: 'link'
-                },
-                {
-                    data: 'updated_at',
-                    name: 'updated_at',
-                },
-                {
-                    data: 'store',
-                    name: 'store_id',
-                    searchable: true,
-                    visible: false
-                }
+            columns: [
+                { data: 'action', searchable: false, orderable: false },
+                { data: 'photo', name: 'photo', searchable: false, orderable: false },
+                { data: 'link', name: 'link' },
+                { data: 'updated_at', name: 'updated_at' },
+                { data: 'store', name: 'store_id', searchable: true, visible: false }
             ],
             language: {
                 url: '{{ $datatable_translation }}',
                 processing: '<img src="{{ $admstore->adminLoaderUrl }}">'
             },
-            drawCallback: function(settings) {
+            drawCallback: function() {
                 $('#geniustable_length').on('change', function() {
-                    tableRowCountReset();
+                    resetTable();
                     table.ajax.reload();
                 });
             },
-            initComplete: function(settings, json) {
-                $(".btn-area").append('<div class="col-sm-4 table-contents">' +
-                    '<a class="add-btn" data-href="{{ route('admin-sb-create-bottom') }}" data-header="{{ __('Add New Banner') }}" id="add-data" data-toggle="modal" data-target="#modal1">' +
-                    '<i class="fas fa-plus"></i> {{ __('Add New Banner') }}' +
-                    '</a>' +
-                    '</div>');
-                /*
-                 * If any of the store filters are changed, the table resets completely.
-                 * It also updates current SelectedStoreFilter into Session Storage, which is used to
-                 * keep the selection until user leaves the scope.
-                 */
+            initComplete: function() {
+                $(".btn-area").append(`
+                    <div class="col-sm-4 table-contents">
+                        <a class="add-btn" data-href="{{ route('admin-sb-create-bottom') }}" data-header="{{ __('Add New Banner') }}" id="add-data" data-toggle="modal" data-target="#modal1">
+                            <i class="fas fa-plus"></i> {{ __('Add New Banner') }}
+                        </a>
+                    </div>
+                `);
                 $("#store_filters").on('change', function() {
-                    tableRowCountReset();
+                    resetTable();
                     table.column('store_id:name').search(this.value).draw();
-                    sessionStorage.setItem('SelectedStoreFilter', $(this).val());
+                    sessionStorage.setItem('SelectedStoreFilter', this.value);
                 });
             }
         });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#store_filters').niceSelect();
+        function resetTable() {
+            sessionStorage.setItem("CurrentPage", 0);
+            sessionStorage.setItem('SelectedStoreFilter', $("#store_filters").val());
+        }
+        if (!sessionStorage.getItem("CurrentPage")) {
+            sessionStorage.setItem("CurrentPage", 0);
+        }
+        if (!sessionStorage.getItem('SelectedStoreFilter')) {
+            sessionStorage.setItem('SelectedStoreFilter', $("#store_filters").val());
+        } else {
+            table.column('store_id:name').search(sessionStorage.getItem("SelectedStoreFilter")).draw();
+        }
+        $(document).on('click', 'a', function() {
+            var link = $(this);
+            var href = link.attr("href") || "";
+            var isInternalLink = href.includes('#') || href.includes('javascript');
 
-            // First access - CurrentPage
-            if (sessionStorage.getItem("CurrentPage") == undefined) {
-                sessionStorage.setItem("CurrentPage", 0);
+            if (!isInternalLink) {
+                resetTable();
+                table.state.clear();
             }
-
-            // First access - SelectedStoreFilter
-            if (sessionStorage.getItem('SelectedStoreFilter') == undefined) {
-                sessionStorage.setItem('SelectedStoreFilter', $("#store_filters").val());
-            } else table.column('store_id:name').search(sessionStorage.getItem("SelectedStoreFilter")).draw();
-
-            $(document).on('click', 'a', function(e) {
-                sessionStorage.setItem('SelectedStoreFilter', $("#store_filters").val());
-                var link = jQuery(this);
-                if (!(link.attr("data-href") || link.attr("href").indexOf("#") > -1 || link.attr("href")
-                        .indexOf("javascript") > -1)) {
-                    sessionStorage.setItem("CurrentPage", 0);
-                    sessionStorage.setItem('SelectedStoreFilter', $("#store_filters").find("option:first")
-                        .val());
-                    table.state.clear();
-                }
-                if (link.attr("href").indexOf("banner")) {
-                    sessionStorage.setItem("CurrentPage", 0);
-                    sessionStorage.setItem('SelectedStoreFilter', $("#store_filters").find("option:first")
-                        .val());
-                    table.state.clear();
-                }
-            });
         });
-    </script>
-    {{-- DATA TABLE ENDS --}}
+    });
+</script>
 @endsection

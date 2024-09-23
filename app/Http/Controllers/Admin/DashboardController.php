@@ -44,9 +44,6 @@ class DashboardController extends Controller
         $rusers = User::orderBy('id', 'desc')->take(5)->get();
         $referrals = Counter::where('type', 'referral')->orderBy('total_count', 'desc')->take(5)->get();
         $browsers = Counter::where('type', 'browser')->orderBy('total_count', 'desc')->take(5)->get();
-
-
-
         return view('admin.dashboard', compact('pending', 'processing', 'completed', 'products_total', 'users_total', 'blogs_total', 'days', 'sales', 'pproducts', 'rorders', 'poproducts', 'rusers', 'referrals', 'browsers'));
     }
 
@@ -65,7 +62,6 @@ class DashboardController extends Controller
             'photo' => 'mimes:jpeg,jpg,png,svg',
             'email' => 'unique:admins,email,'.Auth::guard('admin')->user()->id
         ];
-
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -116,8 +112,6 @@ class DashboardController extends Controller
         return response()->json($msg);
     }
 
-
-
     public function generate_bkup()
     {
         $bkuplink = "";
@@ -127,7 +121,6 @@ class DashboardController extends Controller
         }
         return view('admin.movetoserver', compact('bkuplink', 'chk'));
     }
-
 
     public function clear_bkup()
     {
@@ -155,8 +148,6 @@ class DashboardController extends Controller
         fwrite($fpa, $goFileData);
         fclose($fpa);
     }
-
-
 
     public function movescript()
     {

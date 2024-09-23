@@ -9,10 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class AdminLanguage extends CachedModel
 {
     use LogsActivity;
-
-
     public $timestamps = false;
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

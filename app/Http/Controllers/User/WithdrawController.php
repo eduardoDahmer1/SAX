@@ -48,17 +48,14 @@ class WithdrawController extends Controller
         return view('user.withdraw.withdraw' ,compact('sign'));
     }
 
-
     public function store(Request $request)
     {
-
         $from = User::findOrFail(Auth::guard('web')->user()->id);
         $curr = $curr = Currency::find($this->storeSettings->currency_id); 
         $withdrawcharge = Generalsetting::findOrFail(1);
         $charge = $withdrawcharge->withdraw_fee;
 
         if($request->amount > 0){
-
             $amount = $request->amount;
             $amount = round(($amount / $curr->value),2);
             if ($from->affilate_income >= $amount){
@@ -66,10 +63,8 @@ class WithdrawController extends Controller
                 $finalamount = $amount - $fee;
                 if ($from->affilate_income >= $finalamount){
                 $finalamount = number_format((float)$finalamount,2,'.','');
-
                 $from->affilate_income = $from->affilate_income - $amount;
                 $from->update();
-
                 $newwithdraw = new Withdraw();
                 $newwithdraw['user_id'] = Auth::guard('web')->user()->id;
                 $newwithdraw['method'] = $request->methods;
@@ -88,7 +83,6 @@ class WithdrawController extends Controller
                 return response()->json(__('Withdraw Request Sent Successfully.')); 
             }else{
                 return response()->json(array('errors' => [ 0 => __('Insufficient Balance.') ])); 
-
             }
             }else{
                 return response()->json(array('errors' => [ 0 => __('Insufficient Balance.') ])); 
@@ -96,6 +90,5 @@ class WithdrawController extends Controller
             }
         }
             return response()->json(array('errors' => [ 0 => __('Please enter a valid amount.') ])); 
-
     }
 }

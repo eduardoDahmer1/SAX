@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
 class MelhorenvioConf extends CachedModel
 {
     protected $table = 'melhorenvio';
-
     protected $fillable = [
         'production',
         'token',
@@ -32,10 +29,8 @@ class MelhorenvioConf extends CachedModel
         'from_postal_code',
         'from_note'
     ];
-
     protected $casts = [
         'selected_services' => 'array',
     ];
-    
     public $timestamps = false;
 }

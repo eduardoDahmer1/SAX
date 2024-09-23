@@ -117,7 +117,6 @@ class BlogCategoryController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = BlogCategory::findOrFail($id);
         $input = $this->removeEmptyTranslations($request->all(), $data);

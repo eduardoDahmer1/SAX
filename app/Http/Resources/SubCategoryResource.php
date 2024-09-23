@@ -8,7 +8,6 @@ class SubCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
@@ -25,7 +24,6 @@ class SubCategoryResource extends JsonResource
         foreach ($translations as $translation) {
             $sub_category[$translation->locale]['name'] = $translation->name;
         }
-
         return $sub_category;
     }
 }

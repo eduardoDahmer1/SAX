@@ -73,8 +73,6 @@ class ChildCategoryController extends Controller
         $this->useAdminLocale();
     }
 
-
-
     //*** GET Request
     public function index()
     {
@@ -124,7 +122,6 @@ class ChildCategoryController extends Controller
             $request->category_id = $subcategory->category_id;
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Childcategory();
         $input = $this->removeEmptyTranslations($request->all());
@@ -197,7 +194,6 @@ class ChildCategoryController extends Controller
             $request->category_id = $subcategory->category_id;
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Childcategory::findOrFail($id);
         $input = $this->removeEmptyTranslations($request->all(), $data);
@@ -215,7 +211,6 @@ class ChildCategoryController extends Controller
 
         $data->update($input);
         //--- Logic Section Ends
-
         //----Slug automatic
         $data = Childcategory::findOrFail($id);
         $data->slug = Str::slug($data->name, '-').'-'.strtolower($data->id);
@@ -244,7 +239,6 @@ class ChildCategoryController extends Controller
         $subcat = Subcategory::findOrFail($id);
         return view('load.childcategory', compact('subcat'));
     }
-
 
     //*** GET Request Delete
     public function destroy($id)

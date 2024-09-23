@@ -9,10 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class BlogCategory extends LocalizedModel
 {
     use LogsActivity;
-
-
     protected $with = ['translations'];
-
     public $translatedAttributes = ['name'];
     protected $fillable = ['slug'];
     public $timestamps = false;
@@ -24,12 +21,10 @@ class BlogCategory extends LocalizedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function blogs()
     {
         return $this->hasMany('App\Models\Blog', 'category_id');
     }
-
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = str_replace(' ', '-', $value);

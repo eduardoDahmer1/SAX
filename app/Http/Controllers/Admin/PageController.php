@@ -86,7 +86,6 @@ class PageController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Page();
         $input = $this->withRequiredFields($request->all(), ['title', 'details']);
@@ -106,10 +105,8 @@ class PageController extends Controller
             }
         }
         // End of Translations section
-
         $data->fill($input)->save();
         //--- Logic Section Ends
-
           //-----Creating automatic slug
           $pages = Page::find($data->id);
           $pages->slug = Str::slug($data->title,'-').'-'.strtolower($data->id);
@@ -152,11 +149,9 @@ class PageController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }        
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Page::findOrFail($id);
         $input = $this->withRequiredFields($request->all(), ['title', 'details']);
-
         //Translation section
         $input[$this->lang->locale]['meta_tag'] = (
             isset($input[$this->lang->locale]['meta_tag']) ?
@@ -178,14 +173,12 @@ class PageController extends Controller
         }
 
         //End Translation section
-
         $data->update($input);
         //--- Logic Section Ends
          //----Slug automatic
          $page = Page::findOrFail($id);
          $page->slug = Str::slug($page->title,'-').'-'.strtolower($page->id);
          $page->update($input);
-
         //--- Redirect Section     
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);    
@@ -205,7 +198,6 @@ class PageController extends Controller
             $data->footer = $id2;
             $data->update();
         }
-
 
     //*** GET Request Delete
     public function destroy($id)

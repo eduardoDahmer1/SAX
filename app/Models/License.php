@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-
 class License extends CachedModel
 {
     use LogsActivity;
@@ -20,7 +18,6 @@ class License extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function product()
     {
         return $this->belongsTo(Product::class);

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Contracts\Activity;
@@ -10,8 +9,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class ShippingTranslation extends CachedModel
 {
     use LogsActivity;
-
-
     public $timestamps = false;
     protected $fillable = ['title', 'subtitle', 'delivery_time'];
 
@@ -22,7 +19,6 @@ class ShippingTranslation extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->properties = $activity->properties->put('shipping_id', $this->shipping_id);

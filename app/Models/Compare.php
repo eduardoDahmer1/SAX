@@ -1,31 +1,30 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
 class Compare extends CachedModel
 {
-    public $items = null;
-    public function __construct($oldCompare)
+    public $items = [];
+
+    public function __construct($oldCompare = null)
     {
         parent::__construct();
         if ($oldCompare) {
-            $this->items = $oldCompare->items;
+            $this->items = $oldCompare->items ?? [];
         }
     }
-
-    public function add($item, $id) {
-        $storedItem = ['ck' => 0, 'item' => $item];
-        if ($this->items) {
-            if (array_key_exists($id, $this->items)) {
-                $storedItem = $this->items[$id];
-            	$storedItem['ck'] = 1;
-            }
-        }
-        $this->items[$id] = $storedItem;
+    public function add($item, $id)
+    {
+        $this->items[$id] = [
+            'ck' => 1,
+            'item' => $item,
+        ];
     }
-    public function removeItem($id) {
+    public function removeItem($id)
+    {
         unset($this->items[$id]);
+    }
+    public function isItemCompared($id): bool
+    {
+        return isset($this->items[$id]);
     }
 }

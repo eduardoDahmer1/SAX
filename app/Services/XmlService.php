@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services;
-
 use App\Helpers\XmlHelper;
 use Illuminate\Console\Command;
 

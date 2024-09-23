@@ -30,7 +30,6 @@ class RazorpayController extends Controller
 
  public function store(Request $request){
 
-
         $this->displayCurrency = ''.$request->currency_code.'';
 
         $this->validate($request, [
@@ -62,9 +61,7 @@ class RazorpayController extends Controller
         
         session(['razorpay_order_id'=> $razorpayOrderId]);
 
-
     // Redirect to paypal IPN
-
 
                     $sub = new UserSubscription;
                     $sub->user_id = $user->id;
@@ -129,18 +126,14 @@ class RazorpayController extends Controller
         return view( 'front.razorpay-checkout', compact( 'data','displayCurrency','json','notify_url' ) );
 
  }
-
     
 public function notify(Request $request){
 
         $success = true;
-
         $error = "Payment Failed";
-        
         if (empty($_POST['razorpay_payment_id']) === false)
         {
 
-        
             try
             {
 
@@ -167,8 +160,6 @@ public function notify(Request $request){
             $order_id = $razorpayOrder['receipt'];
             $transaction_id = $_POST['razorpay_payment_id'];
 
-
-
 $order = UserSubscription::where('user_id','=',Session::get('item_number'))
             ->orderBy('created_at','desc')->first();
 
@@ -176,7 +167,6 @@ $order = UserSubscription::where('user_id','=',Session::get('item_number'))
         $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
         $subs = Subscription::findOrFail($order->subscription_id);
         $settings = Generalsetting::findOrFail(1);
-
 
         $today = Carbon::now()->format('Y-m-d');
         $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
@@ -204,7 +194,6 @@ $order = UserSubscription::where('user_id','=',Session::get('item_number'))
         }
         $user->mail_sent = 1;
         $user->update($input);
-
 
         $data['txnid'] = $transaction_id;
         $data['status'] = 1;
@@ -239,9 +228,6 @@ $order = UserSubscription::where('user_id','=',Session::get('item_number'))
             ->orderBy('created_at','desc')->first();
         $payment->delete();
 
-
     }
 }
-    
-
 }

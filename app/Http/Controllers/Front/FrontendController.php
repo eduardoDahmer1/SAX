@@ -135,7 +135,6 @@ class FrontendController extends Controller
         return $os_platform;
     }
 
-
     // -------------------------------- HOME PAGE SECTION ----------------------------------------
 
     public function index(Request $request)
@@ -280,13 +279,7 @@ class FrontendController extends Controller
     }
 
     // -------------------------------- HOME PAGE SECTION ENDS ----------------------------------------
-
-
-    // CURRENCY SECTION
-
-
     // LANGUAGE SECTION
-
     public function language($id, $idCurrency)
     {
         Session::forget('currency');
@@ -323,10 +316,7 @@ class FrontendController extends Controller
 
 
     // LANGUAGE SECTION ENDS
-
-
     // CURRENCY SECTION ENDS
-
     public function autosearch($slug)
     {
         $matches = [];
@@ -383,10 +373,7 @@ class FrontendController extends Controller
         return redirect('/');
     }
 
-
-
     // -------------------------------- BLOG SECTION ----------------------------------------
-
     public function blog(Request $request)
     {
         if (resolve('storeSettings')->is_blog == 0) {
@@ -474,9 +461,7 @@ class FrontendController extends Controller
 
 
     // -------------------------------- BLOG SECTION ENDS----------------------------------------
-
     // -------------------------------- TEAM SECTION ----------------------------------------
-
     public function team_member(Request $request)
     {
         if ($this->storeSettings->team_show_header != 1 && $this->storeSettings->team_show_footer != 1) {
@@ -493,8 +478,6 @@ class FrontendController extends Controller
     }
 
     // -------------------------------- TEAM SECTION ENDS----------------------------------------
-
-
     // -------------------------------- RECEIPT SECTION----------------------------------------
     public function receipt()
     {
@@ -561,7 +544,6 @@ class FrontendController extends Controller
         }
     }
     // -------------------------------- RECEIPT SECTION ENDS----------------------------------------
-
     // -------------------------------- FAQ SECTION ----------------------------------------
     public function faq()
     {
@@ -572,8 +554,6 @@ class FrontendController extends Controller
         return view('front.faq', compact('faqs'));
     }
     // -------------------------------- FAQ SECTION ENDS----------------------------------------
-
-
     // -------------------------------- PAGE SECTION ----------------------------------------
     public function page($slug)
     {
@@ -585,8 +565,6 @@ class FrontendController extends Controller
         return view('front.page', compact('page'));
     }
     // -------------------------------- PAGE SECTION ENDS----------------------------------------
-
-
     // -------------------------------- POLICY SECTION ----------------------------------------
     public function policy()
     {
@@ -673,7 +651,6 @@ class FrontendController extends Controller
             mail($to, $subject, $msg, $headers);
         }
         // Login Section Ends
-
         // Redirect Section
         return response()->json($ps->contact_success);
     }
@@ -686,7 +663,6 @@ class FrontendController extends Controller
     }
 
     // -------------------------------- SUBSCRIBE SECTION ----------------------------------------
-
     public function subscribe(Request $request)
     {
         $data["success"] = __("You have subscribed successfully.");
@@ -703,7 +679,6 @@ class FrontendController extends Controller
     }
 
     // Maintenance Mode
-
     public function maintenance()
     {
         $gs = resolve('storeSettings');
@@ -713,8 +688,6 @@ class FrontendController extends Controller
 
         return view('front.maintenance');
     }
-
-
 
     // Vendor Subscription Check
     public function subcheck()
@@ -753,7 +726,6 @@ class FrontendController extends Controller
         }
     }
     // Vendor Subscription Check Ends
-
     public function trackload($id)
     {
         $order = Order::where('order_number', '=', $id)->first();
@@ -761,17 +733,6 @@ class FrontendController extends Controller
         return view('load.track-load', compact('order', 'datas'));
     }
     // -------------------------------- CONTACT SECTION ENDS----------------------------------------
-
-
-
-    // -------------------------------- PRINT SECTION ----------------------------------------
-
-
-
-
-
-    // -------------------------------- PRINT SECTION ENDS ----------------------------------------
-
     public function subscription(Request $request)
     {
         $p1 = $request->p1;

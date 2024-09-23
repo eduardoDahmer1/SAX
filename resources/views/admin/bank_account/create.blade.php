@@ -31,13 +31,9 @@
                                         <textarea type="textarea" placeholder="{{ __('Account Info') }}" class="input-field" name="info" required="" value="" rows="5" cols="33"></textarea>
                                     </div>
                                 </div>
-                                
-                            </div> <!--FECHAMENTO TAG ROW -->
-                     
+                            </div> 
                             <div class="row justify-content-center">
-                             
                                     <button class="addProductSubmit-btn" type="submit">{{ __('Create Bank Account') }}</button>
-                              
                             </div>
                         </form>
                     </div>

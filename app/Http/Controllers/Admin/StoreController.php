@@ -102,19 +102,13 @@ class StoreController extends Controller
         $defaultPage = Pagesetting::where('store_id', $defaultStore->id)->firstOrFail();
         $data = $defaultStore->replicateWithTranslations();
         $page = $defaultPage->replicateWithTranslations();
-
         $data->is_default = 0;
-
         $input = $this->withRequiredFields($request->all(), ['title']);
-
         $data->fill($input)->save();
-
         $page->store_id = $data->id;
-
         //page settings being saved
         $page->save();
         //--- Logic Section Ends
-
         //--- Redirect Section        
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -148,12 +142,9 @@ class StoreController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         $input = $this->withRequiredFields($request->all(), ['title']);
         $data = Generalsetting::findOrFail($id);
-
         $data->update($input);
-
         //--- Redirect Section
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);

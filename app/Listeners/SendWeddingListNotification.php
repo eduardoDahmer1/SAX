@@ -10,22 +10,6 @@ use Illuminate\Support\Facades\Mail;
 
 class SendWeddingListNotification implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param  \App\Providers\PublishedWeddingList  $event
-     * @return void
-     */
     public function handle(PublishedWeddingList $event)
     {
         Mail::to($event->user->email)

@@ -23,9 +23,7 @@ class VendorController extends Controller
     {
 
         $this->middleware('auth');
-
         parent::__construct();
-
         $this->middleware(function ($request, $next) {
             $user = Auth::guard('web')->user();
 
@@ -69,10 +67,8 @@ class VendorController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         $input = $request->all();
         $data = Auth::user();
-
         if ($photo = $request->file('photo'))
          {
             $name = time().$photo->getClientOriginalName();
@@ -93,7 +89,6 @@ class VendorController extends Controller
         $msg = __('Data Saved Successfully!');
         return response()->json($msg);
     }
-
     // Spcial Settings All post requests will be done in this method
     public function socialupdate(Request $request)
     {
@@ -106,11 +101,9 @@ class VendorController extends Controller
         if ($request->t_check == ""){
             $input['t_check'] = 0;
         }
-
         if ($request->g_check == ""){
             $input['g_check'] = 0;
         }
-
         if ($request->l_check == ""){
             $input['l_check'] = 0;
         }
@@ -120,7 +113,6 @@ class VendorController extends Controller
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);
         //--- Redirect Section Ends
-
     }
 
     //*** GET Request
@@ -253,10 +245,8 @@ class VendorController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         $data = new Verification();
         $input = $request->all();
-
         $input['attachments'] = '';
         $i = 0;
                 if ($files = $request->file('attachments')){
@@ -285,7 +275,6 @@ class VendorController extends Controller
 
             $data->fill($input)->save();
         }
-
         //--- Redirect Section
         $msg = '<div class="text-center"><i class="fas fa-check-circle fa-4x"></i><br><h3>'.__("Your Documents Submitted Successfully.").'</h3></div>';
         return response()->json($msg);

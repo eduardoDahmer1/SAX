@@ -78,13 +78,11 @@ class PackageController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Package();
         $input = $this->withRequiredFields($request->all(), ['title']);
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section        
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);      
@@ -115,13 +113,11 @@ class PackageController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }        
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = Package::findOrFail($id);
         $input = $this->withRequiredFields($request->all(), ['title']);
         $data->update($input);
         //--- Logic Section Ends
-
         //--- Redirect Section     
         $msg = __('Data Updated Successfully.');
         return response()->json($msg);      

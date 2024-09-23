@@ -10,8 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class CategoryTranslation extends CachedModel
 {
     use LogsActivity;
-
-
     public $timestamps = false;
     protected $fillable = ['name'];
 
@@ -22,7 +20,6 @@ class CategoryTranslation extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->properties = $activity->properties->put('category_id', $this->category_id);

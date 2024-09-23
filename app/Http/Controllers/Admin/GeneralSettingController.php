@@ -43,7 +43,6 @@ class GeneralSettingController extends Controller
         parent::__construct();
     }
 
-
     private function setEnv($key, $value, $prev)
     {
         file_put_contents(app()->environmentFilePath(), str_replace(
@@ -146,12 +145,10 @@ class GeneralSettingController extends Controller
 
             $data->update($input);
             //--- Logic Section Ends
-
             Artisan::call('cache:clear');
             Artisan::call('config:clear');
             Artisan::call('route:clear');
             Artisan::call('view:clear');
-
             //--- Redirect Section
             $msg = __('Data Updated Successfully.');
             return response()->json($msg);
@@ -168,7 +165,6 @@ class GeneralSettingController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         else {
             $data = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
@@ -205,9 +201,7 @@ class GeneralSettingController extends Controller
 
             $this->setEnv('MOLLIE_KEY', $data->molly_key, $prev);
             // Set Molly ENV
-
             //--- Logic Section Ends
-
             //--- Redirect Section
             $msg = __('Data Updated Successfully.');
             return response()->json($msg);
@@ -218,11 +212,8 @@ class GeneralSettingController extends Controller
     public function generalupdateMelhorenvio(Request $request)
     {
         //--- Validation Section
-
         //--- Validation Section Ends
-
         //--- Logic Section
-
         $generalSettings = Session::has('admstore') ? Session::get('admstore') : $this->storeSettings;
         $input = $request->all();
 

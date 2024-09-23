@@ -52,7 +52,6 @@ class ImportController extends Controller
     {
          $user = Auth::user();
          $datas = $user->products()->where('product_type','affiliate')->orderBy('id','desc')->get();
-
          //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
         ->addColumn('action', function (Product $data) {
@@ -179,7 +178,6 @@ class ImportController extends Controller
 
         if($prods < $package->allowed_products || $package->allowed_products == 0)
         {
-
             if($request->image_source == 'file')
             {
                 //--- Validation Section
@@ -198,9 +196,7 @@ class ImportController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
             }
             //--- Validation Section Ends
-
             }
-
         //--- Logic Section
             $data = new Product;
             $sign = Currency::find($this->storeSettings->currency_id);
@@ -229,7 +225,6 @@ class ImportController extends Controller
 
             //-- Translations Section
         // Will check each field in language 1 and then for each other language
-
         // Check Seo
         if (!empty($input[$this->lang->locale]['meta_tag'])) {
             $input[$this->lang->locale]['meta_tag'] = implode(',', $input[$this->lang->locale]['meta_tag']);
@@ -275,7 +270,6 @@ class ImportController extends Controller
             }
         }
         //-- End Translations Section
-
             // Check Physical
             if($request->type == "Physical")
             {
@@ -288,7 +282,6 @@ class ImportController extends Controller
                         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
                     }
                     //--- Validation Section Ends
-
 
             // Check Condition
             if ($request->product_condition_check == ""){
@@ -364,12 +357,9 @@ class ImportController extends Controller
              }
 
             }
-
              // Check License
-
             if($request->type == "License")
             {
-
                 if(in_array(null, $request->license) || in_array(null, $request->license_qty))
                 {
                     $input['license'] = null;
@@ -380,7 +370,6 @@ class ImportController extends Controller
                     $input['license'] = implode(',,', $request->license);
                     $input['license_qty'] = implode(',', $request->license_qty);
                 }
-
             }
 
             // Conert Price According to Currency
@@ -444,8 +433,6 @@ class ImportController extends Controller
           }
         }
 
-
-
            if (empty($attrArr)) {
              $input['attributes'] = NULL;
            } else {
@@ -489,12 +476,10 @@ class ImportController extends Controller
                 }
             }
         //logic Section Ends
-
         //associates with stores
         if($request->has('stores')) {
             $prod->stores()->sync($input['stores']);
         }
-
         //--- Redirect Section
         $msg = __('New Affiliate Product Added Successfully.').'<a href="'.route('vendor-import-index').'">'.__('View Product Lists.').'</a>';
         return response()->json($msg);
@@ -507,7 +492,6 @@ class ImportController extends Controller
 
         //--- Redirect Section Ends
         }
-
     }
 
     //*** GET Request
@@ -539,7 +523,6 @@ class ImportController extends Controller
         //--- Validation Section
         if($request->image_source == 'file')
         {
-
             $rules = [
                 "{$this->lang->locale}.name" => 'required',
                 'file'       => 'mimes:zip'
@@ -553,10 +536,7 @@ class ImportController extends Controller
         if ($validator->fails()) {
         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
-
-
         }
-
 
         //-- Logic Section
         $data = Product::findOrFail($id);
@@ -565,7 +545,6 @@ class ImportController extends Controller
 
         //-- Translations Section
         // Will check each field in language 1 and then for each other language
-
         // Check Seo
         if (!empty($input[$this->lang->locale]['meta_tag'])) {
             $input[$this->lang->locale]['meta_tag'] = implode(',', $input[$this->lang->locale]['meta_tag']);
@@ -620,7 +599,6 @@ class ImportController extends Controller
             }
         }
         //-- End of Translations Section
-
             //Check Types
             if($request->type_check == 1)
             {
@@ -642,7 +620,6 @@ class ImportController extends Controller
                 $input['photo'] = $request->photolink;
             }
 
-
             // Check Physical
             if($data->type == "Physical")
             {
@@ -655,19 +632,15 @@ class ImportController extends Controller
                         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
                     }
                     //--- Validation Section Ends
-
                         // Check Condition
                         if ($request->product_condition_check == ""){
                             $input['product_condition'] = 0;
                         }
-
                         // Check Shipping Time
                         if ($request->shipping_time_check == ""){
                             $input['ship'] = null;
                         }
-
                         // Check Size
-
                         if(empty($request->size_check ))
                         {
                             $input['size'] = null;
@@ -696,7 +669,6 @@ class ImportController extends Controller
                                     $input['stock'] = $stck;
                                 }
                         }
-
                         // Check Color
                         if(empty($request->color_check ))
                         {
@@ -730,7 +702,6 @@ class ImportController extends Controller
                         $input['measure'] = null;
                      }
             }
-
         // Check License
         if($data->type == "License")
         {
@@ -755,9 +726,7 @@ class ImportController extends Controller
                 $input['license_qty'] = implode(',', $license_qty);
             }
         }
-
         }
-
          $input['price'] = $input['price'] / $sign->value;
          $input['previous_price'] = $input['previous_price'] / $sign->value;
 

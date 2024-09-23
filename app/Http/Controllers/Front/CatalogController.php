@@ -129,7 +129,6 @@ class CatalogController extends Controller
     }
 
     // -------------------------------- CATEGORY SECTION ----------------------------------------
-
     public function category(Request $request, $slug = null, $slug1 = null, $slug2 = null)
     {
         $cat = null;
@@ -152,7 +151,6 @@ class CatalogController extends Controller
         $data['first_curr'] = $first_curr;
         $minprice = $minprice / $curr->value;
         $maxprice = $maxprice / $curr->value;
-
         $qty = $request->qty;
         $sort = $request->sort ?? 
             config("app.sort")[config("app.default_sort.collumn")][config("app.default_sort.order")];
@@ -186,7 +184,6 @@ class CatalogController extends Controller
         }
 
         $prods->orderByRaw("(stock > 0 or stock is null) DESC");
-
         $prods->when($cat, function ($query, $cat) {
             return $query->where('category_id', $cat->id);
         })
@@ -242,8 +239,6 @@ class CatalogController extends Controller
 
         $prods = $prods->where(function ($query) use ($cat, $subcat, $childcategory, $request) {
             $flag = 0;
-
-
 
             if (!empty($cat)) {
                 if (!empty($cat->attributes)) {
@@ -303,7 +298,6 @@ class CatalogController extends Controller
                 }
             }
 
-
             if (!empty($subcat)) {
                 foreach ($subcat->attributes as $attribute) {
                     $inname = $attribute->input_name;
@@ -320,7 +314,6 @@ class CatalogController extends Controller
                     }
                 }
             }
-
 
             if (!empty($childcategory)) {
                 foreach ($childcategory->attributes as $attribute) {
@@ -349,9 +342,7 @@ class CatalogController extends Controller
         }
 
         $prods = $prods->onlyFatherProducts()->paginate(isset($qty) ? $qty : 25);
-
         $data['prods'] = $prods;
-
         /* Return featured products if there are no products available via Search */
         if ($data['prods']->count() == 0) {
             $homeSettings = Pagesetting::where('store_id', $this->storeSettings->id)->first();
@@ -393,7 +384,6 @@ class CatalogController extends Controller
         return view('front.category', $data);
     }
 
-
     public function getsubs(Request $request)
     {
         $category = Category::where('slug', $request->category)->firstOrFail();
@@ -401,9 +391,7 @@ class CatalogController extends Controller
         return $subcategories;
     }
 
-
     // -------------------------------- PRODUCT DETAILS SECTION ----------------------------------------
-
     public function report(Request $request)
     {
         //--- Validation Section
@@ -418,13 +406,11 @@ class CatalogController extends Controller
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Report;
         $input = $request->all();
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //--- Redirect Section
         $msg = __('New Data Added Successfully.');
         return response()->json($msg);
@@ -501,7 +487,6 @@ class CatalogController extends Controller
             $color_gallery = null;
         }
 
-
         if ($productt->material_gallery) {
             $material_gallery = explode(",", $productt->material_gallery);
         } else {
@@ -554,9 +539,6 @@ class CatalogController extends Controller
         return redirect($product->affiliate_link);
     }
     // -------------------------------- PRODUCT DETAILS SECTION ENDS----------------------------------------
-
-
-
     // -------------------------------- PRODUCT COMMENT SECTION ----------------------------------------
 
     public function comment(Request $request)
@@ -604,9 +586,7 @@ class CatalogController extends Controller
     }
 
     // -------------------------------- PRODUCT COMMENT SECTION ENDS ----------------------------------------
-
     // -------------------------------- PRODUCT REPLY SECTION ----------------------------------------
-
     public function reply(Request $request, $id)
     {
         $reply = new Reply;
@@ -643,10 +623,7 @@ class CatalogController extends Controller
     }
 
     // -------------------------------- PRODUCT REPLY SECTION ENDS----------------------------------------
-
-
     // ------------------ Rating SECTION --------------------
-
     public function reviewsubmit(Request $request)
     {
         $ck = 0;
@@ -683,12 +660,10 @@ class CatalogController extends Controller
         }
     }
 
-
     public function reviews($id)
     {
         $productt = Product::find($id);
         return view('load.reviews', compact('productt', 'id'));
     }
-
     // ------------------ Rating SECTION ENDS --------------------
 }

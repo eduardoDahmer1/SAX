@@ -8,7 +8,6 @@ class ProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
@@ -46,13 +45,11 @@ class ProductResource extends JsonResource
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];
-        
         $translations = $this->translations()->get(['locale','name','details']);
         foreach ($translations as $translation) {
             $product[$translation->locale]['name'] = $translation->name;
             $product[$translation->locale]['details'] = $translation->details;
         }
-
         return $product;
     }
 }

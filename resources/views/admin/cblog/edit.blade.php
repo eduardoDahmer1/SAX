@@ -1,6 +1,5 @@
 @extends('layouts.load')
 @section('content')
-
 <div class="content-area">
 	<div class="add-product-content">
 		<div class="row">
@@ -8,8 +7,7 @@
 				<div class="product-description">
 					<div class="body-area">
 						@include('includes.admin.form-error')
-						<form id="geniusformdata" action="{{route('admin-cblog-update',$data->id)}}" method="POST"
-							enctype="multipart/form-data">
+						<form id="geniusformdata" action="{{route('admin-cblog-update',$data->id)}}" method="POST" enctype="multipart/form-data">
 							{{csrf_field()}}
 							<div class="row">
 								<div class="col-xl-12">
@@ -49,12 +47,10 @@
 								</div>
 							</div>
 						</form>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 @endsection

@@ -134,7 +134,6 @@ class AttributeController extends Controller
       $newAttr->input_name .= $newAttr->id;
       $newAttr->save();
       //--- Logic Section Ends
-
     /**
      * Prepare data to be stored in the attribute option table.
      * It will first add the data for language 1 and check if there are
@@ -308,15 +307,10 @@ class AttributeController extends Controller
         
       $attr = AttributeOption::find($optionid)->delete();;
      
-    
       //--- Redirect Section
       Session::flash('success', __('Data deleted successfully!'));
       $msg="oi";
       return response()->json($msg);
       //--- Redirect Section Ends 
   }
-
-
-
-
 }

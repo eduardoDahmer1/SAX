@@ -10,8 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class GeneralsettingTranslation extends CachedModel
 {
     use LogsActivity;
-
-
     public $timestamps = false;
     protected $fillable = [
         'title',
@@ -35,7 +33,6 @@ class GeneralsettingTranslation extends CachedModel
         'privacy_policy',
         'vendor_policy'
     ];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -43,7 +40,6 @@ class GeneralsettingTranslation extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->properties = $activity->properties->put('generalsetting_id', $this->generalsetting_id);

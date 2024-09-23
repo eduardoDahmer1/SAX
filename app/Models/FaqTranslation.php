@@ -10,8 +10,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class FaqTranslation extends CachedModel
 {
     use LogsActivity;
-
-
     public $timestamps = false;
     protected $fillable = ['title', 'details'];
 
@@ -22,7 +20,6 @@ class FaqTranslation extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->properties = $activity->properties->put('faq_id', $this->faq_id);

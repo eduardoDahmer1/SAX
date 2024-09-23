@@ -15,17 +15,11 @@ use Illuminate\Support\Facades\Session;
 class Pay42BilletController extends Controller
 {
     use Gateway;
-
     private const INVALID_API_KEY = 1;
-
     private $currency;
-
     private $appUrl;
-
     private $dueDate;
-
     private $documentType;
-
     public function __construct()
     {
         parent::__construct();
@@ -144,7 +138,6 @@ class Pay42BilletController extends Controller
                 'pay42_total' => $total,
                 'pay42_exchange_rate' => $exchange
             ];
-
             $order = Order::where('id',$json['transaction_id'])
             ->update($updateDetails);
         }
@@ -163,7 +156,6 @@ class Pay42BilletController extends Controller
         $line_code = $json['line_code'];
         $bar_code = $json['bar_code'];
         $url = $json['url'];
-
         $updateDetails = [
             'pay42_billet' => $url,
             'pay42_due_date' => $due
@@ -177,7 +169,6 @@ class Pay42BilletController extends Controller
         $oldCart = Session::get('temporder');
         $oldCart->txnid = $id;
         $oldCart->pay42_billet = $url;
-
         if(isset($total) && isset($exchange)){
             $oldCart->pay42_total = $total;
             $oldCart->pay42_exchange_rate = $exchange;

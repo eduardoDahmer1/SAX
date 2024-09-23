@@ -114,7 +114,6 @@ class SubCategoryController extends Controller
             return response()->json(array('errors' => [__('Category not found')]));
         }
         //--- Validation Section Ends
-
         //--- Logic Section
         $data = new Subcategory();
         $input = $this->removeEmptyTranslations($request->all());
@@ -124,15 +123,12 @@ class SubCategoryController extends Controller
             $banner->move('storage/images/subcategories/banners', $name);
             $input['banner'] = $name;
         }
-
         $data->fill($input)->save();
         //--- Logic Section Ends
-
         //-----Creating automatic slug
         $subcat = Subcategory::find($data->id);
         $subcat->slug = Str::slug($data->name, '-').'-'.strtolower($data->id);
         $subcat->update();
-
         //--- Redirect Section
         if ($request->api) {
             return response()->json(array('status' => 'ok'), Response::HTTP_CREATED);
@@ -234,7 +230,6 @@ class SubCategoryController extends Controller
     public function destroy($id)
     {
         $data = Subcategory::findOrFail($id);
-
 
         //If attributes exist
         if ($data->attributes->count() > 0) {

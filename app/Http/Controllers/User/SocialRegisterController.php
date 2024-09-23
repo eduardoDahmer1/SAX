@@ -34,7 +34,6 @@ class SocialRegisterController extends Controller
     {
         return Socialite::driver($provider)->redirect();
     }
-
     public function handleProviderCallback($provider)
     {
         try
@@ -66,7 +65,6 @@ class SocialRegisterController extends Controller
             $user->affilate_code = $socialUser->name.$socialUser->email;
             $user->affilate_code = md5($user->affilate_code);
             $user->save();
-
             $user->socialProviders()->create(
                 ['provider_id' => $socialUser->getId(), 'provider' => $provider]
             );
@@ -77,7 +75,6 @@ class SocialRegisterController extends Controller
         }
         else
         {
-
 
             if(User::where('email',$socialUser->email)->exists())
             {

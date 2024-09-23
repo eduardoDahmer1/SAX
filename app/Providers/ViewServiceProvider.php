@@ -22,21 +22,9 @@ use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
     public function register()
     {
-        //
     }
-
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
     public function boot()
     {
         if (!app()->runningInConsole()) {
@@ -105,18 +93,14 @@ class ViewServiceProvider extends ServiceProvider
                 if (config('document.general')) {
                     $str_document = 'Document';
                 }
-
                 $settings->with('customer_doc_str', $str_document);
-
                 if (!Session::has('popup')) {
                     $settings->with('visited', 1);
                 }
                 Session::put('popup', 1);
-
                 if (!config("features.currency_switcher")) {
                     Session::forget('currency');
                 }
-
                 $data = $storeCurrency;
 
                 if (Session::has('currency') && $storeSettings->is_currency && config("features.currency_switcher")) {

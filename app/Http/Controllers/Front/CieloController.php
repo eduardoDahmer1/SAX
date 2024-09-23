@@ -43,7 +43,6 @@ class CieloController extends Controller
         // Cielo requires shipping cost to be send separately
         $cart_total_without_shipping = $this->cartTotal["before_costs"] + $this->order['packing_cost'];
         $cart_total_without_shipping_currency = $cart_total_without_shipping * $this->order['currency_value'];
-
         // Cielo requires phone number to be between 10 and 11 digits
         // and only numbers
         $phone = preg_replace('/[^0-9]/', null, $this->order->customer_phone);
@@ -78,7 +77,6 @@ class CieloController extends Controller
             $this->paymentErrors['address_number'] = __('Invalid Address Number. Maximum characters is 8');
         }
         
-
         $orderData = [
             "OrderNumber" => $this->order->order_number,
             "Cart" => [
