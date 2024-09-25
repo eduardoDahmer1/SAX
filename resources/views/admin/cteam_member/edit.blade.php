@@ -16,7 +16,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="input-form">
@@ -35,7 +34,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row justify-content-center">
                                     <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
                             </div>

@@ -1,4 +1,3 @@
-{{-- ADD / EDIT MODAL --}}
 <div class="modal fade" id="simplified-checkout-modal" tabindex="-1" role="dialog"
     aria-labelledby="simplified-checkout-modal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -18,4 +17,3 @@
         </div>
     </div>
 </div>
-{{-- ADD / EDIT MODAL ENDS --}}

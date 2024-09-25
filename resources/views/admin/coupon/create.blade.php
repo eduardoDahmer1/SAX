@@ -1,9 +1,7 @@
 @extends('layouts.load')
-
 @section('styles')
 <link href="{{asset('assets/admin/css/jquery-ui.css')}}" rel="stylesheet" type="text/css">
 @endsection
-
 @section('content')
 <div class="content-area">
     <div class="add-product-content">
@@ -127,7 +125,6 @@
     </div>
 </div>
 @endsection
-
 @section('scripts')
 <script type="text/javascript">
   $('#type').on('change', function() {

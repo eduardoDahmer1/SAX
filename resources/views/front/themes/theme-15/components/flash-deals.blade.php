@@ -1,5 +1,4 @@
 @if($ps->flash_deal == 1)
-<!-- Electronics Area Start -->
 <section class="oferta-relampago categori-item electronics-section">
     <div class="container">
         <div class="row">
@@ -25,5 +24,4 @@
         </div>
     </div>
 </section>
-<!-- Electronics Area start-->
 @endif

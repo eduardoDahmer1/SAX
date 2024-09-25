@@ -1,4 +1,3 @@
-{{-- LOADING SPINNER MODAL START --}}
 <div class="modal fade" id="loadingSpinnerModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered d-flex justify-content-center" role="document">
         <div class="spinner-border" role="status">
@@ -16,4 +15,3 @@
         }, 500);
     }
 </script>
-{{-- LOADING SPINNER MODAL ENDS --}}

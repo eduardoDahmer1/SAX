@@ -11,7 +11,6 @@
                     </span>
                 @endif
                 <div class="info">
-
                     @php
                         if ($gs->switch_highlight_currency) {
                             $highlight = $prod->firstCurrencyPrice();
@@ -21,7 +20,6 @@
                             $small = $prod->firstCurrencyPrice();
                         }
                     @endphp
-
                     <p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p>
                     <h5 class="name">{{ $prod->showName() }}</h5>
                     @if($admstore->show_product_prices)
@@ -42,7 +40,6 @@
                         @endif
                     @endif
                 </div>
-
                 <div
                     class="item-img {{ $gs->show_products_without_stock_baw && !is_null($prod->stock) && $prod->stock == 0 ? 'baw' : '' }}">
                     @if ($admstore->reference_code == 1)
@@ -218,7 +215,6 @@
                         </div>
                     @endif
                 </div>
-
                 @if ($gs->is_cart)
                     <div class="item-cart-area">
                         @if ($prod->product_type == 'affiliate')
@@ -268,7 +264,6 @@
 @endif
 @if (isset($ajax_check))
     <script type="text/javascript">
-        // Tooltip Section
         $('[data-toggle="tooltip"]').tooltip({});
         $('[data-toggle="tooltip"]').on('click', function() {
             $(this).tooltip('hide');
@@ -277,6 +272,5 @@
         $('[rel-toggle="tooltip"]').on('click', function() {
             $(this).tooltip('hide');
         });
-        // Tooltip Section Ends
     </script>
 @endif
