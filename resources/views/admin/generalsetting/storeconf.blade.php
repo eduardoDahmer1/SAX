@@ -1,58 +1,10 @@
 @extends('layouts.admin')
-
 @section('styles')
-    <style>
-        .mr-breadcrumb .links .action-list li {
-            display: block;
-        }
-
-        .mr-breadcrumb .links .action-list ul {
-            overflow-y: auto;
-            max-height: 240px;
-        }
-
-        .mr-breadcrumb .links .action-list .go-dropdown-toggle {
-            padding-left: 20px;
-            padding-right: 30px;
-        }
-    </style>
+<style>.mr-breadcrumb .links .action-list li{display:block}.mr-breadcrumb .links .action-list ul{overflow-y:auto;max-height:240px}.mr-breadcrumb .links .action-list .go-dropdown-toggle{padding-left:20px;padding-right:30px}</style>
 @endsection
-
 @section('content')
-
     <div class="content-area">
-        <div class="mr-breadcrumb">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4 class="heading">{{ __('Store') }}</h4>
-                    <ul class="links">
-                        <li>
-                            <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin-gs-storeconf') }}">{{ __('Store') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin-gs-storeconf') }}">{{ __('General') }}</a>
-                        </li>
-                        @if (config('features.multistore'))
-                            <li>
-                                <div class="action-list godropdown">
-                                    <select id="store_filter" class="process select go-dropdown-toggle">
-                                        @foreach ($stores as $store)
-                                            <option
-                                                value="{{ route('admin-stores-isconfig', ['id' => $store['id'], 'redirect' => true]) }}"
-                                                {{ $store['id'] == $admstore->id ? 'selected' : '' }}>{{ $store['domain'] }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="mr-breadcrumb"><div class="row"><div class="col-lg-12"><h4 class="heading">{{ __('Store') }}</h4><ul class="links"><li><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li><li><a href="{{ route('admin-gs-storeconf') }}">{{ __('Store') }}</a></li><li><a href="{{ route('admin-gs-storeconf') }}">{{ __('General') }}</a></li>@if (config('features.multistore'))<li><div class="action-list godropdown"><select id="store_filter" class="process select go-dropdown-toggle">@foreach ($stores as $store)<option value="{{ route('admin-stores-isconfig', ['id' => $store['id'], 'redirect' => true]) }}" {{ $store['id'] == $admstore->id ? 'selected' : '' }}>{{ $store['domain'] }}</option>@endforeach</select></div></li>@endif</ul></div></div></div>
         @include('includes.admin.partials.store-tabs')
         <div class="add-product-content conf-gerais-loja">
             <div class="row">
@@ -65,9 +17,7 @@
                             <form action="{{ route('admin-gs-update') }}" id="geniusform" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
-
                                 @include('includes.admin.form-both')
-
                                 <div class="row">
                                     @if (config('features.lang_switcher'))
                                         <div class="col-xl-3">
@@ -92,7 +42,6 @@
                                             </div>
                                         </div>
                                     @endif
-
                                     @if (config('features.currency_switcher'))
                                         <div class="col-xl-3">
                                             <div class="input-form">
@@ -116,7 +65,6 @@
                                             </div>
                                         </div>
                                     @endif
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -137,7 +85,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     @if (env('ENABLE_SWITCH_HIGHLIGHT_CURRENCY'))
                                         <div class="col-xl-3">
                                             <div class="input-form">
@@ -163,7 +110,6 @@
                                             </div>
                                         </div>
                                     @endif
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -184,7 +130,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -205,7 +150,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -224,7 +168,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -245,7 +188,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -267,7 +209,6 @@
 
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -288,7 +229,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -309,7 +249,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Whatsapp Number') }}:
@@ -319,7 +258,6 @@
                                                 value="{{ $admstore->whatsapp_number }}">
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -342,7 +280,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -365,7 +302,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -388,7 +324,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -411,7 +346,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -432,7 +366,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -455,14 +388,9 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-                                <!--FECHAMENTO TAG ROW-->
-
                                 <div class="row justify-content-center">
-
                                     <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
-
                                 </div>
                             </form>
                         </div>
@@ -471,17 +399,7 @@
             </div>
         </div>
     </div>
-
 @endsection
-
 @section('scripts')
-    <script>
-        $('document').ready(function() {
-            $("#store_filter").niceSelect('update');
-        });
-
-        $("#store_filter").on('change', function() {
-            window.location.href = $(this).val();
-        });
-    </script>
+<script>$(document).ready(function(){$("#store_filter").niceSelect('update');$("#store_filter").on('change',function(){window.location.href=$(this).val();});});</script>
 @endsection

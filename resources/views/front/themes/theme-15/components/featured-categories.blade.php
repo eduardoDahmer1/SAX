@@ -9,7 +9,6 @@
             $categoryhasimage = false;
         }
     @endphp
-    {{-- Slider buttom Category Start --}}
     <section class="slider-buttom-category categorias-destaq">
         <div class="container">
             <div class="row">
@@ -35,6 +34,4 @@
             </div>
         </div>
     </section>
-    {{-- Slider buttom banner End --}}
-
 @endif

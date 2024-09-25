@@ -1,13 +1,10 @@
 <div class="row">
-
   @foreach($blogs as $blogg)
   <div class="col-md-6 col-lg-4">
     <div class="blog-box">
       <div class="blog-images">
         <div class="img">
-          <img
-            src="{{ $blogg->photo ? asset('storage/images/blogs/'.$blogg->photo):asset('assets/images/noimage.png') }}"
-            class="img-fluid" alt="">
+          <img src="{{ $blogg->photo ? asset('storage/images/blogs/'.$blogg->photo):asset('assets/images/noimage.png') }}" class="img-fluid" alt="">
           <div class="date d-flex justify-content-center">
             <div class="box align-self-center">
               <p>{{date('d', strtotime($blogg->created_at))}}</p>
@@ -29,12 +26,8 @@
       </div>
     </div>
   </div>
-
-
   @endforeach
-
 </div>
-
 <div class="page-center">
   {!! $blogs->links() !!}
 </div>
