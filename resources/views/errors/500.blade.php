@@ -1,4 +1,3 @@
-<!-- resources/views/errors/500.blade.php -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,22 +5,7 @@
     <meta http-equiv="refresh" content="5">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erro 500 - Ocorreu um problema!</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 50px;
-            text-align: center;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-    </style>
+    <style>body{font-family:Arial,sans-serif;background-color:#f0f0f0;padding:50px;text-align:center}.container{background-color:#fff;padding:20px;border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:600px;margin:0 auto}</style>
 </head>
 <body>
     <div class="container">
@@ -31,7 +15,7 @@
     <script>
         setTimeout(function() {
             location.reload();
-        }, 1000); // recarrega a página após 1 segundos
+        }, 1000);
     </script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('content')
-    <!-- Breadcrumb Area Start -->
     <div class="breadcrumb-area">
         <div class="container">
             <div class="row">
@@ -21,8 +20,6 @@
             </div>
         </div>
     </div>
-    <!-- Breadcrumb Area End -->
-
     <section class="fourzerofour">
         <div class="container">
             <div class="row">

@@ -9,7 +9,6 @@
                         @include('includes.admin.form-error')
                         <form id="geniusformdata" action="{{route('admin-cteam_member-create')}}" method="POST" enctype="multipart/form-data">
                             {{csrf_field()}}
-
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="input-form">
@@ -17,7 +16,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="input-form">
@@ -33,10 +31,8 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row justify-content-center">
                                     <button class="addProductSubmit-btn" type="submit">{{ __('Create Category') }}</button>
-                    
                             </div>
                         </form>
                     </div>
