@@ -1,14 +1,6 @@
 <div class="trending">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 remove-padding">
-                <div class="section-top">
-                    <h2 class="section-title">
-                        {{ __("Vendors") }}
-                    </h2>
-                </div>
-            </div>
-        </div>
+        <div class="row"><div class="col-lg-12 remove-padding"><div class="section-top"><h2 class="section-title">{{ __("Vendors") }}</h2></div></div></div>
         <div class="row">
             @foreach($productt->category->products()->byStore()
             ->where('status','=',1)

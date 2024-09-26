@@ -1,5 +1,4 @@
-<div class="product-size">
-    <p class="title">{{ __("Size") }} :</p>
+<div class="product-size"><p class="title">{{ __("Size") }} :</p>
     <ul class="siz-list">
         @php
         $is_selected = false;
@@ -11,8 +10,7 @@
                 <input type="hidden" class="size" value="{{ $data1 }}">
                 <input type="hidden" class="size_qty" value="{{ $productt->size_qty[$key] }}">
                 <input type="hidden" class="size_key" value="{{$key}}">
-                <input type="hidden" class="size_price" value="{{ round($productt->size_price[$key] *
-                                $product_curr->value * (1+($gs->product_percent / 100)),2) }}">
+                <input type="hidden" class="size_price" value="{{ round($productt->size_price[$key] * $product_curr->value * (1+($gs->product_percent / 100)),2) }}">
             </span>
         </li>
         @php

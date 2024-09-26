@@ -4,11 +4,7 @@
             <div class="col-lg-12">
                 <ul class="pages">
                     <li><a href="{{route('front.index')}}">{{ __("Home") }}</a></li>
-                    <li>
-                        <a href="{{route('front.category',$productt->category->slug)}}">
-                            {{$productt->category->name}}
-                        </a>
-                    </li>
+                    <li><a href="{{route('front.category',$productt->category->slug)}}">{{$productt->category->name}}</a></li>
                     @if(!empty($productt->subcategory->name))
                     <li>
                         <a href="{{ route('front.subcat',[
@@ -28,11 +24,7 @@
                     </li>
                     @endif
                     @endif
-                    <li>
-                        <a href="{{ route('front.product', $productt->slug) }}">
-                            {{ $productt->name }}
-                        </a>
-                    </li>
+                    <li><a href="{{ route('front.product', $productt->slug) }}">{{ $productt->name }}</a></li>
                 </ul>
             </div>
         </div>

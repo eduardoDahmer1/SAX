@@ -1,72 +1,27 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('styles')
-<style>
-.area-boleto{
-    text-align: center;
-}
-.area-boleto .content .heading{
-    font-size: 30px;
-    font-weight: 700;
-}
-.area-boleto .content  .text{
-    margin-bottom: 0px;
-    font-size: 16px;
-    line-height: 26px;
-}
-.area-boleto .content .link{
-    font-weight: 700;
-    font-size: 14px;
-    text-decoration: underline;;
-}
-.area-boleto .content{
-    margin-bottom: 30px;
-}
-.product-header-title h2 {
-    font-size: 18px;
-    font-weight: 600;
-}
-.color-text-wpp{
-    background: green;
-    padding: 1em;
-    border-radius: 7px;
-    color: white;
-}
-</style>
+<style>.area-boleto{text-align:center;}.area-boleto .content .heading{font-size:30px;font-weight:700;}.area-boleto .content .text{margin-bottom:0;font-size:16px;line-height:26px;}.area-boleto .content .link{font-weight:700;font-size:14px;text-decoration:underline;}.area-boleto .content{margin-bottom:30px;}.product-header-title h2{font-size:18px;font-weight:600;}.color-text-wpp{background:green;padding:1em;border-radius:7px;color:white;}</style>
 @section('content')
-<!-- Breadcrumb Area Start -->
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <ul class="pages">
-                    <li>
-                        <a href="{{ route('front.index') }}">
-                            {{ __("Home") }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('payment.return') }}">
-                            {{ __("Success") }}
-                        </a>
-                    </li>
+                    <li><a href="{{ route('front.index') }}">{{ __("Home") }}</a></li>
+                    <li><a href="{{ route('payment.return') }}">{{ __("Success") }}</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<!-- Breadcrumb Area End -->
 <section class="tempcart">
     @if(!empty($tempcart))
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <!-- Starting of Dashboard data-table area -->
                 <div class="content-box section-padding add-product-1 ">
                     <div class="area-boleto">
-                        <div class="content">
-                            <h4 class="heading">
-                                {{ __("THANK YOU FOR YOUR PURCHASE.") }}
-                            </h4>
+                        <div class="content"><h4 class="heading">{{ __("THANK YOU FOR YOUR PURCHASE.") }}</h4>
                             @if($order->method == "Bank Deposit")
                                 @if(Auth::user())
                                     <a class="btn btn-success m-3" id="link-simplified" href="{{ route("user-upload-receipt", $order->id) }}" target="_blank"><span class="heading" style="font-size: 20px"><i class="fa fa-external-link"></i>{{ __("Upload your payment receipt") }}</span></a>
@@ -81,19 +36,13 @@
                                 <a class="btn btn-success m-3" href="{{$order->pay42_billet}}" target="_blank"><span class="heading" style="font-size: 20px"><i class="fa fa-external-link"></i>{{__('Access billet')}} </a></span>
                             {{-- </div> --}}
                             @endif
-                            <p class="text">
-                                {{ __("We'll email you an order confirmation with details and tracking info.") }}
-                            </p>
+                            <p class="text">{{ __("We'll email you an order confirmation with details and tracking info.") }}</p>
                             @if(Session::has('gateway_message'))
                             <br>
-                            <p class="text">
-                                {{Session::get('gateway_message')}}
-                            </p>
+                            <p class="text">{{Session::get('gateway_message')}}</p>
                             @endif
                             @if(Session::has('gateway_url'))
-                            <a class="btn btn-success m-3" id="link-simplified" href='{{Session::get('gateway_url')}}'
-                                target="_blank"><span class="heading" style="font-size: 20px"><i
-                                        class="fa fa-external-link"></i>{{ (Session::has('gateway_url_title') ? Session::get('gateway_url_title') : __("Click Here")) }}</span></a>
+                            <a class="btn btn-success m-3" id="link-simplified" href="{{ Session::get('gateway_url') }}" target="_blank"><span class="heading" style="font-size: 20px"><i class="fa fa-external-link"></i>{{ Session::has('gateway_url_title') ? Session::get('gateway_url_title') : __("Click Here") }}</span></a>
                             <br>
                             @endif
                             @if(Session::has('pix_qrcode'))
@@ -105,9 +54,7 @@
                             @endif
                             @if(isset($pay42_qrcode))
                             <img src="{{asset($pay42_qrcode)}}" width="50%" alt="">
-                            <p>PIX QR CODE 
-                                {{__('Expire in: ')}} {{$order->pay42_due_date.' UTC'}}  </p>
-                            <br>
+                            <p>PIX QR CODE {{__('Expire in: ')}} {{$order->pay42_due_date.' UTC'}}  </p><br>
                             <br><br><br>
                             @endif
                             <a href="{{ route('front.index') }}" class="link">{{ __("Get Back To Our Homepage") }}</a>
@@ -117,11 +64,7 @@
                         <div class="col-lg-12">
                             <div class="product__header">
                                 <div class="row reorder-xs">
-                                    <div class="col-lg-12">
-                                        <div class="product-header-title">
-                                            <h2>{{ __("Order#") }} {{$order->order_number}}</h2>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-12"><div class="product-header-title"><h2>{{ __("Order#") }} {{$order->order_number}}</h2></div></div>
                                     @include('includes.form-success')
                                     <div class="col-md-12" id="tempview">
                                         <div class="dashboard-content">
@@ -195,9 +138,7 @@
                                                             </address>
                                                             @else
                                                             <h5>{{ __("PickUp Location") }}</h5>
-                                                            <address>
-                                                                {{ __("Address:") }} {{$order->customer_city}}, {{$order->customer_address}}, {{$order->customer_zip}}<br>
-                                                            </address>
+                                                            <address>{{ __("Address:") }} {{$order->customer_city}}, {{$order->customer_address}}, {{$order->customer_zip}}<br></address>
                                                             @endif
                                                         </div>
                                                         <div class="col-md-6">
@@ -322,11 +263,7 @@
                                                                     App\Models\Product::find($product['item']['id']);
                                                                     @endphp
                                                                     @if(isset($prod))
-                                                                    <p style="margin-bottom: 0; font-size: 10px">
-                                                                        {{ __('Product SKU') }} - {{$prod->sku}}</p>
-                                                                    <p style="font-size: 10px">
-                                                                        {{ __('Reference Code') }} - {{$prod->ref_code}}
-                                                                    </p>
+                                                                    <p style="margin-bottom: 0; font-size: 10px">{{ __('Product SKU') }} - {{$prod->sku}}</p><p style="font-size: 10px">{{ __('Reference Code') }} - {{$prod->ref_code}}</p>
                                                                     @endif
                                                                 </td>
                                                                 <td>
@@ -370,17 +307,11 @@
                                                                     @endif
                                                                 </td>
                                                                 @if($product['item']['promotion_price'] > 0)
-                                                                    <td style="text-align: end;">
-                                                                        {{$order->currency_sign}}{{number_format($product['item']['promotion_price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
-                                                                    </td>
+                                                                    <td style="text-align: end;">{{$order->currency_sign}}{{number_format($product['item']['promotion_price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small></td>
                                                                 @else
-                                                                    <td style="text-align: end;">
-                                                                        {{$order->currency_sign}}{{number_format($product['item']['price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
-                                                                    </td>
+                                                                    <td style="text-align: end;">{{$order->currency_sign}}{{number_format($product['item']['price'] * $order->currency_value,  $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['item']['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small></td>
                                                                 @endif
-                                                                <td style="text-align: end;">
-                                                                    {{$order->currency_sign}}{{number_format($product['price'] * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small>
-                                                                </td>
+                                                                <td style="text-align: end;">{{$order->currency_sign}}{{number_format($product['price'] * $order->currency_value, $order_curr->decimal_digits, $order_curr->decimal_separator,$order_curr->thousands_separator)}}<br><small>{{$first_curr->sign}}{{ number_format($product['price'],  $first_curr->decimal_digits, $first_curr->decimal_separator,$first_curr->thousands_separator) }}</small></td>
                                                             </tr>
                                                             @endforeach
                                                         </tbody>
@@ -451,11 +382,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Ending of Dashboard data-table area -->
             </div>
             @endif
 </section>
-
             @php
             $linkSimplifiedCheckout = "*| " . __('New Order - Simplified Checkout') . " |*" .
             PHP_EOL.PHP_EOL;
@@ -559,9 +488,6 @@
             $link = "https://web.whatsapp.com/send?1=pt_BR&phone=" . $gs->simplified_checkout_number .
             "&text=" . urlencode($linkWpp);
             @endphp
-
-<!-- Small modal -->
-
 <div id="mySmallModalLabel" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -575,28 +501,20 @@
                     <h5 class="card-title">{{__('Start Conversation')}}</h5>
                     <p class="card-text">{{ __("You will be redirected to a new page to continue your order.") }}</p>
                     <div class="mobile-button" style="display:flex; justify-content:center;">
-                        <a class="btn btn-success d-block d-lg-none" href="{{$linkMobile}}" style="color: #fff;"
-                            target="_blank">{{ __("Accept")}}</a>
-                        <button type="button" class="btn btn-danger d-block d-lg-none" style="margin-left: 10px;"
-                            data-dismiss="modal">{{ __("Close") }}</button>
+                        <a class="btn btn-success d-block d-lg-none" href="{{$linkMobile}}" style="color: #fff;" target="_blank">{{ __("Accept")}}</a>
+                        <button type="button" class="btn btn-danger d-block d-lg-none" style="margin-left: 10px;"data-dismiss="modal">{{ __("Close") }}</button>
                     </div>
                     <div style="display:flex; justify-content:center;">
-                        <a class="btn btn-success d-none d-lg-block" href="{{$link}}" style="color: #fff;"
-                            target="_blank">{{ __("Accept")}}</a>
-                        <button type="button" class="btn btn-danger d-none d-lg-block" style="margin-left: 10px;"
-                            data-dismiss="modal">{{ __("Close") }}</button>
+                        <a class="btn btn-success d-none d-lg-block" href="{{$link}}" style="color: #fff;"target="_blank">{{ __("Accept")}}</a>
+                        <button type="button" class="btn btn-danger d-none d-lg-block" style="margin-left: 10px;"data-dismiss="modal">{{ __("Close") }}</button>
                     </div>
 
                 </div>
-                <div class="card-footer text-muted">
-                    {{ __("Order#") }} {{$order->order_number}}
-                </div>
+                <div class="card-footer text-muted">{{ __("Order#") }} {{$order->order_number}}</div>
             </div>
-
         </div>
     </div>
 </div>
-
 <script>
     window.onload = function() {
         $('#mySmallModalLabel').modal('show');
@@ -608,8 +526,6 @@
     };
 
 </script>
-
-
 @endsection
 @section('scripts')
 <script>

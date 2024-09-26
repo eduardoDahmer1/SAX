@@ -1,5 +1,4 @@
 @extends('front.themes.theme-15.layout')
-
 @section('content')
     @include('front.themes.theme-15.components.header-slider')
     @include('front.themes.theme-15.components.logo-slider')
