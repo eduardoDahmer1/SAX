@@ -7,7 +7,6 @@ $highlight = $product->showPrice();
 $small = $product->firstCurrencyPrice();
 }
 @endphp
-
 <div id="quick-details" class="row product-details-page py-0">
     <div class="col-lg-5">
         <div class="xzoom-container">
@@ -104,50 +103,55 @@ $small = $product->firstCurrencyPrice();
                     </ul>
                 </div>
                 @if($product->show_price)
-                    <div class="product-price">
-                        @if($gs->show_product_prices)
-                            <p class="title">{{ __("Price") }} :</p>
-                        @endif
-                        @if($product->promotion_price > 0 && $product->promotion_price < $product->price)
-                            <span style=" font-weight: 400; text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
-                            <p class="price"><span id="msizeprice">{{$curr->sign}}{{ $product->promotion_price }}</span>
-                                @php
-                                    $size_price_value = $product->vendorPrice() * $curr->value;
-                                    $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent / 100));
-                                @endphp
-                                <small>
-                                    <del id="mpreviousprice"
-                                        style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
-                                    </del>
-                                </small>
-                                <input type="hidden" id="mprevious_price_value" value="{{ round($previous_price_value,2) }}">
-                                @if($curr->id != $first_curr->id)
-                                    <small><span id="moriginalprice">{{ $small }}</span></small>
-                                @endif
-                            </p>
-                        @else
-                            <p class="price"><span id="msizeprice">{{ $highlight }}</span>
-                                @php
-                                    $size_price_value = $product->vendorPrice() * $curr->value;
-                                    $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent / 100));
-                                @endphp
-                                <small>
-                                    <del id="mpreviousprice"
-                                        style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
-                                    </del>
-                                </small>
-                                <input type="hidden" id="mprevious_price_value" value="{{ round($previous_price_value,2) }}">
-                                @if($curr->id != $first_curr->id)
-                                    <small><span id="moriginalprice">{{ $small }}</span></small>
-                                @endif
-                            </p>
-                        @endif
-                            @if($product->youtube != null)
-                                <a href="{{ $product->youtube }}" class="video-play-btn mfp-iframe">
-                                    <i class="fas fa-play"></i>
-                                </a>
+                <div class="product-price">
+                    @if($gs->show_product_prices)
+                    <p class="title">{{ __("Price") }} :</p>
+                    @endif
+                    @if($product->promotion_price > 0 && $product->promotion_price < $product->price)
+                        <span
+                            style=" font-weight: 400; text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                        <p class="price"><span id="msizeprice">{{$curr->sign}}{{ $product->promotion_price }}</span>
+                            @php
+                            $size_price_value = $product->vendorPrice() * $curr->value;
+                            $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent
+                            / 100));
+                            @endphp
+                            <small>
+                                <del id="mpreviousprice"
+                                    style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
+                                </del>
+                            </small>
+                            <input type="hidden" id="mprevious_price_value"
+                                value="{{ round($previous_price_value,2) }}">
+                            @if($curr->id != $first_curr->id)
+                            <small><span id="moriginalprice">{{ $small }}</span></small>
                             @endif
-                    </div>
+                        </p>
+                        @else
+                        <p class="price"><span id="msizeprice">{{ $highlight }}</span>
+                            @php
+                            $size_price_value = $product->vendorPrice() * $curr->value;
+                            $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent
+                            / 100));
+                            @endphp
+                            <small>
+                                <del id="mpreviousprice"
+                                    style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
+                                </del>
+                            </small>
+                            <input type="hidden" id="mprevious_price_value"
+                                value="{{ round($previous_price_value,2) }}">
+                            @if($curr->id != $first_curr->id)
+                            <small><span id="moriginalprice">{{ $small }}</span></small>
+                            @endif
+                        </p>
+                        @endif
+                        @if($product->youtube != null)
+                        <a href="{{ $product->youtube }}" class="video-play-btn mfp-iframe">
+                            <i class="fas fa-play"></i>
+                        </a>
+                        @endif
+                </div>
                 @endif
                 @if(!empty($product->size))
                 <div class="mproduct-size">
@@ -251,8 +255,7 @@ $small = $product->firstCurrencyPrice();
                                                     data-price="{{ $attrVal['prices'][$optionKey] * $curr->value * (1+($gs->product_percent / 100)) }}"
                                                     value="{{ $optionKey }}" {{ $loop->first ? 'checked' : '' }}>
                                                 @if($loop->count > 1)
-                                                <label class="custom-control-label"
-                                                    for="{{$attrKey}}{{ $optionKey }}">{{
+                                                <label class="custom-control-label" for="{{$attrKey}}{{ $optionKey }}">{{
                                                     App\Models\AttributeOption::find($optionVal)->name }}
                                                     @if (!empty($attrVal['prices'][$optionKey]) &&
                                                     $attr_search->show_price == 1)
@@ -335,99 +338,120 @@ $small = $product->firstCurrencyPrice();
     </div>
 </div>
 <style type="text/css">
-    @media (min-width: 1200px) {
-        .xzoom-preview {
-            width: 450px !important;
-            height: 390px !important;
-            background: white;
-            position: inherit;
-            z-index: 99999;
-            @if($slocale->rtl=="1") right: 900px;
-            @endif
-        }
+@media (min-width: 1200px) {
+    .xzoom-preview {
+        width: 450px !important;
+        height: 390px !important;
+        background: white;
+        position: inherit;
+        z-index: 99999;
+        @if($slocale->rtl=="1") right: 900px;
+        @endif
     }
+}
 </style>
 <script type="text/javascript">
-    $(document).ready(function() {
+$(document).ready(function() {
     var w = window.innerWidth;
-    if( w > 575)
-    {
-        $('.quick-zoom, .quick-zoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
-        //Integration with hammer.js
+    if (w > 575) {
+        $('.quick-zoom, .quick-zoom-gallery').xzoom({
+            tint: '#006699',
+            Xoffset: 15
+        });
         var isTouchSupported = 'ontouchstart' in window;
         if (isTouchSupported) {
-            //If touch device
-            $('.quick-zoom').each(function(){
+            $('.quick-zoom').each(function() {
                 var xzoom = $(this).data('xzoom');
                 xzoom.eventunbind();
             });
-        $('.quick-zoom').each(function() {
-            var xzoom = $(this).data('xzoom');
-            $(this).hammer().on("tap", function(event) {
-                event.pageX = event.gesture.center.pageX;
-                event.pageY = event.gesture.center.pageY;
-                var s = 1, ls;
-                xzoom.eventmove = function(element) {
-                    element.hammer().on('drag', function(event) {
-                        event.pageX = event.gesture.center.pageX;
-                        event.pageY = event.gesture.center.pageY;
-                        xzoom.movezoom(event);
-                        event.gesture.preventDefault();
-                    });
-                }
-                var counter = 0;
-                xzoom.eventclick = function(element) {
-                    element.hammer().on('tap', function() {
-                        counter++;
-                        if (counter == 1) setTimeout(openmagnific,300);
-                        event.gesture.preventDefault();
-                    });
-                }
-                function openmagnific() {
-                    if (counter == 2) {
-                        xzoom.closezoom();
-                        var gallery = xzoom.gallery().cgallery;
-                        var i, images = new Array();
-                        for (i in gallery) {
-                            images[i] = {src: gallery[i]};
-                        }
-                        $.magnificPopup.open({items: images, type:'image', gallery: {enabled: true}});
-                    } else {
-                        xzoom.closezoom();
+            $('.quick-zoom').each(function() {
+                var xzoom = $(this).data('xzoom');
+                $(this).hammer().on("tap", function(event) {
+                    event.pageX = event.gesture.center.pageX;
+                    event.pageY = event.gesture.center.pageY;
+                    var s = 1,
+                        ls;
+                    xzoom.eventmove = function(element) {
+                        element.hammer().on('drag', function(event) {
+                            event.pageX = event.gesture.center.pageX;
+                            event.pageY = event.gesture.center.pageY;
+                            xzoom.movezoom(event);
+                            event.gesture.preventDefault();
+                        });
                     }
-                    counter = 0;
-                }
-                xzoom.openzoom(event);
+                    var counter = 0;
+                    xzoom.eventclick = function(element) {
+                        element.hammer().on('tap', function() {
+                            counter++;
+                            if (counter == 1) setTimeout(openmagnific, 300);
+                            event.gesture.preventDefault();
+                        });
+                    }
+                    function openmagnific() {
+                        if (counter == 2) {
+                            xzoom.closezoom();
+                            var gallery = xzoom.gallery().cgallery;
+                            var i, images = new Array();
+                            for (i in gallery) {
+                                images[i] = {
+                                    src: gallery[i]
+                                };
+                            }
+                            $.magnificPopup.open({
+                                items: images,
+                                type: 'image',
+                                gallery: {
+                                    enabled: true
+                                }
+                            });
+                        } else {
+                            xzoom.closezoom();
+                        }
+                        counter = 0;
+                    }
+                    xzoom.openzoom(event);
+                });
             });
-        });
         } else {
-            //If not touch device
-            //Integration with fancybox plugin
             $('#xzoom-fancy').bind('click', function(event) {
                 var xzoom = $(this).data('xzoom');
                 xzoom.closezoom();
-                $.fancybox.open(xzoom.gallery().cgallery, {padding: 0, helpers: {overlay: {locked: false}}});
+                $.fancybox.open(xzoom.gallery().cgallery, {
+                    padding: 0,
+                    helpers: {
+                        overlay: {
+                            locked: false
+                        }
+                    }
+                });
                 event.preventDefault();
             });
-            //Integration with magnific popup plugin
             $('#xzoom-magnific1').bind('click', function(event) {
                 var xzoom = $(this).data('xzoom');
                 xzoom.closezoom();
                 var gallery = xzoom.gallery().cgallery;
                 var i, images = new Array();
                 for (i in gallery) {
-                    images[i] = {src: gallery[i]};
+                    images[i] = {
+                        src: gallery[i]
+                    };
                 }
-                $.magnificPopup.open({items: images, type:'image', gallery: {enabled: true}});
-                $(document).off('focusin' );
+                $.magnificPopup.open({
+                    items: images,
+                    type: 'image',
+                    gallery: {
+                        enabled: true
+                    }
+                });
+                $(document).off('focusin');
                 event.preventDefault();
             });
         }
     }
-    });
+});
 function formatMoney(number, decPlaces, decSep, thouSep) {
     decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-    decSep = typeof decSep === "undefined" ? "." : decSep;
+        decSep = typeof decSep === "undefined" ? "." : decSep;
     thouSep = typeof thouSep === "undefined" ? "," : thouSep;
     var sign = number < 0 ? "-" : "";
     var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
@@ -436,10 +460,9 @@ function formatMoney(number, decPlaces, decSep, thouSep) {
         (j ? i.substr(0, j) + thouSep : "") +
         i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
         (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
-    }
-//   magnific popup
+}
 $('.video-play-btn').magnificPopup({
-type: 'video'
+    type: 'video'
 });
 var sizes = "";
 var size_qty = "";
@@ -451,189 +474,186 @@ var mstock = $('.product-stock').val();
 var keys = "";
 var values = "";
 var prices = "";
-$('.mproduct-attr').on('change',function(){
-var total;
-total = mgetAmount()+mgetSizePrice();
-var previous_price = parseFloat($('#mprevious_price_value').val());
-if(total >= previous_price){
-  $('#mpreviousprice').hide();
-}else{
-  $('#mpreviousprice').show();
-}
-total = total.toFixed(2);
-var pos = $('#mcurr_pos').val();
-var sign = $('#mcurr_sign').val();
-var first_sign=$("#mfirst_sign").val();
-var curr_value=$("#curr_value").val();
-curr_value = total/curr_value;
-curr_value = curr_value.toFixed(2);
-var dec_sep = $("#mdec_sep").val();
-var tho_sep = $("#mtho_sep").val();
-var dec_dig = $("#mdec_dig").val();
-var dec_sep2 = $("#mdec_sep2").val();
-var tho_sep2 = $("#mtho_sep2").val();
-var dec_dig2 = $("#mdec_dig2").val();
-total = formatMoney(total,dec_dig,dec_sep,tho_sep);
-curr_value = formatMoney(curr_value,dec_dig2,dec_sep2,tho_sep2);
-if(pos == '0')
-{
-$('#msizeprice').html(sign+total);
-$('#moriginalprice').html(first_sign+curr_value);
-}
-else {
-$('#msizeprice').html(total+sign);
-$('#moriginalprice').html(curr_value+first_sign);
-}
+$('.mproduct-attr').on('change', function() {
+    var total;
+    total = mgetAmount() + mgetSizePrice();
+    var previous_price = parseFloat($('#mprevious_price_value').val());
+    if (total >= previous_price) {
+        $('#mpreviousprice').hide();
+    } else {
+        $('#mpreviousprice').show();
+    }
+    total = total.toFixed(2);
+    var pos = $('#mcurr_pos').val();
+    var sign = $('#mcurr_sign').val();
+    var first_sign = $("#mfirst_sign").val();
+    var curr_value = $("#curr_value").val();
+    curr_value = total / curr_value;
+    curr_value = curr_value.toFixed(2);
+    var dec_sep = $("#mdec_sep").val();
+    var tho_sep = $("#mtho_sep").val();
+    var dec_dig = $("#mdec_dig").val();
+    var dec_sep2 = $("#mdec_sep2").val();
+    var tho_sep2 = $("#mtho_sep2").val();
+    var dec_dig2 = $("#mdec_dig2").val();
+    total = formatMoney(total, dec_dig, dec_sep, tho_sep);
+    curr_value = formatMoney(curr_value, dec_dig2, dec_sep2, tho_sep2);
+    if (pos == '0') {
+        $('#msizeprice').html(sign + total);
+        $('#moriginalprice').html(first_sign + curr_value);
+    } else {
+        $('#msizeprice').html(total + sign);
+        $('#moriginalprice').html(curr_value + first_sign);
+    }
 });
-function mgetSizePrice()
-{
-var total = 0;
-if($('.mproduct-size .siz-list li').length > 0)
-{
-total = parseFloat($('.mproduct-size .siz-list li.active').find('.msize_price').val());
+function mgetSizePrice() {
+    var total = 0;
+    if ($('.mproduct-size .siz-list li').length > 0) {
+        total = parseFloat($('.mproduct-size .siz-list li.active').find('.msize_price').val());
+    }
+    return total;
 }
-return total;
+function mgetAmount() {
+    var total = 0;
+    var value = parseFloat($('#mproduct_price').val());
+    var datas = $(".mproduct-attr:checked").map(function() {
+        return $(this).data('price');
+    }).get();
+    var data;
+    for (data in datas) {
+        total += parseFloat(datas[data]);
+    }
+    total += value;
+    return total;
 }
-function mgetAmount()
-{
-var total = 0;
-var value = parseFloat($('#mproduct_price').val());
-var datas = $(".mproduct-attr:checked").map(function() {
-return $(this).data('price');
-}).get();
-var data;
-for (data in datas) {
-total += parseFloat(datas[data]);
-}
-total += value;
-return total;
-}
-// Product Details Product Size Active Js Code
-$('.mproduct-size .siz-list .box').on('click', function () {
-$('.modal-total').html('1');
-var parent = $(this).parent();
-size_qty = $(this).find('.msize_qty').val();
-size_price = $(this).find('.msize_price').val();
-size_key = $(this).find('.msize_key').val();
-sizes = $(this).find('.msize').val();
-$('.mproduct-size .siz-list li').removeClass('active');
-parent.addClass('active');
-total = mgetAmount()+parseFloat(size_price);
-var previous_price = parseFloat($('#mprevious_price_value').val());
-if(total >= previous_price){
-  $('#mpreviousprice').hide();
-}else{
-  $('#mpreviousprice').show();
-}
-stock = size_qty;
-total = total.toFixed(2);
-var curr_value=$("#curr_value").val();
-curr_value = total/curr_value;
-curr_value=curr_value.toFixed(2);
-var pos = $('#mcurr_pos').val();
-var sign = $('#mcurr_sign').val();
-var first_sign=$("#mfirst_sign").val();
-var dec_sep = $("#mdec_sep").val();
-var tho_sep = $("#mtho_sep").val();
-var dec_dig = $("#mdec_dig").val();
-var dec_sep2 = $("#mdec_sep2").val();
-var tho_sep2 = $("#mtho_sep2").val();
-var dec_dig2 = $("#mdec_dig2").val();
-total = formatMoney(total,dec_dig,dec_sep,tho_sep);
-curr_value = formatMoney(curr_value,dec_dig2,dec_sep2,tho_sep2);
-if(pos == '0')
-{
-$('#msizeprice').html(sign+total);
-$('#moriginalprice').html(first_sign+curr_value);
-}
-else {
-$('#msizeprice').html(total+sign);
-$('#moriginalprice').html(curr_value+first_sign);
-}
+$('.mproduct-size .siz-list .box').on('click', function() {
+    $('.modal-total').html('1');
+    var parent = $(this).parent();
+    size_qty = $(this).find('.msize_qty').val();
+    size_price = $(this).find('.msize_price').val();
+    size_key = $(this).find('.msize_key').val();
+    sizes = $(this).find('.msize').val();
+    $('.mproduct-size .siz-list li').removeClass('active');
+    parent.addClass('active');
+    total = mgetAmount() + parseFloat(size_price);
+    var previous_price = parseFloat($('#mprevious_price_value').val());
+    if (total >= previous_price) {
+        $('#mpreviousprice').hide();
+    } else {
+        $('#mpreviousprice').show();
+    }
+    stock = size_qty;
+    total = total.toFixed(2);
+    var curr_value = $("#curr_value").val();
+    curr_value = total / curr_value;
+    curr_value = curr_value.toFixed(2);
+    var pos = $('#mcurr_pos').val();
+    var sign = $('#mcurr_sign').val();
+    var first_sign = $("#mfirst_sign").val();
+    var dec_sep = $("#mdec_sep").val();
+    var tho_sep = $("#mtho_sep").val();
+    var dec_dig = $("#mdec_dig").val();
+    var dec_sep2 = $("#mdec_sep2").val();
+    var tho_sep2 = $("#mtho_sep2").val();
+    var dec_dig2 = $("#mdec_dig2").val();
+    total = formatMoney(total, dec_dig, dec_sep, tho_sep);
+    curr_value = formatMoney(curr_value, dec_dig2, dec_sep2, tho_sep2);
+    if (pos == '0') {
+        $('#msizeprice').html(sign + total);
+        $('#moriginalprice').html(first_sign + curr_value);
+    } else {
+        $('#msizeprice').html(total + sign);
+        $('#moriginalprice').html(curr_value + first_sign);
+    }
 });
-// Product Details Product Color Active Js Code
-$('.mproduct-color .color-list .box').on('click', function () {
-colors = $(this).data('color');
-var parent = $(this).parent();
-$('.mproduct-color .color-list li').removeClass('active');
-parent.addClass('active');
+$('.mproduct-color .color-list .box').on('click', function() {
+    colors = $(this).data('color');
+    var parent = $(this).parent();
+    $('.mproduct-color .color-list li').removeClass('active');
+    parent.addClass('active');
 });
-$('.modal-minus').on('click', function () {
-var el = $(this);
-var $tselector = el.parent().parent().find('.modal-total');
-total = $($tselector).text();
-if (total > 1) {
-  total--;
-}
-$($tselector).text(total);
+$('.modal-minus').on('click', function() {
+    var el = $(this);
+    var $tselector = el.parent().parent().find('.modal-total');
+    total = $($tselector).text();
+    if (total > 1) {
+        total--;
+    }
+    $($tselector).text(total);
 });
-$('.modal-plus').on('click', function () {
-var el = $(this);
-var $tselector = el.parent().parent().find('.modal-total');
-total = $($tselector).text();
-if(mstock != "")
-{
-  var stk = parseInt(mstock);
-  if(total < stk)
-  {
-      total++;
-      $($tselector).text(total);
-  }
-}
-else {
-  total++;
-}
-$($tselector).text(total);
+$('.modal-plus').on('click', function() {
+    var el = $(this);
+    var $tselector = el.parent().parent().find('.modal-total');
+    total = $($tselector).text();
+    if (mstock != "") {
+        var stk = parseInt(mstock);
+        if (total < stk) {
+            total++;
+            $($tselector).text(total);
+        }
+    } else {
+        total++;
+    }
+    $($tselector).text(total);
 });
-$("#maddcrt").on("click", function(){
-var qty = $('.modal-total').html();
-var pid = $(this).parent().parent().parent().parent().find("#mproduct_id").val();
-if($('.mproduct-attr').length > 0)
-{
-values = $(".mproduct-attr:checked").map(function() {
-return $(this).val();
-}).get();
-keys = $(".mproduct-attr:checked").map(function() {
-return $(this).data('key');
-}).get();
-prices = $(".mproduct-attr:checked").map(function() {
-return $(this).data('price');
-}).get();
-}
-$.ajax({
-  type: "GET",
-  url:mainurl+"/addnumcart",
-  data:{id:pid,qty:qty,size:sizes,color:colors,size_qty:size_qty,size_price:size_price,size_key:size_key,keys:keys,values:values,prices:prices},
-  success:function(data){
-      if(data.digital) {
-          toastr.error(data['digital']);
-      }
-      else if(data.out_stock) {
-          toastr.error(data['out_stock']);
-      }
-      else {
-          $("#cart-count").html(data[0]);
-          $("#cart-items").load(mainurl+'/carts/view');
-          toastr.success( __("Successfully Added To Cart"));
-      }
-  }
+$("#maddcrt").on("click", function() {
+    var qty = $('.modal-total').html();
+    var pid = $(this).parent().parent().parent().parent().find("#mproduct_id").val();
+    if ($('.mproduct-attr').length > 0) {
+        values = $(".mproduct-attr:checked").map(function() {
+            return $(this).val();
+        }).get();
+        keys = $(".mproduct-attr:checked").map(function() {
+            return $(this).data('key');
+        }).get();
+        prices = $(".mproduct-attr:checked").map(function() {
+            return $(this).data('price');
+        }).get();
+    }
+    $.ajax({
+        type: "GET",
+        url: mainurl + "/addnumcart",
+        data: {
+            id: pid,
+            qty: qty,
+            size: sizes,
+            color: colors,
+            size_qty: size_qty,
+            size_price: size_price,
+            size_key: size_key,
+            keys: keys,
+            values: values,
+            prices: prices
+        },
+        success: function(data) {
+            if (data.digital) {
+                toastr.error(data['digital']);
+            } else if (data.out_stock) {
+                toastr.error(data['out_stock']);
+            } else {
+                $("#cart-count").html(data[0]);
+                $("#cart-items").load(mainurl + '/carts/view');
+                toastr.success(__("Successfully Added To Cart"));
+            }
+        }
+    });
 });
+$(document).on("click", "#mqaddcrt", function() {
+    var qty = $('.modal-total').html();
+    var pid = $(this).parent().parent().parent().parent().find("#mproduct_id").val();
+    if ($('.mproduct-attr').length > 0) {
+        values = $(".mproduct-attr:checked").map(function() {
+            return $(this).val();
+        }).get();
+        keys = $(".mproduct-attr:checked").map(function() {
+            return $(this).data('key');
+        }).get();
+        prices = $(".mproduct-attr:checked").map(function() {
+            return $(this).data('price');
+        }).get();
+    }
+    window.location = mainurl + "/addtonumcart?id=" + pid + "&qty=" + qty + "&size=" + sizes + "&color=" +
+        colors.substring(1, colors.length) + "&size_qty=" + size_qty + "&size_price=" + size_price +
+        "&size_key=" + size_key + "&keys=" + keys + "&values=" + values + "&prices=" + prices;
 });
-$(document).on("click", "#mqaddcrt" , function(){
-      var qty = $('.modal-total').html();
-      var pid = $(this).parent().parent().parent().parent().find("#mproduct_id").val();
-if($('.mproduct-attr').length > 0)
-{
-values = $(".mproduct-attr:checked").map(function() {
-return $(this).val();
-}).get();
-keys = $(".mproduct-attr:checked").map(function() {
-return $(this).data('key');
-}).get();
-prices = $(".mproduct-attr:checked").map(function() {
-return $(this).data('price');
-}).get();
-}
-  window.location = mainurl+"/addtonumcart?id="+pid+"&qty="+qty+"&size="+sizes+"&color="+colors.substring(1, colors.length)+"&size_qty="+size_qty+"&size_price="+size_price+"&size_key="+size_key+"&keys="+keys+"&values="+values+"&prices="+prices;
-     });
 </script>

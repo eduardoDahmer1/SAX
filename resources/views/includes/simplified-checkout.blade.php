@@ -5,10 +5,7 @@
                 <div class="product-description">
                     <div class="body-area">
                         @include('includes.admin.form-error')
-                        @php
-                        // Verificando se ENABLE_SAX_BRIDAL está habilitado no .env
-                        $isBridalEnabled = env('ENABLE_SAX_BRIDAL', false);
-                        @endphp
+                        @php $isBridalEnabled = env('ENABLE_SAX_BRIDAL', false); @endphp
                         <form id="geniusformdata" action="{{ route('front.simplified_checkout-create') }}" method="GET" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row">
@@ -23,7 +20,6 @@
                                     <input type="text" id="customer_phone" class="input-field" name="phone" placeholder="{{ __('Phone') }}" required>
                                 </div>
                             </div>
-                            
                             @if(!$isBridalEnabled)
                             <div class="row">
                                 <div class="col-lg-12">
@@ -70,7 +66,6 @@
                                 </div>
                             </div>
                             @endif
-                            
                             <div class="row mt-30">
                                 <div class="col-lg-12" style="text-align: right">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
@@ -84,47 +79,35 @@
         </div>
     </div>
 </div>
-
 <script>
     let clickCount = 0;
-    function btnDisabled(button) {
-        clickCount++;
-        if (clickCount != 1) {
-            button.disabled = true;
-        }
-    }
-
+    function btnDisabled(button) { clickCount++; if (clickCount != 1) { button.disabled = true; } }
     function toggleFields() {
         const deliveryMethod = document.getElementById('delivery_method').value;
         const locationRow = document.getElementById('location_row');
         const descriptionRow = document.getElementById('description_row');
         const locationField = document.getElementById('location');
         const descriptionField = document.getElementById('description');
-        
         if (deliveryMethod === 'Delivery') {
             locationRow.style.display = 'block';
             descriptionRow.style.display = 'block';
             locationField.name = 'location';
             descriptionField.name = 'description';
             document.getElementById('payment_method').value = 'Pague_agora';
-            const paymentMethodRow = document.getElementById('payment_method_row');
-            paymentMethodRow.style.display = 'none';
+            document.getElementById('payment_method_row').style.display = 'none';
             togglePaymentOptions();
         } else {
             locationRow.style.display = 'none';
             descriptionRow.style.display = 'none';
             locationField.removeAttribute('name');
             descriptionField.removeAttribute('name');
-            const paymentMethodRow = document.getElementById('payment_method_row');
-            paymentMethodRow.style.display = 'block';
+            document.getElementById('payment_method_row').style.display = 'block';
         }
     }
-
     function togglePaymentOptions() {
         const paymentMethod = document.getElementById('payment_method').value;
         const paymentOptionsRow = document.getElementById('payment_options_row');
         const paymentOptionsField = document.getElementById('payment_options');
-        
         if (paymentMethod === 'Pague_agora') {
             paymentOptionsRow.style.display = 'block';
             paymentOptionsField.name = 'payment';
@@ -133,12 +116,10 @@
             paymentOptionsField.removeAttribute('name');
         }
     }
-
     document.getElementById('geniusformdata').addEventListener('submit', function(event) {
         const paymentMethod = document.getElementById('payment_method').value;
         if (paymentMethod === 'Pagar_na_loja') {
-            const paymentOptionsField = document.getElementById('payment_options');
-            paymentOptionsField.removeAttribute('name');
+            document.getElementById('payment_options').removeAttribute('name');
         }
     });
 </script>

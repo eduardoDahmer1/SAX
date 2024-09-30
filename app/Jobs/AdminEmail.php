@@ -11,23 +11,12 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use stdClass;
-
 class AdminEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    /**
-     * Create a new job instance.
-     * @return void
-     */
     public function __construct(private stdClass $objDemo, private array $mailData)
     {
     }
-
-    /**
-     * Execute the job.
-     * @return void
-     */
     public function handle()
     {
         Mail::to($this->objDemo->to)->send(new MailAdminEmail($this->mailData['body'], $this->objDemo->subject, [

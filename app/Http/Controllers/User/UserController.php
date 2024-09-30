@@ -19,7 +19,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 class UserController extends Controller
 {
     public function __construct()
@@ -27,7 +26,6 @@ class UserController extends Controller
         parent::__construct();
         $this->middleware('auth');
     }
-
     public function index()
     {
         $user = Auth::user();
@@ -36,7 +34,6 @@ class UserController extends Controller
         }
         return view('user.dashboard', compact('user'));
     }
-
     public function profile()
     {
         $user = Auth::user();
@@ -46,26 +43,19 @@ class UserController extends Controller
         }
         return view('user.profile', compact('user'))->with(['countries' => $countries]);
     }
-
     public function profileupdate(Request $request)
     {
-        //--- Validation Section
-
         $rules =
         [
             'photo' => 'mimes:jpeg,jpg,png,svg',
             'email' => 'unique:users,email,'.Auth::user()->id,
             'document' => 'numeric'
         ];
-
         $validator = Validator::make($request->all(), $rules);
-
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
-        //--- Validation Section Ends
         $input = $request->all();
-
         $city = City::where('id', '=', $request->city_id)->first();
         $state = State::where('id', '=', $request->state_id)->first();
         $country = Country::where('id', '=', $request->country_id)->first();
@@ -75,16 +65,12 @@ class UserController extends Controller
         $input['state_id'] = $request->state_id;
         $input['country_id'] = $request->country_id;
         $input['country'] = $country->country_name;
-
         if (!$request->zip) {
             $input['zip'] = '0123';
         }
-
         /** @var User $data */
         $data = Auth::user();
-
         $data->birth_date = $input['birthday'];
-
         if ($file = $request->file('photo')) {
             $name = time().$file->getClientOriginalName();
             $file->move('storage/images/users/', $name);
@@ -100,7 +86,6 @@ class UserController extends Controller
         $msg = __('Successfully updated your profile');
         return response()->json($msg);
     }
-
     public function resetform()
     {
         if (Auth::user()->IsVendor()) {
@@ -108,7 +93,6 @@ class UserController extends Controller
         }
         return view('user.reset');
     }
-
     public function reset(Request $request)
     {
         $user = Auth::user();
@@ -127,7 +111,6 @@ class UserController extends Controller
         $msg = __('Successfully change your password');
         return response()->json($msg);
     }
-
     public function package()
     {
         if (!config("features.marketplace")) {
@@ -139,7 +122,6 @@ class UserController extends Controller
         $package = $user->subscribes()->where('status', 1)->orderBy('id', 'desc')->first();
         return view('user.package.index', compact('user', 'subs', 'package'));
     }
-
     public function vendorrequest($id)
     {
         $subs = Subscription::findOrFail($id);
@@ -151,7 +133,6 @@ class UserController extends Controller
         }
         return view('user.package.details', compact('user', 'subs', 'package'));
     }
-
     public function vendorrequestsub(Request $request)
     {
         $this->validate($request, [
@@ -159,7 +140,6 @@ class UserController extends Controller
         ], [
             'shop_name.unique' => __('This shop name has already been taken.')
         ]);
-
         $user = Auth::user();
         $package = $user->subscribes()->where('status', 1)->orderBy('id', 'desc')->first();
         $subs = Subscription::findOrFail($request->subs_id);
@@ -171,11 +151,8 @@ class UserController extends Controller
         $user->date = date('Y-m-d', strtotime($today . ' + ' . $subs->days . ' days'));
         $user->mail_sent = 1;
         $user->is_vendor_verified = 0;
-
         $user->update($input);
-        /* Delete all old verifications for this user */
         Verification::where('user_id', $user->id)->delete();
-        /* Delete all previous subscriptions for this user */
         UserSubscription::where('user_id', $user->id)->delete();
         $sub = new UserSubscription;
         $sub->user_id = $user->id;
@@ -190,7 +167,6 @@ class UserController extends Controller
         $sub->method = 'Store';
         $sub->status = 1;
         $sub->save();
-
         if ($settings->is_smtp == 1) {
             $data = [
                 'to' => $user->email,
@@ -210,7 +186,6 @@ class UserController extends Controller
 
         return redirect()->route('vendor-verify');
     }
-
     public function favorite($id1, $id2)
     {
         $fav = new FavoriteSeller();
@@ -218,14 +193,12 @@ class UserController extends Controller
         $fav->vendor_id = $id2;
         $fav->save();
     }
-
     public function favorites()
     {
         $user = Auth::guard('web')->user();
         $favorites = FavoriteSeller::where('user_id', '=', $user->id)->get();
         return view('user.favorite', compact('user', 'favorites'));
     }
-
     public function favdelete($id)
     {
         $wish = FavoriteSeller::findOrFail($id);

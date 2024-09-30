@@ -1,19 +1,11 @@
 @extends('layouts.vendor')
-
 @section('content')
     <div class="content-area">
         <div class="mr-breadcrumb">
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="heading">{{ __('My Withdraws') }}</h4>
-                    <ul class="links">
-                        <li>
-                            <a href="{{ route('vendor-dashboard') }}">{{ __('Dashbord') }} </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('vendor-wt-index') }}">{{ __('My Withdraws') }}</a>
-                        </li>
-                    </ul>
+                    <ul class="links"><li><a href="{{ route('vendor-dashboard') }}">{{ __('Dashbord') }} </a></li><li><a href="{{ route('vendor-wt-index') }}">{{ __('My Withdraws') }}</a></li></ul>
                 </div>
             </div>
         </div>
@@ -42,10 +34,7 @@
         </div>
     </div>
 @endsection
-
 @section('scripts')
-    {{-- DATA TABLE --}}
-
     <script type="text/javascript">
         var table = $('#geniustable').DataTable({
             stateSave: true,
@@ -83,6 +72,4 @@
             }
         });
     </script>
-
-    {{-- DATA TABLE --}}
 @endsection

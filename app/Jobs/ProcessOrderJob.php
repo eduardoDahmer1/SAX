@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use App\Models\Order;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -13,29 +12,17 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-
 class ProcessOrderJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $url, $order;
-
-    /**
-     * Create a new job instance.
-     * @return void
-     */
     public function __construct($url, Order $order)
     {
         $this->url = $url;
         $this->order = $order;
     }
-
-    /**
-     * Execute the job.
-     * @return void
-     */
     public function handle()
     {
-
         try {
             $response = Http::withoutVerifying()->post($this->url);
             if ($response->failed()) {

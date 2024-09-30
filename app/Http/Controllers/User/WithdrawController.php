@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -11,7 +10,6 @@ use App\Models\User;
 use App\Models\Withdraw;
 use Illuminate\Support\Facades\Input;
 use Validator;
-
 class WithdrawController extends Controller
 {
     public function __construct()
@@ -19,7 +17,6 @@ class WithdrawController extends Controller
         parent::__construct();
         $this->middleware('auth:web');
     }
-
   	public function index()
     {
         if(!config("features.marketplace")) {
@@ -30,7 +27,6 @@ class WithdrawController extends Controller
         $sign = $curr = Currency::find($this->storeSettings->currency_id);       
         return view('user.withdraw.index',compact('withdraws','sign'));
     }
-
     public function affilate_code()
     {
         if(!config("features.marketplace")) {
@@ -40,21 +36,17 @@ class WithdrawController extends Controller
         $user = Auth::guard('web')->user();
         return view('user.withdraw.affilate_code',compact('user'));
     }
-
-
     public function create()
     {
         $sign = $curr = Currency::find($this->storeSettings->currency_id);
         return view('user.withdraw.withdraw' ,compact('sign'));
     }
-
     public function store(Request $request)
     {
         $from = User::findOrFail(Auth::guard('web')->user()->id);
         $curr = $curr = Currency::find($this->storeSettings->currency_id); 
         $withdrawcharge = Generalsetting::findOrFail(1);
         $charge = $withdrawcharge->withdraw_fee;
-
         if($request->amount > 0){
             $amount = $request->amount;
             $amount = round(($amount / $curr->value),2);
@@ -79,14 +71,12 @@ class WithdrawController extends Controller
                 $newwithdraw['fee'] = $fee;
                 $newwithdraw['type'] = 'user';
                 $newwithdraw->save();
-
                 return response()->json(__('Withdraw Request Sent Successfully.')); 
             }else{
                 return response()->json(array('errors' => [ 0 => __('Insufficient Balance.') ])); 
             }
             }else{
                 return response()->json(array('errors' => [ 0 => __('Insufficient Balance.') ])); 
-
             }
         }
             return response()->json(array('errors' => [ 0 => __('Please enter a valid amount.') ])); 

@@ -15,10 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
-
 class RazorpayController extends Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -27,11 +25,8 @@ class RazorpayController extends Controller
         $this->keySecret = $rdata->razorpay_secret;
         $this->api = new Api($this->keyId, $this->keySecret);
     }
-
  public function store(Request $request){
-
         $this->displayCurrency = ''.$request->currency_code.'';
-
         $this->validate($request, [
             'shop_name'   => 'unique:users',
            ],[ 
@@ -47,22 +42,15 @@ class RazorpayController extends Controller
      $item_name = $subs->title." Plan";
      $item_number = str_random(4).time();
      $item_amount = $subs->price;
-
         $orderData = [
             'receipt'         => $item_number,
-            'amount'          => $item_amount * 100, // 2000 rupees in paise
+            'amount'          => $item_amount * 100, 
             'currency'        => 'INR',
-            'payment_capture' => 1 // auto capture
+            'payment_capture' => 1 
         ];
-        
         $razorpayOrder = $this->api->order->create($orderData);
-        
         $razorpayOrderId = $razorpayOrder['id'];
-        
         session(['razorpay_order_id'=> $razorpayOrderId]);
-
-    // Redirect to paypal IPN
-
                     $sub = new UserSubscription;
                     $sub->user_id = $user->id;
                     $sub->subscription_id = $subs->id;
@@ -75,9 +63,7 @@ class RazorpayController extends Controller
                     $sub->details = $subs->details;
                     $sub->method = 'Razorpay';
                     $sub->save();
-
                     $displayAmount = $amount = $orderData['amount'];
-                    
                     if ($this->displayCurrency !== 'INR')
                     {
                         $url = "https://api.fixer.io/latest?symbols=$this->displayCurrency&base=INR";
@@ -85,14 +71,11 @@ class RazorpayController extends Controller
                     
                         $displayAmount = $exchange['rates'][$this->displayCurrency] * $amount / 100;
                     }
-                    
                     $checkout = 'automatic';
-                    
                     if (isset($_GET['checkout']) and in_array($_GET['checkout'], ['automatic', 'manual'], true))
                     {
                         $checkout = $_GET['checkout'];
                     }
-                    
                     $data = [
                         "key"               => $this->keyId,
                         "amount"            => $amount,
@@ -118,25 +101,19 @@ class RazorpayController extends Controller
                         $data['display_currency']  = $this->displayCurrency;
                         $data['display_amount']    = $displayAmount;
                     }
-                    
                     $json = json_encode($data);
                     $displayCurrency = $this->displayCurrency;
                     Session::put('item_number',$sub->user_id); 
-                    
         return view( 'front.razorpay-checkout', compact( 'data','displayCurrency','json','notify_url' ) );
 
  }
-    
 public function notify(Request $request){
-
         $success = true;
         $error = "Payment Failed";
         if (empty($_POST['razorpay_payment_id']) === false)
         {
-
             try
             {
-
                 $attributes = array(
                     'razorpay_order_id' => session('razorpay_order_id'),
                     'razorpay_payment_id' => $_POST['razorpay_payment_id'],
@@ -151,23 +128,18 @@ public function notify(Request $request){
                 $error = 'Razorpay Error : ' . $e->getMessage();
             }
         }
-        
         if ($success === true)
         {
-            
             $razorpayOrder = $this->api->order->fetch(session('razorpay_order_id'));
-        
+    
             $order_id = $razorpayOrder['receipt'];
             $transaction_id = $_POST['razorpay_payment_id'];
-
 $order = UserSubscription::where('user_id','=',Session::get('item_number'))
             ->orderBy('created_at','desc')->first();
-
         $user = User::findOrFail($order->user_id);
         $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
         $subs = Subscription::findOrFail($order->subscription_id);
         $settings = Generalsetting::findOrFail(1);
-
         $today = Carbon::now()->format('Y-m-d');
         $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
         $input = $request->all();
@@ -194,7 +166,6 @@ $order = UserSubscription::where('user_id','=',Session::get('item_number'))
         }
         $user->mail_sent = 1;
         $user->update($input);
-
         $data['txnid'] = $transaction_id;
         $data['status'] = 1;
         $order->update($data);
@@ -227,7 +198,6 @@ $order = UserSubscription::where('user_id','=',Session::get('item_number'))
         $payment = UserSubscription::where('user_id','=',$order_id)
             ->orderBy('created_at','desc')->first();
         $payment->delete();
-
     }
 }
 }

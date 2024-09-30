@@ -14,7 +14,6 @@ use App\Models\AdminUserMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AdminUserConversation;
-
 class MessageController extends Controller
 {
     public function __construct()
@@ -22,21 +21,18 @@ class MessageController extends Controller
         parent::__construct();
         $this->middleware('auth');
     }
-
     public function messages()
     {
         $user = Auth::guard('web')->user();
         $convs = Conversation::where('sent_user', '=', $user->id)->orWhere('recieved_user', '=', $user->id)->get();
         return view('user.message.index', compact('user', 'convs'));
     }
-
     public function message($id)
     {
         $user = Auth::guard('web')->user();
         $conv = Conversation::findOrfail($id);
         return view('user.message.create', compact('user', 'conv'));
     }
-
     public function messagedelete($id)
     {
         $conv = Conversation::findOrfail($id);
@@ -48,14 +44,11 @@ class MessageController extends Controller
         $conv->delete();
         return redirect()->back()->with('success', __('Message Deleted Successfully'));
     }
-
     public function msgload($id)
     {
         $conv = Conversation::findOrfail($id);
         return view('load.usermsg', compact('conv'));
     }
-
-    //Send email to user
     public function usercontact(Request $request)
     {
         $data = 1;
@@ -65,7 +58,6 @@ class MessageController extends Controller
             $data = 0;
             return response()->json($data);
         }
-
         $subject = $request->subject;
         $to = $vendor->email;
         $name = $request->name;
@@ -85,7 +77,6 @@ class MessageController extends Controller
             $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
             mail($to, $subject, $msg, $headers);
         }
-
         $conv = Conversation::where('sent_user', '=', $user->id)->where('subject', '=', $subject)->first();
         if (isset($conv)) {
             $msg = new Message();
@@ -111,44 +102,36 @@ class MessageController extends Controller
             return response()->json($data);
         }
     }
-
     public function postmessage(Request $request)
     {
         $msg = new Message();
         $input = $request->all();
         $msg->fill($input)->save();
-        //--- Redirect Section
         $msg = 'Message Sent!';
         return response()->json($msg);
-        //--- Redirect Section Ends
     }
-
     public function adminmessages()
     {
         $user = Auth::guard('web')->user();
         $convs = AdminUserConversation::where('type', '=', 'Ticket')->where('user_id', '=', $user->id)->get();
         return view('user.ticket.index', compact('convs'));
     }
-
     public function adminDiscordmessages()
     {
         $user = Auth::guard('web')->user();
         $convs = AdminUserConversation::where('type', '=', 'Dispute')->where('user_id', '=', $user->id)->get();
         return view('user.dispute.index', compact('convs'));
     }
-
     public function messageload($id)
     {
         $conv = AdminUserConversation::findOrfail($id);
         return view('load.usermessage', compact('conv'));
     }
-
     public function adminmessage($id)
     {
         $conv = AdminUserConversation::findOrfail($id);
         return view('user.ticket.create', compact('conv'));
     }
-
     public function adminmessagedelete($id)
     {
         $conv = AdminUserConversation::findOrfail($id);
@@ -160,7 +143,6 @@ class MessageController extends Controller
         $conv->delete();
         return redirect()->back()->with('success', __('Message Deleted Successfully'));
     }
-
     public function adminpostmessage(Request $request)
     {
         $msg = new AdminUserMessage();
@@ -169,12 +151,9 @@ class MessageController extends Controller
         $notification = new Notification;
         $notification->conversation_id = $msg->conversation->id;
         $notification->save();
-        //--- Redirect Section
         $msg = 'Message Sent!';
         return response()->json($msg);
-        //--- Redirect Section Ends
     }
-
     public function adminusercontact(Request $request)
     {
         $data = 1;
@@ -190,7 +169,6 @@ class MessageController extends Controller
             'subject' => $subject,
             'body' => $msg,
         ];
-
             $mailer = new GeniusMailer();
             $mailer->sendCustomMail($data);
         } else {
@@ -202,7 +180,6 @@ class MessageController extends Controller
         } else {
             $conv = AdminUserConversation::where('type', '=', 'Dispute')->where('user_id', '=', $user->id)->where('subject', '=', $subject)->first();
         }
-
         if (isset($conv)) {
             $msg = new AdminUserMessage();
             $msg->conversation_id = $conv->id;

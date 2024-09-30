@@ -15,22 +15,18 @@ use Illuminate\Http\Request;
 use App\Models\PaymentGateway;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
 class OrderController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
-
         if (!app()->runningInConsole()) {
             if (!$this->storeSettings->is_cart) {
                 return app()->abort(404);
             }
         }
-
         $this->middleware('auth');
     }
-
     public function orders()
     {
         $user = Auth::guard('web')->user();
@@ -38,21 +34,17 @@ class OrderController extends Controller
         $currencies = Currency::orderBy('id')->get();
         return view('user.order.index', compact('user', 'orders', 'currencies'));
     }
-
     public function ordertrack()
     {
         $user = Auth::guard('web')->user();
         return view('user.order-track', compact('user'));
     }
-
     public function trackload($id)
     {
         $order = Order::where('order_number', '=', $id)->first();
         $datas = array('Pending','Processing','On Delivery','Completed');
         return view('load.track-load', compact('order', 'datas'));
     }
-
-
     public function order($id)
     {
         $user = Auth::guard('web')->user();
@@ -63,12 +55,9 @@ class OrderController extends Controller
         if (empty($order_curr)) {
             $order_curr = $first_curr;
         }
-
         $bank_accounts =  BankAccount::where('status', '=', 1)->get();
-
         return view('user.order.details', compact('user', 'order', 'cart', 'first_curr', 'order_curr', 'bank_accounts'));
     }
-
     public function orderdownload($slug, $id)
     {
         $user = Auth::guard('web')->user();
@@ -79,7 +68,6 @@ class OrderController extends Controller
         }
         return response()->download(public_path('assets/files/'.$prod->file));
     }
-
     public function orderprint($id)
     {
         $user = Auth::guard('web')->user();
@@ -91,12 +79,9 @@ class OrderController extends Controller
         if (empty($order_curr)) {
             $order_curr = $first_curr;
         }
-
         $bank_accounts =  BankAccount::where('status', '=', 1)->get();
-
         return view('user.order.print', compact('user', 'order', 'cart', 'first_curr', 'order_curr', 'bank_accounts', 'seos'));
     }
-
     public function trans()
     {
         $id = $_GET['id'];
@@ -107,16 +92,13 @@ class OrderController extends Controller
         $data = $order->txnid;
         return response()->json($data);
     }
-
     public function uploadReceiptGet($id)
     {
         $order = Order::findOrFail($id);
         return view('user.order.receipt', compact('order'));
     }
-
     public function uploadReceipt(Request $request, $id)
     {
-        //--- Validation Section
         $rules = [
             'receipt' => 'required',
         ];
@@ -128,7 +110,6 @@ class OrderController extends Controller
         if (!is_dir(public_path().'/storage/images/receipts/')) {
             mkdir(public_path().'/storage/images/receipts/');
         }
-        //--- Validation Section Ends
         $image = $request->receipt;
         $image = base64_decode($image);
         $image_name = time().Str::random(8).'.png';

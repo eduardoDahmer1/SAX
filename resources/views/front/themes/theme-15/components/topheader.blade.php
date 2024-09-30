@@ -6,13 +6,9 @@
                     <div class="left-content">
                         <div class="list">
                             @php
-                                if($slocale->id == '1'){
-                                    $top_first_curr = $curr;
-                                    $top_curr = App\Models\Currency::where('sign', 'R$')->first();
-                                }else{
-                                    $top_first_curr = $curr;
-                                    $top_curr = App\Models\Currency::where('sign', 'GS$')->first();
-                                }
+                                $top_curr = ($slocale->id == '1')
+                                    ? App\Models\Currency::where('sign', 'R$')->first()
+                                    : App\Models\Currency::where('sign', 'GS$')->first();
                             @endphp
                             <ul>
                                 @if (config('features.lang_switcher') && $gs->is_language == 1)
@@ -31,57 +27,31 @@
                                     </li>
                                 @endif
 
-                                @if ($gs->show_currency_values == 1)
-                                    @php
-                                        if($slocale->id == '1'){
-                                            $top_first_curr = $curr;
-                                            $top_curr = App\Models\Currency::where('sign', 'R$')->first();
-                                        }else{
-                                            $top_first_curr = $curr;
-                                            $top_curr = App\Models\Currency::where('sign', 'GS$')->first();
-                                        }
-                                    @endphp
-
-                                    @if ($top_curr->id != 1)
-                                        <li>
-                                            <div class="currency-selector">
-                                                <span><i class="fas fa-coins"></i>
-                                                    {{ __('Currency Rate') }}:
-                                                    {{ $top_first_curr->sign . number_format($top_first_curr->value, $top_first_curr->decimal_digits, $top_first_curr->decimal_separator, $top_first_curr->thousands_separator) }}
-                                                    =
-                                                    {{ $top_curr->sign . ' ' . number_format($top_curr->value, $top_curr->decimal_digits, $top_curr->decimal_separator, $top_curr->thousands_separator) }}
-                                                </span>
-                                            </div>
-                                        </li>
-                                    @endif
-                                @endif
-
-                                <!-- @if (Auth::guard('admin')->check())
+                                @if ($gs->show_currency_values == 1 && $top_curr->id != 1)
                                     <li>
-                                        <div class="mybadge1">
-                                            <a href="{{ route('admin.logout') }}">
-                                                {{ __('Viewing as Admin') }}
-                                                <i class="fas fa-power-off"></i>
-                                                {{ __('Logout') }}
-                                            </a>
+                                        <div class="currency-selector">
+                                            <span>
+                                                <i class="fas fa-coins"></i>
+                                                {{ __('Currency Rate') }}:
+                                                {{ $curr->sign . number_format($curr->value, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator) }}
+                                                = {{ $top_curr->sign . ' ' . number_format($top_curr->value, $top_curr->decimal_digits, $top_curr->decimal_separator, $top_curr->thousands_separator) }}
+                                            </span>
                                         </div>
                                     </li>
-                                @endif -->
-
+                                @endif
                             </ul>
                         </div>
                     </div>
                     <div class="right-content">
                         <div class="list">
                             <ul>
-                                <!--MOEDA-->
                                 @if (config('features.currency_switcher') && $gs->is_currency == 1)
                                     <li>
-                                        <div hidden class="currency-selector"style="padding-right:12px;">
+                                        <div hidden class="currency-selector" style="padding-right:12px;">
                                             <select id="changeCurrency" name="currency" class="currency selectors nice">
                                                 @foreach ($currencies as $currency)
                                                     <option value="{{ route('front.currency', $currency->id) }}"
-                                                        @selected($top_curr->sign == $currency->sign )>
+                                                        @selected($top_curr->sign == $currency->sign)>
                                                         {{ $currency->name }}
                                                     </option>
                                                 @endforeach
@@ -89,7 +59,6 @@
                                         </div>
                                     </li>
                                 @endif
-                                <!--FINAL DA MOEDA-->
                                 @if (config('features.productsListPdf'))
                                     <li class="login ml-0 separador-left">
                                         <a target="_blank" href="{{ route('download-list-pdf') }}">
@@ -113,8 +82,5 @@
     const selectLanguage = document.getElementById('changeLanguage');
     const selectCurrency = document.getElementById('changeCurrency');
     window.addEventListener('load', function() {
-
     });
-
 </script>
-<!-- Top Header Area End -->
