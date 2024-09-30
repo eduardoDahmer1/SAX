@@ -1,33 +1,22 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('content')
-<!-- Breadcrumb Area Start -->
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <ul class="pages">
-                    <li>
-                        <a href="{{ route('front.index') }}">
-                            {{ __("Home") }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('payment.return') }}">
-                            {{ __("Success") }}
-                        </a>
-                    </li>
+                    <li><a href="{{ route('front.index') }}">{{ __("Home") }}</a></li>
+                    <li><a href="{{ route('payment.return') }}">{{ __("Success") }}</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<!-- Breadcrumb Area End -->
 <section class="tempcart">
     @if(!empty($tempcart))
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <!-- Starting of Dashboard data-table area -->
                 <div class="content-box section-padding add-product-1">
                     <div class="top-area">
                         <div class="content">
@@ -105,18 +94,12 @@
                             "&text=" . urlencode($linkSimplifiedCheckout);
                             @endphp
                             <p class="text"> {{ __("If the conversation page does not open automatically") . " " }} </p>
-                            <a class="btn btn-success m-3" id="link-simplified" href="{{$link}}" target="_blank"><span
-                                    class="heading" style="font-size: 20px"><i
-                                        class="icofont-verification-check"></i>{{ __("Click Here") }}</span></a>
-                            <br>
-                            <a href="{{ route('front.index') }}" class="link">{{ __("Get Back To Our Homepage") }}</a>
+                            <a class="btn btn-success m-3" id="link-simplified" href="{{$link}}" target="_blank"><span class="heading" style="font-size: 20px"><i class="icofont-verification-check"></i>{{ __("Click Here") }}</span></a>
+                            <br><a href="{{ route('front.index') }}" class="link">{{ __("Get Back To Our Homepage") }}</a>
                         </div>
                     </div>
                     <div class="top-area mobile">
-                        <div class="content">
-                            <h4 class="heading">
-                                {{ __("THANK YOU FOR YOUR ORDER.") }}
-                            </h4>
+                        <div class="content"><h4 class="heading">{{ __("THANK YOU FOR YOUR ORDER.") }}</h4>
                             @php
                             $linkSimplifiedCheckout = "*| " . __('New Order - Simplified Checkout') . " |*" .
                             PHP_EOL.PHP_EOL;
@@ -188,29 +171,20 @@
                             $gs->simplified_checkout_number . "&text=" . urlencode($linkSimplifiedCheckout);
                             @endphp
                             <p class="text"> {{ __("If the conversation page does not open automatically") . " " }} </p>
-                            <a class="btn btn-success m-3" id="link-simplified" href="{{$linkMobile}}"
-                                target="_blank"><span class="heading" style="font-size: 20px"><i
-                                    class="icofont-verification-check"></i>{{ __("Click Here") }}</span></a>
-                            <br>
-                            <a href="{{ route('front.index') }}" class="link">{{ __("Get Back To Our Homepage") }}</a>
+                            <a class="btn btn-success m-3" id="link-simplified" href="{{$linkMobile}}" target="_blank"><span class="heading" style="font-size: 20px"><i class="icofont-verification-check"></i>{{ __("Click Here") }}</span></a>
+                            <br><a href="{{ route('front.index') }}" class="link">{{ __("Get Back To Our Homepage") }}</a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="product__header">
                                 <div class="row reorder-xs">
-                                    <div class="col-lg-12">
-                                        <div class="product-header-title">
-                                            <h2>{{ __("Order#") }} {{$order->order_number}}</h2>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-12"><div class="product-header-title"><h2>{{ __("Order#") }} {{$order->order_number}}</h2></div></div>
                                     @include('includes.form-success')
                                     <div class="col-md-12" id="tempview">
                                         <div class="dashboard-content">
                                             <div class="view-order-page" id="print">
-                                                <p class="order-date">{{ __("Order Date") }}
-                                                    {{date('d-M-Y',strtotime($order->created_at))}}</p>
-                                                <br>
+                                                <p class="order-date">{{ __("Order Date") }}{{date('d-M-Y',strtotime($order->created_at))}}</p><br>
                                                 <div class="billing-add-area">
                                                     <div class="row">
                                                         <div class="col-md-6">
@@ -249,7 +223,6 @@
                                                     </div>
                                                 </div>
                                                 <br>
-
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <h4 class="text-center">{{ __("Ordered Products:") }}</h4>
@@ -326,20 +299,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- Ending of Dashboard data-table area -->
             </div>
         </div>
     </div>
     @endif
 </section>
-
-<!-- Small modal -->
-
 <div id="mySmallModalLabel" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content mobile">
-
             <div class="card text-center">
                 <div class="card-header">
                     {{__('Simplified Checkout')}}
@@ -348,28 +316,19 @@
                     <h5 class="card-title">{{__('Start Conversation')}}</h5>
                     <p class="card-text">{{ __("You will be redirected to a new page to continue your order.") }}</p>
                     <div class="mobile-button" style="display:flex; justify-content:center;">
-                        <a class="btn btn-success d-block d-lg-none" href="{{$linkMobile}}" style="color: #fff;"
-                            target="_blank">{{ __("Accept")}}</a>
-                        <button type="button" class="btn btn-danger d-block d-lg-none" style="margin-left: 10px;"
-                            data-dismiss="modal">{{ __("Close") }}</button>
+                        <a class="btn btn-success d-block d-lg-none" href="{{$linkMobile}}" style="color: #fff;"target="_blank">{{ __("Accept")}}</a>
+                        <button type="button" class="btn btn-danger d-block d-lg-none" style="margin-left: 10px;"data-dismiss="modal">{{ __("Close") }}</button>
                     </div>
                     <div style="display:flex; justify-content:center;">
-                        <a class="btn btn-success d-none d-lg-block" href="{{$link}}" style="color: #fff;"
-                            target="_blank">{{ __("Accept")}}</a>
-                        <button type="button" class="btn btn-danger d-none d-lg-block" style="margin-left: 10px;"
-                            data-dismiss="modal">{{ __("Close") }}</button>
+                        <a class="btn btn-success d-none d-lg-block" href="{{$link}}" style="color: #fff;"target="_blank">{{ __("Accept")}}</a>
+                        <button type="button" class="btn btn-danger d-none d-lg-block" style="margin-left: 10px;"data-dismiss="modal">{{ __("Close") }}</button>
                     </div>
-
                 </div>
-                <div class="card-footer text-muted">
-                    {{ __("Order#") }} {{$order->order_number}}
-                </div>
+                <div class="card-footer text-muted">{{ __("Order#") }} {{$order->order_number}}</div>
             </div>
-
         </div>
     </div>
 </div>
-
 <script>
     window.onload = function() {
         $('#mySmallModalLabel').modal('show');
@@ -379,6 +338,5 @@
             $('#mySmallModalLabel').modal('hide')
         });
     };
-
 </script>
 @endsection

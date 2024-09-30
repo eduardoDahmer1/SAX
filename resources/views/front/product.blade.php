@@ -1,342 +1,170 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
-
 @section('styles')
 @parent
-<style>
-    .active {
-        display: block;
-    }
-
-    .hidden {
-        display: none;
-    }
-</style>
+<style>.active {display: block;}.hidden {display: none;}</style>
 @endsection
-
 @section('content')
 @include('front._product-header')
 @include('front._product-details')
 @include('front._product-custom-gallery-modal')
-
-
 @if(config('features.marketplace'))
-@include('front._product-features-marketplace')
+    @include('front._product-features-marketplace')
 @endif
-
 @if($gs->is_report)
-@include('front._product-report-modal')
+    @include('front._product-report-modal')
 @endif
-
 @endsection
 @section('scripts')
 <script>
-    let is_color_gallery = "{{ !is_null($color_gallery) ? $color_gallery[0] : false }}";
-    if(is_color_gallery){
-        let colors = "{{ $productt->color ? implode(',', $productt->color) : "" }}";
+    const isColorGallery = "{{ !is_null($color_gallery) ? $color_gallery[0] : false }}";
+    const showStock = "{{ $gs->show_stock }}";
+    const productID = "{{ $productt->id }}";
+    const productName = "{{ $productt->name }}";
+    const productCategory = "{{ $productt->category->name }}";
+    const productPrice = "{{ $productt->price }}";
+    const productCurrency = "{{ $product_curr->name }}";
+    if (isColorGallery) {
+        const colors = "{{ $productt->color ? implode(',', $productt->color) : '' }}";
     }
-
+    function updateStockInfo(stockQty) {
+        $("#stock").val(stockQty);
+        $("#stock_qty").html(stockQty);
+    }
     $(document).on('click', '.product-size .siz-list .box', function() {
-        var show_stock = "{{ $gs->show_stock }}";
-        var size_qty = $(this).find('.size_qty').val();
-        if(show_stock == 1){
-            $("#stock").val(size_qty);
-            $("#stock_qty").html(size_qty);
-        }
+        const sizeQty = $(this).find('.size_qty').val();
+        if (showStock == 1) updateStockInfo(sizeQty);
     });
     $(document).on('click', '.product-color .color-list .box', function() {
-        var show_stock = "{{ $gs->show_stock }}";
-        var color_qty = $(this).find('.color_qty').val();
-        var color = $(this).find('.color').val();
-        if(show_stock == 1){
-            $("#stock_qty").html(color_qty);
-            $("#stock").val(color_qty);
-        }
-        var selectedColor = ".color-" + color.replace("#", "");
-        if(is_color_gallery){
-            /* Hide all gallery */
-            $(".owl-item.active").addClass("hidden");
-            $(".color_gallery").addClass("hidden");
-            $(".owl-item.active").removeClass("active");
+        const colorQty = $(this).find('.color_qty').val();
+        const color = $(this).find('.color').val();
+        if (showStock == 1) updateStockInfo(colorQty);
+        const selectedColor = `.color-${color.replace('#', '')}`;
+        if (isColorGallery) {
+            $(".owl-item.active").addClass("hidden").removeClass("active");
             $(".owl-item").addClass("hidden");
 
-            /* Show selected gallery */
-            $(".owl-item "+selectedColor+"").parent().removeClass("hidden");
-            $(".owl-item "+selectedColor+"").parent().addClass("active");
+            $(selectedColor).parent().removeClass("hidden").addClass("active");
+            $(".owl-item.active " + selectedColor).parent().removeClass("hidden").addClass("active");
 
-            $(".owl-item.active "+selectedColor+"").parent().removeClass("hidden");
-            $(".owl-item.active "+selectedColor+"").parent().addClass("active");
-
-            $(selectedColor).removeClass("hidden");
-            $(".owl-item.active "+selectedColor+"").addClass("active");
-
-            $(selectedColor).removeClass("hidden");
-            $(selectedColor).addClass("active");
-            $(".owl-item.active "+selectedColor+"").trigger("click");
+            $(selectedColor).removeClass("hidden active");
+            $(".owl-item.active " + selectedColor).addClass("active").trigger("click");
         }
     });
-
     $(document).on('change', '#select-materials', function() {
+        const material = $(this).val();
+        const selectedMaterial = `.material-${material}`;
+        const materialPrice = $(this).find("option:selected").data('material-price');
+        const materialKey = $(this).find("option:selected").data('material-key');
+        const materialName = $(this).find("option:selected").data('material-name');
+        const materialQty = $(this).find("option:selected").data('material-qty');
+        if (showStock == 1) updateStockInfo(materialQty);
+        $(".material").val(materialName);
+        $(".material_qty").val(materialQty);
+        $(".material_price").val(materialPrice);
+        $(".material_key").val(materialKey);
 
-        var material = $(this).val();
-        var material_price = $(this).find("option:selected").attr('data-material-price');
-        var material_key = $(this).find("option:selected").attr('data-material-key');
-        var material_name = $(this).find("option:selected").attr('data-material-name');
-        var selectedMaterial = ".material-" + material;
-        var show_stock = "{{ $gs->show_stock }}";
-        var material_qty = $(this).find("option:selected").attr('data-material-qty');
-        if(show_stock == 1){
-            $("#stock").val(material_qty);
-            $("#stock_qty").html(material_qty);
-        }
-        $(".material").val(material_name);
-        $(".material_qty").val(material_qty);
-        $(".material_price").val(material_price);
-        $(".material_key").val(material_key);
-
-        /* Hide all gallery */
-
-        $(".owl-item.active").addClass("hidden");
-        $(".color_gallery").addClass("hidden");
-        $(".owl-item.active").removeClass("active");
+        $(".owl-item.active").addClass("hidden").removeClass("active");
         $(".owl-item").addClass("hidden");
+        $(selectedMaterial).parent().removeClass("hidden").addClass("active");
+        $(".owl-item.active " + selectedMaterial).parent().removeClass("hidden").addClass("active");
 
-        /* Show selected gallery */
-        $(".owl-item "+selectedMaterial+"").parent().removeClass("hidden");
-        $(".owl-item "+selectedMaterial+"").parent().addClass("active");
-
-        $(".owl-item.active "+selectedMaterial+"").parent().removeClass("hidden");
-        $(".owl-item.active "+selectedMaterial+"").parent().addClass("active");
-
-        $(selectedMaterial).removeClass("hidden");
-        $(".owl-item.active "+selectedMaterial+"").addClass("active");
-
-        $(selectedMaterial).removeClass("hidden");
-        $(selectedMaterial).addClass("active");
-        $(".owl-item.active "+selectedMaterial+"").trigger("click");
+        $(selectedMaterial).removeClass("hidden active");
+        $(".owl-item.active " + selectedMaterial).addClass("active").trigger("click");
     });
-
-    $(document).on('click', '#select-materials', function() {
-
-        var material = $(this).val();
-        var selectedMaterial = ".material-" + material;
-
-        /* Hide all gallery */
-
-        $(".owl-item.active").addClass("hidden");
-        $(".color_gallery").addClass("hidden");
-        $(".owl-item.active").removeClass("active");
-        $(".owl-item").addClass("hidden");
-
-        /* Show selected gallery */
-        $(".owl-item "+selectedMaterial+"").parent().removeClass("hidden");
-        $(".owl-item "+selectedMaterial+"").parent().addClass("active");
-
-        $(".owl-item.active "+selectedMaterial+"").parent().removeClass("hidden");
-        $(".owl-item.active "+selectedMaterial+"").parent().addClass("active");
-
-        $(selectedMaterial).removeClass("hidden");
-        $(".owl-item.active "+selectedMaterial+"").addClass("active");
-
-        $(selectedMaterial).removeClass("hidden");
-        $(selectedMaterial).addClass("active");
-        $(".owl-item.active "+selectedMaterial+"").trigger("click");
-    });
-
-    $(document).ready(function(){
-        size_qty = "{{ isset($size_qty) ? $size_qty : "" }}";
-        $('.size_qty').each(function(){
-            if($(this).val() > 0){
-                $("#stock_qty").html(size_qty);
-                $("#stock").val(size_qty);
-                return true;
-            }
-        });
-
-        color_qty = "{{ isset($color_qty) ? $color_qty : "" }}";
-        $('.color_qty').each(function(){
-            if($(this).val() > 0){
-                $("#stock_qty").html(color_qty);
-                $("#stock").val(color_qty);
-                return true;
-            }
-        });
-
-        material_qty = "{{ isset($material_qty) ? $material_qty : "" }}";
-        $('.material_qty').each(function(){
-            if($(this).val() > 0){
-                $("#stock_qty").html(material_qty);
-                $("#stock").val(material_qty);
-                return true;
-            }
-        });
-
-        var id = "{{ $productt->id }}";
-        var name = "{{ $productt->name }}";
-        var category = "{{ $productt->category->name }}";
-        var price = "{{ $productt->price }}";
-        var currency = "{{ $product_curr->name }}";
-        if(typeof fbq != 'undefined'){
+    $(document).ready(function() {
+        const stockQty = [$('.size_qty'), $('.color_qty'), $('.material_qty')].reduce((acc, el) => {
+            return acc || (el.val() > 0 ? el.val() : null);
+        }, null);
+        if (stockQty) updateStockInfo(stockQty);
+        if (typeof fbq !== 'undefined') {
             fbq('track', 'ViewContent', {
-                content_name: name,
-                content_category: category,
-                content_ids: id,
+                content_name: productName,
+                content_category: productCategory,
+                content_ids: productID,
                 content_type: 'Product',
-                value: price,
-                currency: currency
+                value: productPrice,
+                currency: productCurrency
             });
         }
     });
-</script>
-<script>
-    $(document).on('keydown', '#customizable_number', function(){
-        // is custom number length greater than 1? if it is, just substrings the last char
-        $(this).val().length > 1 ? $(this).val($(this).val().substring(0, $(this).val().length -1)) : $(this).val();
+    $(document).on('keydown', '#customizable_number', function() {
+        const value = $(this).val();
+        if (value.length > 1) $(this).val(value.substring(0, value.length - 1));
     });
-</script>
-<script type="text/javascript">
-    $(document).on("submit", "#emailreply1", function() {
-        var token = $(this).find('input[name=_token]').val();
-        var subject = $(this).find('input[name=subject]').val();
-        var message = $(this).find('textarea[name=message]').val();
-        var $type = $(this).find('input[name=type]').val();
-        $('#subj1').prop('disabled', true);
-        $('#msg1').prop('disabled', true);
-        $('#emlsub').prop('disabled', true);
+    $(document).on("submit", "#emailreply1, #emailreply", function() {
+        const form = $(this);
+        const token = form.find('input[name=_token]').val();
+        const subject = form.find('input[name=subject]').val();
+        const message = form.find('textarea[name=message]').val();
+        const url = form.attr('id') === 'emailreply1' ? "{{ URL::to('/user/admin/user/send/message') }}" : "{{ URL::to('/vendor/contact') }}";
+        form.find('input, textarea').prop('disabled', true);
         $.ajax({
             type: 'post',
-            url: "{{URL::to('/user/admin/user/send/message')}}",
+            url: url,
             data: {
                 '_token': token,
-                'subject': subject,
-                'message': message,
-                'type': $type
+                subject: subject,
+                message: message,
+                ...(form.attr('id') === 'emailreply' && {
+                    email: form.find('input[name=email]').val(),
+                    name: form.find('input[name=name]').val(),
+                    user_id: form.find('input[name=user_id]').val(),
+                    vendor_id: form.find('input[name=vendor_id]').val()
+                })
             },
             success: function(data) {
-                $('#subj1').prop('disabled', false);
-                $('#msg1').prop('disabled', false);
-                $('#subj1').val('');
-                $('#msg1').val('');
-                $('#emlsub').prop('disabled', false);
-                if (data == 0)
-                    toastr.error("Oops Something Goes Wrong !!");
-                else
-                    toastr.success("Message Sent !!");
+                form.find('input, textarea').prop('disabled', false).val('');
+                if (data == 0) {
+                    toastr.error("Oops Something Went Wrong !!");
+                } else {
+                    toastr.success("{{ __('Message Sent !!') }}");
+                }
                 $('.close').click();
             }
         });
         return false;
     });
-</script>
-<script type="text/javascript">
-    $(document).on("submit", "#emailreply", function() {
-        var token = $(this).find('input[name=_token]').val();
-        var subject = $(this).find('input[name=subject]').val();
-        var message = $(this).find('textarea[name=message]').val();
-        var email = $(this).find('input[name=email]').val();
-        var name = $(this).find('input[name=name]').val();
-        var user_id = $(this).find('input[name=user_id]').val();
-        var vendor_id = $(this).find('input[name=vendor_id]').val();
-        $('#subj').prop('disabled', true);
-        $('#msg').prop('disabled', true);
-        $('#emlsub').prop('disabled', true);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).on('submit', '#logoUpload', function(e) {
+        e.preventDefault();
         $.ajax({
-            type: 'post',
-            url: "{{URL::to('/vendor/contact')}}",
-            data: {
-                '_token': token,
-                'subject': subject,
-                'message': message,
-                'email': email,
-                'name': name,
-                'user_id': user_id,
-                'vendor_id': vendor_id
+            url: "{{ url('admin/customprod/store') }}",
+            type: "POST",
+            data: new FormData(this),
+            dataType: 'JSON',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                toastr[data.success ? 'success' : 'error'](data.success ? "{{ __('Logo Uploaded Successfully!!') }}" : data.message);
+                if (!data.success) $("#image-upload").val(null);
             },
-            success: function() {
-                $('#subj').prop('disabled', false);
-                $('#msg').prop('disabled', false);
-                $('#subj').val('');
-                $('#msg').val('');
-                $('#emlsub').prop('disabled', false);
-                toastr.success("{{ __('Message Sent !!') }}");
-                $('.ti-close').click();
+            error: function(data) {
+                console.log(data);
             }
         });
-        return false;
     });
-</script>
-<script type="text/javascript">
-    $.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
+    function toggleLogoField() {
+        const logoField = document.getElementById("logoField");
+        logoField.style.display = document.getElementById("customLogo").checked ? "block" : "none";
+    }
+    $("#openBtn").click(function() {
+        $("#openOptions").modal("show");
     });
-
- $(document).on('submit','#logoUpload', (function(e) {
-    e.preventDefault();
-    $.ajax({
-    url: "{{url('admin/customprod/store')}}",
-    type:"POST",
-    data: new FormData(this),
-    dataType: 'JSON',
-    cache:false,
-    contentType: false,
-    processData: false,
-    success:function(data){
-        if(data.success){
-            toastr.success("{{ __('Logo Uploaded Successfully!!') }}");
-        } else{
-            toastr.error(data.message);
-            $("#image-upload").val(null);
-        }
-    },
-
-  error: function(data){
-     console.log(data);
-  }
-    });
-  }));
-
-</script>
-<script type="text/javascript">
-    function showLogoField(){
-   var checkBox = document.getElementById("customLogo");
-  // Get the output text
-  var logoField = document.getElementById("logoField");
-
-  // If the checkbox is checked, display the output text
-  if (checkBox.checked == true){
-    logoField.style.display = "block";
-  } else {
-    logoField.style.display = "none";
-  }
-}
-
-  var customName = $("#customizable_name").val();
-  var customNumber = $("#customizable_number").val();
-</script>
-<script type="text/javascript">
-    $("#openBtn").click(function(){
-      $("#openOptions").modal("show");
-  });
-
-</script>
-<script type="text/javascript">
-    $(".checkclick").change(function(){
+    $(".checkclick").change(function() {
         $(this).val($(this).is(":checked") ? 1 : 0);
     });
-
-</script>
-<script type="text/javascript">
-    $(".textureIcons, .textureIconsModal").click(function(){
-        var imageSrc = $(this).find('img').attr('src');
+    $(".textureIcons, .textureIconsModal").click(function() {
+        const imageSrc = $(this).find('img').attr('src');
         $('input[id=customizable_gallery]').val(imageSrc);
-        if(imageSrc.indexOf("thumbnails") > -1){
-            var replaced = imageSrc.replace("thumbnails", "galleries");
-        } else replaced = imageSrc;
+        const replaced = imageSrc.replace("thumbnails", "galleries");
         $("#currentGallery, .overlayCurrentSpan, .textureCurrentOverlay").attr("src", replaced).css("display", "block");
         $("#openOptions").modal("hide");
         toastr.success("{{ __('Image checked!!') }}");
     });
-
 </script>
 @endsection

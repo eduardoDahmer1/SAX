@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Helpers;
-
 use App\Models\Language;
 use App\Models\AdminLanguage;
 use App\Models\Product;
 use Image;
 use File;
-
 class Helper
 {
     public static function dir_is_empty($dirname)
@@ -22,18 +20,9 @@ class Helper
         }
         return true;
     }
-
     public static function generateProductThumbnailsFtp($ftp_folder, $ref_code_int)
     {
-
     }
-
-    /**
-     * Remove accents and other characters from a string.
-     * Replace special chars with nothing and spaces with underscore.
-     * @param string $str
-     * @return string
-     */
     public static function strNormalize(string $string): string
     {
         $string = mb_ereg_replace("[áàâãä]", "a", $string);
@@ -52,23 +41,11 @@ class Helper
         $string = mb_ereg_replace(" ", "_", $string);
         return $string;
     }
-
-    /**
-     * Output variations of a locale string to use in setlocale() native method.
-     * The setlocale() is server dependent. The locales must be installed in the
-     * server and each server can have different string formats. So with this
-     * helper you can just pass the locale (Eg. pt-br) and every possible
-     * string combination will be send to the setlocale() method.
-     *
-     * @param string $locale
-     * @return array
-     */
     public static function strLocaleVariations(string $locale): array
     {
         $prefix = substr($locale, 0, 2);
         $suffix = strstr($locale, '-');
         $utf8 = ".utf8";
-
         $variations = [
             "{$locale}",
             "{$locale}".$utf8,
@@ -81,16 +58,8 @@ class Helper
             str_replace('-', '_', "{$prefix}".strtoupper($suffix).$utf8),
             str_replace('-', '_', "{$prefix}".strtoupper($suffix).strtoupper($utf8))
         ];
-
         return $variations;
     }
-
-    /**
-     * Convert comma or dot numeric string into float.
-     *
-     * @param string $num
-     * @return float
-     */
     public static function toFloat($num)
     {
         $dotPos = strrpos($num, '.');

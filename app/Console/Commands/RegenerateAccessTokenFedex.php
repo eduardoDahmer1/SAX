@@ -9,44 +9,18 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-
 class RegenerateAccessTokenFedex extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'regenerate:token-fedex';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Regenerates Access Token for Fedex.';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-
         $gs = Generalsetting::findOrFail(1);
         $data = Session::has('admstore') ? Session::get('admstore') : $gs;
-
         if ($data->fedex->production) {
             $url = 'https://apis.fedex.com';
         }
@@ -54,17 +28,14 @@ class RegenerateAccessTokenFedex extends Command
         if (!$data->fedex->production) {
             $url = 'https://apis-sandbox.fedex.com';
         }
-
         $headers = [
             'Content-Type' => 'application/x-www-form-urlencoded'
         ];
-
         $body = [
             'client_id'     => $data->fedex->client_id,
             'client_secret' => $data->fedex->client_secret,
             'grant_type'    => 'client_credentials'
         ];
-
         try {
             $response = Http::asForm()
                 ->withHeaders($headers)

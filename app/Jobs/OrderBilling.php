@@ -12,29 +12,17 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-
 class OrderBilling implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     protected $url, $order;
-
     public $failOnTimeout = true;
     public $tries = 3;
-
-    /**
-     * Create a new job instance.
-     * @return void
-     */
     public function __construct($url, Order $order)
     {
         $this->url = $url;
         $this->order = $order;
     }
-    /**
-     * Execute the job.
-     * @return void
-     */
     public function handle()
     {
         try {

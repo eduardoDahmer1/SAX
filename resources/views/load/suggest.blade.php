@@ -29,9 +29,9 @@
 @endif
 @endforeach
 <script>
-    if(typeof fbq != 'undefined'){
-		fbq('track', 'Search', {
-			search_string: '{{ $slug }}'
-		});
-	}
+if (typeof fbq != 'undefined') {
+    fbq('track', 'Search', {
+        search_string: '{{ $slug }}'
+    });
+}
 </script>

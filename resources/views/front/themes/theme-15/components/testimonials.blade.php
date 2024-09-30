@@ -9,24 +9,13 @@
                             @foreach ($reviews as $review)
                                 <div class="slide-item">
                                     <div class="d-flex flex-column align-items-center text-center">
-                                        <img class="img-testimonials" src="{{ $review->photo ? asset('storage/images/reviews/' . $review->photo) : asset('assets/images/noimage.png') }}" alt="">
+                                        <img class="img-testimonials" 
+                                             src="{{ $review->photo ? asset('storage/images/reviews/' . $review->photo) : asset('assets/images/noimage.png') }}" 
+                                             alt="">
                                         <h4 class="name">{{ $review->title }}</h4>
-                                        <p style="font-weight:300;color: rgb(118, 118, 118);">{{ $review->subtitle }}</p>
+                                        <p style="font-weight: 300; color: rgb(118, 118, 118);">{{ $review->subtitle }}</p>
                                         <h5><small>{!! $review->details !!}</small></h5>
                                     </div>
-                                    {{-- <div class="top-area">
-                                        <div class="content">
-                                            <img src="
-                                                alt="">
-                                            <h4 class="name">{{ $review->title }}</h4>
-                                            <p class="dagenation">{{ $review->subtitle }}</p>
-                                            <blockquote class="review-text">
-                                                <p>
-                                                    {!! $review->details !!}
-                                                </p>
-                                            </blockquote>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             @endforeach
                         </div>

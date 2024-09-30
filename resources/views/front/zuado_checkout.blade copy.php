@@ -2778,7 +2778,6 @@
     $('#billCountry').trigger('change', session_zipdata);
 </script>
 @endif
-
 <script>
 $(document).on('submit', '#bancard-form', function(e) {
       console.log('hey')

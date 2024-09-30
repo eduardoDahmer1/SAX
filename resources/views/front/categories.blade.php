@@ -1,6 +1,5 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('content')
-
 <div class="category-page">
     <div class="container">
         <div class="row">
@@ -16,7 +15,6 @@
                             <li>
                                 <a class="p-c-title"
                                     href="{{ route('front.subcat',['slug1' => $subcat->category->slug, 'slug2' => $subcat->slug]) }}">{{$subcat->name}}</a>
-
                                 @if(count($subcat->childs) > 0)
                                 <ul>
                                     @foreach($subcat->childs as $childcat)
@@ -39,5 +37,4 @@
         </div>
     </div>
 </div>
-
 @endsection

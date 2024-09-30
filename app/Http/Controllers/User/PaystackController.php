@@ -14,12 +14,9 @@ use Carbon\Carbon;
 use Config;
 use Illuminate\Support\Facades\Session;
 use Validator;
-
-
 class PaystackController extends Controller
 {
     public function check(Request $request){
-        //--- Validation Section
         $rules = [
                'shop_name'   => 'unique:users',
                 ];
@@ -30,10 +27,8 @@ class PaystackController extends Controller
         if ($validator->fails()) {
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
-        //--- Validation Section Ends
  return response()->json('success');
     }
-
     public function store(Request $request){
         $this->validate($request, [
             'shop_name'   => 'unique:users',
@@ -49,7 +44,6 @@ class PaystackController extends Controller
         $item_number = str_random(4).time();
         $item_amount = $subs->price;
         $item_currency = $subs->currency_code;
-
                     $today = Carbon::now()->format('Y-m-d');
                     $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
                     $input = $request->all();  
@@ -88,7 +82,6 @@ class PaystackController extends Controller
                     $sub->details = $subs->details;
                     $sub->method = 'Paystack';
                     $sub->txnid = $request->ref_id;
-
                     $sub->status = 1;
                     $sub->save();
                     if($settings->is_smtp == 1)
@@ -110,7 +103,6 @@ class PaystackController extends Controller
                     $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
                     mail($user->email,'Your Vendor Account Activated','Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.',$headers);
                     }
-
                     return redirect()->route('user-dashboard')->with('success','Vendor Account Activated Successfully');
          }      
     }

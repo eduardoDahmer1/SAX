@@ -13,9 +13,7 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-
 use App\Http\Controllers\Controller;
-
 class PaytmController extends Controller
 {
     public function store(Request $request)
@@ -39,7 +37,6 @@ class PaytmController extends Controller
      $item_name = $subs->title." Plan";
      $item_number = str_random(4).time();
      $item_amount = $subs->price;
-
                     $sub = new UserSubscription;
                     $sub->user_id = $user->id;
                     $sub->subscription_id = $subs->id;
@@ -52,7 +49,6 @@ class PaytmController extends Controller
                     $sub->details = $subs->details;
                     $sub->method = 'Paytm';
                     $sub->save();
-
         Session::put('item_number',$sub->user_id); 
 	    $data_for_request = $this->handlePaytmRequest( $item_number, $item_amount );
 	    $paytm_txn_url = 'https://securegw-stage.paytm.in/theia/processTransaction';
@@ -60,15 +56,11 @@ class PaytmController extends Controller
 	    $checkSum = $data_for_request['checkSum'];
 	    return view( 'front.paytm-merchant-form', compact( 'paytm_txn_url', 'paramList', 'checkSum' ) );
     }
-
 	public function handlePaytmRequest( $order_id, $amount ) {
     $gs = Generalsetting::first();
-		// Load all functions of encdec_paytm.php and config-paytm.php
 		$this->getAllEncdecFunc();
-		// $this->getConfigPaytmSettings();
 		$checkSum = "";
 		$paramList = array();
-		// Create an array having all required parameters for creating checksum.
 		$paramList["MID"] = $gs->paytm_merchant;
 		$paramList["ORDER_ID"] = $order_id;
 		$paramList["CUST_ID"] = $order_id;
@@ -78,14 +70,12 @@ class PaytmController extends Controller
 		$paramList["WEBSITE"] = $gs->paytm_website;
 		$paramList["CALLBACK_URL"] = route('user.paytm.notify');
 		$paytm_merchant_key = $gs->paytm_secret;
-		//Here checksum string will return by getChecksumFromArray() function.
 		$checkSum = getChecksumFromArray( $paramList, $paytm_merchant_key );
 		return array(
 			'checkSum' => $checkSum,
 			'paramList' => $paramList
 		);
 	}
-
 	function getAllEncdecFunc() {
 		function encrypt_e($input, $ky) {
 			$key   = html_entity_decode($ky);
@@ -320,18 +310,13 @@ class PaytmController extends Controller
 			return $responseParamList;
 		}
 	}
-	/**
-	 * Config Paytm Settings from config_paytm.php file of paytm kit
-	 */
 	function getConfigPaytmSettings() {
     $gs = Generalsetting::first();
-
     if ($gs->paytm_mode == 'sandbox') {
       define('PAYTM_ENVIRONMENT', 'TEST'); // PROD
     } elseif ($gs->paytm_mode == 'live') {
       define('PAYTM_ENVIRONMENT', 'PROD'); // PROD
     }
-
 		define('PAYTM_MERCHANT_KEY', $gs->paytm_secret); //Change this constant's value with Merchant key downloaded from portal
 		define('PAYTM_MERCHANT_MID', $gs->paytm_merchant); //Change this constant's value with MID (Merchant ID) received from Paytm
 		define('PAYTM_MERCHANT_WEBSITE', $gs->paytm_website); //Change this constant's value with Website name received from Paytm
@@ -346,21 +331,16 @@ class PaytmController extends Controller
 		define('PAYTM_STATUS_QUERY_NEW_URL', $PAYTM_STATUS_QUERY_NEW_URL);
 		define('PAYTM_TXN_URL', $PAYTM_TXN_URL);
     }
-
 	public function notify( Request $request ) {
-
 		$order_id = $request['ORDERID'];
 		if ( 'TXN_SUCCESS' === $request['STATUS'] ) {
 			$transaction_id = $request['TXNID'];
         $order = UserSubscription::where('user_id','=',Session::get('item_number'))
             ->orderBy('created_at','desc')->first();
-
         $user = User::findOrFail($order->user_id);
         $package = $user->subscribes()->where('status',1)->orderBy('id','desc')->first();
         $subs = Subscription::findOrFail($order->subscription_id);
         $settings = Generalsetting::findOrFail(1);
-
-
         $today = Carbon::now()->format('Y-m-d');
         $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
         $input = $request->all();
@@ -387,11 +367,9 @@ class PaytmController extends Controller
         }
         $user->mail_sent = 1;
         $user->update($input);
-
         $data['txnid'] = $transaction_id;
         $data['status'] = 1;
         $order->update($data);
-
         if($settings->is_smtp == 1)
         {
             $maildata = [
@@ -412,9 +390,7 @@ class PaytmController extends Controller
             mail($user->email,'Your Vendor Account Activated','Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.',$headers);
         }
                     return redirect()->route('user-dashboard')->with('success','Vendor Account Activated Successfully');
-
 		} else if( 'TXN_FAILURE' === $request['STATUS'] ){
-            //return view( 'payment-failed' );
         $order = UserSubscription::where('user_id','=',Session::get('item_number'))
             ->orderBy('created_at','desc')->first();
             $order->delete();

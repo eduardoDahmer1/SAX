@@ -5,28 +5,16 @@
     <link href="{{ asset('assets/admin/css/Jcrop-style.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
-
     <div class="content-area">
         <div class="mr-breadcrumb">
             <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="heading"> {{ __('Edit Product') }} <a class="add-btn"
-                            href="{{ route('vendor-prod-index') }}"><i class="fas fa-arrow-left"></i>
-                            {{ __('Back') }}</a>
-                    </h4>
+                    <h4 class="heading"> {{ __('Edit Product') }} <a class="add-btn"href="{{ route('vendor-prod-index') }}"><i class="fas fa-arrow-left"></i>{{ __('Back') }}</a></h4>
                     <ul class="links">
-                        <li>
-                            <a href="{{ route('vendor-dashboard') }}">{{ __('Dashbord') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">{{ __('Products') }} </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">{{ __('License Product') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('vendor-prod-edit', $data->id) }}">{{ __('Edit') }}</a>
-                        </li>
+                        <li><a href="{{ route('vendor-dashboard') }}">{{ __('Dashbord') }}</a></li>
+                        <li><a href="javascript:;">{{ __('Products') }} </a></li>
+                        <li><a href="javascript:;">{{ __('License Product') }}</a></li>
+                        <li><a href="{{ route('vendor-prod-edit', $data->id) }}">{{ __('Edit') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,17 +24,13 @@
                 <div class="col-lg-12">
                     <div class="product-description">
                         <div class="body-area">
-
                             <div class="gocover"
                                 style="background: url({{ $gs->adminLoaderUrl }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
                             </div>
                             <form id="geniusform" action="{{ route('vendor-prod-update', $data->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
-
-
                                 @include('includes.vendor.form-both')
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -59,18 +43,11 @@
                                             name="name" required="" value="{{ $data->name }}">
                                     </div>
                                 </div>
-
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Category') }}*</h4>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Category') }}*</h4></div></div>
                                     <div class="col-lg-7">
                                         <select id="cat" name="category_id" required="">
                                             <option>{{ __('Select Category') }}</option>
-
                                             @foreach ($cats as $cat)
                                                 <option data-href="{{ route('vendor-subcat-load', $cat->id) }}"
                                                     value="{{ $cat->id }}"
@@ -80,13 +57,8 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Sub Category') }}*</h4>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Sub Category') }}*</h4></div></div>
                                     <div class="col-lg-7">
                                         <select id="subcat" name="subcategory_id">
                                             <option value="">{{ __('Select Sub Category') }}</option>
@@ -103,18 +75,11 @@
                                                         {{ $sub->name }}</option>
                                                 @endforeach
                                             @endif
-
-
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Child Category') }}*</h4>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Child Category') }}*</h4></div></div>
                                     <div class="col-lg-7">
                                         <select id="childcat" name="childcategory_id"
                                             {{ $data->subcategory_id == null ? 'disabled' : '' }}>
@@ -135,50 +100,23 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Select Upload Type') }}*</h4>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Select Upload Type') }}*</h4></div></div>
                                     <div class="col-lg-7">
                                         <select id="type_check" name="type_check">
-                                            <option value="1" {{ $data->file != null ? 'selected' : '' }}>
-                                                {{ __('Upload By File') }}
-                                            </option>
-                                            <option value="2" {{ $data->link != null ? 'selected' : '' }}>
-                                                {{ __('Upload By Link') }}
-                                            </option>
+                                            <option value="1" {{ $data->file != null ? 'selected' : '' }}>{{ __('Upload By File') }}</option>
+                                            <option value="2" {{ $data->link != null ? 'selected' : '' }}>{{ __('Upload By Link') }}</option>
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="row file {{ $data->file != null ? '' : 'hidden' }}">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Select File') }}*</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <input type="file" name="file">
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Select File') }}*</h4></div></div>
+                                    <div class="col-lg-7"><input type="file" name="file"></div>
                                 </div>
-
                                 <div class="row link {{ $data->link != null ? '' : 'hidden' }}">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Link') }}*</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <textarea class="input-field" rows="4" name="link" placeholder="{{ __(' Link') }}"
-                                            {{ $data->link != null ? 'required' : '' }}>{{ $data->link }}</textarea>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Link') }}*</h4></div></div>
+                                    <div class="col-lg-7"><textarea class="input-field" rows="4" name="link" placeholder="{{ __(' Link') }}"{{ $data->link != null ? 'required' : '' }}>{{ $data->link }}</textarea></div>
                                 </div>
-
-
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -202,37 +140,12 @@
 
                                     </div>
                                 </div>
-
-
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">
-                                                {{ __('Product Gallery Images') }} *
-                                            </h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <a href="javascript" class="set-gallery" data-toggle="modal"
-                                            data-target="#setgallery">
-                                            <input type="hidden" value="{{ $data->id }}">
-                                            <i class="icofont-plus"></i> {{ __('Set Gallery') }}
-                                        </a>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Product Gallery Images') }} *</h4></div></div>
+                                    <div class="col-lg-7"><a href="javascript" class="set-gallery" data-toggle="modal"data-target="#setgallery"><input type="hidden" value="{{ $data->id }}"><i class="icofont-plus"></i> {{ __('Set Gallery') }}</a></div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">
-                                                {{ __('Product Current Price') }}*
-                                            </h4>
-                                            <p class="sub-heading">
-                                                ({{ __('In') }} {{ $sign->name }})
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Product Current Price') }}*</h4><p class="sub-heading">({{ __('In') }} {{ $sign->name }})</p></div></div>
                                     <div class="col-lg-7">
                                         <input name="price" step="0.1" type="number" class="input-field"
                                             placeholder="{{ __(' e.g 20') }}"
@@ -240,34 +153,15 @@
                                             min="0">
                                     </div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Product Previous Price') }}*</h4>
-                                            <p class="sub-heading">{{ __('(Optional)') }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <input name="previous_price" step="0.1" type="number" class="input-field"
-                                            placeholder="{{ __(' e.g 20') }}"
-                                            value="{{ round($data->previous_price * $sign->value, 2) }}" min="0">
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"><h4 class="heading">{{ __('Product Previous Price') }}*</h4><p class="sub-heading">{{ __('(Optional)') }}</p></div></div>
+                                    <div class="col-lg-7"><input name="previous_price" step="0.1" type="number" class="input-field"placeholder="{{ __(' e.g 20') }}"value="{{ round($data->previous_price * $sign->value, 2) }}" min="0"></div>
                                 </div>
-
-
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-
-                                        </div>
-                                    </div>
+                                    <div class="col-lg-4"><div class="left-area"></div></div>
                                     <div class="col-lg-7">
                                         <div class="featured-keyword-area">
-                                            <div class="heading-area">
-                                                <h4 class="title">{{ __('Product License') }}</h4>
-                                            </div>
-
+                                            <div class="heading-area"><h4 class="title">{{ __('Product License') }}</h4></div>
                                             <div class="feature-tag-top-filds" id="license-section">
                                                 @if (!empty($data->license))
                                                     @foreach ($data->license as $key => $data1)
@@ -311,14 +205,11 @@
                                                     </div>
                                                 @endif
                                             </div>
-
                                             <a href="javascript:;" id="license-btn" class="add-fild-btn"><i
                                                     class="icofont-plus"></i> {{ __('Add More Field') }}</a>
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -333,9 +224,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -350,8 +238,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -370,9 +256,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
                                 <div
                                     class="{{ $data->meta_tag == null && strip_tags($data->meta_description) == null
                                         ? "
@@ -394,7 +277,6 @@
                                             </ul>
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="left-area">
@@ -410,11 +292,9 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
-
                                         </div>
                                     </div>
                                     <div class="col-lg-7">
@@ -422,7 +302,6 @@
                                             <div class="heading-area">
                                                 <h4 class="title">{{ __('Feature Tags') }}</h4>
                                             </div>
-
                                             <div class="feature-tag-top-filds" id="feature-section">
                                                 @if (!empty($data->features))
                                                     @foreach ($data->features as $key => $data1)
@@ -436,7 +315,6 @@
                                                                         placeholder="{{ __(' Enter Your Keyword') }}"
                                                                         value="{{ $data->features[$key] }}">
                                                                 </div>
-
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group colorpicker-component cp">
                                                                         <input type="text" name="colors[]"
@@ -458,7 +336,6 @@
                                                                     class="input-field"
                                                                     placeholder="{{ __(' Enter Your Keyword') }}">
                                                             </div>
-
                                                             <div class="col-lg-6">
                                                                 <div class="input-group colorpicker-component cp">
                                                                     <input type="text" name="colors[]" value="#000000"
@@ -470,14 +347,11 @@
                                                     </div>
                                                 @endif
                                             </div>
-
                                             <a href="javascript:;" id="feature-btn" class="add-fild-btn"><i
                                                     class="icofont-plus"></i> {{ __('Add More Field') }}</a>
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -494,7 +368,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -508,7 +381,6 @@
                                             value="{{ $data->platform }}">
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -522,7 +394,6 @@
                                             value="{{ $data->region }}">
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
@@ -536,11 +407,9 @@
                                             value="{{ $data->licence_type }}">
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">
-
                                         </div>
                                     </div>
                                     <div class="col-lg-7 text-center">
@@ -554,7 +423,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="setgallery" tabindex="-1" role="dialog" aria-labelledby="setgallery"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -593,8 +461,6 @@
                     <div class="gallery-images">
                         <div class="selected-image">
                             <div class="row">
-
-
                             </div>
                         </div>
                     </div>
@@ -602,13 +468,9 @@
             </div>
         </div>
     </div>
-
 @endsection
-
 @section('scripts')
     <script type="text/javascript">
-        // Gallery Section Update
-
         $(document).on("click", ".set-gallery", function() {
             var pid = $(this).find('input[type=hidden]').val();
             $('#pid').val(pid);
@@ -650,8 +512,6 @@
                 }
             });
         });
-
-
         $(document).on('click', '.remove-img', function() {
             var id = $(this).find('input[type=hidden]').val();
             $(this).parent().parent().remove();
@@ -663,16 +523,12 @@
                 }
             });
         });
-
         $(document).on('click', '#prod_gallery', function() {
             $('#uploadgallery').click();
         });
-
-
         $("#uploadgallery").change(function() {
             $("#form-gallery").submit();
         });
-
         $(document).on('submit', '#form-gallery', function() {
             $.ajax({
                 url: "{{ route('admin-gallery-store') }}",
@@ -705,53 +561,35 @@
                                 '</div>');
                         }
                     }
-
                 }
 
             });
             return false;
         });
-
-
-        // Gallery Section Update Ends
     </script>
-
     <script src="{{ asset('assets/admin/js/jquery.Jcrop.js') }}"></script>
-
     <script src="{{ asset('assets/admin/js/jquery.SimpleCropper.js') }}"></script>
-
     <script type="text/javascript">
         $('.cropme').simpleCropper();
         $('#crop-image').on('click', function() {
             $('.cropme').click();
         });
     </script>
-
-
     <script type="text/javascript">
         $(document).ready(function() {
-
             let html =
                 `<img src="{{ empty($data->photo) ? asset('assets/images/noimage.png') : asset('storage/images/products/' . $data->photo) }}" alt="">`;
             $(".span4.cropme").html(html);
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
         });
-
-
         $('.ok').on('click', function() {
-
             setTimeout(
                 function() {
-
-
                     var img = $('#feature_photo').val();
-
                     $.ajax({
                         url: "{{ route('vendor-prod-upload-update', $data->id) }}",
                         type: "POST",
@@ -771,11 +609,7 @@
                     });
 
                 }, 1000);
-
-
-
         });
     </script>
-
     <script src="{{ asset('assets/admin/js/product.js') }}"></script>
 @endsection

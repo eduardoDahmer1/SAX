@@ -15,7 +15,6 @@ use App\Models\CustomProduct;
 use App\Models\Generalsetting;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
-
 class CartController extends Controller
 {
     public function __construct()
@@ -28,13 +27,11 @@ class CartController extends Controller
             }
         }
     }
-
     public function cart()
     {
         if (!$this->storeSettings->is_standard_checkout && !$this->storeSettings->is_simplified_checkout) {
             return view('errors.404');
         }
-
         if (!Session::has('cart')) {
             return view('front.cart');
         }
@@ -73,12 +70,10 @@ class CartController extends Controller
         }
         return view('front.cart', compact('products', 'totalPrice', 'mainTotal', 'tx', 'prod', 'aex_cities'));
     }
-
     public function cartview()
     {
         return view('load.cart');
     }
-
     public function addtocart($id)
     {
         Session::forget('already');
@@ -92,8 +87,6 @@ class CartController extends Controller
         if (empty($prod)) {
             return redirect()->route('front.cart');
         }
-        // Set Attrubutes
-
         $keys = '';
         $values = '';
         if (!empty($prod->license_qty)) {
@@ -110,15 +103,11 @@ class CartController extends Controller
                 return 0;
             }
         }
-
-        // Set Size
         $size = '';
         if (!empty($prod->size)) {
             $size = trim($prod->size[0]);
         }
         $size = str_replace(' ', '-', $size);
-
-        // Set Color
         $color = '';
         if (!empty($prod->color)) {
             foreach ($prod->color as $key => $color) {
@@ -130,8 +119,6 @@ class CartController extends Controller
             }
         }
         $color = str_replace('#', '', $color);
-
-        // Set material
         $material = '';
         if (!empty($prod->material)) {
             foreach ($prod->material as $key => $material) {
@@ -143,14 +130,11 @@ class CartController extends Controller
             }
         }
         $material = str_replace(' ', '-', $material);
-
-        // Set Custom
         $customizable_gallery = '';
         $customizable_name = '';
         $customizable_number = '';
         $customizable_logo = '';
         $agree_terms = 0;
-
         if ($prod->user_id != 0) {
             $prc = $prod->price + $this->storeSettings->fixed_commission + ($prod->price/100) * $this->storeSettings->percentage_commission ;
             $prod->price = round($prc, 2);
@@ -158,11 +142,8 @@ class CartController extends Controller
         } else {
             $prod->price += $prod->price * ($this->storeSettings->product_percent / 100);
         }
-
-        // Set Attribute
         if (!empty($prod->attributes) && $this->storeSettings->attribute_clickable) {
             $attrArr = json_decode($prod->attributes, true);
-
             $count = count($attrArr);
             $i = 0;
             $j = 0;
@@ -175,7 +156,6 @@ class CartController extends Controller
                             $keys .= $attrKey.',';
                         }
                         $j++;
-
                         foreach ($attrVal['values'] as $optionKey => $optionVal) {
                             $value_name = AttributeOption::find($optionVal)->name;
                             $values .= $value_name . '~';
@@ -190,13 +170,11 @@ class CartController extends Controller
         }
         $keys = rtrim($keys, ',');
         $values = rtrim($values, '~');
-
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($prod, $prod->id, $material, $size, $color, $customizable_gallery, $customizable_name, $customizable_number, $customizable_logo, $agree_terms, $keys, $values);
         $custom_item_id = $id.$size.$color.$material.$customizable_gallery.$customizable_name.$customizable_number.$customizable_logo.str_replace(str_split(' ,'), '', $values);
         $custom_item_id = str_replace(array( '\'', '"', ',', '.', ' ', ';', '<', '>' ), '', $custom_item_id);
-
         if ($cart->items[$custom_item_id]['dp'] == 1) {
             return redirect()->route('front.cart');
         }
@@ -211,19 +189,16 @@ class CartController extends Controller
                 return redirect()->route('front.cart');
             }
         }
-
         if (!empty($cart->items[$custom_item_id]['material_qty'])) {
             if ($cart->items[$custom_item_id]['qty'] > $cart->items[$custom_item_id]['material_qty']) {
                 return redirect()->route('front.cart');
             }
         }
-
         if (Session::has('currency')) {
             $curr = Currency::find(Session::get('currency'));
         } else {
             $curr = Currency::find($this->storeSettings->currency_id);
         }
-
         $cart->totalPrice = 0;
         foreach ($cart->items as $item) {
             if ($prod->promotion_price > 0) {
@@ -231,7 +206,6 @@ class CartController extends Controller
             }
             $cart->totalPrice += $item['price'];
         }
-
         Session::put('cart', $cart);
         Session::put('is_customizable', false);
         return redirect()->route('front.cart')->with([
@@ -243,14 +217,12 @@ class CartController extends Controller
             'pixel_currency' => $curr['name']
         ]);
     }
-
     public function addToCartAndRedirectWedding($user, $id)
     {
         $this->addcart($id);
 
         return redirect()->route('user.wedding.show',$user);
     }
-
     public function addcart($id)
     {
         Session::forget('already');
@@ -259,15 +231,12 @@ class CartController extends Controller
         Session::forget('coupon_total');
         Session::forget('coupon_total1');
         Session::forget('coupon_percentage');
-
         $prod = Product::where('id', '=', $id)->first();
         if (empty($prod)) {
             $data["out_stock"] = __("Out of Stock!");
             $cartError = true;
             return response()->json($data);
         }
-        // Set Attrubutes
-
         $keys = '';
         $values = '';
         if (!empty($prod->license_qty)) {
@@ -284,15 +253,11 @@ class CartController extends Controller
                 return 0;
             }
         }
-
-        // Set Size
         $size = '';
         if (!empty($prod->size)) {
             $size = trim($prod->size[0]);
         }
         $size = str_replace(' ', '-', $size);
-
-        // Set Color
         $color = '';
         if (!empty($prod->color)) {
             foreach ($prod->color as $key => $color) {
@@ -304,8 +269,6 @@ class CartController extends Controller
             }
         }
         $color = str_replace('#', '', $color);
-
-        // Set material
         $material = '';
         if (!empty($prod->material)) {
             foreach ($prod->material as $key => $material) {
@@ -317,15 +280,11 @@ class CartController extends Controller
             }
         }
         $material = str_replace(' ', '-', $material);
-
-        // Set Custom
         $customizable_gallery = '';
         $customizable_name = '';
         $customizable_number = '';
         $customizable_logo = '';
         $agree_terms = 0;
-
-        // Vendor Comission
         if ($prod->user_id != 0) {
             $prc = $prod->price + $this->storeSettings->fixed_commission + ($prod->price/100) * $this->storeSettings->percentage_commission;
             $prod->price = round($prc, 2);
@@ -333,11 +292,8 @@ class CartController extends Controller
         } else {
             $prod->price += $prod->price * ($this->storeSettings->product_percent / 100);
         }
-
-        // Set Attribute
         if (!empty($prod->attributes)) {
             $attrArr = json_decode($prod->attributes, true);
-
             $count = count($attrArr);
             $i = 0;
             $j = 0;
@@ -368,11 +324,9 @@ class CartController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cartError = false;
-
         $cart->add($prod, $prod->id, $material, $size, $color, $customizable_gallery, $customizable_name, $customizable_number, $customizable_logo, $agree_terms, $keys, $values);
         $custom_item_id = $id.$size.$color.$material.$customizable_gallery.$customizable_name.$customizable_number.$customizable_logo.str_replace(str_split(' ,'), '', $values);
         $custom_item_id = str_replace(array( '\'', '"', ',', '.', ' ', ';', '<', '>' ), '', $custom_item_id);
-
         if ($cart->items[$custom_item_id]['dp'] == 1) {
             $data["digital"] = __("Already Added To Cart");
             $cartError = true;
@@ -399,7 +353,6 @@ class CartController extends Controller
                 $cartError = true;
             }
         }
-
         if (!empty($cart->items[$custom_item_id]['max_quantity']) && ($cart->items[$custom_item_id]['qty'] > $cart->items[$custom_item_id]['max_quantity'])) {
             $data["out_stock"] = __("Limit Exceeded!");
             $cartError = true;
@@ -410,7 +363,6 @@ class CartController extends Controller
         } else {
             $curr = Currency::find($this->storeSettings->currency_id);
         }
-
         if (!$cartError) {
             $cart->totalPrice = 0;
             foreach ($cart->items as $item) {
@@ -431,7 +383,6 @@ class CartController extends Controller
         }
         return response()->json($data);
     }
-
     public function addnumcart()
     {
         Session::forget('already');
@@ -440,7 +391,6 @@ class CartController extends Controller
         Session::forget('coupon_total');
         Session::forget('coupon_total1');
         Session::forget('coupon_percentage');
-
         $id = $_GET['id'];
         $qty = $_GET['qty'];
         $size = str_replace(' ', '-', $_GET['size']);
@@ -466,8 +416,6 @@ class CartController extends Controller
         $customizable_logo = $_GET['customizable_logo'];
         $agree_terms = $_GET['agree_terms'];
         $is_customizable_number = isset($_GET['is_customizable_number']) ? $_GET['is_customizable_number'] : 0;
-
-        //Fixing variable src paht name
         $customizable_gallery = strstr($customizable_gallery_src, 'thumbnails/');
         $customizable_gallery = str_replace("thumbnails/", "", $customizable_gallery);
         $file = str_replace("\\", '/', $customizable_logo);
@@ -475,7 +423,6 @@ class CartController extends Controller
         if (file_exists('storage/images/custom-logo/' . $imgName)) {
             $customizable_logo = $imgName;
         }
-
         if (Session::has('currency')) {
             $curr = Currency::find(Session::get('currency'));
         } else {
@@ -514,7 +461,6 @@ class CartController extends Controller
             $material_price += $material_price * ($this->storeSettings->product_percent / 100);
             $material = $prod->material[$material_key];
         }
-
         if ($prod->user_id != 0) {
             $prc = $prod->price + $this->storeSettings->fixed_commission + ($prod->price/100) * $this->storeSettings->percentage_commission ;
             $prc += $prc * ($this->storeSettings->product_percent / 100);
@@ -526,7 +472,6 @@ class CartController extends Controller
         if (!empty($prod->attributes)) {
             $attrArr = json_decode($prod->attributes, true);
         }
-
         $options_prices = 0;
         $index_value = 0;
         $temp_values = array();
@@ -566,48 +511,36 @@ class CartController extends Controller
             }
             $size = str_replace(' ', '-', $size);
         }
-
-
-
         if (empty($color)) {
             if (!empty($prod->color)) {
                 $color = trim($prod->color[$prod->color_key]);
             }
             $color = str_replace(' ', '-', $color);
         }
-
         if (empty($material)) {
             if (!empty($prod->material)) {
                 $material = trim($prod->material[$prod->material_key]);
             }
             $material = str_replace(' ', '-', $material);
         }
-
-
         if (empty($customizable_gallery) || !isset($customizable_gallery)) {
             $customizable_gallery = null;
         }
-
         if (empty($customizable_name) || !isset($customizable_name)) {
             $customizable_name = null;
         }
-
         if (empty($customizable_number) || !isset($customizable_number)) {
             $customizable_number = null;
         }
-
         if (empty($customizable_logo) || !isset($customizable_logo)) {
             $customizable_logo = null;
         }
-
         if (empty($agree_terms) || !isset($agree_terms)) {
             $agree_terms = 0;
         }
-
         if (empty($customizable_gallery_count) || !isset($customizable_gallery_count)) {
             $customizable_gallery_count = null;
         }
-
         $color = str_replace('#', '', $color);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
@@ -617,7 +550,6 @@ class CartController extends Controller
         $custom_item_id = str_replace(array( '\'', '"', ',', '.', ' ', ';', '<', '>' ), '', $custom_item_id);
         $customProducts = env("ENABLE_CUSTOM_PRODUCT", false);
         $customProductsNumber = env("ENABLE_CUSTOM_PRODUCT_NUMBER", false);
-
         if ($customProducts && $customProductsNumber) {
             // Se as duas feature flags estiverem ativadas lança um erro porque não faz sentido.
             // Caso futuramente deva ser implementado algo para tratar isso, é aqui que deverá acontecer.
@@ -660,22 +592,18 @@ class CartController extends Controller
             $data["out_stock"] = __("Out of Stock!");
             $cartError = true;
         }
-
-
         if (!empty($cart->items[$custom_item_id]['size_qty'])) {
             if ($cart->items[$custom_item_id]['qty'] > $cart->items[$custom_item_id]['size_qty']) {
                 $data["out_stock"] = __("Out of Stock!");
                 $cartError = true;
             }
         }
-
         if (!empty($cart->items[$custom_item_id]['material_qty'])) {
             if ($cart->items[$custom_item_id]['qty'] > $cart->items[$custom_item_id]['material_qty']) {
                 $data["out_stock"] = __("Out of Stock!");
                 $cartError = true;
             }
         }
-
         if (!empty($cart->items[$custom_item_id]['color_qty'])) {
             if ($cart->items[$custom_item_id]['qty'] > $cart->items[$custom_item_id]['color_qty']) {
                 $data["out_stock"] = __("Out of Stock!");
@@ -697,10 +625,8 @@ class CartController extends Controller
             $data['pixel_currency'] = $curr['name'];
             $data["success"] = __("Successfully Added To Cart");
         }
-
         return response()->json($data);
     }
-
     public function addtonumcart()
     {
         Session::forget('already');
@@ -709,7 +635,6 @@ class CartController extends Controller
         Session::forget('coupon_total');
         Session::forget('coupon_total1');
         Session::forget('coupon_percentage');
-
         $id = $_GET['id'];
         $qty = $_GET['qty'];
         $size = str_replace(' ', '-', $_GET['size']);
@@ -737,8 +662,6 @@ class CartController extends Controller
         $customizable_logo = $_GET['customizable_logo'];
         $agree_terms = $_GET['agree_terms'];
         $is_customizable_number = isset($_GET['is_customizable_number']) ? $_GET['is_customizable_number'] : 0;
-
-        //Fixing variable src paht name
         $customizable_gallery = strstr($customizable_gallery_src, 'thumbnails/');
         $customizable_gallery = str_replace("thumbnails/", "", $customizable_gallery);
         $file = str_replace("\\", '/', $customizable_logo);
@@ -746,7 +669,6 @@ class CartController extends Controller
         if (file_exists('storage/images/custom-logo/' . $imgName)) {
             $customizable_logo = $imgName;
         }
-
         $prod = Product::where('id', '=', $id)->first();
         if (empty($prod)) {
             return redirect()->route('front.cart');
@@ -759,7 +681,6 @@ class CartController extends Controller
             $size_price += $size_price * ($this->storeSettings->product_percent / 100);
             $size = $prod->size[$size_key];
         }
-
         if (empty($color_key)) {
             $color_key = 0;
         }
@@ -768,7 +689,6 @@ class CartController extends Controller
             $color_price += $color_price * ($this->storeSettings->product_percent / 100);
             $color = $prod->color[$color_key];
         }
-
         if (empty($material_key)) {
             $material_key = 0;
         }
@@ -777,7 +697,6 @@ class CartController extends Controller
             $material_price += $material_price * ($this->storeSettings->product_percent / 100);
             $material = $prod->material[$material_key];
         }
-
         if ($prod->user_id != 0) {
             $prc = $prod->price + $this->storeSettings->fixed_commission + ($prod->price/100) * $this->storeSettings->percentage_commission ;
             $prod->price = round($prc, 2);
@@ -785,11 +704,9 @@ class CartController extends Controller
         } else {
             $prod->price += $prod->price * ($this->storeSettings->product_percent / 100);
         }
-
         if (!empty($prod->attributes)) {
             $attrArr = json_decode($prod->attributes, true);
         }
-
         $options_prices = 0;
         $index_value = 0;
         $temp_values = array();
@@ -809,7 +726,6 @@ class CartController extends Controller
         $keys = $keys == "" ? '' :implode(',', $keys);
         $prod->price += $options_prices;
         $values = $temp_values == "" ? '' : implode('~', $temp_values);
-
         if (!empty($prod->license_qty)) {
             $lcheck = 1;
             foreach ($prod->license_qty as $ttl => $dtl) {

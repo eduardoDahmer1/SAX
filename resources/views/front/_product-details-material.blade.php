@@ -1,7 +1,5 @@
 <div class="product-attributes my-4">
-    <strong for="" class="text-capitalize">
-        {{ __("Material") }}:
-    </strong>
+    <strong for="" class="text-capitalize">{{ __("Material") }}:</strong>
     <div class="form-group mb-2">
         <select id="select-materials" class="form-control">
             @foreach($productt->material as $key => $material)
@@ -17,8 +15,7 @@
                 >
                 {{ $material }}
             </option>
-            <input type="hidden" id="stock"
-                value="{{ isset($productt->material_qty[$key]) ? $productt->material_qty[$key] : '' }}">
+            <input type="hidden" id="stock" value="{{ isset($productt->material_qty[$key]) ? $productt->material_qty[$key] : '' }}">
             @endforeach
         </select>
         <input type="hidden" class="material" id="material_product" value="">
