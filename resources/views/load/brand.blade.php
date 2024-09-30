@@ -4,9 +4,7 @@
 @foreach($cat->subs as $sub)
 <option data-href="{{ route('admin-childcat-load',$sub->id) }}" value="{{ $sub->id }}">{{ $sub->name }}</option>
 @endforeach
-
-@else 
-
+@else
 <option data-href="" value="">{{__('Select Sub Category')}}</option>
 @foreach($cat->subs as $sub)
 <option data-href="{{ route('vendor-childcat-load',$sub->id) }}" value="{{ $sub->id }}">{{ $sub->name }}</option>

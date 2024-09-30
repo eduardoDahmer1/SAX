@@ -8,21 +8,16 @@ use Illuminate\Support\Facades\File;
 
 class CrudGenerator extends Command
 {
-
     protected $signature = 'crud:generator  {name : Class (singular) for example User}';
-
     protected $description = 'Create CRUD operations for better performance';
-
     public function __construct()
     {
         parent::__construct();
     }
-
     protected function getStub($type)
     {
         return file_get_contents(resource_path("stubs/$type.stub"));
     }
-
     protected function model($name)
     {
         $modelTemplate = str_replace(
@@ -33,7 +28,6 @@ class CrudGenerator extends Command
 
         file_put_contents(app_path("/Models/{$name}.php"), $modelTemplate);
     }
-
     protected function controller($name)
     {
         $controllerTemplate = str_replace(
@@ -52,7 +46,6 @@ class CrudGenerator extends Command
 
         file_put_contents(app_path("/Http/Controllers/Admin/{$name}Controller.php"), $controllerTemplate);
     }
-
     protected function index($name)
     {
         $indexTemplate = str_replace(
@@ -77,7 +70,6 @@ class CrudGenerator extends Command
         mkdir($path, 0777, true);
         file_put_contents(resource_path("/views/admin/{$new}/index.blade.php"), $indexTemplate);
     }
-
     protected function create($name)
     {
         $createTemplate = str_replace(
@@ -100,7 +92,6 @@ class CrudGenerator extends Command
         $new = strtolower($name);
         file_put_contents(resource_path("/views/admin/{$new}/create.blade.php"), $createTemplate);
     }
-
     protected function edit($name)
     {
         $editTemplate = str_replace(
@@ -123,7 +114,6 @@ class CrudGenerator extends Command
         $new = strtolower($name);
         file_put_contents(resource_path("/views/admin/{$new}/edit.blade.php"), $editTemplate);
     }
-
     public function handle()
     {
             $name = $this->argument('name');
@@ -143,6 +133,5 @@ class CrudGenerator extends Command
         'Route::post(\''.'/'.$lower."/edit/{id}', 'Admin".'\\'."{$name}Controller@update')->name('admin-{$lower}-update');"."\n".
         'Route::get(\''.'/'.$lower."/delete/{id}', 'Admin".'\\'."{$name}Controller@destroy')->name('admin-{$lower}-delete');"."\n"
         );
-
     }
 }

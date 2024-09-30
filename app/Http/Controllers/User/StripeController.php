@@ -18,21 +18,16 @@ use Redirect;
 use Stripe\Error\Card;
 use URL;
 use Validator;
-
 use App\Http\Controllers\Controller;
-
 class StripeController extends Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-        //Set Spripe Keys
         $stripe = Generalsetting::findOrFail(1);
         Config::set('services.stripe.key', $stripe->stripe_key);
         Config::set('services.stripe.secret', $stripe->stripe_secret);
     }
-
     public function store(Request $request){
         $this->validate($request, [
             'shop_name'   => 'unique:users',
@@ -55,7 +50,6 @@ class StripeController extends Controller
                         'year' => 'required',
                     ]);
         if ($validator->passes()) {
-
             $stripe = Stripe::make(Config::get('services.stripe.secret'));
             try{
                 $token = $stripe->tokens()->create([
@@ -69,16 +63,13 @@ class StripeController extends Controller
                 if (!isset($token['id'])) {
                     return back()->with('error','Token Problem With Your Token.');
                 }
-
                 $charge = $stripe->charges()->create([
                     'card' => $token['id'],
                     'currency' => $item_currency,
                     'amount' => $item_amount,
                     'description' => $item_name,
                     ]);
-
                 if ($charge['status'] == 'succeeded') {
-
                     $today = Carbon::now()->format('Y-m-d');
                     $date = date('Y-m-d', strtotime($today.' + '.$subs->days.' days'));
                     $input = $request->all();  
@@ -139,11 +130,8 @@ class StripeController extends Controller
                     $headers = "From: ".$settings->from_name."<".$settings->from_email.">";
                     mail($user->email,'Your Vendor Account Activated','Your Vendor Account Activated Successfully. Please Login to your account and build your own shop.',$headers);
                     }
-
                     return redirect()->route('user-dashboard')->with('success','Vendor Account Activated Successfully');
-
                 }
-                
             }catch (Exception $e){
                 return back()->with('unsuccess', $e->getMessage());
             }catch (\Cartalyst\Stripe\Exception\CardErrorException $e){

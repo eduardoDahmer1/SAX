@@ -3,23 +3,14 @@
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <ul class="pages">
-                    <li><a href="{{ route('front.index') }}">{{ __("Home") }}</a></li>
-                    <li><a href="{{ route('front.crowpolicy') }}">{{ __("General Terms of Service") }}</a></li>
-                </ul>
-            </div>
+            <div class="col-lg-12"><ul class="pages"><li><a href="{{ route('front.index') }}">{{ __("Home") }}</a></li><li><a href="{{ route('front.crowpolicy') }}">{{ __("General Terms of Service") }}</a></li></ul></div>
         </div>
     </div>
 </div>
 <section class="contact-us">
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-xl-12 col-lg-12 col-md-12">
-                <div class="left-area">
-                    <div class="contact-form"><div class="gocover" style="background: url({{ asset('storage/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>{!! $gs->crow_policy !!}</div>
-                </div>
-            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12"><div class="left-area"><div class="contact-form"><div class="gocover" style="background: url({{ asset('storage/images/'.$gs->loader) }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>{!! $gs->crow_policy !!}</div></div></div>
         </div>
     </div>
 </section>

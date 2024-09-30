@@ -12,10 +12,8 @@ use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Socialite;
-
 class SocialRegisterController extends Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -44,18 +42,15 @@ class SocialRegisterController extends Controller
         {
             return redirect('/');
         }
-        //check if we have logged provider
         $socialProvider = SocialProvider::where('provider_id',$socialUser->getId())->first();
         if(!$socialProvider)
         {
-
             if(User::where('email',$socialUser->email)->exists())
             {
                 $auser = User::where('email',$socialUser->email)->first();
                 Auth::guard('web')->login($auser); 
                 return redirect()->route('user-dashboard');
             }
-            //create a new user and provider
             $user = new User;
             $user->email = $socialUser->email;
             $user->name = $socialUser->name;
@@ -71,11 +66,9 @@ class SocialRegisterController extends Controller
             $notification = new Notification;
             $notification->user_id = $user->id;
             $notification->save();
-
         }
         else
         {
-
             if(User::where('email',$socialUser->email)->exists())
             {
                 $auser = User::where('email',$socialUser->email)->first();
@@ -85,7 +78,6 @@ class SocialRegisterController extends Controller
 
             $user = $socialProvider->user;
         }
-
         Auth::guard('web')->login($user); 
         return redirect()->route('user-dashboard');
 

@@ -1,41 +1,22 @@
 @extends('layouts.vendor')
 @section('styles')
-    <style>
-        .disabled {
-            pointer-events: none;
-            opacity: 0.5;
-        }
-    </style>
-
+    <style>.disabled {pointer-events: none;opacity: 0.5;}</style>
     <link href="{{ asset('assets/vendor/css/product.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/admin/css/jquery.Jcrop.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/admin/css/Jcrop-style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/admin/css/cropper.min.css') }}" rel="stylesheet" />
 @endsection
-
 @section('content')
-
     <div class="content-area">
         <div class="mr-breadcrumb">
             <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="heading"> {{ __('Edit Product') }} <a class="add-btn"
-                            href="{{ route('vendor-prod-index') }}"><i class="fas fa-arrow-left"></i>
-                            {{ __('Back') }}</a>
-                    </h4>
+                    <h4 class="heading"> {{ __('Edit Product') }} <a class="add-btn"href="{{ route('vendor-prod-index') }}"><i class="fas fa-arrow-left"></i>{{ __('Back') }}</a></h4>
                     <ul class="links">
-                        <li>
-                            <a href="{{ route('vendor-dashboard') }}">{{ __('Dashboard') }}</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">{{ __('Products') }} </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('vendor-prod-index') }}">{{ __('All Products') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('vendor-prod-edit', $data->id) }}">{{ __('Edit') }}</a>
-                        </li>
+                        <li><a href="{{ route('vendor-dashboard') }}">{{ __('Dashboard') }}</a></li>
+                        <li><a href="javascript:;">{{ __('Products') }} </a></li>
+                        <li><a href="{{ route('vendor-prod-index') }}">{{ __('All Products') }}</a></li>
+                        <li><a href="{{ route('vendor-prod-edit', $data->id) }}">{{ __('Edit') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,28 +26,18 @@
                 <div class="col-lg-12">
                     <div class="product-description">
                         <div class="body-area">
-
-                            <div class="gocover"
-                                style="background: url({{ $gs->adminLoaderUrl }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);">
-                            </div>
+                            <div class="gocover" style="background: url({{ $gs->adminLoaderUrl }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
                             <form id="geniusform" action="{{ route('vendor-prod-update', $data->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
-
                                 @include('includes.vendor.form-both')
-
                                 <div class="title-section-form">
                                     <span>1</span>
-                                    <h3>
-                                        {{ __('Mandatory Data') }}
-                                    </h3>
+                                    <h3>{{ __('Mandatory Data') }}</h3>
                                 </div>
-
                                 <div class="row border-sep">
-                                    <!--COMEÇO DA ROW DE DADOS OBRIGATORIOS-->
                                     <div class="col-12">
                                         <div class="input-form">
-
                                             @component('admin.components.input-localized', ['required' => true, 'from' => $data])
                                                 @slot('name')
                                                     name
@@ -81,13 +52,11 @@
                                             @endcomponent
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Category') }}*</h4>
                                             <select id="cat" name="category_id" required>
                                                 <option>{{ __('Select Category') }}</option>
-
                                                 @foreach ($cats as $cat)
                                                     <option data-href="{{ route('vendor-subcat-load', $cat->id) }}"
                                                         value="{{ $cat->id }}"
@@ -97,7 +66,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <div class="d-flex">
@@ -114,7 +82,6 @@
                                                 min="0">
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Ref Code') }}* </h4>
@@ -123,7 +90,6 @@
                                                 value="{{ $data->ref_code }}">
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Product Sku') }}* </h4>
@@ -132,7 +98,6 @@
                                                 value="{{ $data->sku }}">
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Display in Stores') }}* </h4>
@@ -174,7 +139,6 @@
 
                                                                         $catOptPrice = !empty($selectedAttrs[$catAttribute->input_name]['prices'][$loop->index]) && $catOptChecked ? $selectedAttrs[$catAttribute->input_name]['prices'][$loop->index] : '';
                                                                     @endphp
-
                                                                     <div class="option-row"
                                                                         style="display:flex;justify-content:start;align-items:center;">
                                                                         <div class="custom-control custom-checkbox">
@@ -189,7 +153,6 @@
                                                                                 {{ $catOption->name }}
                                                                             </label>
                                                                         </div>
-
                                                                         <div class="{{ $catAttribute->price_status == 0 ? ' d-none' : '' }}"
                                                                             style="display:flex;justify-content:center;align-items:center;min-width:220px;">
                                                                             <span style="padding:0 1rem;">+</span>
@@ -212,9 +175,6 @@
                                                 @endforeach
                                             @endif
                                         </div>
-                                        {{-- Attributes of category ends --}}
-
-                                        {{-- Attributes of subcategory starts --}}
                                         <div id="subcatAttributes">
                                             @if (!empty($subAttributes))
                                                 @foreach ($subAttributes as $subcatAttribute)
@@ -233,7 +193,6 @@
 
                                                                         $subcatOptPrice = !empty($selectedAttrs[$subcatAttribute->input_name]['prices'][$loop->index]) && $subcatOptChecked ? $selectedAttrs[$subcatAttribute->input_name]['prices'][$loop->index] : '';
                                                                     @endphp
-
                                                                     <div class="option-row"
                                                                         style="display:flex;justify-content:start;align-items:center;">
                                                                         <div class="custom-control custom-checkbox">
@@ -248,7 +207,6 @@
                                                                                 {{ $subcatOption->name }}
                                                                             </label>
                                                                         </div>
-
                                                                         <div class="{{ $subcatAttribute->price_status == 0 ? ' d-none' : '' }}"
                                                                             style="display:flex;justify-content:center;align-items:center;min-width:220px;">
                                                                             <span style="padding:0 1rem;">+</span>
@@ -271,20 +229,14 @@
                                                 @endforeach
                                             @endif
                                         </div>
-                                        {{-- Attributes of subcategory ends --}}
-
-                                        {{-- Attributes of child category starts --}}
                                         <div id="childcatAttributes">
                                             @if (!empty($childAttributes))
                                                 @foreach ($childAttributes as $childcatAttribute)
                                                     <div class="input-form">
                                                         <div class="row">
                                                             <div class="col-xl-12">
-                                                                <h3 class="heading">{{ __('Child category attribute') }}
-                                                                </h3>
-                                                                <h4 class="heading"
-                                                                    style="font-weight:bold;padding-top:1rem;">
-                                                                    {{ $childcatAttribute->name }}</h4>
+                                                                <h3 class="heading">{{ __('Child category attribute') }}</h3>
+                                                                <h4 class="heading" style="font-weight:bold;padding-top:1rem;">{{ $childcatAttribute->name }}</h4>
                                                             </div>
                                                             <div class="col-xl-12">
                                                                 @foreach ($childcatAttribute->attribute_options as $childcatOption)
@@ -293,7 +245,6 @@
 
                                                                         $childcatOptPrice = !empty($selectedAttrs[$childcatAttribute->input_name]['prices'][$loop->index]) && $childcatOptChecked ? $selectedAttrs[$childcatAttribute->input_name]['prices'][$loop->index] : '';
                                                                     @endphp
-
                                                                     <div class="option-row"
                                                                         style="display:flex;justify-content:start;align-items:center;">
                                                                         <div class="custom-control custom-checkbox">
@@ -308,7 +259,6 @@
                                                                                 {{ $childcatOption->name }}
                                                                             </label>
                                                                         </div>
-
                                                                         <div class="{{ $childcatAttribute->price_status == 0 ? ' d-none' : '' }}"
                                                                             style="display:flex;justify-content:center;align-items:center;min-width:220px;">
                                                                             <span style="padding:0 1rem;">+</span>
@@ -331,23 +281,15 @@
                                                 @endforeach
                                             @endif
                                         </div>
-                                        {{-- Attributes of child category ends --}}
-
                                     </div>
-
                                 </div>
-                                <!--FINAL DA ROW DE DADOS OBRIGATÓRIOS-->
-
                                 <div class="title-section-form">
                                     <span>2</span>
                                     <h3>
                                         {{ __('Important Data') }}
                                     </h3>
                                 </div>
-
                                 <div class="row border-sep">
-                                    <!--COMEÇO DA ROW DE DADOS OPCIONAIS IMPORTANTES-->
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Brand') }}</h4>
@@ -362,7 +304,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Model Number') }} </h4>
@@ -371,7 +312,6 @@
                                                 required value="{{ $data->mpn }}">
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Sub Category') }}*</h4>
@@ -393,7 +333,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-xl-6">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Child Category') }}*</h4>
@@ -418,9 +357,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-
-
                                     <div class="col-xl-6">
                                         <div class="input-form"
                                             style="display:flex;flex-direction:column;align-items:center;">
@@ -438,19 +374,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <a href="javascript:;" id="crop-image" class="d-inline-block mybtn1">
                                                 <i class="icofont-upload-alt"></i> {{ __('Upload Image Here') }}
                                             </a>
-
                                         </div>
                                     </div>
-
                                     <input type="hidden" id="feature_photo" name="photo"
                                         value="{{ $data->photo }}" accept="image/*">
-
                                     <div class="col-xl-6">
-
                                         <div class="input-form">
                                             <h4 class="heading">
                                                 {{ __('Product Gallery Images') }}
@@ -461,14 +392,12 @@
                                                 <i class="icofont-plus"></i> {{ __('Set Gallery') }}
                                             </a>
                                         </div>
-
                                         <div class="checkbox-wrapper list list-personalizada">
                                             <input type="checkbox" name="product_condition_check" class="checkclick1"
                                                 id="conditionCheck" value="1"
                                                 {{ $data->product_condition != 0 ? 'checked' : '' }}>
                                             <label for="conditionCheck">{{ __('Allow Product Condition') }}</label>
                                         </div>
-
                                         <div class='input-form {{ $data->ship != null ? '' : 'showbox' }}'>
                                             <h4 class="heading">{{ __('Product Condition') }}*</h4>
                                             <select name="product_condition">
@@ -480,9 +409,7 @@
                                                     {{ __('Used') }}</option>
                                             </select>
                                         </div>
-
                                     </div>
-
                                     <div class="col-xl-12">
                                         <div class="input-form">
                                             @component('admin.components.input-localized', ['from' => $data, 'type' => 'richtext'])
@@ -496,7 +423,6 @@
                                             @endcomponent
                                         </div>
                                     </div>
-
                                     <div class="col-xl-12">
                                         <div class="input-form">
                                             @component('admin.components.input-localized', ['from' => $data, 'type' => 'richtext'])
@@ -511,17 +437,13 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="title-section-form">
                                     <span>3</span>
                                     <h3>
                                         {{ __('Extra Data') }}
                                     </h3>
                                 </div>
-
                                 <div class="row">
-                                    <!--COMEÇO DA ROW DE DADOS EXTRAS-->
-
                                     <div class="col-xl-6">
                                         <div class="form-list">
                                             <ul class="list list-personalizada">
@@ -530,9 +452,7 @@
                                                     {{ $data->ship != null ? 'checked' : '' }}>
                                                 <label for="check1">{{ __('Allow Estimated Shipping Time') }}</label>
                                             </ul>
-
                                             <div class='input-form {{ $data->ship != null ? '' : 'showbox' }}'>
-
                                                 @component('admin.components.input-localized', ['from' => $data])
                                                     @slot('name')
                                                         ship
@@ -545,12 +465,9 @@
                                                     @endslot
                                                     {{ __('Product Estimated Shipping Time') }}
                                                 @endcomponent
-
                                             </div>
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-6-->
-
                                     <div class="col-xl-6">
                                         <ul class="list list-personalizada">
                                             <li>
@@ -559,12 +476,10 @@
                                                 <label for="size-check">{{ __('Allow Product Sizes') }}</label>
                                             </li>
                                         </ul>
-
                                         <div class='input-form {{ $data->size != null ? '' : 'showbox' }}'
                                             id="size-display">
                                             <div class="row">
                                                 <div class="col-xl-12">
-
                                                     <div class="product-size-details" id="size-section">
                                                         @if (!empty($data->size))
                                                             @foreach ($data->size as $key => $data1)
@@ -659,16 +574,12 @@
                                                             </div>
                                                         @endif
                                                     </div>
-
                                                     <a href="javascript:;" id="size-btn" class="add-more"><i
                                                             class="fas fa-plus"></i>{{ __('Add More Size') }} </a>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <!--FECHAMENTO COL-XL-6-->
-
                                     <div class="col-xl-6">
                                         <div class="form-list">
                                             <ul class="list list-personalizada">
@@ -681,7 +592,6 @@
                                             </ul>
                                         </div>
                                         <div class='{{ !empty($data->color) ? '' : 'showbox' }}'>
-
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="input-form product-size-details">
@@ -765,13 +675,9 @@
                                                                 class="fas fa-plus"></i>{{ __('Add More Color') }} </a>
                                                     </div>
                                                 </div>
-
                                             </div>
-
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-6-->
-
                                     <div class="col-xl-6">
                                         <div class="form-list">
                                             <ul class="list list-personalizada">
@@ -803,7 +709,6 @@
                                                                                     value="{{ $data->whole_sell_qty[$key] }}"
                                                                                     required="">
                                                                             </div>
-
                                                                             <div class="col-lg-6">
                                                                                 <input type="number"
                                                                                     name="whole_sell_discount[]"
@@ -839,7 +744,6 @@
                                                                 </div>
                                                             @endif
                                                         </div>
-
                                                         <a href="javascript:;" id="whole-btn" class="add-more"><i
                                                                 class="icofont-plus"></i> {{ __('Add More Field') }}</a>
                                                     </div>
@@ -847,8 +751,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-6-->
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -862,8 +764,6 @@
                                                 value="{{ $data->max_quantity }}">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -877,8 +777,6 @@
                                                 value="{{ $data->weight }}">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -892,8 +790,6 @@
                                                 value="{{ $data->width }}">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -907,8 +803,6 @@
                                                 value="{{ $data->height }}">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">
@@ -922,8 +816,6 @@
                                                 value="{{ $data->length }}">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Product Previous Price') }}*
@@ -937,8 +829,6 @@
                                                 min="0">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-3">
                                         <div class="input-form">
                                             <h4 class="heading">{{ __('Product Stock') }}*
@@ -950,8 +840,6 @@
                                                 placeholder="{{ __('e.g 20') }}" value="{{ $data->stock }}">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-3">
                                         <div class="checkbox-wrapper list list-personalizada">
                                             <input type="checkbox" name="measure_check" class="checkclick1"
@@ -960,7 +848,6 @@
                                             <label
                                                 for="allowProductMeasurement">{{ __('Allow Product Measurement') }}</label>
                                         </div>
-
                                         <div class="{{ $data->measure == null ? 'showbox' : '' }} input-form">
                                             <h4 class="heading">{{ __('Product Measurement') }}*</h4>
                                             <select id="product_measure">
@@ -986,13 +873,10 @@
                                                 placeholder="{{ __('Enter Unit') }}" value="{{ $data->measure }}">
                                         </div>
                                     </div>
-                                    <!--FECHAMENTO COL-XL-3-->
-
                                     <div class="col-xl-12">
                                         <div class="col-xl-12">
                                             <div class="title-section-form"></div>
                                         </div>
-
                                         <div class="row">
                                             <div class="col-xl-6">
                                                 <div class="featured-keyword-area input-form">
@@ -1002,7 +886,6 @@
                                                             {{ __('(You can create up to 2 Product Tags)') }}
                                                         </span>
                                                     </h4>
-
                                                     <div class="feature-tag-top-filds" id="feature-section">
                                                         @php
                                                             $currentFeature = 0;
@@ -1011,7 +894,6 @@
 
                                                         @php//dd($data['features'])
                                                         @endphp
-
                                                         <div class="feature-area mb-3">
                                                             <div class="row mb-0">
                                                                 <div class="col-lg-6">
@@ -1047,7 +929,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group colorpicker-component cp">
                                                                         <input type="text" name="colors[]"
@@ -1122,7 +1003,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="col-lg-6">
                                                                     <div class="input-group colorpicker-component cp">
                                                                         <input type="text" name="colors[]"
@@ -1165,8 +1045,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--FINAL ROW COL-XL-6-->
-
                                             <div class="col-xl-6">
                                                 <div class="input-form">
                                                     <h4 class="heading">{{ __('Youtube Video URL') }}*
@@ -1192,7 +1070,6 @@
                                                         ? "
                                                                                                     showbox"
                                                         : '' }}">
-
                                                     @component('admin.components.input-localized', ['from' => $data, 'type' => 'tags'])
                                                         @slot('name')
                                                             meta_tag
@@ -1202,7 +1079,6 @@
                                                         @endslot
                                                         {{ __('Meta Tags') }}
                                                     @endcomponent
-
                                                     @component('admin.components.input-localized', ['from' => $data, 'type' => 'textarea'])
                                                         @slot('name')
                                                             meta_description
@@ -1219,9 +1095,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                         <div class="col-xl-12 text-center">
                                             <button class="addProductSubmit-btn"
                                                 type="submit">{{ __('Save') }}</button>
@@ -1234,7 +1107,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="setgallery" tabindex="-1" role="dialog" aria-labelledby="setgallery"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1280,25 +1152,16 @@
             </div>
         </div>
     </div>
-
 @endsection
-
 @section('scripts')
     <script>
-        // Remove White Space
         function isEmpty(el) {
             return !$.trim(el.html())
         }
-        // Remove White Space Ends
     </script>
-
     <script>
-        // Feature Section
-
         $("#feature-btn").on('click', function() {
-
             current_feature += 1;
-
             $("#feature-section").append('' +
                 '<div class="feature-area mb-3">' +
                 '<span class="remove feature-remove"><i class="fas fa-times"></i></span>' +
@@ -1360,9 +1223,7 @@
                 '');
             $('.cp').colorpicker();
         });
-
         $(document).on('click', '.feature-remove', function() {
-
             $(this.parentNode).remove();
             if (isEmpty($('#feature-section'))) {
 
@@ -1429,12 +1290,8 @@
             }
 
         });
-
-        // Feature Section Ends
     </script>
-
     <script type="text/javascript">
-        // Gallery Section Update
         $(document).on("click", ".set-gallery-product", function() {
             var pid = $(this).find('input[type=hidden]').val();
             $('#pid').val(pid);
@@ -1533,20 +1390,16 @@
             });
             return false;
         });
-        // Gallery Section Update Ends
     </script>
-
     <script src="{{ asset('assets/admin/js/jquery.SimpleCropper.js') }}"></script>
     <script src="{{ asset('assets/admin/js/cropper.js') }}"></script>
     <script src="{{ asset('assets/admin/js/jquery-cropper.js') }}"></script>
-
     <script type="text/javascript">
         $('.cropme').simpleCropper();
         $('#crop-image').on('click', function() {
             $('.cropme').click();
         });
     </script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             let html =
@@ -1582,7 +1435,6 @@
                 }, 1000);
         });
     </script>
-
     <script>
         $('#imageSource').on('change', function() {
             var file = this.value;
@@ -1595,7 +1447,6 @@
                 $('#f-link').show();
             }
         });
-
         function deleteImage(id) {
             $.ajax({
                 url: '{{ route('admin-prod-delete-img') }}',
@@ -1619,6 +1470,5 @@
             });
         }
     </script>
-
     <script src="{{ asset('assets/admin/js/product.js') }}"></script>
 @endsection

@@ -8,38 +8,14 @@ use File;
 
 class UpdatePhotoReferences extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'update:photoreferences';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Updates all photo references for Products.';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-        // Atualiza as referências de foto para cada produto com Foto no banco e não na pasta.
         $products = \DB::select('SELECT id, photo, thumbnail FROM products WHERE photo IS NOT NULL AND photo != ""');
         $countProds = 0;
         if(count($products) > 0){
@@ -63,7 +39,6 @@ class UpdatePhotoReferences extends Command
                 $this->info('Referência(s) de '.$countProds.' fotos(s) atualizada(s) com sucesso!');
             }
         } else{
-            // Se não existir fotos com discrepância, mas ainda existirem Thumbnails no banco que não estejam na pasta...
             $this->error('Não foram encontradas fotos de produtos para atualizar.');
             $thumbs = \DB::select('SELECT id, photo, thumbnail FROM products WHERE thumbnail IS NOT NULL AND thumbnail != ""');
             $countThumbs = 0;

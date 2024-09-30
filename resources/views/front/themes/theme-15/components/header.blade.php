@@ -119,6 +119,7 @@
                                     <li><a class="navlink py-2" href="{{ route('front.categories')}}">{{__('See all categories')}}</a></li>
                                 </ul>
                             </div>
+                            <li><a  class="navlink" href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
                             <li><a  class="navlink" target="_blank" href="https://saxdepartment.com/">{{ __('Institutional') }}</a></li>
                             <li><a  class="navlink" target="_blank"  href="https://saxdepartment.com/sax-palace">{{ __('Sax Palace') }}</a></li>
                             <li><a  class="navlink" target="_blank"  href="https://saxdepartment.com/sax-bridal">{{ __('SAX Bridal') }}</a></li>

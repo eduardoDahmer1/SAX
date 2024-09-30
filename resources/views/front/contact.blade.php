@@ -2,10 +2,7 @@
 @section('content')
     <div class="breadcrumb-area">
         <div class="container">
-            <ul class="pages">
-                <li><a href="{{ route('front.index') }}">{{ __('Home') }}</a></li>
-                <li><a href="{{ route('front.contact') }}">{{ __('Contact Us') }}</a></li>
-            </ul>
+            <ul class="pages"><li><a href="{{ route('front.index') }}">{{ __('Home') }}</a></li><li><a href="{{ route('front.contact') }}">{{ __('Contact Us') }}</a></li></ul>
         </div>
     </div>
     <section class="contact-us">
@@ -19,7 +16,6 @@
                 <form id="contactform" action="{{ route('front.contact.submit') }}" method="POST">
                     {{ csrf_field() }}
                     @include('includes.admin.form-both')
-
                     <div class="row justify-content-center">
                         <div class="col-xl-4 col-lg-5">
                             <div class="form-input"><input type="text" name="name" placeholder="{{ __('Name') }} *" required><i class="icofont-user-alt-5"></i></div>

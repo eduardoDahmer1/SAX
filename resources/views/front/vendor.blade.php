@@ -1,10 +1,6 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('content')
-<style>
-    .super-title { font-size: 60px; line-height: 50px; font-weight: bold; color: #000; text-align: center; padding-bottom: 20px; }
-    .title { font-size: 24px; font-weight: bold; color: #000; }
-    iframe { width: 100%; height: 450px; }
-</style>
+<style>.super-title { font-size: 60px; line-height: 50px; font-weight: bold; color: #000; text-align: center; padding-bottom: 20px; }.title { font-size: 24px; font-weight: bold; color: #000; }iframe { width: 100%; height: 450px; }</style>
 <div class="vendor-banner" style="background: url({{ $vendor->shop_image ? asset('storage/images/vendorbanner/' . $vendor->shop_image) : '' }}); background-repeat: no-repeat; background-size: cover; background-position: center;{{ $vendor->shop_image ? '' : 'background-color:' . $gs->vendor_color }};"></div>
 <hr>
 <div class="container">
@@ -116,15 +112,9 @@
                     <form id="emailreply">
                         @csrf
                         <ul>
-                            <li>
-                                <input type="text" class="input-field" readonly placeholder="Send To {{ $vendor->shop_name }}">
-                            </li>
-                            <li>
-                                <input type="text" class="input-field" id="subj" name="subject" placeholder="{{ __('Subject *') }}" required>
-                            </li>
-                            <li>
-                                <textarea class="input-field textarea" name="message" id="msg" placeholder="{{ __('Your Message') }}" required></textarea>
-                            </li>
+                            <li><input type="text" class="input-field" readonly placeholder="Send To {{ $vendor->shop_name }}"></li>
+                            <li><input type="text" class="input-field" id="subj" name="subject" placeholder="{{ __('Subject *') }}" required></li>
+                            <li><textarea class="input-field textarea" name="message" id="msg" placeholder="{{ __('Your Message') }}" required></textarea></li>
                             <input type="hidden" name="email" value="{{ Auth::guard('web')->user()->email }}">
                             <input type="hidden" name="name" value="{{ Auth::guard('web')->user()->name }}">
                             <input type="hidden" name="user_id" value="{{ Auth::guard('web')->user()->id }}">

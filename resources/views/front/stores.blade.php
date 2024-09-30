@@ -1,17 +1,7 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('styles')
 @parent
-<style>
-    .section-title:target { margin-top: -40px; padding-top: 80px; }
-    .slider-buttom-category .single-category .left .title { font-size: 1rem; word-wrap: anywhere; }
-    .slider-buttom-category .single-category .left { margin-right: inherit !important; }
-    .slider-buttom-category .single-category .right { max-width: 80px; filter: none !important; }
-    .slider-buttom-category .single-category { align-self: stretch; }
-    .item .info { margin-top: 10px; }
-    .item:hover .info { top: -5px; }
-    .marcas-page #title-brands { padding-left: 20px; }
-    @media (min-width:768px) { .marcas-page #title-brands { margin-left: 20px; padding-left: 0; } }
-</style>
+<style>.section-title:target { margin-top: -40px; padding-top: 80px; }.slider-buttom-category .single-category .left .title { font-size: 1rem; word-wrap: anywhere; }.slider-buttom-category .single-category .left { margin-right: inherit !important; }.slider-buttom-category .single-category .right { max-width: 80px; filter: none !important; }.slider-buttom-category .single-category { align-self: stretch; }.item .info { margin-top: 10px; }.item:hover .info { top: -5px; }.marcas-page #title-brands { padding-left: 20px; }@media (min-width:768px) { .marcas-page #title-brands { margin-left: 20px; padding-left: 0; } }</style>
 @endsection
 @section('content')
 <div class="breadcrumb-area">
