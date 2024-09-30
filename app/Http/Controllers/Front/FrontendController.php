@@ -139,9 +139,9 @@ class FrontendController extends Controller
 
     public function index(Request $request)
     {
-        // if (Cache::has('pagina_inicial')) {
-        //     return Cache::get('pagina_inicial');
-        // }
+        if (Cache::has('pagina_inicial')) {
+            return Cache::get('pagina_inicial');
+        }
 
         if (!empty($request->reff)) {
             $affilate_user = User::where('affilate_code', '=', $request->reff)->first();
