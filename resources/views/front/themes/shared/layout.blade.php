@@ -174,7 +174,11 @@
     @php
         $current_locale = strtolower(str_replace('-', '_', str_replace('admin_', '', App::getLocale())));
     @endphp
-
+    @if (request()->is('/'))
+    <div id="fullScreenGif">
+        <img src="{{ asset('assets/images/ninos.gif') }}" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    @endif
     <script type="text/javascript">
         var current_locale = "{{ $current_locale }}";
         var mainurl = "{{ url('/') }}";
@@ -182,6 +186,31 @@
         var langg = {!! json_encode(new \stdClass()) !!};
         var datatable_translation_url = "{{ $datatable_translation }}"
     </script>
+<script type="text/javascript">
+    (function() {
+        window.onload = function() {
+            const gif = document.getElementById('fullScreenGif');
+
+            // Verifica se o GIF já foi exibido
+            const lastShownTime = localStorage.getItem('gifLastShown');
+            const now = new Date().getTime();
+
+            // Se não existe registro de exibição ou já se passaram 30 minutos
+            if (!lastShownTime || now - lastShownTime > 30 * 60 * 1000) {
+                // Mostra o GIF
+                gif.style.display = 'block';
+
+                // Armazena o tempo atual em localStorage
+                localStorage.setItem('gifLastShown', now);
+
+                // Oculta o GIF após 3 segundos
+                setTimeout(() => {
+                    gif.style.display = 'none';
+                }, 3000);
+            }
+        };
+    })();
+</script>
     <script src="{{ asset('assets/front/themes/shared/assets/js/jquery.js') }}"></script>
     <script src="{{ asset('assets/front/themes/shared/assets/js/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/front/themes/shared/assets/js/popper.min.js') }}"></script>
