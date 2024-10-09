@@ -33,9 +33,6 @@ a {
     background-color: transparent;
     padding: 0;
 }
-body {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text y="32" font-size="32">😊</text></svg>'), auto !important;
-}
 .breadcrumb-area .pages {
     padding: 10px 0;
 }

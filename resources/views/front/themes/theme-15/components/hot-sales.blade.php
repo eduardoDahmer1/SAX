@@ -10,7 +10,8 @@
                                 <h2 class="section-title" data-aos="fade-in">{{ __('Commemorative Date') }}</h2>
                                 <h3 class="section-title" data-aos="fade-in">{{ __('Commemorative Date Subtitle') }}</h3>
                             </div>
-                            @foreach([['Hot', $hot_products], ['New', $latest_products], ['Trending', $trending_products], ['Sale', $sale_products]] as [$title, $products])
+                            <!-- , ['Trending', $trending_products], ['Sale', $sale_products] -->
+                            @foreach([['Hot', $hot_products], ['New', $latest_products]] as [$title, $products])
                             <div class="col-lg-12 col-sm-6">
                                 <div class="categori">
                                     <div class="section-top">
