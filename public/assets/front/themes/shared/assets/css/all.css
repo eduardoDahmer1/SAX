@@ -34016,6 +34016,7 @@ nav button {
     justify-content: center;
     font-weight: 600;
     padding: 1em;
+    align-items: center;
 }
 .add-to-cart-btn-affiliate:hover{
     cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
@@ -34372,6 +34373,8 @@ nav button {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    height: 16vh;
+    display: grid;
 }
 .hot-and-new-item .categori .item-list li .single-box .right-area .stars {
     display: block;
