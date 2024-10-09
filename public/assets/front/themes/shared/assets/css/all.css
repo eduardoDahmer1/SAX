@@ -61,7 +61,9 @@ nav,
 section {
     display: block;
 }
+
 body {
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
@@ -250,7 +252,7 @@ button {
 [type="reset"]:not(:disabled),
 [type="submit"]:not(:disabled),
 button:not(:disabled) {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
@@ -314,7 +316,7 @@ output {
 }
 summary {
     display: list-item;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 template {
     display: none;
@@ -3678,7 +3680,7 @@ input[type="submit"].btn-block {
     width: 100%;
     height: 0.5rem;
     color: transparent;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background-color: #dee2e6;
     border-color: transparent;
     border-radius: 1rem;
@@ -3706,7 +3708,7 @@ input[type="submit"].btn-block {
     width: 100%;
     height: 0.5rem;
     color: transparent;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background-color: #dee2e6;
     border-color: transparent;
     border-radius: 1rem;
@@ -3736,7 +3738,7 @@ input[type="submit"].btn-block {
     width: 100%;
     height: 0.5rem;
     color: transparent;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background-color: transparent;
     border-color: transparent;
     border-width: 0.5rem;
@@ -5854,7 +5856,7 @@ a.close.disabled {
     margin-right: 3px;
     margin-left: 3px;
     text-indent: -999px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background-color: #fff;
     background-clip: padding-box;
     border-top: 10px solid transparent;
@@ -23212,7 +23214,7 @@ a.text-dark:hover {
     border: 0;
     background: 0 0;
     outline: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     color: #6a6a6a;
     z-index: 3;
     font-size: 24px;
@@ -23256,7 +23258,7 @@ a.text-dark:hover {
     padding: 0;
     background: 0 0;
     outline: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .core-nav .wrap-core-nav-list {
     text-align: left;
@@ -24296,7 +24298,7 @@ a.meanmenu-reveal {
 }
 .mean-container a.meanmenu-reveal {
     color: #333;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     display: block;
     float: right;
     font-family: Arial, Helvetica, sans-serif;
@@ -24452,7 +24454,7 @@ a.meanmenu-reveal {
     outline: 0;
 }
 .slick-list.dragging {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     cursor: hand;
 }
 .slick-slider .slick-list,
@@ -24535,7 +24537,7 @@ a.meanmenu-reveal {
     -webkit-transform: translate(0, -50%);
     -ms-transform: translate(0, -50%);
     transform: translate(0, -50%);
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     color: transparent;
     border: none;
     outline: 0;
@@ -24615,7 +24617,7 @@ a.meanmenu-reveal {
     height: 20px;
     margin: 0 5px;
     padding: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .slick-dots li button {
     font-size: 0;
@@ -24624,7 +24626,7 @@ a.meanmenu-reveal {
     width: 20px;
     height: 20px;
     padding: 5px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     color: transparent;
     border: 0;
     outline: 0;
@@ -24726,7 +24728,7 @@ a.meanmenu-reveal {
 .owl-carousel .owl-controls .owl-dot,
 .owl-carousel .owl-controls .owl-nav .owl-next,
 .owl-carousel .owl-controls .owl-nav .owl-prev {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     cursor: hand;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -24811,7 +24813,7 @@ a.meanmenu-reveal {
     margin-left: -40px;
     margin-top: -40px;
     background: url("owl.video.play.png") no-repeat;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     z-index: 1;
     -webkit-backface-visibility: hidden;
     -webkit-transition: scale 0.1s ease;
@@ -24913,7 +24915,7 @@ a.meanmenu-reveal {
     cursor: zoom-out;
 }
 .mfp-zoom {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     cursor: -webkit-zoom-in;
     cursor: -moz-zoom-in;
     cursor: zoom-in;
@@ -24961,7 +24963,7 @@ a.meanmenu-reveal {
 button.mfp-arrow,
 button.mfp-close {
     overflow: visible;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background: 0 0;
     border: 0;
     -webkit-appearance: none;
@@ -25165,7 +25167,7 @@ img.mfp-img {
     max-width: 100%;
 }
 .mfp-gallery .mfp-image-holder .mfp-figure {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 @media screen and (max-width: 800px) and (orientation: landscape),
     screen and (max-height: 300px) {
@@ -25317,7 +25319,7 @@ table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_asc_disabled,
 table.dataTable thead .sorting_desc,
 table.dataTable thead .sorting_desc_disabled {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     position: relative;
 }
 table.dataTable thead .sorting:after,
@@ -25452,7 +25454,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child,
 table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child {
     position: relative;
     padding-left: 30px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 table.dataTable.dtr-inline.collapsed
     > tbody
@@ -25514,7 +25516,7 @@ table.dataTable.dtr-inline.collapsed.compact
 table.dataTable.dtr-column > tbody > tr > td.control,
 table.dataTable.dtr-column > tbody > tr > th.control {
     position: relative;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 table.dataTable.dtr-column > tbody > tr > td.control:before,
 table.dataTable.dtr-column > tbody > tr > th.control:before {
@@ -25611,7 +25613,7 @@ div.dtr-modal div.dtr-modal-close {
     background-color: #f9f9f9;
     text-align: center;
     border-radius: 3px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     z-index: 12;
 }
 div.dtr-modal div.dtr-modal-close:hover {
@@ -25664,7 +25666,7 @@ table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_asc_disabled,
 table.dataTable thead .sorting_desc,
 table.dataTable thead .sorting_desc_disabled {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background-repeat: no-repeat;
     background-position: center right;
 }
@@ -25950,7 +25952,7 @@ table.dataTable th {
     margin-left: 2px;
     text-align: center;
     text-decoration: none !important;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     color: #333 !important;
     border: 1px solid transparent;
     border-radius: 2px;
@@ -26199,7 +26201,7 @@ table.dataTable th {
     border: solid 1px #e8e8e8;
     box-sizing: border-box;
     clear: both;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     display: block;
     float: left;
     font-family: inherit;
@@ -26325,7 +26327,7 @@ table.dataTable th {
     background-color: transparent !important;
 }
 .nice-select .option {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     font-weight: 400;
     line-height: 40px;
     list-style: none;
@@ -29533,7 +29535,7 @@ table.dataTable th {
 .toast-close-button:hover {
     color: #000;
     text-decoration: none;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     opacity: 0.4;
 }
 .rtl .toast-close-button {
@@ -29543,7 +29545,7 @@ table.dataTable th {
 }
 button.toast-close-button {
     padding: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background: 0 0;
     border: 0;
     -webkit-appearance: none;
@@ -29620,7 +29622,7 @@ button.toast-close-button {
     -webkit-box-shadow: 0 0 12px #000;
     box-shadow: 0 0 12px #000;
     opacity: 1;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 #toast-container > .toast-info {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVEhLtZa9SgNBEMc9sUxxRcoUKSzSWIhXpFMhhYWFhaBg4yPYiWCXZxBLERsLRS3EQkEfwCKdjWJAwSKCgoKCcudv4O5YLrt7EzgXhiU3/4+b2ckmwVjJSpKkQ6wAi4gwhT+z3wRBcEz0yjSseUTrcRyfsHsXmD0AmbHOC9Ii8VImnuXBPglHpQ5wwSVM7sNnTG7Za4JwDdCjxyAiH3nyA2mtaTJufiDZ5dCaqlItILh1NHatfN5skvjx9Z38m69CgzuXmZgVrPIGE763Jx9qKsRozWYw6xOHdER+nn2KkO+Bb+UV5CBN6WC6QtBgbRVozrahAbmm6HtUsgtPC19tFdxXZYBOfkbmFJ1VaHA1VAHjd0pp70oTZzvR+EVrx2Ygfdsq6eu55BHYR8hlcki+n+kERUFG8BrA0BwjeAv2M8WLQBtcy+SD6fNsmnB3AlBLrgTtVW1c2QN4bVWLATaIS60J2Du5y1TiJgjSBvFVZgTmwCU+dAZFoPxGEEs8nyHC9Bwe2GvEJv2WXZb0vjdyFT4Cxk3e/kIqlOGoVLwwPevpYHT+00T+hWwXDf4AJAOUqWcDhbwAAAAASUVORK5CYII=") !important;
@@ -29874,7 +29876,7 @@ button.toast-close-button {
 }
 .ui-accordion .ui-accordion-header {
     display: block;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     position: relative;
     margin: 2px 0 0 0;
     padding: 0.5em 0.5em 0.5em 0.7em;
@@ -29903,7 +29905,7 @@ button.toast-close-button {
 }
 .ui-menu .ui-menu-item {
     margin: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
 }
 .ui-menu .ui-menu-item-wrapper {
@@ -29944,7 +29946,7 @@ button.toast-close-button {
     position: relative;
     line-height: normal;
     margin-right: 0.1em;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     vertical-align: middle;
     text-align: center;
     -webkit-user-select: none;
@@ -30155,7 +30157,7 @@ input.ui-button::-moz-focus-inner {
 .ui-datepicker .ui-datepicker-buttonpane button {
     float: right;
     margin: 0.5em 0.2em 0.4em;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     padding: 0.2em 0.6em 0.3em 0.6em;
     width: auto;
     overflow: visible;
@@ -30283,7 +30285,7 @@ input.ui-button::-moz-focus-inner {
 }
 .ui-dialog .ui-dialog-buttonpane button {
     margin: 0.5em 0.4em 0.5em 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .ui-dialog .ui-resizable-n {
     height: 2px;
@@ -30519,7 +30521,7 @@ input.ui-button::-moz-focus-inner {
     cursor: text;
 }
 .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .ui-tabs .ui-tabs-panel {
     display: block;
@@ -31447,7 +31449,7 @@ a.ui-button:active {
 }
 .ui-accordion .ui-accordion-header {
     display: block;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     position: relative;
     margin: 2px 0 0 0;
     padding: 0.5em 0.5em 0.5em 0.7em;
@@ -31476,7 +31478,7 @@ a.ui-button:active {
 }
 .ui-menu .ui-menu-item {
     margin: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
 }
 .ui-menu .ui-menu-item-wrapper {
@@ -31517,7 +31519,7 @@ a.ui-button:active {
     position: relative;
     line-height: normal;
     margin-right: 0.1em;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     vertical-align: middle;
     text-align: center;
     -webkit-user-select: none;
@@ -31728,7 +31730,7 @@ input.ui-button::-moz-focus-inner {
 .ui-datepicker .ui-datepicker-buttonpane button {
     float: right;
     margin: 0.5em 0.2em 0.4em;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     padding: 0.2em 0.6em 0.3em 0.6em;
     width: auto;
     overflow: visible;
@@ -31856,7 +31858,7 @@ input.ui-button::-moz-focus-inner {
 }
 .ui-dialog .ui-dialog-buttonpane button {
     margin: 0.5em 0.4em 0.5em 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .ui-dialog .ui-resizable-n {
     height: 2px;
@@ -32092,7 +32094,7 @@ input.ui-button::-moz-focus-inner {
     cursor: text;
 }
 .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .ui-tabs .ui-tabs-panel {
     display: block;
@@ -32357,7 +32359,7 @@ textarea:focus {
     height: 45px;
     position: fixed;
     border-radius: 50%;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
@@ -32765,7 +32767,7 @@ textarea:focus {
     top: 0;
     left: 0;
     border-radius: 50px 0 0 50px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background: 0 0;
     border: none;
     font-size: 14px;
@@ -32820,7 +32822,7 @@ textarea:focus {
     margin-top: -1px;
     font-size: 14px;
     color: #333;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     height: 100%;
     background: #0f78f2;
     width: 50px;
@@ -33121,7 +33123,7 @@ textarea:focus {
     font-size: 12px;
     font-weight: 700;
     line-height: 20px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .logo-header
     .helpful-links
@@ -33252,13 +33254,13 @@ textarea:focus {
 }
 .categories_title {
     background: #131313;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .categories_title h2 {
     font-size: 15px;
     font-weight: 600;
     color: #fff;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     margin-bottom: 0;
 }
 .categories_title h2 i {
@@ -33732,7 +33734,7 @@ nav button {
     color: #fff;
 }
 .info-area .info-box:hover {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .trending {
     padding: 36px 0 0;
@@ -33983,6 +33985,7 @@ nav button {
     -o-transition: all linear 0.3s;
     transition: all linear 0.3s;
 }
+
 .item .add-to-cart-btn:hover {
     background: 0 0;
     color: #f50;
@@ -34003,6 +34006,19 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
+}
+.add-to-cart-btn-affiliate{
+    background: black;
+    color: white;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    padding: 1em;
+}
+.add-to-cart-btn-affiliate:hover{
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .item-vendor:hover {
     overflow: hidden;
@@ -34384,7 +34400,7 @@ nav button {
     color: #f50;
 }
 .hot-and-new-item .categori .item-list li .single-box .right-area .price {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 26px;
     color: #143250;
     font-weight: 700;
@@ -34876,7 +34892,7 @@ nav button {
 }
 .product-details-page .all-item {
     position: relative;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .product-details-page .all-item li {
     margin: 0 0;
@@ -34899,7 +34915,7 @@ nav button {
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
     opacity: 0.7;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .product-details-page .all-item .slidPrv4.slick-arrow:hover {
     opacity: 1;
@@ -34922,7 +34938,7 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .product-details-page .all-item .slidNext4.slick-arrow:hover {
     opacity: 1;
@@ -35113,7 +35129,7 @@ nav button {
     text-align: center;
     line-height: 25px;
     font-size: 14px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     font-weight: 600;
 }
 .product-details-page
@@ -35163,7 +35179,7 @@ nav button {
     text-align: center;
     line-height: 25px;
     font-size: 14px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     font-weight: 600;
 }
 .product-details-page
@@ -35209,7 +35225,7 @@ nav button {
     border-radius: 50%;
     display: inline-block;
     position: relative;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .product-details-page
     .right-area
@@ -35291,7 +35307,7 @@ nav button {
     border-radius: 50%;
     display: inline-block;
     position: relative;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .product-details-page
     .right-area
@@ -35500,7 +35516,7 @@ nav button {
     text-align: center;
     line-height: 30px;
     font-size: 14px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     font-weight: 500;
 }
 .product-details-page
@@ -36078,7 +36094,7 @@ nav button {
     -webkit-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
     transition: all 0.3s linear;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 #product-details-tab #replay-area .review-area .star-area .star-list li::after {
     position: absolute;
@@ -36187,7 +36203,7 @@ nav button {
     font-size: 14px;
     font-weight: 600;
     border: 1px solid #f50;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -36484,7 +36500,7 @@ nav button {
     border-radius: 50px;
     font-size: 14px;
     font-weight: 600;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     border: 1px solid #f50;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
@@ -36832,7 +36848,7 @@ nav button {
     color: #2a2a2a;
     font-family: "Open Sans", sans-serif;
     margin-left: 30px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori
     .left-area
@@ -36846,7 +36862,7 @@ nav button {
     input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori
     .left-area
@@ -36868,7 +36884,7 @@ nav button {
     border-radius: 50%;
     -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori
     .left-area
@@ -36977,7 +36993,7 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori .left-area .filter-result-area .body-area .filter-btn:hover {
     background: 0 0;
@@ -37033,7 +37049,7 @@ nav button {
     color: #2a2a2a;
     font-family: "Open Sans", sans-serif;
     margin-left: 30px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori
     .left-area
@@ -37047,7 +37063,7 @@ nav button {
     input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori
     .left-area
@@ -37069,7 +37085,7 @@ nav button {
     border-radius: 2px;
     -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori
     .left-area
@@ -37207,7 +37223,7 @@ nav button {
     margin-bottom: 0;
     border-bottom: 0;
     background: #fff;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .sub-categori
     .left-area
@@ -37469,7 +37485,7 @@ nav button {
     text-align: center;
     border: 0;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -37563,7 +37579,7 @@ nav button {
     text-align: center;
     line-height: 30px;
     font-size: 14px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     font-weight: 500;
 }
 .cartpage .left-area .table tbody tr td.quantity .qty ul li .qtminus1:focus,
@@ -37594,7 +37610,7 @@ nav button {
     margin-bottom: 0;
 }
 .cartpage .left-area .table tbody tr td .removecart {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     font-size: 16px;
 }
 .order-box {
@@ -37648,7 +37664,7 @@ nav button {
     font-weight: 600;
     margin-bottom: 25px;
     text-decoration: underline;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .cupon-box #coupon-form {
     display: none;
@@ -37671,7 +37687,7 @@ nav button {
     border: 1px solid rgba(0, 0, 0, 0.15);
     font-size: 14px;
     text-transform: uppercase;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -37702,7 +37718,7 @@ nav button {
     border: 1px solid rgba(0, 0, 0, 0.15);
     font-size: 14px;
     text-transform: uppercase;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -38021,7 +38037,7 @@ nav button {
     font-size: 15px;
     line-height: 18px;
     border-radius: 50%;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -38054,7 +38070,7 @@ nav button {
     font-size: 14px;
     font-weight: 700;
     margin-top: 14px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -38103,7 +38119,7 @@ nav button {
     text-transform: uppercase;
     border: 0;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-box-shadow: 0 10px 30px 0 rgba(21, 10, 82, 0.35);
     box-shadow: 0 10px 30px 0 rgba(21, 10, 82, 0.35);
     -webkit-transition: all 0.3s ease-in;
@@ -38131,7 +38147,7 @@ nav button {
     width: 50px;
     border: none;
     background: 0 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .blog-details .blog-aside .serch-form button:focus {
     outline: 0;
@@ -38497,7 +38513,7 @@ nav button {
     line-height: 47px;
     text-align: center;
     border: 1px solid #000;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-box-shadow: 4px 4px 18px rgba(119, 119, 119, 0.125);
     box-shadow: 4px 4px 18px rgba(119, 119, 119, 0.125);
     -webkit-transition: all 0.3s ease-in;
@@ -38687,7 +38703,7 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .login-area .submit-btn:hover {
     background: #143250;
@@ -38849,7 +38865,7 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .login-area .submit-btn:hover {
     background: #143250;
@@ -39015,7 +39031,7 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .login-area .submit-btn:hover {
     background: #143250;
@@ -39507,7 +39523,7 @@ nav button {
     display: inline-block;
     margin-right: 20px;
     border-radius: 3px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -39537,7 +39553,7 @@ nav button {
     text-transform: uppercase;
     border: 0;
     border-radius: 3px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -39700,7 +39716,7 @@ nav button {
 .upload-img .file-upload-area .upload-file {
     width: 150px !important;
     height: 40px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     position: relative;
 }
 .upload-img .file-upload-area .upload-file .upload {
@@ -39708,7 +39724,7 @@ nav button {
     height: 40px;
     display: inline-block;
     opacity: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .upload-img .file-upload-area .upload-file span {
     position: absolute;
@@ -39718,7 +39734,7 @@ nav button {
     height: 40px;
     background: #f50;
     z-index: -1;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     text-align: center;
     line-height: 40px;
     color: #fff;
@@ -39850,7 +39866,7 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .single-wish .remove:hover {
     color: #fff;
@@ -40603,7 +40619,7 @@ select {
 }
 input[type="checkbox"] + label {
     display: block;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     font-size: 14px !important;
     margin-top: 4px;
 }
@@ -40646,7 +40662,7 @@ input[type="checkbox"]:checked:disabled + label:before {
     display: block;
     position: relative;
     padding-left: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -40667,7 +40683,7 @@ input[type="checkbox"]:checked:disabled + label:before {
 .radio-design input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     z-index: 9;
     width: 100%;
     height: 100%;
@@ -40882,7 +40898,7 @@ input[type="checkbox"]:checked:disabled + label:before {
 }
 #hiddenForm .box-insert-img label:hover,
 #receipt_card .box-insert-img label:hover {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     filter: brightness(90%);
 }
 .receipt-content .receipt-form .box-form {
@@ -41158,7 +41174,7 @@ input[type="checkbox"]:checked:disabled + label:before {
     transition: all 0.3s;
     display: inline-block;
     color: #000;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .page-center ul.pagination li a:hover {
     color: #000 !important;
@@ -41191,7 +41207,7 @@ ul.pagination li.disabled {
     width: 100%;
 }
 .pointer {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .gocover {
     display: none;
@@ -41210,7 +41226,7 @@ ul.pagination li.disabled {
     margin-right: 5px;
 }
 .rx-parent {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .rx-child,
 .rx-parent .rx-show {
@@ -41231,7 +41247,7 @@ ul.pagination li.disabled {
 .starrr a {
     font-size: 16px;
     padding: 0 1px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     color: #f50;
     text-decoration: none;
 }
@@ -41279,7 +41295,7 @@ ul.pagination li.disabled {
 }
 .login-btn {
     color: #fff !important;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     background-color: #f50;
     border-color: #f50;
     padding: 8px 12px;
@@ -41311,7 +41327,7 @@ ul.pagination li.disabled {
 }
 .autocomplete-items div {
     padding: 5px;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
     width: 95%;
     color: #fff;
     font-size: 15px;
@@ -41344,7 +41360,7 @@ ul.pagination li.disabled {
     justify-content: center;
 }
 td.pro-remove i {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 figure.product-image-container a img {
     max-width: 100px;
@@ -41353,7 +41369,7 @@ figure.product-image-container a img {
     font-weight: 600;
 }
 .stars {
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .f-14 {
     font-size: 14px;
@@ -42033,7 +42049,7 @@ nav .menu li a {
     color: #333;
     font-size: 12px;
     border-radius: 100%;
-    cursor: pointer;
+    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
 }
 .top-area {
     text-align: center;
