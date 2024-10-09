@@ -30,10 +30,6 @@ if (isset($_GET['text_color_2'])) {
 //-------------------------------------------------------------------
 
 ?>
-body {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text y="32" font-size="32">😊</text></svg>'), auto !important;
-}
-
 .categories_menu_inner_horizontal > ul > li > a, .categories_menu_inner_horizontal > ul > li span > a {
     color: <?php echo $theme_color_1; ?> !important;
 }
