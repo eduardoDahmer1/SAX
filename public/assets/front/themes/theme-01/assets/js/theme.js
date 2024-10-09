@@ -388,7 +388,7 @@ $(function ($) {
         $hot_new_slider.each(function () {
             if($(this).find('.item-slide').length > 1) {
                 $(this).owlCarousel({
-                    items: 5,
+                    items: 4,
                     autoplay: true,
                     margin: 0,
                     loop: true,
@@ -412,7 +412,7 @@ $(function ($) {
                             items: 4
                         },
                         1200: {
-                            items: 5
+                            items: 4
                         }
                     }
                 })

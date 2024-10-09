@@ -33,7 +33,9 @@ a {
     background-color: transparent;
     padding: 0;
 }
-
+body {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><text y="32" font-size="32">😊</text></svg>'), auto !important;
+}
 .breadcrumb-area .pages {
     padding: 10px 0;
 }
@@ -2742,4 +2744,24 @@ display: flex;
     height: 100%;
     z-index: 9999;
     display: none;
+}
+.align-fest{
+    justify-content: center;
+}
+.align-fest-text{
+    justify-content: center;
+    text-align: center;
+    display: grid;
+}
+.align-fest-text h2 {
+    pointer-events: auto;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #333;
+}
+.align-fest-text h3 {
+    pointer-events: auto;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #333;
 }

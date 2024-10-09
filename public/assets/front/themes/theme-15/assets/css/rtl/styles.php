@@ -480,11 +480,11 @@ color: <?php echo $color; ?>;
 .hot-and-new-item .owl-carousel .owl-controls .owl-nav .owl-next {
 border: 1px solid <?php echo $color; ?>;
 color: <?php echo $color; ?>;
+display: none !important;
 }
 .hot-and-new-item .owl-carousel .owl-controls .owl-nav .owl-prev:hover,
 .hot-and-new-item .owl-carousel .owl-controls .owl-nav .owl-next:hover {
 background: <?php echo $color; ?>!important;
-
 }
 
 .product-details-page .right-area .product-info .info-meta-3 .meta-list li.addtocart a {
