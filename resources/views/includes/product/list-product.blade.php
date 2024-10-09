@@ -86,9 +86,12 @@ $small = $prod->firstCurrencyPrice();
             @endif
             <p class="text"><a href="{{ route('front.product',$prod->slug) }}">{{ mb_strlen($prod->name,'utf-8') > 35 ?
                     mb_substr($prod->name,0,35,'utf-8').'...' : $prod->name }}</a></p>
+            <span class="add-to-cart-btn-affiliate affilate-btn" data-href="{{ route('front.product',$prod->slug) }}"><i
+                    class="icofont-cart"></i>
+                {{ __('Buy Now') }}
+            </span>
         </div>
     </div>
 </li>
-
 
 @endif
