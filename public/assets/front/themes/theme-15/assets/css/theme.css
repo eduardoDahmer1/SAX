@@ -488,7 +488,7 @@ a {
     bottom: 0px;
     margin-bottom: 0px;
     text-align: center;
-    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
+    cursor: pointer;
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
@@ -505,7 +505,7 @@ a {
     transform: translateY(-50%);
     left: 100%;
     margin-left: 30px;
-    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
+    cursor: pointer;
     opacity: 0;
 }
 
@@ -921,7 +921,7 @@ a {
     border-radius: 50%;
     text-align: center;
     color: white;
-    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
+    cursor: pointer;
     -webkit-transition: all .1s ease-out;
     transition: all .1s ease-out;
     position: relative;
@@ -1132,7 +1132,7 @@ a {
 
 body > * {
     font-family: 'Montserrat', serif;
-    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
+    cursor: pointer;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -2254,7 +2254,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .box-button-site:hover {
-    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
+    cursor: pointer;
 }
 
 .box-button-site p {
@@ -2528,7 +2528,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px;
 }
 .product-attributes .form-group .custom-control-label:hover {
-    cursor: url('/assets/images/theme15/cursor-balao-verde.png'), auto !important;
+    cursor: pointer;
 }
 
 .product-attributes .form-group .custom-control-label::before, .product-attributes .form-group .custom-control-label::after {
