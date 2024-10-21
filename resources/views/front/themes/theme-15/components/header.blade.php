@@ -120,9 +120,9 @@
                                 </ul>
                             </div>
                             <li><a  class="navlink" href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
-                            <li><a  class="navlink" target="_blank" href="https://saxdepartment.com/">{{ __('Institutional') }}</a></li>
-                            <li><a  class="navlink" target="_blank"  href="https://saxdepartment.com/sax-palace">{{ __('Sax Palace') }}</a></li>
-                            <li><a  class="navlink" target="_blank"  href="https://saxdepartment.com/sax-bridal">{{ __('SAX Bridal') }}</a></li>
+                            <li><a  class="navlink" target="_blank" href="https://shop.saxdepartment.com/">{{ __('Institutional') }}</a></li>
+                            <li><a  class="navlink" target="_blank"  href="https://shop.saxdepartment.com/sax-palace">{{ __('Sax Palace') }}</a></li>
+                            <li><a  class="navlink" target="_blank"  href="https://shop.saxdepartment.com/sax-bridal">{{ __('SAX Bridal') }}</a></li>
                             @if (!Auth::guard('web')->check())
                                 <li class="login-button-menu"><a class="navlink" href="{{ route('user-dashboard') }}">{{ __('Profile') }}</a></li>
                             @else
