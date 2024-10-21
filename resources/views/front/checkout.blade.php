@@ -2253,7 +2253,7 @@
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'https://shop.saxdepartment.com' + '/checkout/getStatesOptions',
+            url: 'https://saxdepartment.com' + '/checkout/getStatesOptions',
             data: {
                 location_id: 173 //paraguai
             },
@@ -2275,7 +2275,7 @@
             var selectedValue = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'https://shop.saxdepartment.com' + '/checkout/getCitiesOptions',
+                url: 'https://saxdepartment.com' + '/checkout/getCitiesOptions',
                 data: {
                     location_id: selectedValue //paraguai
                 },
