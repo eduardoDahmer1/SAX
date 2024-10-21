@@ -174,7 +174,7 @@
     @php
         $current_locale = strtolower(str_replace('-', '_', str_replace('admin_', '', App::getLocale())));
     @endphp
-    <!-- @if (request()->is('/') && request()->getHost() === 'shop.saxdepartment.com')
+    <!-- @if (request()->is('/') && request()->getHost() === 'saxdepartment.com')
     <div id="fullScreenGif">
         <img src="{{ asset('assets/images/ninos.gif') }}" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
