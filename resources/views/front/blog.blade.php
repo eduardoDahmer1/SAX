@@ -47,7 +47,7 @@
                                     {{ mb_strlen($blogg->title, 'utf-8') > 50 ? mb_substr($blogg->title, 0, 50, 'utf-8') . "..." : $blogg->title }}
                                 </h4>
                             </a>
-                            <p class="blog-text">{{ Str::limit(strip_tags($blogg->details), 120) }}</p>
+                            <p class="blog-text">{{ \Illuminate\Support\Str::limit(strip_tags($blogg->details), 120) }}</p>
                             <a class="read-more-btn" href="{{ route('front.blogshow', $blogg->id) }}">{{ __("Read More") }}</a>
                         </div>
                     </div>
