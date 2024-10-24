@@ -123,8 +123,8 @@ z-index: 100;
 .single-wish .remove:hover,
 .sub-categori .right-area .categori-item-area .item .item-img .extra-list ul li a
 {
-background: <?php echo $theme_color_1; ?>;
-color: <?php echo $text_color_2; ?>;
+    background: white;
+    color: black;
 }
 
 .section-top .link,
