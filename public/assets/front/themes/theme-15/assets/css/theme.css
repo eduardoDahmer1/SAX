@@ -38,7 +38,7 @@ a {
 }
 
 .breadcrumb-area .pages li a {
-    font-family: 'Cormorant', serif;
+    font-family: "Montserrat", serif;
     display: flex;
     align-items: center;
     margin: 0;
@@ -530,7 +530,7 @@ a {
 .product-details-page #product-details-tab .top-menu-area ul li a {
     color: #333;
     font-weight: 300;
-    font-family: 'Cormorant', serif;
+    font-family: "Montserrat", serif;
     font-size: 18px;
     text-transform: uppercase;
     padding: 0 15px;
@@ -1029,7 +1029,7 @@ a {
 
 .top-area .content .name {
     text-align: center;
-    font-family: 'Inter', sans-serif;
+    font-family: "Montserrat", serif;
 }
 
 .blog-area .aside .slider-wrapper .slide-item .review-text p {
@@ -1135,7 +1135,7 @@ body > * {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant', serif;
+    font-family: "Montserrat", serif;
 }
 
 .separador-right{
@@ -1181,7 +1181,7 @@ h1, h2, h3, h4, h5, h6 {
 .logo-header .search-box .search-form input {
     height:40px;
     padding-left: 35px;
-    font-family: 'Inter', serif;
+    font-family: "Montserrat", serif;
     font-size: 16px;
 }
 
@@ -1518,7 +1518,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     font-size: 20px;
     line-height: 22px;
-    font-family: 'Inter', sans-serif;
+    font-family: "Montserrat", serif;
 }
 
 .flash-deals .flas-deal-slider .deal-counter span:last-child {
@@ -1528,7 +1528,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     font-weight: 500;
     font-size: 14px;
-    font-family: 'Inter', sans-serif;
+    font-family: "Montserrat", serif;
 }
 
 @media (min-width: 992px) and (max-width: 1199px){
@@ -1715,7 +1715,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     padding: 10px;
     margin-top: 15px;
-    font-family: 'Cormorant', sans-serif;
+    font-family: "Montserrat", serif;
     text-transform: none;
 }
 
@@ -2182,7 +2182,7 @@ h1, h2, h3, h4, h5, h6 {
 .categories_menu_inner_horizontal > ul > li > a, .categories_menu_inner_horizontal > ul > li span > a {
     font-weight: 600;
     text-transform: uppercase;
-    Font-family: 'Zilla Slab', serif;
+    font-family: "Montserrat", serif;
 }
 
 .small-banners-2 {
@@ -2237,7 +2237,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100px;
     margin-left: 5px;
     line-height: 18px;
-    font-family: 'Zilla Slab', serif;
+    font-family: "Montserrat", serif;
 }
 
 .link-categories {
@@ -2562,7 +2562,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .alert-danger ul {
     list-style: none;
-    font-family: 'Cormorant', serif;
+    font-family: "Montserrat", serif;
     font-weight: 500;
     font-size: 18px;
     text-transform: uppercase;
@@ -2665,7 +2665,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #product-details-tab #replay-area .all-replay li .single-review .right-area .review-body p {
-    font-family: 'Cormorant', sans-serif;
+    font-family: "Montserrat", serif;
     font-size:22px;
 }
 
