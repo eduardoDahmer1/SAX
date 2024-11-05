@@ -110,41 +110,45 @@ $small = $product->firstCurrencyPrice();
                     @if($product->promotion_price > 0 && $product->promotion_price < $product->price)
                         <span
                             style=" font-weight: 400; text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
-                        <p class="price"><span id="msizeprice">{{$curr->sign}}{{ $product->promotion_price }}</span>
-                            @php
-                            $size_price_value = $product->vendorPrice() * $curr->value;
-                            $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent
-                            / 100));
-                            @endphp
-                            <small>
-                                <del id="mpreviousprice"
-                                    style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
-                                </del>
-                            </small>
-                            <input type="hidden" id="mprevious_price_value"
-                                value="{{ round($previous_price_value,2) }}">
-                            @if($curr->id != $first_curr->id)
-                            <small><span id="moriginalprice">{{ $small }}</span></small>
-                            @endif
-                        </p>
+                        @if (env('SHOW_PRICE', false))
+                            <p class="price"><span id="msizeprice">{{$curr->sign}}{{ $product->promotion_price }}</span>
+                                @php
+                                $size_price_value = $product->vendorPrice() * $curr->value;
+                                $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent
+                                / 100));
+                                @endphp
+                                <small>
+                                    <del id="mpreviousprice"
+                                        style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
+                                    </del>
+                                </small>
+                                <input type="hidden" id="mprevious_price_value"
+                                    value="{{ round($previous_price_value,2) }}">
+                                @if($curr->id != $first_curr->id)
+                                <small><span id="moriginalprice">{{ $small }}</span></small>
+                                @endif
+                            </p>
+                        @endif
                         @else
-                        <p class="price"><span id="msizeprice">{{ $highlight }}</span>
-                            @php
-                            $size_price_value = $product->vendorPrice() * $curr->value;
-                            $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent
-                            / 100));
-                            @endphp
-                            <small>
-                                <del id="mpreviousprice"
-                                    style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
-                                </del>
-                            </small>
-                            <input type="hidden" id="mprevious_price_value"
-                                value="{{ round($previous_price_value,2) }}">
-                            @if($curr->id != $first_curr->id)
-                            <small><span id="moriginalprice">{{ $small }}</span></small>
-                            @endif
-                        </p>
+                        @if (env('SHOW_PRICE', false))
+                            <p class="price"><span id="msizeprice">{{ $highlight }}</span>
+                                @php
+                                $size_price_value = $product->vendorPrice() * $curr->value;
+                                $previous_price_value = $product->promotion_price * $curr->value * (1+($gs->product_percent
+                                / 100));
+                                @endphp
+                                <small>
+                                    <del id="mpreviousprice"
+                                        style="display:{{($size_price_value >= $previous_price_value)? 'none' : '' }};">{{$product->showPreviousPrice()}}
+                                    </del>
+                                </small>
+                                <input type="hidden" id="mprevious_price_value"
+                                    value="{{ round($previous_price_value,2) }}">
+                                @if($curr->id != $first_curr->id)
+                                <small><span id="moriginalprice">{{ $small }}</span></small>
+                                @endif
+                            </p>
+                        @endif
                         @endif
                         @if($product->youtube != null)
                         <a href="{{ $product->youtube }}" class="video-play-btn mfp-iframe">

@@ -25,18 +25,22 @@
                     @if($admstore->show_product_prices)
                        @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight )
                             <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
-                            <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
-                                @if ($curr->id != $scurrency->id)
-                                    <small>{{ $small }}</small>
-                                @endif
-                            </h4>
+                            @if (env('SHOW_PRICE', false))
+                                <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                                    @if ($curr->id != $scurrency->id)
+                                        <small>{{ $small }}</small>
+                                    @endif
+                                </h4>
+                            @endif
                         @else
                         <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
+                        @if (env('SHOW_PRICE', false))
                             <h4 class="price">{{ $highlight }}
                                 @if ($curr->id != $scurrency->id)
                                     <small>{{ $small }}</small>
                                 @endif
                             </h4>
+                        @endif
                         @endif
                     @endif
                 </div>

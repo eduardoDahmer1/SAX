@@ -40,7 +40,9 @@
                                 @if($gs->is_rating == 1)
                                 <ul class="stars"><div class="ratings"><div class="empty-stars"></div><div class="full-stars"style="width:{{App\Models\Rating::ratings($wishlist->id)}}%"></div></div></ul>
                                 @endif
-                                <div class="price">{{ $highlight }} <small>{{ $small }}</small></div>
+                                @if (env('SHOW_PRICE', false))
+                                    <div class="price">{{ $highlight }} <small>{{ $small }}</small></div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -68,7 +70,9 @@
                                     </div>
                                 </ul>
                                 @endif
-                                <div class="price">{{ $highlight }} <small>{{ $small }}</small></div>
+                                @if (env('SHOW_PRICE', false))
+                                    <div class="price">{{ $highlight }} <small>{{ $small }}</small></div>
+                                @endif
                             </div>
                         </div>
                     </div>

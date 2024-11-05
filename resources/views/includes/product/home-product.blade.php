@@ -93,10 +93,12 @@ if ($gs->switch_highlight_currency) {
                                     </div>
                                 </div>
                             @endif
-                            <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
-                                    <small><span id="originalprice">{{ $small }}</span></small>
-                                @endif
-                            </h4>
+                            @if (env('SHOW_PRICE', false))
+                                <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
+                                        <small><span id="originalprice">{{ $small }}</span></small>
+                                    @endif
+                                </h4>
+                            @endif
                             <h5 class="name">{{ $prod->showName() }}</h5>
                             @if ($gs->is_cart)
                                 <div class="item-cart-area">
@@ -227,10 +229,12 @@ if ($gs->switch_highlight_currency) {
                                 </div>
                             </div>
                         @endif
-                        <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
-                                <small><span id="originalprice">{{ $small }}</span></small>
-                            @endif
-                        </h4>
+                        @if (env('SHOW_PRICE', false))
+                            <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
+                                    <small><span id="originalprice">{{ $small }}</span></small>
+                                @endif
+                            </h4>
+                        @endif
                         <h5 class="name">{{ $prod->showName() }}</h5>
                         @if ($gs->is_cart)
                             <div class="item-cart-area">
@@ -361,16 +365,20 @@ if ($gs->switch_highlight_currency) {
                     </div>
                 @endif
                 @if (!config('features.marketplace'))
-                    <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
-                            <small>{{ $small }}</small>
-                        @endif
-                    </h4>
+                    @if (env('SHOW_PRICE', false))
+                        <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)
+                                <small>{{ $small }}</small>
+                            @endif
+                        </h4>
+                    @endif
                 @else
-                    <h4 class="price">{{ $prod->showVendorMinPrice() }} até {{ $prod->showVendorMaxPrice() }}
-                        @if ($curr->id != $scurrency->id)
-                            <small><span id="originalprice">{{ $small }}</span></small>
-                        @endif
-                    </h4>
+                    @if (env('SHOW_PRICE', false))
+                        <h4 class="price">{{ $prod->showVendorMinPrice() }} até {{ $prod->showVendorMaxPrice() }}
+                            @if ($curr->id != $scurrency->id)
+                                <small><span id="originalprice">{{ $small }}</span></small>
+                            @endif
+                        </h4>
+                    @endif
                 @endif
                 <h5 class="name">{{ $prod->showName() }}</h5>
                 @if ($gs->is_cart)

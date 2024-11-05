@@ -26,11 +26,13 @@ $small = $prod->firstCurrencyPrice();
             @if($prod->promotion_price && $admstore->show_product_prices)
             <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
             @endif
-            <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
-                @if ($curr->id != $scurrency->id)
-                <br><small>{{ $small }}</small>
-                @endif
-            </h4>
+            @if (env('SHOW_PRICE', false))
+                <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                    @if ($curr->id != $scurrency->id)
+                    <br><small>{{ $small }}</small>
+                    @endif
+                </h4>
+            @endif
             <h5 class="name">{{ $prod->showName() }}</h5>
         </div>
         <div
@@ -252,11 +254,13 @@ $small = $prod->firstCurrencyPrice();
             @if($prod->promotion_price && $admstore->show_product_prices)
             <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
             @endif
-            <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
-                @if ($curr->id != $scurrency->id)
-                <br><small>{{ $small }}</small>
-                @endif
-            </h4>
+            @if (env('SHOW_PRICE', false))
+                <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                    @if ($curr->id != $scurrency->id)
+                    <br><small>{{ $small }}</small>
+                    @endif
+                </h4>
+            @endif
             <h5 class="name">{{ $prod->showName() }}</h5>
         </div>
         @if ($gs->is_cart)

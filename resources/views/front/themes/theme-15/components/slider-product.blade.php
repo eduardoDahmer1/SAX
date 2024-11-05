@@ -21,17 +21,21 @@ if ($gs->switch_highlight_currency) {
                 <h5 class="name">{{ $prod->showName() }}</h5>
                 @if($prod->promotion_price > 0 && $admstore->show_product_prices && $prod->promotion_price < $prod->price)
                     <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                    @if (env('SHOW_PRICE', false))
                     <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
                         @if ($curr->id != $scurrency->id)
                             <small>{{ $small }}</small>
                         @endif
                     </h4>
+                    @endif
                 @else
+                @if (env('SHOW_PRICE', false))
                     <h4 class="price">{{ $highlight }} 
                         @if ($curr->id != $scurrency->id)
                             <small>{{ $small }}</small>
                         @endif
                     </h4>
+                    @endif
                 @endif
             </div>
             <div
@@ -224,17 +228,21 @@ if ($gs->switch_highlight_currency) {
             <h5 class="name">{{ $prod->showName() }}</h5>
             @if($prod->promotion_price > 0 && $admstore->show_product_prices && $prod->promotion_price < $prod->price)
                 <span style="text-decoration: line-through; color: #bababa;">{{$highlight}}</span>
+                @if (env('SHOW_PRICE', false))
                 <h4 class="price">{{$curr->sign}}{{ $prod->promotion_price }} 
                     @if ($curr->id != $scurrency->id)
                         <br><small>{{ $small }}</small>
                     @endif
                 </h4>
+                @endif
             @else
+            @if (env('SHOW_PRICE', false))
                 <h4 class="price">{{ $highlight }} 
                     @if ($curr->id != $scurrency->id)
                         <br><small>{{ $small }}</small>
                     @endif
-                </h4>   
+                </h4> 
+            @endif  
             @endif        
         </div>
         @if ($gs->is_cart)

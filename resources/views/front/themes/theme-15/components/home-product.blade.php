@@ -21,17 +21,19 @@ if ($gs->switch_highlight_currency) {
                         @endif
                         <div class="info"><p class="m-0" style="font-weight: 500;font-size: 13px;">{{ $prod->brand->name }}</p><h5 class="name">{{ $prod->showName() }}</h5>
                             @if($admstore->show_product_prices)
-                                @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight && $prod->promotion_price < $prod->price)<span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span><h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                                @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight && $prod->promotion_price < $prod->price)<span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>@if (env('SHOW_PRICE', false))<h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
                                         @if ($curr->id != $scurrency->id)
                                             <small>{{ $small }}</small>
                                         @endif
                                     </h4>
+                                    @endif
                                 @else
-                                <span style="text-decoration: line-through; color: #bababa;"> <br> </span><h4 class="price">{{ $highlight }}
+                                <span style="text-decoration: line-through; color: #bababa;"> <br> </span>@if (env('SHOW_PRICE', false))<h4 class="price">{{ $highlight }}
                                         @if ($curr->id != $scurrency->id)
                                             <small>{{ $small }}</small>
                                         @endif
                                     </h4>
+                                    @endif
                                 @endif
                             @endif
                         </div>
@@ -183,11 +185,13 @@ if ($gs->switch_highlight_currency) {
                         @if($admstore->show_product_prices)
                             @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight && $prod->promotion_price < $prod->price)
                                     <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                                    @if (env('SHOW_PRICE', false))
                                     <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
                                         @if ($curr->id != $scurrency->id)
                                             <small>{{ $small }}</small>
                                         @endif
                                     </h4>
+                                    @endif
                                 @else
                                 <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
                                     <h4 class="price">{{ $highlight }}
@@ -289,19 +293,23 @@ if ($gs->switch_highlight_currency) {
                 <h5 class="name">{{ $prod->showName() }}</h5>
                     @if($admstore->show_product_prices)
                        @if($prod->promotion_price > 0 && $prod->promotion_price != $highlight && $prod->promotion_price < $prod->price)
-                            <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
-                            <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
-                                @if ($curr->id != $scurrency->id)
-                                    <small>{{ $small }}</small>
-                                @endif
-                            </h4>
+                       <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                            @if (env('SHOW_PRICE', false))
+                                <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
+                                    @if ($curr->id != $scurrency->id)
+                                        <small>{{ $small }}</small>
+                                    @endif
+                                </h4>
+                            @endif
                         @else
                         <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
+                        @if (env('SHOW_PRICE', false))
                             <h4 class="price">{{ $highlight }}
                                 @if ($curr->id != $scurrency->id)
                                     <small>{{ $small }}</small>
                                 @endif
                             </h4>
+                        @endif
                         @endif
                     @endif
             </div>

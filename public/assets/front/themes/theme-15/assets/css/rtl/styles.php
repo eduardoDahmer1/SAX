@@ -42,7 +42,42 @@ if (isset($_GET['menu_hover_color'])) {
     $menu_hover_color = '#02020c';
 }
 
+if (isset($_GET['white_mode_primary_color'])) {
+    $white_mode_primary_color = '#' . $_GET['white_mode_primary_color'];
+} else {
+    $white_mode_primary_color = '#02020c';
+}
+
+if (isset($_GET['white_mode_text_color'])) {
+    $white_mode_text_color = '#' . $_GET['white_mode_text_color'];
+} else {
+    $white_mode_text_color = '#02020c';
+}
+
+if (isset($_GET['white_mode_secondary_color'])) {
+    $white_mode_secondary_color = '#' . $_GET['white_mode_secondary_color'];
+} else {
+    $white_mode_secondary_color = '#02020c';
+}
+
+if (isset($_GET['white_mode_secondary_text_color'])) {
+    $white_mode_secondary_text_color = '#' . $_GET['white_mode_secondary_text_color'];
+} else {
+    $white_mode_secondary_text_color = '#02020c';
+}
+
 ?>
+
+.bodyy {
+    background-color: red !important;
+    font-family: "Montserrat", serif;
+    font-size: 16px;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #333;
+    overflow-x: hidden;
+    line-height: normal;
+}
 
 .top-header .content .right-content .list ul li .language-selector .language {
 background: <?php echo $header_color; ?>;}
