@@ -225,7 +225,7 @@
                 // Oculta o GIF após 3 segundos
                 setTimeout(() => {
                     gif.style.display = 'none';
-                }, 3000);
+                }, 4000);
             }
         };
     })();
