@@ -29,7 +29,9 @@
                             </div>
                         </ul>
                     @endif
-                    <div class="price">{{ $highlight }}<small>{{ $small }}</small></div>
+                    @if (env('SHOW_PRICE', false))
+                        <div class="price">{{ $highlight }}<small>{{ $small }}</small></div>
+                    @endif
                 </div>
             </div>
         </div>

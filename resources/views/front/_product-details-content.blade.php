@@ -118,7 +118,7 @@
     </div>
     <div class="py-4">
         <h3 style="text-transform: uppercase;font-weight: 300;">{{__('Product details')}}</h3>
-        <div style="color:#848484;font-weight:300;font-family:'Cormorant', serif;">{!! nl2br($productt->details) !!}</div>
+        <div style="color:#848484;font-weight:300;">{!! nl2br($productt->details) !!}</div>
     </div>
 </div>
 <script>

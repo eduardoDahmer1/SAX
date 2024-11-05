@@ -29,14 +29,16 @@ $small = $prod->firstCurrencyPrice();
                 </div>
             </div>
             @endif
-            <h4 class="price">{{ $highlight }}
-                @if(!is_null($prod->discount_percent))
-                <span class="badge badge-danger " style="background: red; font-size: 14px">
-                    {{ "-".$prod->discount_percent."%"}}
-                </span>
-                @endif
-                @if($curr->id != $scurrency->id)<small>{{ $small }}</small> @endif
-            </h4>
+            @if (env('SHOW_PRICE', false))
+                <h4 class="price">{{ $highlight }}
+                    @if(!is_null($prod->discount_percent))
+                    <span class="badge badge-danger " style="background: red; font-size: 14px">
+                        {{ "-".$prod->discount_percent."%"}}
+                    </span>
+                    @endif
+                    @if($curr->id != $scurrency->id)<small>{{ $small }}</small> @endif
+                </h4>
+            @endif
             <p class="text"><a href="{{ route('front.product',$prod->slug) }}">{{ mb_strlen($prod->name,'utf-8') > 35 ?
                     mb_substr($prod->name,0,35,'utf-8').'...' : $prod->name }}</a></p>
         </div>
@@ -69,20 +71,24 @@ $small = $prod->firstCurrencyPrice();
             </div>
             @endif
             @if(!config("features.marketplace"))
-            <h4 class="price"> {{ $highlight }}
-                @if(!is_null($prod->discount_percent))
-                <span class="badge badge-danger " style="background: red; font-size: 14px">
-                    {{ "-".$prod->discount_percent."%"}}
-                </span>
+                @if (env('SHOW_PRICE', false))
+                    <h4 class="price"> {{ $highlight }}
+                        @if(!is_null($prod->discount_percent))
+                        <span class="badge badge-danger " style="background: red; font-size: 14px">
+                            {{ "-".$prod->discount_percent."%"}}
+                        </span>
+                        @endif
+                        @if($curr->id != $scurrency->id)<small>{{ $small }} </small> @endif
+                    </h4>
                 @endif
-                @if($curr->id != $scurrency->id)<small>{{ $small }} </small> @endif
-            </h4>
             @else
-            <h4 class="price">{{ $prod->showVendorMinPrice() }} até {{ $prod->showVendorMaxPrice() }}
-                @if($curr->id != $scurrency->id)
-                <small><span id="originalprice">{{ $small }}</span></small>
+                @if (env('SHOW_PRICE', false))
+                    <h4 class="price">{{ $prod->showVendorMinPrice() }} até {{ $prod->showVendorMaxPrice() }}
+                        @if($curr->id != $scurrency->id)
+                        <small><span id="originalprice">{{ $small }}</span></small>
+                        @endif
+                    </h4>
                 @endif
-            </h4>
             @endif
             <p class="text"><a href="{{ route('front.product',$prod->slug) }}">{{ mb_strlen($prod->name,'utf-8') > 35 ?
                     mb_substr($prod->name,0,35,'utf-8').'...' : $prod->name }}</a></p>

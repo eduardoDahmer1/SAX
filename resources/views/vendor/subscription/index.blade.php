@@ -23,7 +23,9 @@
                         @if ($sub->price == 0)
                         <span class="price"><span class="price-digit">{{ __('Free') }}</span></span>
                         @else
-                        <span class="price"><div><sup>{{ $curr->sign }}</sup><span class="price-digit">{{ $sub->price }}</span></div><span class="price-month">{{ $sub->days }} {{ __('Day(s)') }}</span></span>
+                        @if (env('SHOW_PRICE', false))
+                            <span class="price"><div><sup>{{ $curr->sign }}</sup><span class="price-digit">{{ $sub->price }}</span></div><span class="price-month">{{ $sub->days }} {{ __('Day(s)') }}</span></span>
+                        @endif
                         @endif
                     </div>
                     <div class="pricing-detail">{!! $sub->details !!}</div>

@@ -80,12 +80,14 @@
                             $small = $prod->firstCurrencyPrice();
                         }
                     @endphp
-                    <h4 class="price">{{ __('From') }} {{ $prod->showVendorMinPrice() }} até
-                        {{ $prod->showVendorMaxPrice() }}
-                        @if ($curr->id != $scurrency->id)
-                            <small><span id="originalprice">{{ $small }}</span></small>
-                        @endif
-                    </h4>
+                    @if (env('SHOW_PRICE', false))
+                        <h4 class="price">{{ __('From') }} {{ $prod->showVendorMinPrice() }} até
+                            {{ $prod->showVendorMaxPrice() }}
+                            @if ($curr->id != $scurrency->id)
+                                <small><span id="originalprice">{{ $small }}</span></small>
+                            @endif
+                        </h4>
+                    @endif
                     @if ($gs->is_cart)
                         <div class="item-cart-area">
                             @if ($prod->product_type == 'affiliate')

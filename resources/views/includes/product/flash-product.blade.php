@@ -65,7 +65,9 @@ $small = $gs->switch_highlight_currency ? $prod->showPrice() : $prod->firstCurre
                     </div>
                 </div>
             @endif
-            <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)<small>{{ $small }}</small>@endif</h4>
+            @if (env('SHOW_PRICE', false))
+                <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)<small>{{ $small }}</small>@endif</h4>
+            @endif
             <h5 class="name">{{ $prod->showName() }}</h5>
             @if ($gs->is_cart)
                 <div class="item-cart-area">

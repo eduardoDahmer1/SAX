@@ -1,6 +1,6 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('content')
-<style>.name {height: auto;font-weight: 300;line-height: normal;margin-bottom: 10px;font-size: 20px;color: #333;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-family: 'Cormorant', serif;}.selected {background: #f3f8fc;}.wishlist:hover {text-decoration: underline;}#share:hover {cursor: pointer;opacity: 0.8;}</style>
+<style>.name {height: auto;font-weight: 300;line-height: normal;margin-bottom: 10px;font-size: 20px;color: #333;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}.selected {background: #f3f8fc;}.wishlist:hover {text-decoration: underline;}#share:hover {cursor: pointer;opacity: 0.8;}</style>
 <div class="container-fluid mt-2 mb-5">
     <div class="row px-5">
         <div class="col-12">

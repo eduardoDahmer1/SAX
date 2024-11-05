@@ -70,7 +70,9 @@
                     </div>
                 </div>
             @endif
-            <h4 class="price">{{ $prod->setCurrency() }} <small>{{ $prod->setCurrencyFirst() }}</small></h4>
+            @if (env('SHOW_PRICE', false))
+                <h4 class="price">{{ $prod->setCurrency() }} <small>{{ $prod->setCurrencyFirst() }}</small></h4>
+            @endif
             <h5 class="name">{{ $prod->showName() }}</h5>
             <div class="item-cart-area">
                 @if ($prod->product_type == 'affiliate')

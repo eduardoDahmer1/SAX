@@ -135,6 +135,18 @@
                     'text_color_2=' .
                     str_replace('#', '', $gs->footer_text_color) .
                     '&' .
+                    'theme_color_3=' .
+                    str_replace('#', '', $gs->white_mode_primary_color) .
+                    '&' .
+                    'theme_color_4=' .
+                    str_replace('#', '', $gs->white_mode_text_color) .
+                    '&' .
+                    'text_color_3=' .
+                    str_replace('#', '', $gs->white_mode_secondary_color) .
+                    '&' .
+                    'text_color_4=' .
+                    str_replace('#', '', $gs->white_mode_secondary_text_color) .
+                    '&' .
                     'menu_color=' .
                     str_replace('#', '', $gs->menu_color) .
                     '&' .
@@ -146,6 +158,12 @@
     @yield('styles')
 </head>
 <body>
+    @if (env('SHOW_DARK', false))
+        <div class="section over-hide z-bigger">
+            <input class="checkbox" type="checkbox" id="theme-toggle">
+            <label class="for-checkbox" for="theme-toggle"></label>
+        </div>
+    @endif
     @auth
         <x-modal-wishlist />
     @endauth
@@ -174,11 +192,12 @@
     @php
         $current_locale = strtolower(str_replace('-', '_', str_replace('admin_', '', App::getLocale())));
     @endphp
-    <!-- @if (request()->is('/') && request()->getHost() === 'saxdepartment.com')
+    @if (request()->is('/') && (request()->getHost() === 'saxdepartment.com' || request()->getHost() === 'localhost' ||
+    request()->getHost() === '127.0.0.1'))
     <div id="fullScreenGif">
-        <img src="{{ asset('assets/images/ninos.gif') }}" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="{{ asset('assets/images/theme15/rayo-tres.gif') }}" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
-    @endif -->
+    @endif
     <script type="text/javascript">
         var current_locale = "{{ $current_locale }}";
         var mainurl = "{{ url('/') }}";
@@ -186,7 +205,7 @@
         var langg = {!! json_encode(new \stdClass()) !!};
         var datatable_translation_url = "{{ $datatable_translation }}"
     </script>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     (function() {
         window.onload = function() {
             const gif = document.getElementById('fullScreenGif');
@@ -210,7 +229,7 @@
             }
         };
     })();
-</script> -->
+</script>
     <script src="{{ asset('assets/front/themes/shared/assets/js/jquery.js') }}"></script>
     <script src="{{ asset('assets/front/themes/shared/assets/js/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/front/themes/shared/assets/js/popper.min.js') }}"></script>
