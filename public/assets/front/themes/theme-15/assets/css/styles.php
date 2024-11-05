@@ -1979,3 +1979,16 @@ body.dark-mode .top-header .left-content .list ul li .language-selector i
 {
 color: <?= $theme_color_4; ?>;
 }
+@media (max-width: 992px) {
+    .saxnavigation .menu-navigation.showNav {
+        display: flex;
+        animation: 0.5s showNav;
+        background:<?= $theme_color_4; ?>;
+    }
+    body.dark-mode .saxnavigation .menu-navigation.showNav {
+        display: flex;
+        animation: 0.5s showNav;
+        background:<?= $text_color_1; ?>;
+    }
+
+}

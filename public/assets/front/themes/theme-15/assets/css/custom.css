@@ -50,10 +50,7 @@
         min-width: 340px;
         padding: 1rem;
     }
-    .saxnavigation .menu-navigation.showNav {
-        display: flex;
-        animation: 0.5s showNav;
-    }
+
     .saxnavigation .menu-navigation li {
         width: 100%;
     }
