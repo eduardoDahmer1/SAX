@@ -1468,7 +1468,6 @@ pre code {
 .table {
     width: 100%;
     margin-bottom: 1rem;
-    color: #212529;
 }
 .table td,
 .table th {
@@ -1749,21 +1748,7 @@ pre code {
 .table-responsive > .table-bordered {
     border: 0;
 }
-.form-control {
-    display: block;
-    width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
+
 @media (prefers-reduced-motion: reduce) {
     .form-control {
         transition: none;
@@ -1800,11 +1785,7 @@ pre code {
     color: #6c757d;
     opacity: 1;
 }
-.form-control:disabled,
-.form-control[readonly] {
-    background-color: #e9ecef;
-    opacity: 1;
-}
+
 select.form-control:focus::-ms-value {
     color: #495057;
     background-color: #fff;
@@ -3524,7 +3505,6 @@ input[type="submit"].btn-block {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
     vertical-align: middle;
     background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
         no-repeat right 0.75rem center/8px 10px;
@@ -7255,10 +7235,7 @@ button.bg-dark:hover {
 .my-1 {
     margin-top: 0.25rem !important;
 }
-.mr-1,
-.mx-1 {
-    margin-right: 0.25rem !important;
-}
+
 .mb-1,
 .my-1 {
     margin-bottom: 0.25rem !important;
@@ -25682,12 +25659,6 @@ table.dataTable thead .sorting_asc_disabled {
 table.dataTable thead .sorting_desc_disabled {
     background-image: url("../images/sort_desc_disabled.png");
 }
-table.dataTable tbody tr {
-    background-color: #fff;
-}
-table.dataTable tbody tr.selected {
-    background-color: #b0bed9;
-}
 table.dataTable tbody td,
 table.dataTable tbody th {
     padding: 8px 10px;
@@ -26076,13 +26047,6 @@ table.dataTable th {
         rgba(255, 255, 255, 0.9) 75%,
         rgba(255, 255, 255, 0) 100%
     );
-}
-.dataTables_wrapper .dataTables_filter,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_paginate,
-.dataTables_wrapper .dataTables_processing {
-    color: #333;
 }
 .dataTables_wrapper .dataTables_scroll {
     clear: both;
@@ -33982,11 +33946,6 @@ nav button {
     -o-transition: all linear 0.3s;
     transition: all linear 0.3s;
 }
-
-.item .add-to-cart-btn:hover {
-    background: 0 0;
-    color: #f50;
-}
 .item:hover .add-to-cart-btn {
     opacity: 1;
 }
@@ -35864,7 +35823,7 @@ nav button {
     margin-left: 10px;
 }
 .product-details-page #product-details-tab .top-menu-area {
-    background: #fff;
+    background: transparent;
     width: 100%;
     display: block;
     text-align: center;
@@ -35919,7 +35878,7 @@ nav button {
     opacity: 1;
 }
 .product-details-page #product-details-tab.ui-widget.ui-widget-content {
-    background: #fff;
+    background: transparent;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .quick-view-modal .product-details-page .all-item .slidPrv4.slick-arrow {
@@ -36159,17 +36118,7 @@ nav button {
     input:-ms-input-placeholder {
     color: #555;
 }
-#product-details-tab #replay-area .write-comment-area textarea {
-    width: 100%;
-    height: 190px;
-    background: #fff;
-    color: #888;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 10px 20px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    resize: none;
-}
+
 #product-details-tab
     #replay-area
     .write-comment-area
@@ -36193,20 +36142,6 @@ nav button {
     .write-comment-area
     textarea:-ms-input-placeholder {
     color: #888;
-}
-#product-details-tab #replay-area .write-comment-area .submit-btn {
-    background: #f50;
-    border: 0;
-    color: #fff;
-    padding: 14px 30px 11px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 600;
-    border: 1px solid #f50;
-    cursor: pointer;
-    -webkit-transition: all 0.3s ease-in;
-    -o-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in;
 }
 #product-details-tab #replay-area .write-comment-area .submit-btn:hover {
     background: 0 0;
@@ -36492,24 +36427,7 @@ nav button {
     textarea:-ms-input-placeholder {
     color: #888;
 }
-#product-details-tab #comment-area .write-comment-area .submit-btn {
-    background: #f50;
-    border: 0;
-    color: #fff;
-    padding: 14px 30px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid #f50;
-    -webkit-transition: all 0.3s ease-in;
-    -o-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in;
-}
-#product-details-tab #comment-area .write-comment-area .submit-btn:hover {
-    background: 0 0;
-    color: #f50;
-}
+
 #product-details-tab #comment-area .write-comment-area .submit-btn:focus {
     outline: 0;
 }
@@ -37509,17 +37427,11 @@ nav button {
 .cartpage {
     padding: 70px 0 54px;
 }
-.cartpage .left-area .table thead {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-}
+
 .cartpage .left-area .table thead tr th {
     border-bottom: 0;
 }
-.cartpage .left-area .table tbody tr {
-    border-left: 1px solid rgba(0, 0, 0, 0.2);
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
+
 .cartpage .left-area .table tbody tr td {
     border-top: 0;
     vertical-align: middle;
@@ -37613,22 +37525,15 @@ nav button {
     cursor: pointer;
     font-size: 16px;
 }
-.order-box {
-    box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 40px 25px 40px;
-}
+
 .order-box .title {
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #143250;
     line-height: 28px;
     margin-bottom: 15px;
 }
-.order-box .order-list {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-}
+
 .order-box .order-list li {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -38439,45 +38344,16 @@ nav button {
     position: relative;
     margin-bottom: 15px;
 }
-.contact-us .contact-form .form-input input {
-    width: 100%;
-    height: 60px;
-    background: #f8f7f9;
-    border: 1px solid #000;
-    padding: 0 30px 0 45px;
-    font-size: 14px;
-    margin-bottom: 0;
-    color: #333;
-    box-shadow: 2px 1px 12px 4px rgba(225, 201, 163, 0.125);
-}
+
 .contact-us .contact-form .form-input input:focus {
     border: 2px solid rgba(225, 201, 163, 0.8);
 }
-.contact-us .contact-form .form-input textarea {
-    width: 100%;
-    height: calc(150px + (15px * 4));
-    background: #f8f7f9;
-    padding: 25px 30px 0 45px;
-    color: #333;
-    border: 1px solid #000;
-    outline: 0;
-    font-size: 14px;
-    margin-bottom: 0;
-    box-shadow: 2px 1px 12px 4px rgba(225, 201, 163, 0.125);
-}
+
 .contact-us .contact-form .form-input textarea:active,
 .contact-us .contact-form .form-input textarea:focus {
     border: 2px solid rgba(225, 201, 163, 0.8);
 }
-.contact-us .contact-form .form-input i {
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    left: 15px;
-    color: black;
-}
+
 .contact-us .contact-form ul li .input-field.textarea {
     margin-bottom: 35px;
 }
@@ -38503,26 +38379,7 @@ nav button {
     border: 0 !important;
     border-bottom: 1px solid #e1c9a3 !important;
 }
-.contact-us .contact-form .submit-btn {
-    max-width: 350px;
-    width: 350px;
-    height: 50px;
-    background: #000;
-    color: #fff;
-    font-size: 16px;
-    line-height: 47px;
-    text-align: center;
-    border: 1px solid #000;
-    cursor: pointer;
-    -webkit-box-shadow: 4px 4px 18px rgba(119, 119, 119, 0.125);
-    box-shadow: 4px 4px 18px rgba(119, 119, 119, 0.125);
-    -webkit-transition: all 0.3s ease-in;
-    -o-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in;
-}
-.contact-us .contact-form .submit-btn:hover {
-    background: #e1b775;
-}
+
 .contact-us .top-content {
     margin-bottom: 23px;
 }
@@ -39333,7 +39190,6 @@ nav button {
 }
 .user-dashbord .user-profile-info-area .links li.active a,
 .user-dashbord .user-profile-info-area .links li:hover a {
-    color: #f50;
     -webkit-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
     transition: all 0.3s linear;
@@ -39434,7 +39290,6 @@ nav button {
     font-size: 24px;
     line-height: 34px;
     font-weight: 600;
-    color: #143250;
 }
 .user-dashbord .user-profile-details .account-info .edit-info-area {
     margin-top: 15px;
@@ -39586,24 +39441,15 @@ nav button {
     padding: 0 15px;
     margin-left: 10px;
 }
-.user-dashbord .user-profile-details .order-history {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 20px 30px 30px;
-}
-.user-dashbord .user-profile-details .order-history .header-area {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding-bottom: 10px;
-}
+
 .user-dashbord .user-profile-details .order-history .header-area .title {
     font-size: 20px;
     font-weight: 600;
-    color: #143250;
 }
 .user-dashbord .user-profile-details .order-history .table th {
     border-top: 0;
     font-size: 14px;
     font-weight: 600;
-    color: #29293a;
 }
 .user-dashbord .user-profile-details .order-history .table td {
     border-top: 0;
@@ -41083,7 +40929,6 @@ input[type="checkbox"]:checked:disabled + label:before {
     transition: 0.3s ease-in;
     background-color: #fff;
     margin: 10px 0;
-    border: 1px solid #0000002b;
     border-radius: 4px;
 }
 .slider-buttom-category .single-category .right {
@@ -41379,9 +41224,6 @@ textarea.affilate {
 }
 .order-history label.control-label {
     font-weight: 600;
-}
-.order-history .form-control {
-    border-color: rgba(0, 0, 0, 0.4);
 }
 .order-history form {
     margin-top: 20px;
@@ -44112,16 +43954,7 @@ h5.titlereceipt {
     top: -10rem;
     transition: all 0.5s;
 }
-.menufixed.nav-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 99;
-    transition: all 0.5s;
-    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.3);
-}
+
 .box-center-text {
     height: 100%;
     display: flex;

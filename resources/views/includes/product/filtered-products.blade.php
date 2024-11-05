@@ -106,26 +106,32 @@
                             @if($admstore->show_product_prices)
                                 @if($prod->promotion_price > 0 && $prod->promotion_price < $prod->price)
                                     <span style="text-decoration: line-through; color: #bababa;">{{ $highlight }}</span>
+                                    @if (env('SHOW_PRICE', false))
                                     <h4 class="price">{{$curr->sign}}{{$prod->promotion_price}}
                                         @if ($curr->id != $scurrency->id)
                                             <small>{{ $small }}</small>
                                         @endif
                                     </h4>
+                                    @endif
                                 @else
                                     <span style="text-decoration: line-through; color: #bababa;"> <br> </span>
+                                    @if (env('SHOW_PRICE', false))
                                     <h4 class="price">{{ $highlight }} 
                                         @if ($curr->id != $scurrency->id)
                                             <small>{{ $small }}</small>
                                         @endif
                                     </h4>
+                                    @endif
                                 @endif
                             @endif
                         @else
+                        @if (env('SHOW_PRICE', false))
                             <h4 class="price">{{ $prod->showVendorMinPrice() }} até {{ $prod->showVendorMaxPrice() }}
                                 @if ($curr->id != $scurrency->id)
                                     <small><span id="originalprice">{{ $small }}</span></small>
                                 @endif
                             </h4>
+                            @endif
                         @endif
                         
                         @if ($gs->is_cart)

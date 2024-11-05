@@ -26,8 +26,9 @@ $small = $prod->firstCurrencyPrice();
 </div>
 <div class="col-lg-2">
     <div class="info">
-        <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)<small>{{ $small }}</small>@endif
-        </h4>
+        @if (env('SHOW_PRICE', false))
+            <h4 class="price">{{ $highlight }} @if ($curr->id != $scurrency->id)<small>{{ $small }}</small>@endif</h4>
+        endif
     </div>
 </div>
 <div class="section-top">
