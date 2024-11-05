@@ -223,8 +223,6 @@ nav .menu li.dropdown.open > a,
 .sub-categori .right-area .pagination-area .pagination .page-item .page-link,
 .blog-details .blog-content .content .post-meta li a:hover,
 .blog-details .blog-content .content blockquote,
-.blog-details .blog-aside .categori .categori-list li a:hover,
-.blog-details .blog-aside .categori .categori-list li a.active,
 .blog-details .blog-aside .recent-post-widget .post-list li .post .post-details .post-title:hover,
 .blog-details .blog-aside .archives .archives-list li a:hover,
 .contact-us .contact-section-title .title,
@@ -377,8 +375,6 @@ color: <?php echo $color; ?>; }
 .login-area .social-area .title {
 color: <?php echo $color; ?>;
 }
-.blog-details .blog-aside .categori .categori-list li a:hover, .blog-details .blog-aside .categori .categori-list li a.active {
-color: <?php echo $color; ?>; }
 .blog-details .blog-aside .recent-post-widget .post-list li .post .post-details .post-title:hover {
 color: <?php echo $color; ?>; }
 .blog-details .blog-aside .archives .archives-list li a:hover {
