@@ -129,9 +129,6 @@ color: <?php echo $theme_color_2; ?>; }
 .login-area .social-area .title {
 color: <?php echo $theme_color_1; ?>;
 }
-
-.blog-details .blog-aside .categori .categori-list li a:hover, .blog-details .blog-aside .categori .categori-list li a.active {
-color: <?php echo $theme_color_1; ?>; }
 .blog-details .blog-aside .recent-post-widget .post-list li .post .post-details .post-title:hover {
 color: <?php echo $theme_color_1; ?>; }
 .blog-details .blog-aside .archives .archives-list li a:hover {
