@@ -1867,9 +1867,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.5rem 0rem 3rem;
 }
 
-.partners .owl-carousel .owl-item img {
-    max-width: 120px;
-}
 
 .menufixed.nav-fixed .logo img {
     max-height: 40px;

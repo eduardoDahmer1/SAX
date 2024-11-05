@@ -1959,3 +1959,10 @@ background:<?= $text_color_2 ?>;
 min-height: auto;
 }
 }
+.partners .owl-carousel .owl-item img {
+    max-width: 120px;
+}
+body.dark-mode .partners .owl-carousel .owl-item img {
+    max-width: 120px;
+    filter: brightness(0) invert(1);
+}
