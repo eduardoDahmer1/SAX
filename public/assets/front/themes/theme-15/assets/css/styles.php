@@ -1152,21 +1152,6 @@ color: <?= $text_color_1 ?>;
 body.dark-mode .link-seemore{
 color: <?= $theme_color_4 ?>;
 }
-.top-header .left-content .list ul li .nice-select,
-.top-header .content .right-content .list li.login .links,
-.top-header .left-content .list ul li .currency-selector span,
-.top-header ul li.my-dropdown.profilearea .profile .text,
-.top-header .content .right-content .list li .nice-select,
-.top-header .left-content .list ul li .language-selector i
-{
-color: <?php echo $text_color_1; ?>;
-}
-
-.top-header .left-content .list ul li .nice-select::after,
-.right-content .nice-select::after {
-border-bottom: 2px solid <?php echo $text_color_1; ?>;
-border-right: 2px solid <?php echo $text_color_1; ?>;
-}
 
 #profile-icon, .logo-header .search-box .search-form button {
 color: <?php echo $theme_color_1; ?>;
@@ -1965,4 +1950,32 @@ min-height: auto;
 body.dark-mode .partners .owl-carousel .owl-item img {
     max-width: 120px;
     filter: brightness(0) invert(1);
+}
+.top-header .left-content .list ul li .nice-select::after,
+.right-content .nice-select::after {
+border-bottom: 2px solid <?= $text_color_1; ?>;
+border-right: 2px solid <?= $text_color_1; ?>;
+}
+body.dark-mode .top-header .left-content .list ul li .nice-select::after,
+body.dark-mode .right-content .nice-select::after {
+border-bottom: 2px solid <?= $theme_color_4; ?>;
+border-right: 2px solid <?= $theme_color_4; ?>;
+}
+.top-header .left-content .list ul li .nice-select,
+.top-header .content .right-content .list li.login .links,
+.top-header .left-content .list ul li .currency-selector span,
+.top-header ul li.my-dropdown.profilearea .profile .text,
+.top-header .content .right-content .list li .nice-select,
+.top-header .left-content .list ul li .language-selector i
+{
+color: <?php echo $text_color_1; ?>;
+}
+body.dark-mode .top-header .left-content .list ul li .nice-select,
+body.dark-mode .top-header .content .right-content .list li.login .links,
+body.dark-mode .top-header .left-content .list ul li .currency-selector span,
+body.dark-mode .top-header ul li.my-dropdown.profilearea .profile .text,
+body.dark-mode .top-header .content .right-content .list li .nice-select,
+body.dark-mode .top-header .left-content .list ul li .language-selector i
+{
+color: <?= $theme_color_4; ?>;
 }
