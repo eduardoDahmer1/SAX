@@ -1931,6 +1931,9 @@ body.dark-mode .trending .item, .flash-deals .item {
 min-height: auto;
 background:<?= $text_color_2 ?>;
 }
+body.dark-mode .phone-and-accessories .item{
+    background:<?= $text_color_2 ?>;
+}
 @media (min-width:768px) {
 .trending .item, .flash-deals .item {
 min-height: auto;
@@ -2073,4 +2076,54 @@ color: <?= $text_color_1; ?>;
 }
 body.dark-mode .info-area .info-box .info .details .text {
 color: <?= $theme_color_4; ?>;
+}
+.contact-us .contact-info {
+    max-width: 280px;
+    max-height: 180px;
+    padding: 20px 0 30px;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    border: 2px solid <?= $text_color_1; ?>;
+    box-shadow: 4px 4px 18px <?= $text_color_1; ?>;
+    align-items: center;
+}
+body.dark-mode .contact-us .contact-info {
+    max-width: 280px;
+    max-height: 180px;
+    padding: 20px 0 30px;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    border: 2px solid <?= $theme_color_4; ?>;
+    box-shadow: 4px 4px 18px <?= $theme_color_4; ?>;
+    align-items: center;
+}
+
+body.dark-mode .item {
+    overflow: visible !important;
+    position: relative;
+    margin: 5px;
+    overflow: hidden;
+    display: block;
+    -webkit-transition: unset;
+    -o-transition: unset;
+    transition: unset;
+    transition: all .3s;
+    height: 100%;
+    background:<?= $text_color_2 ?>;
 }
