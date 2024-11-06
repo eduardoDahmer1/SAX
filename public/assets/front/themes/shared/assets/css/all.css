@@ -38355,23 +38355,6 @@ nav button {
 .contact-us .top-content .text {
     color: #333;
 }
-.contact-us .contact-info {
-    max-width: 280px;
-    max-height: 180px;
-    padding: 20px 0 30px;
-    margin-bottom: 30px;
-    -webkit-transition: all 0.3s ease-in;
-    -o-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: rgba(225, 201, 163, 0.3);
-    border: 2px solid #e1c9a3;
-    box-shadow: 4px 4px 18px rgba(119, 119, 119, 0.125);
-}
 .contact-us .contact-info:hover {
     transform: scale(1.02);
 }
