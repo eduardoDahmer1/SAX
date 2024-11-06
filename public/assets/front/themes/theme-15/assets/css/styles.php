@@ -2128,3 +2128,8 @@ body.dark-mode .item {
     height: 100%;
     background:<?= $text_color_2 ?>;
 }
+.receipt-content .receipt-form .mybtn1 {
+    margin-left: 10px;
+    margin-right: 10px;
+    color:<?= $theme_color_4; ?>;
+}

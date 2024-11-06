@@ -40703,10 +40703,7 @@ input[type="checkbox"]:checked:disabled + label:before {
     display: block;
     padding: 10px 20px;
 }
-.receipt-content .receipt-form .mybtn1 {
-    margin-left: 10px;
-    margin-right: 10px;
-}
+
 .order-tracking-content .tracking-form {
     display: flex;
     margin-top: 100px;
