@@ -47,7 +47,8 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.77);
+        backdrop-filter: blur(6px);
+        background-color: rgb(38 0 2 / 24%);
         justify-content: center;
         align-items: center;
     }
@@ -78,7 +79,7 @@
                     <!-- link para modal -->
                     Faltan <span id="dias"></span> dias, <span id="hora"></span> horas, <span id="minuto"></span>
                     minutos,
-                    <span id="segundo"></span> segundos para iniciar nosso fashion sale
+                    <span id="segundo"></span> segundos para iniciar nosso FASHION SALE
                 </a>
             </div>
         </div>
@@ -87,9 +88,9 @@
     <!-- Modal -->
     <div id="modal">
         <button id="closeModal">X</button>
-        <img src="{{ $admstore->pagesettings->banner_search4 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search4) : asset('assets/images/noimage.png') }}" alt="Imagem do Fashion Sale">
+        <img src="{{ $admstore->pagesettings->banner_search4 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search4) : asset('assets/images/noimage.png') }}" alt="Imagem do FASHION SALE">
     </div>
-    <!-- <img src="{{ asset('assets/images/theme15/teste.jpeg')}}" alt="Imagem do Fashion Sale"> -->
+    <!-- <img src="{{ asset('assets/images/theme15/teste.jpeg')}}" alt="Imagem do FASHION SALE"> -->
     <script>
     // Variáveis globais
     var intervalo = setInterval(iniciarContagem, 1000); // Atualiza a cada segundo
