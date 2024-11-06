@@ -651,11 +651,12 @@ background: <?php echo $theme_color_2; ?>;
 background: <?php echo $theme_color_1; ?>;
 }
 .page-link {
-color: <?php echo $theme_color_1; ?>;
+color: <?= $text_color_1; ?> !important;
 }
 .page-item.active .page-link {
 background-color: <?php echo $theme_color_1; ?>;
-border-color: <?php echo $theme_color_1; ?>;
+border-color: <?= $theme_color_1; ?>;
+color: <?= $theme_color_4; ?> !important;
 }
 .mybtn1 {
 border: 1px solid <?php echo $theme_color_2; ?>;
@@ -2126,4 +2127,9 @@ body.dark-mode .item {
     transition: all .3s;
     height: 100%;
     background:<?= $text_color_2 ?>;
+}
+.receipt-content .receipt-form .mybtn1 {
+    margin-left: 10px;
+    margin-right: 10px;
+    color:<?= $theme_color_4; ?>;
 }
