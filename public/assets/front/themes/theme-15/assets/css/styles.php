@@ -2069,7 +2069,7 @@ body.dark-mode .category-page .bg-white .sub-category-menu .parent-category li u
     transition: all 0.3s ease-in;
 }
 .info-area .info-box .info .details .text {
-color: <?php echo $text_color_2; ?>;
+color: <?= $text_color_1; ?>;
 }
 body.dark-mode .info-area .info-box .info .details .text {
 color: <?= $theme_color_4; ?>;
