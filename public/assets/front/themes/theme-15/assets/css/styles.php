@@ -972,7 +972,8 @@ color: <?php echo $theme_color_2; ?>;
 .section-top .section-title::before, .section-top .section-title::after {
 background-color:<?php echo $theme_color_1; ?>;
 }
-body.dark-mode .section-top .section-title::before, .section-top .section-title::after {
+body.dark-mode .section-top .section-title::before, 
+body.dark-mode .section-top .section-title::after {
 background-color:<?php echo $theme_color_4; ?>;
 }
 
@@ -1535,8 +1536,8 @@ body.dark-mode .nav-pills .nav-link {
 border-radius: 0.25rem;
 color: <?= $theme_color_4 ?>;
 }
-.slider-buttom-category .single-category::before,
-.slider-buttom-category .single-category {
+body.dark-mode .slider-buttom-category .single-category::before,
+body.dark-mode .slider-buttom-category .single-category {
 background: transparent;
 border: 1px solid white;
 }
@@ -1934,6 +1935,7 @@ background:<?= $text_color_2 ?>;
 }
 body.dark-mode .phone-and-accessories .item{
     background:<?= $text_color_2 ?>;
+    border: 2px solid <?= $text_color_1 ?> !important;
 }
 @media (min-width:768px) {
 .trending .item, .flash-deals .item {
@@ -2126,10 +2128,66 @@ body.dark-mode .item {
     transition: unset;
     transition: all .3s;
     height: 100%;
+}
+body.dark-mode .categori-item-area .row .remove-padding .item{
     background:<?= $text_color_2 ?>;
 }
+
 .receipt-content .receipt-form .mybtn1 {
     margin-left: 10px;
     margin-right: 10px;
+    color:<?= $text_color_1; ?>;
+}
+body.dark-mode .receipt-content .receipt-form .mybtn1 {
+    margin-left: 10px;
+    margin-right: 10px;
     color:<?= $theme_color_4; ?>;
+}
+.receipt-content .receipt-form .box-form label {
+    float: left;
+    padding-left: 20px;
+    color:<?= $text_color_1; ?>;
+}
+body.dark-mode .receipt-content .receipt-form .box-form label {
+    float: left;
+    padding-left: 20px;
+    color:<?= $theme_color_4; ?>;
+}
+.icofont-search-1:before{
+    color:<?= $text_color_1; ?>;
+}
+.slider-buttom-category .single-category .left .title {
+    font-size: 1rem;
+    word-wrap: anywhere;
+    margin-left: 1em;
+}
+
+.slider-buttom-category .single-category .right {
+    max-height: 10em;
+    filter: none !important;
+}
+
+.slider-buttom-category .single-category {
+    align-self: stretch;
+    height: 11em;
+    border: 1px solid <?= $text_color_1; ?>;
+}
+
+.item .info {
+    margin-top: 10px;
+}
+
+.item:hover .info {
+    top: -5px;
+}
+
+.marcas-page #title-brands {
+    padding-left: 20px;
+}
+
+@media (min-width:768px) {
+    .marcas-page #title-brands {
+        margin-left: 20px;
+        padding-left: 0;
+    }
 }
