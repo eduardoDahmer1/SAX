@@ -1,7 +1,6 @@
 @extends('front.themes.' . env('THEME', 'theme-15') . '.layout')
 @section('styles')
 @parent
-<style>.slider-buttom-category .single-category .left .title {font-size: 1rem;word-wrap: anywhere;margin-left: 1em;}.slider-buttom-category .single-category .right {max-height: 10em;filter: none !important;}.slider-buttom-category .single-category {align-self: stretch;height: 11em;}.item .info {margin-top: 10px;}.item:hover .info {top: -5px;}.marcas-page #title-brands {padding-left: 20px;}@media (min-width:768px) {.marcas-page #title-brands {margin-left: 20px;padding-left: 0;}}</style>
 @endsection
 @section('content')
 <div class="breadcrumb-area">
@@ -31,7 +30,8 @@
                     @endif
                     @continue
                     @endif
-                    <li class="nav-item m-1"><a class="nav-link border" href="#brands-starting-with-{{$char}}">{{$char}}</a></li>
+                    <li class="nav-item m-1"><a class="nav-link border"
+                            href="#brands-starting-with-{{$char}}">{{$char}}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -41,14 +41,29 @@
             @if(is_numeric($brandStart)) @php $brandStart = '#'; @endphp @endif
             @if($brandStart !== $currentChar)
             @php $currentChar = $brandStart; @endphp
-            <div id="title-brands" class="section-top"><h2 class="section-title" id="brands-starting-with-{{($currentChar === '#' ? 'numbers' : $currentChar)}}">{{$currentChar}}</h2></div>
+            <div id="title-brands" class="section-top">
+                <h2 class="section-title"
+                    id="brands-starting-with-{{($currentChar === '#' ? 'numbers' : $currentChar)}}">{{$currentChar}}
+                </h2>
+            </div>
             @endif
             <div class="col-xl-4 col-md-6 sc-common-padding d-flex flex-column">
-                <a href="{{route('front.brand', $brand->slug)}}" class="single-category"><div class="left"><h5 class="title">{{ $brand->name }}</h5><p class="count">{{ $brand->products_count }} {{__('itens')}}</p></div><div class="right"><img class="imagemMarca" src="{{ $brand->thumbnail }}" alt="{{$brand->name}}"></div></a>
+                <a href="{{route('front.brand', $brand->slug)}}" class="single-category">
+                    <div class="left">
+                        <h5 class="title">{{ $brand->name }}</h5>
+                        <p class="count">{{ $brand->products_count }} {{__('itens')}}</p>
+                    </div>
+                    <div class="right"><img class="imagemMarca" src="{{ $brand->thumbnail }}" alt="{{$brand->name}}">
+                    </div>
+                </a>
             </div>
             @endforeach
             @else
-            <div class="col-lg-12"><div class="page-center"><h4 class="text-center">{{ __("No Brands Found.") }}</h4></div></div>
+            <div class="col-lg-12">
+                <div class="page-center">
+                    <h4 class="text-center">{{ __("No Brands Found.") }}</h4>
+                </div>
+            </div>
             @endif
         </div>
     </div>

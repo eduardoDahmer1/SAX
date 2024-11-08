@@ -40692,10 +40692,7 @@ input[type="checkbox"]:checked:disabled + label:before {
     top: 2.8rem;
     right: 1rem;
 }
-.receipt-content .receipt-form .box-form label {
-    float: left;
-    padding-left: 20px;
-}
+
 .receipt-content .receipt-form .box-form input {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.2);
