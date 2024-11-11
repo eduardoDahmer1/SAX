@@ -55,6 +55,7 @@ class PagesettingsTableSeeder extends Seeder
                 'banner_search2' => NULL,
                 'banner_search3' => NULL,
                 'banner_search4' => NULL,
+                'banner_search5' => NULL,
             ),
         ));
 
