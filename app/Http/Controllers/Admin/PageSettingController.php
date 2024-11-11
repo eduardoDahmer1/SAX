@@ -26,6 +26,7 @@ class PageSettingController extends Controller
         'banner_search2' => 'mimes:jpeg,jpg,png,svg,gif,webp',
         'banner_search3' => 'mimes:jpeg,jpg,png,svg,gif,webp',
         'banner_search4' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search5' => 'mimes:jpeg,jpg,png,svg,gif,webp',
     ];
 
     protected $customs =
@@ -38,6 +39,7 @@ class PageSettingController extends Controller
         'banner_search2.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
         'banner_search3.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
         'banner_search4.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search5.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
     ];
 
     // Page Settings All post requests will be done in this method
@@ -95,6 +97,11 @@ class PageSettingController extends Controller
             $name = time().$data->id.$file->getClientOriginalName();
             $data->upload($name, $file, $data->banner_search4);
             $input['banner_search4'] = $name;
+        }
+        if ($file = $request->file('banner_search5')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search5);
+            $input['banner_search5'] = $name;
         }
         if ($file = $request->file('big_save_banner1')) {
             $name = time().$data->id.$file->getClientOriginalName();
@@ -236,6 +243,12 @@ class PageSettingController extends Controller
             $input['banner_search4'] = null;
             if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search4) && !empty($data->banner_search4)) {
                 unlink(public_path().'/storage/images/banners/'.$data->banner_search4);
+            }
+        }
+        if ($request->type == "banner_search5") {
+            $input['banner_search5'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search5) && !empty($data->banner_search5)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search5);
             }
         }
         if ($request->type == "big_save_banner1") {
