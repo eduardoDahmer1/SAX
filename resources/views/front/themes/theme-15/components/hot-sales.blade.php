@@ -1,7 +1,6 @@
 @if($ps->hot_sale == 1)
-<section class="hot-and-new-item" style="padding-top: 20px; padding-bottom: 40px; 
-            background-image: url('{{ $admstore->pagesettings->banner_search5 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search5) : asset('assets/images/noimage.png') }}'); 
-            background-size: cover; background-position: center;">
+<section class="hot-and-new-item" 
+         style="padding-top: 20px; padding-bottom: 40px; {{ $admstore->pagesettings->banner_search5 ? "background-image: url('" . asset('storage/images/banners/' . $admstore->pagesettings->banner_search5) . "'); background-size: cover; background-position: center;" : '' }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
