@@ -33959,20 +33959,6 @@ nav button {
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
 }
-.add-to-cart-btn-affiliate{
-    background: black;
-    color: white;
-    text-align: center;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
-    padding: 1em;
-    align-items: center;
-}
-.add-to-cart-btn-affiliate:hover{
-    cursor: pointer;
-}
 .item-vendor:hover {
     overflow: hidden;
     display: block;
