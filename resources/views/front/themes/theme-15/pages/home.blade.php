@@ -6,7 +6,7 @@
 
     @include('front.themes.theme-15.components.logo-slider') <!--Logos Slider -->
 
-    @include('front.themes.theme-15.components.featured-products') <!--Destaques -->
+    @include('front.themes.theme-15.components.hot-sales') <!--seção de 4 partes -->
     
     @include('front.themes.theme-15.components.featured-categories') <!--Slider -->
     
@@ -24,7 +24,7 @@
     
     @include('front.themes.theme-15.components.big-save') <!--Slider -->
     
-    @include('front.themes.theme-15.components.hot-sales') <!--seção de 4 partes -->
+    @include('front.themes.theme-15.components.featured-products') <!--Destaques -->
 
     @include('front.themes.theme-15.components.services') <!--Slider -->
 
