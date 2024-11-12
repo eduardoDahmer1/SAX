@@ -2264,3 +2264,9 @@ body.dark-mode .add-to-cart-btn-affiliate{
 .add-to-cart-btn-affiliate:hover{
     cursor: pointer;
 }
+.alert-checkout{
+    color:#ff062d;
+}
+body.dark-mode .alert-checkout{
+    color:#ff062d;
+}

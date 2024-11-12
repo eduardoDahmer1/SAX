@@ -180,74 +180,87 @@
                                         @endif
                                     </td>
                                     @if($admstore->show_product_prices)
-                                    <td class="unit-price quantity">
-                                        @if($product['item']['promotion_price'] > 0 &&
-                                        $product['item']['promotion_price'] < $product['item']['price']) <p
-                                            class="product-unit-price">
-                                            {{ App\Models\Product::convertPrice($product['item']['promotion_price']) }}
-                                            </p>
-                                            <p class="product-unit-price" style="font-size: smaller;">
-                                                {{ App\Models\Product::signFirstPrice($product['item']['promotion_price']) }}
-                                            </p>
-                                            @else
-                                            <p class="product-unit-price">
-                                                {{ App\Models\Product::convertPrice($product['item']['price']) }}
-                                            </p>
-                                            <p class="product-unit-price" style="font-size: smaller;">
-                                                {{ App\Models\Product::signFirstPrice($product['item']['price']) }}
-                                            </p>
-                                            @endif
+                                    @if (env('SHOW_PRICE', false))
+                                        <td class="unit-price quantity">
+                                            @if($product['item']['promotion_price'] > 0 &&
+                                            $product['item']['promotion_price'] < $product['item']['price']) 
+                                                @if (env('SHOW_PRICE', false))
+                                                    <p class="product-unit-price">
+                                                        {{ App\Models\Product::convertPrice($product['item']['promotion_price']) }}
+                                                    </p>
+                                                @endif
+                                                @if (env('SHOW_PRICE', false))
+                                                    <p class="product-unit-price" style="font-size: smaller;">
+                                                        {{ App\Models\Product::signFirstPrice($product['item']['promotion_price']) }}
+                                                    </p>
+                                                @endif
+                                                @else
+                                                @if (env('SHOW_PRICE', false))
+                                                    <p class="product-unit-price">
+                                                        {{ App\Models\Product::convertPrice($product['item']['price']) }}
+                                                    </p>
+                                                @endif
+                                                @if (env('SHOW_PRICE', false))
+                                                    <p class="product-unit-price" style="font-size: smaller;">
+                                                        {{ App\Models\Product::signFirstPrice($product['item']['price']) }}
+                                                    </p>
+                                                @endif
+                                                @endif
 
-                                            @if ($product['item']['type'] == 'Physical')
-                                            <div class="qty">
-                                                <ul><input type="hidden" class="prodid"
-                                                        value="{{ $product['item']['id'] }}"><input type="hidden"
-                                                        class="itemid" value="{{ $custom_item_id }}"><input
-                                                        type="hidden" class="size_qty"
-                                                        value="{{ $product['size_qty'] }}"><input type="hidden"
-                                                        class="color_qty" value="{{ $product['color_qty'] }}"><input
-                                                        type="hidden" class="material_qty"
-                                                        value="{{ $product['material_qty'] }}"><input type="hidden"
-                                                        class="max_quantity"
-                                                        value="{{ $product['max_quantity'] }}"><input type="hidden"
-                                                        class="size_price"
-                                                        value="{{ $product['item']['price'] }}"><input type="hidden"
-                                                        class="material_price"
-                                                        value="{{ $product['item']['price'] }}"><input type="hidden"
-                                                        class="color_price" value="{{ $product['item']['price'] }}">
-                                                    <li><span class="qtminus1 reducing"><i
-                                                                class="icofont-minus"></i></span></li>
-                                                    <li><span class="qttotal1"
-                                                            id="qty{{ $custom_item_id }}">{{ $product['qty'] }}</span>
-                                                    </li>
-                                                    <li><span class="qtplus1 adding"><i class="icofont-plus"></i></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            @endif
-                                            @endif
-                                            @if ($product['size_qty'])
-                                            <input type="hidden" id="stock{{ $custom_item_id }}" value="0">
-                                            <input type="hidden" id="max_quantity{{ $custom_item_id }}"
-                                                value="{{ $product['max_quantity'] }}">
-                                            @elseif($product['item']['type'] != 'Physical')
-                                            <input type="hidden" id="stock{{ $custom_item_id }}" value="1">
-                                            @else
-                                            <input type="hidden" id="stock{{ $custom_item_id }}" value="0">
-                                            @endif
-                                    </td>
-
+                                                @if ($product['item']['type'] == 'Physical')
+                                                <div class="qty">
+                                                    <ul><input type="hidden" class="prodid"
+                                                            value="{{ $product['item']['id'] }}"><input type="hidden"
+                                                            class="itemid" value="{{ $custom_item_id }}"><input
+                                                            type="hidden" class="size_qty"
+                                                            value="{{ $product['size_qty'] }}"><input type="hidden"
+                                                            class="color_qty" value="{{ $product['color_qty'] }}"><input
+                                                            type="hidden" class="material_qty"
+                                                            value="{{ $product['material_qty'] }}"><input type="hidden"
+                                                            class="max_quantity"
+                                                            value="{{ $product['max_quantity'] }}"><input type="hidden"
+                                                            class="size_price"
+                                                            value="{{ $product['item']['price'] }}"><input type="hidden"
+                                                            class="material_price"
+                                                            value="{{ $product['item']['price'] }}"><input type="hidden"
+                                                            class="color_price" value="{{ $product['item']['price'] }}">
+                                                        <li><span class="qtminus1 reducing"><i
+                                                                    class="icofont-minus"></i></span></li>
+                                                        <li><span class="qttotal1"
+                                                                id="qty{{ $custom_item_id }}">{{ $product['qty'] }}</span>
+                                                        </li>
+                                                        <li><span class="qtplus1 adding"><i class="icofont-plus"></i></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                @endif
+                                                @endif
+                                                @if ($product['size_qty'])
+                                                <input type="hidden" id="stock{{ $custom_item_id }}" value="0">
+                                                <input type="hidden" id="max_quantity{{ $custom_item_id }}"
+                                                    value="{{ $product['max_quantity'] }}">
+                                                @elseif($product['item']['type'] != 'Physical')
+                                                <input type="hidden" id="stock{{ $custom_item_id }}" value="1">
+                                                @else
+                                                <input type="hidden" id="stock{{ $custom_item_id }}" value="0">
+                                                @endif
+                                        </td>
+                                    @endif
                                     @if($admstore->show_product_prices)
                                     <td class="total-price">
                                         @if($product['item']['promotion_price'] > 0 &&
-                                        $product['item']['promotion_price'] < $product['item']['price']) <p
-                                            id="prc{{ $custom_item_id }}">
-                                            {{ App\Models\Product::convertPrice($product['item']['promotion_price'] * $product['qty']) }}
-                                            </p>
+                                        $product['item']['promotion_price'] < $product['item']['price']) 
+                                                <p id="prc{{ $custom_item_id }}">
+                                                    @if (env('SHOW_PRICE', false))
+                                                        {{ App\Models\Product::convertPrice($product['item']['promotion_price'] * $product['qty']) }}
+                                                    @endif
+                                                </p>
                                             @else
-                                            <p id="prc{{ $custom_item_id }}">
-                                                {{ App\Models\Product::convertPrice($product['price']) }}
-                                            </p>
+                                                <p id="prc{{ $custom_item_id }}">
+                                                    @if (env('SHOW_PRICE', false))
+                                                        {{ App\Models\Product::convertPrice($product['price']) }}
+                                                    @endif
+                                                </p>
                                             @endif
                                     </td>
                                     @endif
@@ -281,8 +294,9 @@
                                     {{ __('Total MRP') }}
                                 </p>
                                 <P>
-                                    <b
-                                        class="cart-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($totalPrice) : '0.00' }}</b>
+                                    @if (env('SHOW_PRICE', false))
+                                        <b class="cart-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($totalPrice) : '0.00' }}</b>
+                                    @endif
                                 </P>
                             </li>
                             <li>
@@ -304,21 +318,29 @@
                             </li>
                         </ul>
                         <div class="total-price">
+                            @if (env('SHOW_PRICE', false))
+                                <p style="margin-bottom:0px;">
+                                    {{ __('Total') }}
+                                </p>
+                            @endif
                             <p style="margin-bottom:0px;">
-                                {{ __('Total') }}
-                            </p>
-                            <p style="margin-bottom:0px;">
-                                <span
-                                    class="main-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($mainTotal) : '0.00' }}</span>
+                                @if (env('SHOW_PRICE', false))
+                                    <span class="main-total">{{ Session::has('cart') ? App\Models\Product::convertPrice($mainTotal) : '0.00' }}</span>
+                                @endif
                             </p>
                         </div>
                         <div class="total-price">
+                            @if (env('SHOW_PRICE', false))
+                                <p>
+                                </p>
+                            @endif
+                            @if (env('ALERT_CHECKOUT', false))
+                            <p class="alert-checkout">{{ __('Warning message when disabling checkout') }}</p>
+                            @endif
                             <p>
-
-                            </p>
-                            <p>
-                                <span
-                                    class="main-total2">{{ Session::has('cart') ? App\Models\Product::signFirstPrice($mainTotal) : '0.00' }}</span>
+                                @if (env('SHOW_PRICE', false))
+                                    <span class="main-total2">{{ Session::has('cart') ? App\Models\Product::signFirstPrice($mainTotal) : '0.00' }}</span>
+                                @endif
                             </p>
                         </div>
                         @if ($gs->is_standard_checkout)
@@ -418,6 +440,7 @@ $(document).ready(function() {
         }
     }
     let city_id, state_id, country_id;
+
     function handleAjaxResponse(data, onSuccess) {
         if (data.city_id) {
             city_id = data.city_id;
@@ -430,6 +453,7 @@ $(document).ready(function() {
             $('#preloader_cart').hide();
         }
     }
+
     function busca_cep(zip_code) {
         $.ajax({
             type: "GET",
@@ -442,6 +466,7 @@ $(document).ready(function() {
             }
         });
     }
+
     function getShippings(bill_ship) {
         $.ajax({
             type: 'GET',
@@ -468,6 +493,7 @@ $(document).ready(function() {
         $('#shipping-area').html('');
         busca_cep(zip_code);
     });
+
     function busca_aex(codigo_ciudad) {
         $.ajax({
             type: "GET",
