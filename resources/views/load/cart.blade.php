@@ -62,12 +62,13 @@
     @if($admstore->show_product_prices)
     <div class="dropdown-cart-total">
         <span>{{ __("Total") }}</span>
-
+        @if (env('SHOW_PRICE', false))
         <span class="cart-total-price">
             <span class="cart-total">{{ Session::has('cart') ?
                     App\Models\Product::convertPrice(Session::get('cart')->totalPrice) : '0.00' }}
             </span>
         </span>
+        @endif
     @endif
     @if($gs->is_standard_checkout && !env('ENABLE_SAX_BRIDAL'))
     <div class="dropdown-cart-action">
