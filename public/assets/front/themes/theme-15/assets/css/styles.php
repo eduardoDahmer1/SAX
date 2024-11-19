@@ -2270,3 +2270,46 @@ body.dark-mode .add-to-cart-btn-affiliate{
 body.dark-mode .alert-checkout{
     color:#ff062d;
 }
+#freight-form input {
+    width: 190px;
+    height: 35px;
+    background: #f3f8fc;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0 10px;
+    font-size: 14px
+}
+
+#freight-form button {
+    height: 35px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in
+}
+
+#freight-form button:hover {
+    color: #fff
+}
+
+#shipping-area-aex .radio-design,
+#shipping-area .radio-design {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    cursor: default
+}
+
+#shipping-area-aex .radio-design input,
+#shipping-area .radio-design input {
+    cursor: default
+}
+
+#shipping-area-aex .radio-design .checkmark,
+#shipping-area .radio-design .checkmark {
+    display: none
+}

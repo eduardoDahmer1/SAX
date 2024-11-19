@@ -143,6 +143,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xl-6">
+                                    <div class="input-form">
+                                        <h4 class="heading">
+                                            {{ __('gif') }} *
+                                            <span>{{ __('(Preferred Size: 960 X 290 Pixel)') }}</span>
+                                        </h4>
+                                        <div class="img-upload">
+                                            <div id="image-preview" class="img-preview" style="background: url({{ $admstore->pagesettings->banner_search6 ? asset('storage/images/banners/' . $admstore->pagesettings->banner_search6) : asset('assets/images/noimage.png') }});">
+                                                <label for="image-upload" class="img-label" id="image-label">
+                                                    <i class="icofont-upload-alt"></i>{{ __('Upload Image') }}
+                                                </label>
+                                                <input type="file" name="banner_search6" class="img-upload" id="image-upload">
+                                                @if ($admstore->pagesettings->banner_search6)
+                                                <button type="button" class="btn btn-danger m-2 remove-banner" tipo="banner_search6">x</button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row justify-content-center">
                                 <button class="addProductSubmit-btn" type="submit">{{ __('Save') }}</button>
