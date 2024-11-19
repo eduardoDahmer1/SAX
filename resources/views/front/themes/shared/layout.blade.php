@@ -194,9 +194,14 @@
     @endphp
     @if (request()->is('/') && (request()->getHost() === 'saxdepartment.com' || request()->getHost() === 'localhost' ||
     request()->getHost() === '127.0.0.1'))
-    <div id="fullScreenGif">
-        <img src="{{ asset('assets/images/theme15/rayo-tres.gif') }}" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
+        @if (env('SHOW_GIF', true))
+            <div id="fullScreenGif">
+                @if ($admstore->pagesettings->banner_search6)
+                    <img src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search6) }}" 
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                @endif
+            </div>
+        @endif
     @endif
     <script type="text/javascript">
         var current_locale = "{{ $current_locale }}";
