@@ -69,19 +69,25 @@
             </span>
         </span>
         @endif
-    @endif
-    @if($gs->is_standard_checkout && !env('ENABLE_SAX_BRIDAL'))
-    <div class="dropdown-cart-action">
-        <a href="{{ route('front.checkout') }}" class="mybtn1">{{ __("Checkout") }}</a>
-    @endif
-    @if(env('ENABLE_SAX_BRIDAL'))
-    <div class="dropdown-cart-action">
-        <a href="#" class="mybtn1 px-1" data-toggle="modal" data-target="#simplified-checkout-modal">
-            {{ __("Simplified Checkout") }}
-        </a>
-    </div>
-    @endif
-</div>
-@else
-<p class="mt-1 pl-3 text-left">{{ __("Cart is empty.") }}</p>
-@endif
+        @endif
+        @if($gs->is_standard_checkout && !env('ENABLE_SAX_BRIDAL'))
+        <div class="dropdown-cart-action">
+            @if (!Auth::guard('web')->check())
+            <a href="{{ route('user.login') }}" class="order-btn">
+                {{ __('Registe or login') }}
+            </a>
+            @else
+            <a href="{{ route('front.checkout') }}" class="mybtn1">{{ __("Checkout") }}</a>
+            @endif
+            @endif
+            @if(env('ENABLE_SAX_BRIDAL'))
+            <div class="dropdown-cart-action">
+                <a href="#" class="mybtn1 px-1" data-toggle="modal" data-target="#simplified-checkout-modal">
+                    {{ __("Simplified Checkout") }}
+                </a>
+            </div>
+            @endif
+        </div>
+        @else
+        <p class="mt-1 pl-3 text-left">{{ __("Cart is empty.") }}</p>
+        @endif
