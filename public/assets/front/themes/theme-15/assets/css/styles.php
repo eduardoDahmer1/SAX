@@ -2217,8 +2217,8 @@ object-fit: fill;
 filter: brightness(1) invert(1);
 }
 body.dark-mode .hot-and-new-item .categori .item-list li .single-box{
-    background: <?= $text_color_1; ?>;
-    border:3px solid <?= $text_color_1; ?>;
+background: <?= $text_color_1; ?>;
+border:3px solid <?= $text_color_1; ?>;
 }
 .hot-and-new-item .categori .item-list li .single-box .right-area {
 -webkit-box-flex: 1;
@@ -2240,76 +2240,96 @@ body.dark-mode .hot-and-new-item .categori .item-list li .single-box .right-area
 color: <?= $theme_color_4; ?>;
 }
 .add-to-cart-btn-affiliate{
-    background: black;
-    color: white;
-    text-align: center;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
-    padding: 1em;
-    align-items: center;
+background: black;
+color: white;
+text-align: center;
+width: 100%;
+display: flex;
+justify-content: center;
+font-weight: 600;
+padding: 1em;
+align-items: center;
 }
 body.dark-mode .add-to-cart-btn-affiliate{
-    background: <?= $theme_color_4; ?>;
-    color: <?= $text_color_1; ?>;
-    text-align: center;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
-    padding: 1em;
-    align-items: center;
+background: <?= $theme_color_4; ?>;
+color: <?= $text_color_1; ?>;
+text-align: center;
+width: 100%;
+display: flex;
+justify-content: center;
+font-weight: 600;
+padding: 1em;
+align-items: center;
 }
 .add-to-cart-btn-affiliate:hover{
-    cursor: pointer;
+cursor: pointer;
 }
 .alert-checkout{
-    color:#ff062d;
+color:#ff062d;
 }
 body.dark-mode .alert-checkout{
-    color:#ff062d;
+color:#ff062d;
 }
 #freight-form input {
-    width: 190px;
-    height: 35px;
-    background: #f3f8fc;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0 10px;
-    font-size: 14px
+width: 190px;
+height: 35px;
+background: #f3f8fc;
+border: 1px solid rgba(0, 0, 0, 0.1);
+padding: 0 10px;
+font-size: 14px
 }
 
 #freight-form button {
-    height: 35px;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    font-size: 14px;
-    text-transform: uppercase;
-    cursor: pointer;
-    -webkit-transition: all 0.3s ease-in;
-    -o-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in
+height: 35px;
+background: #fff;
+border: 1px solid rgba(0, 0, 0, 0.15);
+font-size: 14px;
+text-transform: uppercase;
+cursor: pointer;
+-webkit-transition: all 0.3s ease-in;
+-o-transition: all 0.3s ease-in;
+transition: all 0.3s ease-in
 }
 
 #freight-form button:hover {
-    color: #fff
+color: #fff
 }
 
 #shipping-area-aex .radio-design,
 #shipping-area .radio-design {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding-top: 10px;
-    padding-right: 10px;
-    cursor: default
+border: 1px solid #ccc;
+border-radius: 10px;
+padding-top: 10px;
+padding-right: 10px;
+cursor: default
 }
 
 #shipping-area-aex .radio-design input,
 #shipping-area .radio-design input {
-    cursor: default
+cursor: default
 }
 
 #shipping-area-aex .radio-design .checkmark,
 #shipping-area .radio-design .checkmark {
-    display: none
+display: none
+}
+.logo-header .helpful-links ul li.my-dropdown .my-dropdown-menu .dropdownmenu-wrapper .dropdown-cart-total{
+display:-webkit-box;
+display:-ms-flexbox;
+display:grid;
+-webkit-box-pack:justify;
+-ms-flex-pack:justify;
+padding-top:5px;
+}
+.logo-header .helpful-links ul li.my-dropdown .my-dropdown-menu .dropdownmenu-wrapper .dropdown-cart-total span{
+font-size:14px;
+font-weight:600;
+}
+.logo-header .helpful-links ul li.my-dropdown .my-dropdown-menu .dropdownmenu-wrapper .dropdown-cart-action .mybtn1{
+width:100%;
+border-radius:50px;
+text-align:center;
+margin-top:10px;
+margin-bottom:10px;
+font-size:14px;
 }
