@@ -32425,7 +32425,6 @@ textarea:focus {
 }
 .section-top .link:hover {
     background: 0 0;
-    color: #f50;
 }
 .background {
     position: absolute;
@@ -32494,21 +32493,6 @@ textarea:focus {
 .input-field.error {
     border: 1px solid #f50;
 }
-.input-field.error::-webkit-input-placeholder {
-    color: #f50;
-}
-.input-field.error:-moz-placeholder {
-    color: #f50;
-}
-.input-field.error::-moz-placeholder {
-    color: #f50;
-}
-.input-field.error:-ms-input-placeholder {
-    color: #f50;
-}
-.input-field.error:focus {
-    border-color: #f50;
-}
 .video-play-btn {
     display: inline-block;
     width: 30px;
@@ -32516,7 +32500,6 @@ textarea:focus {
     line-height: 30px;
     text-align: center;
     font-size: 12px;
-    background-color: #f50;
     border-radius: 50%;
     color: #fff;
     position: relative;
@@ -32662,7 +32645,6 @@ textarea:focus {
     transform: rotate(180deg);
 }
 .breadcrumb-area .pages li a:hover {
-    color: #f50;
 }
 .breadcrumb-area .pages li:last-child a::after {
     display: none;
@@ -33396,7 +33378,6 @@ textarea:focus {
     display: block;
 }
 .categorie_sub_menu ul li a:hover {
-    color: #f50;
 }
 @media only screen and (max-width: 767px) {
     .mainmenu-area .categories_menu {
@@ -33541,7 +33522,6 @@ nav button {
     .title {
     font-size: 36px;
     font-weight: 700;
-    color: #f50;
 }
 .hero-area
     .hero-area-slider
@@ -33574,7 +33554,6 @@ nav button {
     .layer-3
     a:hover {
     background: #fff;
-    color: #f50;
 }
 .hero-area
     .hero-area-slider
@@ -33690,7 +33669,6 @@ nav button {
 .trending
     li.ui-tabs-tab.ui-corner-top.ui-state-default.ui-tab.ui-tabs-active.ui-state-active
     a {
-    color: #f50;
 }
 .trending
     li.ui-tabs-tab.ui-corner-top.ui-state-default.ui-tab.ui-tabs-active.ui-state-active
@@ -33727,7 +33705,6 @@ nav button {
 .trending .owl-carousel .owl-controls .owl-nav .owl-next:hover,
 .trending .owl-carousel .owl-controls .owl-nav .owl-prev:hover {
     background: #fff !important;
-    color: #f50;
 }
 .trending .owl-carousel .owl-controls .owl-nav .owl-prev {
     left: 33px;
@@ -33838,7 +33815,6 @@ nav button {
 }
 .item .item-img .extra-list ul li span:hover {
     background: #f50;
-    border-color: #f50;
     color: #fff;
 }
 .item .info {
@@ -33866,7 +33842,6 @@ nav button {
 }
 .item .info .stars ul li i {
     font-size: 12px;
-    color: #f50;
 }
 .item .info .price {
     font-size: 18px;
@@ -33914,7 +33889,6 @@ nav button {
 }
 .item .add-to-cart-btn:hover {
     background: 0 0;
-    color: #f50;
 }
 .item:hover .add-to-cart-btn {
     opacity: 1;
@@ -33993,7 +33967,6 @@ nav button {
     background: #143250;
 }
 .flash-deals .flas-deal-slider .item .price .new-price {
-    color: #f50;
     font-size: 20px;
     font-weight: 600;
 }
@@ -34012,7 +33985,6 @@ nav button {
     font-weight: 700;
     font-size: 24px;
     line-height: 28px;
-    color: #f50;
 }
 .flash-deals .flas-deal-slider .item .deal-counter span:last-child {
     margin-right: 0;
@@ -34051,7 +34023,6 @@ nav button {
 .flash-deals .owl-carousel .owl-controls .owl-nav .owl-next:hover,
 .flash-deals .owl-carousel .owl-controls .owl-nav .owl-prev:hover {
     background: #fff !important;
-    color: #f50;
 }
 .flash-deals .owl-carousel .owl-controls .owl-nav .owl-prev {
     left: 33px;
@@ -34135,7 +34106,6 @@ nav button {
     li
     i {
     font-size: 12px;
-    color: #f50;
 }
 .hot-and-new-item .categori .item-list li .single-box .right-area .price {
     font-size: 16px;
@@ -34170,7 +34140,6 @@ nav button {
     background: #fff;
     border: 1px solid #f50;
     border-radius: 50%;
-    color: #f50;
     -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
     -webkit-transition: 0.3s ease-in;
@@ -34441,7 +34410,6 @@ nav button {
 }
 .blog-area .blog-box .details .read-more-btn:hover {
     background: #fff;
-    color: #f50;
 }
 .blog-area .blog-box:hover {
     -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -34507,7 +34475,6 @@ nav button {
 }
 .footer .fotter-social-links ul li a:hover {
     background: #f50;
-    border-color: #f50;
     color: #fff;
 }
 .footer .copy-bg {
@@ -34528,7 +34495,6 @@ nav button {
     font-size: 14px;
     line-height: 24px;
     margin-bottom: 0;
-    color: #f50;
 }
 .footer .footer-widget .title {
     text-transform: uppercase;
@@ -34554,7 +34520,6 @@ nav button {
     align-items: center;
 }
 .footer .footer-widget ul li a:hover {
-    color: #f50;
 }
 .footer .footer-widget ul li i {
     font-size: 12px;
@@ -34583,10 +34548,8 @@ nav button {
     transition: all 0.3s ease-in;
 }
 .info-link-widget .link-list li a:hover {
-    color: #f50;
 }
 .info-link-widget .link-list li a:hover i {
-    color: #f50;
 }
 .info-link-widget .link-list li i.fas {
     font-size: 12px;
@@ -34773,7 +34736,6 @@ nav button {
     margin-right: -4px;
 }
 .product-details-page .right-area .product-info .info-meta-1 ul li .stars li i {
-    color: #f50;
     margin: 0;
     padding: 0;
 }
@@ -34788,7 +34750,6 @@ nav button {
     font-size: 16px;
     line-height: 26px;
     font-weight: 600;
-    color: #f50;
     display: inline-block;
     margin-right: 10px;
 }
@@ -34801,7 +34762,6 @@ nav button {
 }
 .product-details-page .right-area .product-info .contact-seller .list li a {
     font-size: 13px;
-    color: #f50;
     display: inline-block;
     border: 1px solid #b8c1ca;
     padding: 4px 9px;
@@ -34821,7 +34781,6 @@ nav button {
     li
     a:hover {
     background: #f50;
-    border-color: #f50;
     color: #fff;
 }
 .product-details-page
@@ -34853,7 +34812,6 @@ nav button {
     display: inline-block;
     font-size: 28px;
     font-weight: 700;
-    color: #f50;
     margin-bottom: 0;
 }
 .product-details-page .right-area .product-info .product-price .price small {
@@ -35126,7 +35084,6 @@ nav button {
     .owl-nav
     .owl-prev:hover {
     background: #fff !important;
-    color: #f50;
 }
 .product-details-page
     .xzoom-container
@@ -35356,7 +35313,6 @@ nav button {
     li.addtocart
     a:hover {
     background: #fff;
-    color: #f50;
 }
 .product-details-page
     .right-area
@@ -35417,7 +35373,6 @@ nav button {
     li.favorite
     a:hover {
     background: #fff;
-    color: #f50;
 }
 .product-details-page
     .right-area
@@ -35929,7 +35884,6 @@ nav button {
 }
 #product-details-tab #replay-area .write-comment-area .submit-btn:hover {
     background: 0 0;
-    color: #f50;
 }
 #product-details-tab #replay-area .write-comment-area .submit-btn:focus {
     outline: 0;
@@ -36325,7 +36279,6 @@ nav button {
     li
     i {
     font-size: 12px;
-    color: #f50;
 }
 .product-details-page .categori .item-list li .single-box .right-area .price {
     font-size: 16px;
@@ -36367,7 +36320,6 @@ nav button {
     background: #fff;
     border: 1px solid #f50;
     border-radius: 50%;
-    color: #f50;
     -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
     -webkit-transition: 0.3s ease-in;
@@ -36414,7 +36366,6 @@ nav button {
     font-weight: 400;
     line-height: 24px;
     margin-bottom: 0;
-    color: #f50;
 }
 .seller-info .content .stor-name {
     font-size: 16px;
@@ -36436,7 +36387,6 @@ nav button {
     font-size: 24px;
     line-height: 24px;
     font-weight: 600;
-    color: #f50;
 }
 .seller-info .content .total-product span {
     margin-bottom: 0;
@@ -36470,7 +36420,6 @@ nav button {
 }
 .seller-info .view-stor:hover {
     background: #fff;
-    color: #f50;
 }
 .sliderText {
     margin-bottom: 30px;
@@ -36736,7 +36685,6 @@ nav button {
 }
 .sub-categori .left-area .filter-result-area .body-area .filter-btn:hover {
     background: 0 0;
-    color: #f50;
 }
 .sub-categori .left-area .filter-result-area .body-area .filter-btn:focus {
     outline: 0;
@@ -37057,7 +37005,6 @@ nav button {
 }
 .sub-categori .left-area .service-center .body-area .list li i {
     font-size: 25px;
-    color: #f50;
     margin-right: 7px;
 }
 .sub-categori .left-area .service-center .footer-area {
@@ -37078,9 +37025,6 @@ nav button {
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
-}
-.sub-categori .left-area .service-center .footer-area .list li a:hover {
-    color: #f50;
 }
 .sub-categori .right-area .item-filter {
     display: flex;
@@ -37110,7 +37054,6 @@ nav button {
     border: none;
     text-align: center;
     text-align: center;
-    color: #f50;
     font-size: 14px;
     margin: 0 4px 0;
     border-radius: 3px;
@@ -37329,7 +37272,6 @@ nav button {
 .cartpage .left-area .table tbody tr td.quantity .qty ul li .qtplus1:hover {
     background: #f50;
     color: #fff;
-    border-color: #f50;
 }
 .cartpage .left-area .table tbody tr td.quantity .qty ul li .qttotal {
     width: 40px;
@@ -37434,7 +37376,6 @@ nav button {
 .cupon-box #coupon-form button:hover {
     background: #f50;
     color: #fff;
-    border-color: #f50;
 }
 .cupon-box #check-coupon-form {
     display: none;
@@ -37465,7 +37406,6 @@ nav button {
 .cupon-box #check-coupon-form button:hover {
     background: #f50;
     color: #fff;
-    border-color: #f50;
 }
 .order-box .order-btn {
     width: 190px;
@@ -37561,7 +37501,6 @@ nav button {
 }
 .blogpagearea .blog-box .details .read-more-btn:hover {
     background: 0 0;
-    color: #f50;
 }
 .blogpagearea .blog-box:hover {
     -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -37601,9 +37540,6 @@ nav button {
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
 }
-.blog-details .blog-content .content .post-meta li a:hover {
-    color: #f50;
-}
 .blog-details .blog-content .content p {
     font-size: 16px;
 }
@@ -37623,7 +37559,6 @@ nav button {
     border-left: 5px solid #f50;
     padding: 25px 30px 28px;
     font-size: 16px;
-    color: #f50;
     font-weight: 600;
     display: block;
 }
@@ -37789,7 +37724,6 @@ nav button {
     .replay-form
     .replay-form-close:hover {
     background: #f50;
-    border-color: #f50;
     color: #fff;
 }
 .blog-details .comments .comment-box-area li .replay-form .input-field {
@@ -37935,7 +37869,6 @@ nav button {
 }
 .blog-details .blog-aside .categori .categori-list li a.active,
 .blog-details .blog-aside .categori .categori-list li a:hover {
-    color: #f50;
     padding-right: 5px;
 }
 .blog-details .blog-aside .recent-post-widget {
@@ -38009,16 +37942,6 @@ nav button {
     li
     .post
     .post-details
-    .post-title:hover {
-    color: #f50;
-}
-.blog-details
-    .blog-aside
-    .recent-post-widget
-    .post-list
-    li
-    .post
-    .post-details
     .date {
     color: #7b8698;
     font-size: 12px;
@@ -38069,9 +37992,6 @@ nav button {
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
 }
-.blog-details .blog-aside .archives .archives-list li a:hover {
-    color: #f50;
-}
 .blog-details .blog-aside .tags {
     border: 1px solid #e5e9f4;
     padding: 22px 30px 15px;
@@ -38120,7 +38040,6 @@ nav button {
 }
 .blog-details .blog-aside .tags .tags-list li a:hover {
     background: #f50;
-    border-color: #f50;
     color: #fff;
 }
 .contact-us {
@@ -38134,7 +38053,6 @@ nav button {
     margin-bottom: 6px;
 }
 .contact-us .contact-section-title .title {
-    color: #f50;
     font-size: 40px;
     line-height: 50px;
     font-weight: 600;
@@ -38189,7 +38107,6 @@ nav button {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     right: 15px;
-    color: #f50;
 }
 .contact-us .left-area .contact-form ul li .input-field.textarea {
     margin-bottom: 35px;
@@ -38236,7 +38153,6 @@ nav button {
 }
 .contact-us .left-area .contact-form .submit-btn:hover {
     background: 0 0;
-    color: #f50;
 }
 .contact-us .right-area .top-content {
     margin-bottom: 23px;
@@ -38349,7 +38265,6 @@ nav button {
     font-size: 30px;
     font-weight: 700;
     line-height: 40px;
-    color: #f50;
 }
 .login-area .header-area .text {
     font-size: 18px;
@@ -38375,7 +38290,6 @@ nav button {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     left: 15px;
-    color: #f50;
 }
 .login-area .form-forgot-pass {
     display: -webkit-box;
@@ -38414,7 +38328,6 @@ nav button {
     font-size: 20px;
     font-weight: 600;
     display: inline-block;
-    color: #f50;
     position: relative;
 }
 .login-area .social-area .title::after {
@@ -38503,7 +38416,6 @@ nav button {
     font-size: 30px;
     font-weight: 700;
     line-height: 40px;
-    color: #f50;
 }
 .login-area .header-area .text {
     font-size: 18px;
@@ -38528,7 +38440,6 @@ nav button {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     left: 15px;
-    color: #f50;
 }
 .login-area .form-forgot-pass {
     display: -webkit-box;
@@ -38567,7 +38478,6 @@ nav button {
     font-size: 20px;
     font-weight: 600;
     display: inline-block;
-    color: #f50;
     position: relative;
 }
 .login-area .social-area .title::after {
@@ -38659,7 +38569,6 @@ nav button {
     font-weight: 700;
     text-transform: uppercase;
     line-height: 40px;
-    color: #f50;
 }
 .login-area .header-area .text {
     font-size: 18px;
@@ -38684,7 +38593,6 @@ nav button {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     left: 15px;
-    color: #f50;
 }
 .login-area .form-forgot-pass {
     display: -webkit-box;
@@ -38725,7 +38633,6 @@ nav button {
     text-transform: uppercase;
     font-weight: 600;
     display: inline-block;
-    color: #f50;
     position: relative;
 }
 .login-area .social-area .title::after {
@@ -38873,7 +38780,6 @@ nav button {
 }
 .vendor-top-header .content .single-box .icon {
     font-size: 38px;
-    color: #f50;
     margin-right: 10px;
 }
 .vendor-top-header .content .single-box .info .title {
@@ -38947,7 +38853,6 @@ nav button {
     font-weight: 600;
 }
 .compare-page-content-wrap .pro-ratting i {
-    color: #f50;
 }
 .compare-page-content-wrap .table-bordered td,
 .compare-page-content-wrap .table-bordered th {
@@ -38999,7 +38904,6 @@ nav button {
 }
 .user-dashbord .user-profile-info-area .links li.active a,
 .user-dashbord .user-profile-info-area .links li:hover a {
-    color: #f50;
     -webkit-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
     transition: all 0.3s linear;
@@ -39235,7 +39139,6 @@ nav button {
     .edit-info-area-form
     .submit-btn:hover {
     background: 0 0;
-    color: #f50;
 }
 .user-dashbord .user-profile-details .account-info .main-info {
     margin-top: 15px;
@@ -39475,7 +39378,6 @@ nav button {
 }
 .thankyou .content .icon {
     font-size: 90px;
-    color: #f50;
 }
 .thankyou .content .heading {
     font-size: 28px;
@@ -39577,7 +39479,6 @@ nav button {
 }
 .single-wish .right .stars li i {
     font-size: 14px;
-    color: #f50;
 }
 .single-wish .right .price {
     font-size: 25px;
@@ -39594,7 +39495,6 @@ nav button {
     font-size: 14px;
 }
 .single-wish .right .store-name i {
-    color: #f50;
     margin-right: 2px;
 }
 tfoot td.total-price p {
@@ -39800,7 +39700,6 @@ li#example_previous {
 .category-page .bg-white .sub-category-menu .category-name a {
     font-size: 20px;
     font-weight: 700;
-    color: #f50;
     border-bottom: 1px solid #ddd;
     padding-bottom: 8px;
     display: block;
@@ -39847,11 +39746,9 @@ li#example_previous {
     transition: all 0.3s ease-in;
 }
 .category-page .bg-white .sub-category-menu ul li a:hover {
-    color: #f50;
 }
 .category-page .bg-white .sub-category-menu ul li ul li a:hover,
 .category-page .bg-white .sub-category-menu ul li ul li a:hover i {
-    color: #f50;
 }
 .category-page .bg-white .sub-category-menu ul li ul li a:hover {
     padding-right: 7px;
@@ -40206,7 +40103,6 @@ li#example_previous {
     position: absolute;
     right: 0;
     top: -1px;
-    color: #f50;
     line-height: 30px;
     font-size: 14px;
 }
@@ -40312,8 +40208,6 @@ input[type="checkbox"] + label:active:before {
     transform: scale(0);
 }
 input[type="checkbox"]:checked + label:before {
-    background-color: #f50;
-    border-color: #f50;
     color: #fff;
 }
 input[type="checkbox"]:disabled + label:before {
@@ -40865,7 +40759,6 @@ ul.pagination li.disabled {
     font-size: 16px;
     padding: 0 1px;
     cursor: pointer;
-    color: #f50;
     text-decoration: none;
 }
 .review-star {
@@ -40884,7 +40777,6 @@ ul.pagination li.disabled {
     top: 0;
     white-space: nowrap;
     overflow: hidden;
-    color: #f50;
 }
 .empty-stars:before,
 .full-stars:before {
@@ -40898,14 +40790,6 @@ ul.pagination li.disabled {
 .full-stars:before {
     -webkit-text-stroke: 1px #ff5500;
 }
-@-moz-document url-prefix() {
-    .full-stars {
-        color: #f50;
-    }
-}
-.full-stars {
-    color: #f50;
-}
 .edit-info-area .upload-img .img img {
     width: 100%;
     height: 100%;
@@ -40913,8 +40797,6 @@ ul.pagination li.disabled {
 .login-btn {
     color: #fff !important;
     cursor: pointer;
-    background-color: #f50;
-    border-color: #f50;
     padding: 8px 12px;
 }
 .replay-area {

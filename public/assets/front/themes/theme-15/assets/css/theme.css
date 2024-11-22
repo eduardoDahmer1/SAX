@@ -629,10 +629,6 @@
     background: #000000;
 }
 
-.login-area .social-area .text {
-    color: #000000;
-}
-
 .login-area .social-area .social-links {
     display: inline-flex;
 }
@@ -2255,14 +2251,6 @@ h1, h2, h3, h4, h5, h6 {
 .item-filter .filter-list li p {
     margin: 0;
     font-weight: 300;
-    font-size: 14px;
-}
-
-.item-filter .filter-list li select {
-    margin: 0 15px;
-    font-weight: 300;
-    width: auto;
-    border: 1px solid #e8e8e8;
     font-size: 14px;
 }
 
