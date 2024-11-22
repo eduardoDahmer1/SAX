@@ -464,6 +464,9 @@ color: <?php echo $theme_color_2; ?>; }
 .login-area .social-area .title {
 color: <?php echo $theme_color_1; ?>;
 }
+body.dark-mode .login-area .social-area .title {
+color: <?php echo $theme_color_4; ?>;
+}
 .blog-details .blog-aside .recent-post-widget .post-list li .post .post-details .post-title:hover {
 color: <?php echo $theme_color_1; ?>; }
 .blog-details .blog-aside .archives .archives-list li a:hover {
@@ -2398,4 +2401,26 @@ body.dark-mode .sub-categori .right-area .item-filter .filter-list li select {
     border: 1px solid <?= $theme_color_4; ?>;
     padding: 0 15px;
     color:<?= $theme_color_4; ?>;
+}
+.login-area .social-area .text {
+    color: <?= $text_color_1; ?>;
+}
+body.dark-mode .login-area .social-area .text {
+    color: <?= $theme_color_4; ?>;
+}
+.item-filter .filter-list li select {
+    margin: 0 15px;
+    font-weight: 300;
+    width: auto;
+    color: <?= $text_color_1; ?>;
+    border: 1px solid #e8e8e8;
+    font-size: 14px;
+}
+body.dark-mode .item-filter .filter-list li select {
+    margin: 0 15px;
+    font-weight: 300;
+    width: auto;
+    color:<?= $theme_color_4; ?>;
+    border: 1px solid #e8e8e8;
+    font-size: 14px;
 }
