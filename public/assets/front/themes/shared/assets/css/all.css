@@ -37251,11 +37251,6 @@ nav button {
     font-size: 16px;
     font-weight: 600;
 }
-.sub-categori .right-area .item-filter .filter-list li select {
-    height: 30px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 0 15px;
-}
 .sub-categori .right-area .item-filter .filter-list li.viewitem-no-area {
     margin-right: -13px;
 }
@@ -38402,12 +38397,6 @@ nav button {
 .login-signup {
     padding: 60px 0 60px;
 }
-.login-area {
-    padding: 30px 30px 39px;
-    background: #fff;
-    -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
 .login-area .header-area {
     text-align: center;
     margin-bottom: 40px;
@@ -38426,14 +38415,7 @@ nav button {
     position: relative;
     margin-bottom: 15px;
 }
-.login-area .form-input input {
-    width: 100%;
-    height: 50px;
-    background: #f3f8fc;
-    padding: 0 30px 0 45px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-}
+
 .login-area .form-input textarea {
     width: 100%;
     height: 100px;
@@ -38556,27 +38538,12 @@ nav button {
     margin: 0;
     padding: 0;
 }
-.comment-log-reg-tabmenu .nav-tabs .nav-link {
-    border: 0;
-    margin: 0;
-    padding: 10px 0;
-    width: 50%;
-    text-align: center;
-    background: #f50;
-    border-radius: 0;
-    color: #fff;
-}
+
 .comment-log-reg-tabmenu .nav-tabs .nav-link.active {
     background: #143250;
 }
 .login-signup {
     padding: 60px 0 60px;
-}
-.login-area {
-    padding: 30px 30px 39px;
-    background: #fff;
-    -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 .login-area .header-area {
     text-align: center;
@@ -38718,16 +38685,7 @@ nav button {
     margin: 0;
     padding: 0;
 }
-.comment-log-reg-tabmenu .nav-tabs .nav-link {
-    border: 0;
-    margin: 0;
-    padding: 10px 0;
-    width: 50%;
-    text-align: center;
-    background: #f50;
-    border-radius: 0;
-    color: #fff;
-}
+
 .comment-log-reg-tabmenu .nav-tabs .nav-link.active {
     background: #143250;
 }
@@ -38736,12 +38694,7 @@ nav button {
     z-index: 3;
     position: relative;
 }
-.login-area {
-    padding: 30px 30px 39px;
-    background: #fff;
-    -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
+
 .login-area .header-area {
     text-align: center;
     margin-bottom: 40px;
@@ -38885,16 +38838,7 @@ nav button {
     margin: 0;
     padding: 0;
 }
-.comment-log-reg-tabmenu .nav-tabs .nav-link {
-    border: 0;
-    margin: 0;
-    padding: 10px 0;
-    width: 50%;
-    text-align: center;
-    background: #f50;
-    border-radius: 0;
-    color: #fff;
-}
+
 .comment-log-reg-tabmenu .nav-tabs .nav-link.active {
     background: #143250;
 }
