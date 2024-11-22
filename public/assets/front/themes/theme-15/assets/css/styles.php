@@ -2151,6 +2151,7 @@ display: -ms-flexbox;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
+filter: brightness(0) invert(1);
 background: transparent;
 border: 2px solid <?= $theme_color_4; ?>;
 box-shadow: 4px 4px 18px <?= $theme_color_4; ?>;
