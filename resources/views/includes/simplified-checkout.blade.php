@@ -18,6 +18,7 @@
                                 <div class="col-lg-12">
                                     <label for="customer_phone">{{ __('Phone') }} *</label>
                                     <input type="text" id="customer_phone" class="input-field" name="phone" placeholder="{{ __('Phone') }}" required>
+                                    <div id="phone-error" style="color: red; display: none;">Número inválido. Use +55 ou +595 e pelo menos 5 dígitos.</div>
                                 </div>
                             </div>
                             @if(!$isBridalEnabled)
@@ -30,7 +31,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row" id="location_row" style="display:none;">
+                            <div class="row" id="location_row" style="display: none;">
                                 <div class="col-lg-12">
                                     <label for="location">{{ __('Your location') }} *</label>
                                     <select id="location" class="input-field">
@@ -40,7 +41,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row" id="description_row" style="display:none;">
+                            <div class="row" id="description_row" style="display: none;">
                                 <div class="col-lg-12">
                                     <label for="description">{{ __('Your more detailed address') }} *</label>
                                     <textarea id="description" class="input-field" placeholder=""></textarea>
@@ -55,7 +56,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row" id="payment_options_row" style="display:none;">
+                            <div class="row" id="payment_options_row" style="display: none;">
                                 <div class="col-lg-12">
                                     <label for="payment">{{ __('Payment options') }} *</label>
                                     <select id="payment_options" class="input-field" name="payment">
@@ -67,59 +68,98 @@
                             </div>
                             @endif
                             <div class="row mt-30">
-                                <div class="col-lg-12" style="text-align: right">
+                                <div class="col-lg-12" style="text-align: right;">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-                                    <button onclick="btnDisabled(this)" class="btn btn-success" type="submit">{{ __('Submit') }}</button>
+                                    <button id="submit-button" onclick="btnDisabled(this)" class="btn btn-success" type="submit" disabled>{{ __('Submit') }}</button>
                                 </div>
                             </div>
                         </form>
+
+                        <script>
+                        let clickCount = 0;
+
+                        // Desativa o botão de envio após o primeiro clique
+                        function btnDisabled(button) {
+                            clickCount++;
+                            if (clickCount > 1) {
+                                button.disabled = true;
+                            }
+                        }
+
+                        // Habilita o botão de envio apenas se nome e telefone forem válidos
+                        function validateForm() {
+                            const nameInput = document.getElementById('customer_name').value.trim();
+                            const phoneInput = document.getElementById('customer_phone').value.trim();
+                            const phoneRegex = /^\+?(55|595)?\d{5,}$/; // Aceita +55 ou +595 e pelo menos 5 números
+                            const submitButton = document.getElementById('submit-button');
+
+                            if (nameInput && phoneRegex.test(phoneInput)) {
+                                submitButton.disabled = false;
+                            } else {
+                                submitButton.disabled = true;
+                            }
+                        }
+
+                        // Validação do número de telefone
+                        document.getElementById('customer_phone').addEventListener('input', function() {
+                            const phoneInput = this;
+                            const phoneValue = phoneInput.value.trim();
+                            const regex = /^\+?(55|595)?\d{5,}$/; // Aceita +55 ou +595 e pelo menos 5 números
+                            const errorDiv = document.getElementById('phone-error');
+
+                            if (regex.test(phoneValue)) {
+                                errorDiv.style.display = 'none';
+                                phoneInput.style.borderColor = '';
+                            } else {
+                                errorDiv.style.display = 'block';
+                                phoneInput.style.borderColor = 'red';
+                            }
+                            validateForm();
+                        });
+
+                        // Validação do nome
+                        document.getElementById('customer_name').addEventListener('input', validateForm);
+
+                        // Lógica para exibir ou ocultar campos baseados no método de entrega
+                        function toggleFields() {
+                            const deliveryMethod = document.getElementById('delivery_method').value;
+                            const locationRow = document.getElementById('location_row');
+                            const descriptionRow = document.getElementById('description_row');
+                            const locationField = document.getElementById('location');
+                            const descriptionField = document.getElementById('description');
+
+                            if (deliveryMethod === 'Delivery') {
+                                locationRow.style.display = 'block';
+                                descriptionRow.style.display = 'block';
+                                locationField.name = 'location';
+                                descriptionField.name = 'description';
+                            } else {
+                                locationRow.style.display = 'none';
+                                descriptionRow.style.display = 'none';
+                                locationField.removeAttribute('name');
+                                descriptionField.removeAttribute('name');
+                            }
+                        }
+
+                        // Lógica para exibir ou ocultar opções de pagamento
+                        function togglePaymentOptions() {
+                            const paymentMethod = document.getElementById('payment_method').value;
+                            const paymentOptionsRow = document.getElementById('payment_options_row');
+                            const paymentOptionsField = document.getElementById('payment_options');
+
+                            if (paymentMethod === 'Pague_agora') {
+                                paymentOptionsRow.style.display = 'block';
+                                paymentOptionsField.name = 'payment';
+                            } else {
+                                paymentOptionsRow.style.display = 'none';
+                                paymentOptionsField.removeAttribute('name');
+                            }
+                        }
+                        </script>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    let clickCount = 0;
-    function btnDisabled(button) { clickCount++; if (clickCount != 1) { button.disabled = true; } }
-    function toggleFields() {
-        const deliveryMethod = document.getElementById('delivery_method').value;
-        const locationRow = document.getElementById('location_row');
-        const descriptionRow = document.getElementById('description_row');
-        const locationField = document.getElementById('location');
-        const descriptionField = document.getElementById('description');
-        if (deliveryMethod === 'Delivery') {
-            locationRow.style.display = 'block';
-            descriptionRow.style.display = 'block';
-            locationField.name = 'location';
-            descriptionField.name = 'description';
-            document.getElementById('payment_method').value = 'Pague_agora';
-            document.getElementById('payment_method_row').style.display = 'none';
-            togglePaymentOptions();
-        } else {
-            locationRow.style.display = 'none';
-            descriptionRow.style.display = 'none';
-            locationField.removeAttribute('name');
-            descriptionField.removeAttribute('name');
-            document.getElementById('payment_method_row').style.display = 'block';
-        }
-    }
-    function togglePaymentOptions() {
-        const paymentMethod = document.getElementById('payment_method').value;
-        const paymentOptionsRow = document.getElementById('payment_options_row');
-        const paymentOptionsField = document.getElementById('payment_options');
-        if (paymentMethod === 'Pague_agora') {
-            paymentOptionsRow.style.display = 'block';
-            paymentOptionsField.name = 'payment';
-        } else {
-            paymentOptionsRow.style.display = 'none';
-            paymentOptionsField.removeAttribute('name');
-        }
-    }
-    document.getElementById('geniusformdata').addEventListener('submit', function(event) {
-        const paymentMethod = document.getElementById('payment_method').value;
-        if (paymentMethod === 'Pagar_na_loja') {
-            document.getElementById('payment_options').removeAttribute('name');
-        }
-    });
-</script>
