@@ -1126,6 +1126,7 @@ color: <?php echo $text_color_2; ?>;
 .badge-primary{
 background-color: <?php echo $theme_color_2; ?>;
 color: white;
+display:none;
 }
 
 .top-header {
