@@ -298,7 +298,6 @@
 }
 
 .item:hover {
-    overflow: visible;
     display: block;
     position: relative;
     z-index: 9;
@@ -2604,3 +2603,8 @@ display: flex;
     color: #333;
 }
 
+.whatsapp-widget{
+    position: fixed;
+    width: 4em;
+    bottom: 1em;
+}
