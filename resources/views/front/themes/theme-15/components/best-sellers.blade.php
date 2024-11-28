@@ -3,7 +3,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 remove-padding">
-                <div class="section-top text-center"><h2 class="section-title" data-aos="fade-in">{{ __("Best sellers") }}</h2><h5 data-aos="fade-in" data-aos-delay="100">{{__("Discover the most popular products among our customers and don't be left behind.")}}</h5></div>
+                <div class="section-top text-center">
+                    <h2 class="section-title" data-aos="fade-in">{{ __("Best sellers") }}</h2>
+                    <h5 data-aos="fade-in" data-aos-delay="100">{{__("Discover the most popular products among our customers and don't be left behind.")}}</h5>
+                </div>
             </div>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -13,7 +16,7 @@
             <div class="col-lg-10">
             @endif
                 <div class="row">
-                    @foreach($best_products as $prod)
+                    @foreach($best_products->take(8) as $prod) <!-- Limita a exibição a 8 produtos -->
                     @include('front.themes.'.env('THEME', 'theme-15').'.components.home-product')
                     @endforeach
                 </div>

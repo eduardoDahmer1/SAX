@@ -37,26 +37,31 @@
             </div>
             @php $currentChar = ''; @endphp
             @foreach ($brands as $key => $brand)
-            @php $brandStart = \App\Helpers\Helper::strNormalize(strtoupper(mb_substr($brand->name, 0, 1))); @endphp
-            @if(is_numeric($brandStart)) @php $brandStart = '#'; @endphp @endif
-            @if($brandStart !== $currentChar)
-            @php $currentChar = $brandStart; @endphp
-            <div id="title-brands" class="section-top">
-                <h2 class="section-title"
-                    id="brands-starting-with-{{($currentChar === '#' ? 'numbers' : $currentChar)}}">{{$currentChar}}
-                </h2>
-            </div>
+            @php 
+                $brandStart = \App\Helpers\Helper::strNormalize(strtoupper(mb_substr($brand->name, 0, 1))); 
+                $hasProducts = $brand->products_count > 0; // Verifica se a marca tem produtos
+            @endphp
+            @if($hasProducts)  <!-- Verificação de produtos -->
+                @if(is_numeric($brandStart)) @php $brandStart = '#'; @endphp @endif
+                @if($brandStart !== $currentChar)
+                @php $currentChar = $brandStart; @endphp
+                <div id="title-brands" class="section-top">
+                    <h2 class="section-title"
+                        id="brands-starting-with-{{($currentChar === '#' ? 'numbers' : $currentChar)}}">{{$currentChar}}
+                    </h2>
+                </div>
+                @endif
+                <div class="col-xl-4 col-md-6 sc-common-padding d-flex flex-column">
+                    <a href="{{route('front.brand', $brand->slug)}}" class="single-category">
+                        <div class="left">
+                            <h5 class="title">{{ $brand->name }}</h5>
+                            <p class="count">{{ $brand->products_count }} {{__('itens')}}</p>
+                        </div>
+                        <div class="right"><img class="imagemMarca" src="{{ $brand->thumbnail }}" alt="{{$brand->name}}">
+                        </div>
+                    </a>
+                </div>
             @endif
-            <div class="col-xl-4 col-md-6 sc-common-padding d-flex flex-column">
-                <a href="{{route('front.brand', $brand->slug)}}" class="single-category">
-                    <div class="left">
-                        <h5 class="title">{{ $brand->name }}</h5>
-                        <p class="count">{{ $brand->products_count }} {{__('itens')}}</p>
-                    </div>
-                    <div class="right"><img class="imagemMarca" src="{{ $brand->thumbnail }}" alt="{{$brand->name}}">
-                    </div>
-                </a>
-            </div>
             @endforeach
             @else
             <div class="col-lg-12">
