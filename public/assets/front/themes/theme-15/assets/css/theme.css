@@ -1251,10 +1251,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 90px 0;
 }
 
-.product-details-page .trending .item .item-img {
-    background: #F6F6F6;
-}
-
 .product-details-page .trending {
     background: transparent;
 }
@@ -1322,13 +1318,6 @@ h1, h2, h3, h4, h5, h6 {
 .small, small {
     color: #646363f0;
     font-size: 65%;
-}
-
-.item .item-cart-area {
-    position: absolute;
-    transition: all linear .3s;
-    padding-bottom: 0;
-    background-color: #000000;
 }
 
 .item .item-img {
