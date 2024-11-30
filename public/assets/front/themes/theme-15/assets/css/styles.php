@@ -418,7 +418,6 @@ background: <?php echo $theme_color_1; ?>;
 
 .video-play-btn {
 background-color: <?php echo $theme_color_1; ?>;
-
 }
 
 .product-details-page .right-area .product-info .contact-seller .title {
@@ -432,6 +431,11 @@ border-color: <?php echo $theme_color_1; ?>; }
 
 .product-details-page .right-area .product-info .product-size .siz-list li.active .box {
 border: 1px solid <?php echo $theme_color_1; ?>; }
+body.dark-mode .product-details-page .right-area .product-info .product-size .siz-list li.active .box {
+    border: 1px solid <?php echo $theme_color_4; ?>;
+    color:<?php echo $text_color_1; ?>;
+    background:<?php echo $theme_color_4; ?>; 
+}
 
 .product-details-page .right-area .product-info .product-color .color-list li .box.color5 {
 background:<?php echo $theme_color_1; ?>; }
@@ -1304,12 +1308,14 @@ text-overflow: ellipsis;
 display: -webkit-box;
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
+font-variant: all-small-caps;
 }
 body.dark-mode .item .info .name {
 height: auto;
 font-weight: 300;
 line-height: normal;
 margin-bottom: 10px;
+font-variant: all-small-caps;
 font-size: 20px;
 color: <?= $theme_color_4 ?>;
 overflow: hidden;
@@ -2164,7 +2170,6 @@ align-items: center;
 body.dark-mode .item {
 overflow: visible !important;
 position: relative;
-margin: 5px;
 overflow: hidden;
 display: block;
 -webkit-transition: unset;
@@ -2427,4 +2432,49 @@ body.dark-mode .item-filter .filter-list li select {
     color:<?= $theme_color_4; ?>;
     border: 1px solid #e8e8e8;
     font-size: 14px;
+}
+.modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #000000bd;
+    background-clip: padding-box;
+    border: 1px solid rgb(255 255 255 / 49%) !important;
+    border-radius: 0.3rem;
+    outline: 0;
+}
+.modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+body.dark-mode .modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #000000e6;
+    background-clip: padding-box;
+    border: 1px solid rgb(255 255 255 / 49%) !important;
+    border-radius: 0.3rem;
+    outline: 0;
+}
+body.dark-mode .date-blog{
+    color: <?= $text_color_1; ?>;
 }
