@@ -83,7 +83,7 @@
                             @else
                             <li class="my-dropdown"><a href="javascript:;" class="cart carticon">
                                     <div class="icon"><img class="img-fluid icons-header"
-                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search13) }}" alt="Icons"><span
+                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search11) }}" alt="Icons"><span
                                             class="cart-quantity"
                                             id="cart-count">{{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}</span>
                                     </div>
@@ -156,7 +156,7 @@
                             @else
                             <li class="my-dropdown"><a href="javascript:;" class="cart carticon">
                                     <div class="icon"><img class="img-fluid icons-header"
-                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search10) }}" alt="Icons"><span
+                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search8) }}" alt="Icons"><span
                                             class="cart-quantity"
                                             id="cart-count">{{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}</span>
                                     </div>
