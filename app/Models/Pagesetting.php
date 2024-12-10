@@ -47,6 +47,14 @@ class Pagesetting extends LocalizedModel
         'banner_search4',
         'banner_search5',
         'banner_search6',
+        'banner_search7',
+        'banner_search8',
+        'banner_search9',
+        'banner_search10',
+        'banner_search11',
+        'banner_search12',
+        'banner_search13',
+        'banner_search14',
     ];
     public $timestamps = false;
     public function getActivitylogOptions(): LogOptions
