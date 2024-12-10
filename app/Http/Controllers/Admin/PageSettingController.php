@@ -28,6 +28,14 @@ class PageSettingController extends Controller
         'banner_search4' => 'mimes:jpeg,jpg,png,svg,gif,webp',
         'banner_search5' => 'mimes:jpeg,jpg,png,svg,gif,webp',
         'banner_search6' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search7' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search8' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search9' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search10' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search11' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search12' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search13' => 'mimes:jpeg,jpg,png,svg,gif,webp',
+        'banner_search14' => 'mimes:jpeg,jpg,png,svg,gif,webp',
     ];
 
     protected $customs =
@@ -42,6 +50,14 @@ class PageSettingController extends Controller
         'banner_search4.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
         'banner_search5.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
         'banner_search6.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search7.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search8.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search9.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search10.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search11.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search12.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search13.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
+        'banner_search14.mimes' => 'Photo type must be in jpeg, jpg, png, svg, gif',
     ];
 
     // Page Settings All post requests will be done in this method
@@ -109,6 +125,46 @@ class PageSettingController extends Controller
             $name = time().$data->id.$file->getClientOriginalName();
             $data->upload($name, $file, $data->banner_search6);
             $input['banner_search6'] = $name;
+        }
+        if ($file = $request->file('banner_search7')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search7);
+            $input['banner_search7'] = $name;
+        }
+        if ($file = $request->file('banner_search8')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search8);
+            $input['banner_search8'] = $name;
+        }
+        if ($file = $request->file('banner_search9')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search9);
+            $input['banner_search9'] = $name;
+        }
+        if ($file = $request->file('banner_search10')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search10);
+            $input['banner_search10'] = $name;
+        }
+        if ($file = $request->file('banner_search11')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search11);
+            $input['banner_search11'] = $name;
+        }
+        if ($file = $request->file('banner_search12')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search12);
+            $input['banner_search12'] = $name;
+        }
+        if ($file = $request->file('banner_search13')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search13);
+            $input['banner_search13'] = $name;
+        }
+        if ($file = $request->file('banner_search14')) {
+            $name = time().$data->id.$file->getClientOriginalName();
+            $data->upload($name, $file, $data->banner_search14);
+            $input['banner_search14'] = $name;
         }
         if ($file = $request->file('big_save_banner1')) {
             $name = time().$data->id.$file->getClientOriginalName();
@@ -262,6 +318,54 @@ class PageSettingController extends Controller
             $input['banner_search6'] = null;
             if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search6) && !empty($data->banner_search6)) {
                 unlink(public_path().'/storage/images/banners/'.$data->banner_search6);
+            }
+        }
+        if ($request->type == "banner_search7") {
+            $input['banner_search7'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search7) && !empty($data->banner_search7)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search7);
+            }
+        }
+        if ($request->type == "banner_search8") {
+            $input['banner_search8'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search8) && !empty($data->banner_search8)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search8);
+            }
+        }
+        if ($request->type == "banner_search9") {
+            $input['banner_search9'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search9) && !empty($data->banner_search9)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search9);
+            }
+        }
+        if ($request->type == "banner_search10") {
+            $input['banner_search10'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search10) && !empty($data->banner_search10)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search10);
+            }
+        }
+        if ($request->type == "banner_search11") {
+            $input['banner_search11'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search11) && !empty($data->banner_search11)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search11);
+            }
+        }
+        if ($request->type == "banner_search12") {
+            $input['banner_search12'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search12) && !empty($data->banner_search12)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search12);
+            }
+        }
+        if ($request->type == "banner_search13") {
+            $input['banner_search13'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search13) && !empty($data->banner_search13)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search13);
+            }
+        }
+        if ($request->type == "banner_search14") {
+            $input['banner_search14'] = null;
+            if (file_exists(public_path().'/storage/images/banners/'.$data->banner_search14) && !empty($data->banner_search14)) {
+                unlink(public_path().'/storage/images/banners/'.$data->banner_search14);
             }
         }
         if ($request->type == "big_save_banner1") {
