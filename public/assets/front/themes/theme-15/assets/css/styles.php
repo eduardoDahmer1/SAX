@@ -99,7 +99,7 @@ p {
 color: <?= $text_color_1 ?>;
 }
 body.dark-mode p {
-color: <?= $theme_color_4 ?>;
+color: <?= $theme_color_4 ?> !important;
 }
 
 body.dark-mode {
@@ -2046,6 +2046,18 @@ background:<?= $text_color_1; ?>;
 
 }
 body.dark-mode .content p span font font{
+color:<?= $theme_color_4; ?> !important;
+}
+body.dark-mode .content p span{
+color:<?= $theme_color_4; ?> !important;
+}
+body.dark-mode .content h3 span{
+color:<?= $theme_color_4; ?> !important;
+}
+body.dark-mode .content h2 span{
+color:<?= $theme_color_4; ?> !important;
+}
+body.dark-mode .content h1 span{
 color:<?= $theme_color_4; ?> !important;
 }
 .blog-details .blog-aside .serch-form button {
