@@ -41,6 +41,7 @@ use Illuminate\Support\Facades\DB as FacadeDB;
 use function League\Csv\delimiter_detect;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Artisan;
 
 class ProductController extends Controller
 {
@@ -56,6 +57,20 @@ class ProductController extends Controller
         $this->xml_helper = new XMLHelper();
 
         parent::__construct();
+    }
+
+    public function updateAttributesStatus(Request $request)
+    {
+        try {
+            // Executa o comando Artisan para atualizar o status dos produtos
+            Artisan::call('products:update-status');
+
+            // Retorna uma mensagem de sucesso
+            return redirect()->back()->with('success', 'Status dos produtos atualizado com sucesso!');
+        } catch (\Exception $e) {
+            // Retorna uma mensagem de erro
+            return redirect()->back()->with('error', 'Erro ao atualizar o status: ' . $e->getMessage());
+        }
     }
 
     public function updateXMLComprasParaguai()
