@@ -7,6 +7,9 @@ use App\Models\License;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Admin\ProductController;
+
+Route::post('admin/product/update-attributes-status', [ProductController::class, 'updateAttributesStatus'])->name('update-product-getattributes-status');
 
 Route::get('test/redplay-email', function () {
     $order = Order::orderBy('id', 'DESC')->first();
