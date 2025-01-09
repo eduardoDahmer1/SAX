@@ -106,7 +106,28 @@
             </div>
             <div class="wrapper">
                 <nav id="sidebar" class="nav-sidebar">
-                    <ul class="list-unstyled components" id="accordion"><li><a href="{{ route('admin.dashboard') }}" class="wave-effect active"><i class="ion-pie-graph"></i>{{ __('Dashboard') }}</a></li>@include('includes.admin.roles.super')</ul></nav>
+                    <ul class="list-unstyled components" id="accordion">
+                        <li>
+                            <a href="{{ route('admin.dashboard') }}" class="wave-effect active">
+                                <i class="ion-pie-graph"></i>{{ __('Dashboard') }}
+                            </a>
+                        </li>
+                        <li>
+                            <form class="updateform" action="{{ route('update-product-getattributes-status') }}" method="POST">
+                                @csrf
+                                <!-- Ícone com Tooltip -->
+                                <i class="ion-pie-graph" 
+                                style="cursor: pointer;" 
+                                data-toggle="tooltip" 
+                                title="Este botão atualiza o status dos produtos com imagem, valor e estoque para ativo">
+                                </i>
+                                <!-- Botão de Envio -->
+                                <button type="submit" class="btn updateproducts">Atualizar produtos</button>
+                            </form>
+                        </li>
+                        @include('includes.admin.roles.super')
+                    </ul>
+                </nav>
                 @yield('content')
             </div>
         </div>
@@ -114,6 +135,7 @@
     @php
         $curr = \App\Models\Currency::where('is_default', '=', 1)->first();
     @endphp
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
         var mainurl = "{{ url('/') }}";
         var admin_loader = {{ $gs->is_admin_loader }};
@@ -131,6 +153,15 @@
                 });
             });
      </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ativar o tooltip (usando Bootstrap ou Popper.js)
+            const tooltipElements = document.querySelectorAll('[data-toggle="tooltip"]');
+            tooltipElements.forEach(element => {
+                new bootstrap.Tooltip(element);
+            });
+        });
+    </script>
     <script src="{{ asset('assets/admin/js/vendors/vue.js') }}"></script>
     <script src="{{ asset('assets/admin/js/vendors/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/jquery-ui.min.js') }}"></script>
