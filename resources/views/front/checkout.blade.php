@@ -2251,9 +2251,14 @@
 
 <script>
     $(document).ready(function () {
+        // Detecta o ambiente com base no hostname
+        const baseURL = window.location.hostname === 'localhost' 
+            ? 'http://localhost' 
+            : 'https://saxdepartment.com';
+
         $.ajax({
             type: 'GET',
-            url: 'https://saxdepartment.com' + '/checkout/getStatesOptions',
+            url: baseURL + '/checkout/getStatesOptions',
             data: {
                 location_id: 173 //paraguai
             },
@@ -2267,15 +2272,14 @@
             error: function (err) {
                 console.log(err);
             },
-        })
-
+        });
 
         $('#shippingState').on('change', function () {
             // Obtém o valor selecionado
             var selectedValue = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'https://saxdepartment.com' + '/checkout/getCitiesOptions',
+                url: baseURL + '/checkout/getCitiesOptions',
                 data: {
                     location_id: selectedValue //paraguai
                 },
@@ -2283,18 +2287,19 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (data) {
+                    $('#shippingCity').empty(); // Limpa as opções anteriores
+                    $('#shippingCity').append('<option value="">{{ __('Selecione sua cidade') }}</option>');
                     $('#shippingCity').append(data);
                     $('#shippingCity').removeAttr('readonly');
                 },
                 error: function (err) {
                     console.log(err);
                 },
-            })
-
+            });
         });
-
     });
 </script>
+
 
 <script>
     function checkIfStep2Valid() {

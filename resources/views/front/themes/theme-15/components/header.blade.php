@@ -49,31 +49,34 @@
                                 title="{{ !Auth::guard('web')->check() ? __('Login') :  __('Profile') }}">
                                 @if (!Auth::guard('web')->check())<a href="{{ route('user.login') }}"
                                     class="profile carticon"><img class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search10) }}" alt="Icons"></a>
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search10) }}"
+                                        alt="Icons"></a>
                                 @else
                                 <a href="{{ route('user-dashboard') }}" class="profile carticon"><img
                                         class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search13) }}" alt="Icons"></a>
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search13) }}"
+                                        alt="Icons"></a>
                                 @endif
                             </li>
                             @if (!env('ENABLE_SAX_BRIDAL'))
                             <li class="wishlist" data-toggle="tooltip" data-placement="top" title="{{ __('Wish') }}">
                                 @if (Auth::guard('web')->check())
                                 <a href="{{ route('user-wishlists') }}" class="wish"><img class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search13) }}" alt="Icons"><span
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search11) }}"
+                                        alt="Icons"><span
                                         id="wishlist-count">{{ count(Auth::user()->wishlists) }}</span></a>
                                 @else
                                 <a href="javascript:;" data-toggle="modal" id="wish-btn" data-target="#comment-log-reg"
                                     class="wish"><img class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search11) }}" alt="Icons"><span
-                                        id="wishlist-count">0</span></a>
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search11) }}"
+                                        alt="Icons"><span id="wishlist-count">0</span></a>
                                 @endif
                             </li>
                             @if ($gs->is_cart)
                             <li class="my-dropdown"><a href="javascript:;" class="cart carticon">
                                     <div class="icon"><img class="img-fluid icons-header"
-                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search12) }}" alt="Icons"><span
-                                            class="cart-quantity"
+                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search12) }}"
+                                            alt="Icons"><span class="cart-quantity"
                                             id="cart-count">{{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}</span>
                                     </div>
                                 </a>
@@ -83,8 +86,8 @@
                             @else
                             <li class="my-dropdown"><a href="javascript:;" class="cart carticon">
                                     <div class="icon"><img class="img-fluid icons-header"
-                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search11) }}" alt="Icons"><span
-                                            class="cart-quantity"
+                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search11) }}"
+                                            alt="Icons"><span class="cart-quantity"
                                             id="cart-count">{{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}</span>
                                     </div>
                                 </a>
@@ -122,31 +125,34 @@
                                 title="{{ !Auth::guard('web')->check() ? __('Login') :  __('Profile') }}">
                                 @if (!Auth::guard('web')->check())<a href="{{ route('user.login') }}"
                                     class="profile carticon"><img class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search7) }}" alt="Icons"></a>
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search7) }}"
+                                        alt="Icons"></a>
                                 @else
                                 <a href="{{ route('user-dashboard') }}" class="profile carticon"><img
                                         class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search14) }}" alt="Icons"></a>
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search14) }}"
+                                        alt="Icons"></a>
                                 @endif
                             </li>
                             @if (!env('ENABLE_SAX_BRIDAL'))
                             <li class="wishlist" data-toggle="tooltip" data-placement="top" title="{{ __('Wish') }}">
                                 @if (Auth::guard('web')->check())
                                 <a href="{{ route('user-wishlists') }}" class="wish"><img class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search11) }}" alt="Icons"><span
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search8) }}"
+                                        alt="Icons"><span
                                         id="wishlist-count">{{ count(Auth::user()->wishlists) }}</span></a>
                                 @else
                                 <a href="javascript:;" data-toggle="modal" id="wish-btn" data-target="#comment-log-reg"
                                     class="wish"><img class="img-fluid icons-header"
-                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search8) }}" alt="Icons"><span
-                                        id="wishlist-count">0</span></a>
+                                        src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search8) }}"
+                                        alt="Icons"><span id="wishlist-count">0</span></a>
                                 @endif
                             </li>
                             @if ($gs->is_cart)
                             <li class="my-dropdown"><a href="javascript:;" class="cart carticon">
                                     <div class="icon"><img class="img-fluid icons-header"
-                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search9) }}" alt="Icons"><span
-                                            class="cart-quantity"
+                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search9) }}"
+                                            alt="Icons"><span class="cart-quantity"
                                             id="cart-count">{{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}</span>
                                     </div>
                                 </a>
@@ -156,8 +162,8 @@
                             @else
                             <li class="my-dropdown"><a href="javascript:;" class="cart carticon">
                                     <div class="icon"><img class="img-fluid icons-header"
-                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search8) }}" alt="Icons"><span
-                                            class="cart-quantity"
+                                            src="{{ asset('storage/images/banners/' . $admstore->pagesettings->banner_search8) }}"
+                                            alt="Icons"><span class="cart-quantity"
                                             id="cart-count">{{ Session::has('cart') ? count(Session::get('cart')->items) : '0' }}</span>
                                     </div>
                                 </a>
@@ -209,7 +215,7 @@
                                     </svg></a></li>
                             <div class="submenu-cat">
                                 <ul>
-                                    @foreach ($nav_categories->sortBy('presentation_position')->take(8) as $category)
+                                    @foreach ($nav_categories->sortBy('presentation_position')->take(4) as $category)
                                     <li class="subcat-link">
                                         <a class="categoryLink text-uppercase"
                                             href={{ $category->link ?? route('front.category', $category->slug )}}>{{ $category->name }}</a>
@@ -361,7 +367,8 @@
             <li class="{{ $count ? 'dropdown_list' : '' }}{{ $i >= 15 ? 'rx-child' : '' }}">
                 @if ($count)
                 @if ($category->photo)
-                <div class="img"><img src="{{ asset('storage/images/categories/' . $category->photo) }}" alt="Icons"></div>
+                <div class="img"><img src="{{ asset('storage/images/categories/' . $category->photo) }}" alt="Icons">
+                </div>
                 @endif
                 <div class="link-area">
                     <span><a href="{{ route('front.category', $category->slug) }}">{{ $category->name }}</a></span>
