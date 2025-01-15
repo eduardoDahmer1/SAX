@@ -759,10 +759,6 @@ background: <?php echo $theme_color_1; ?>;
 .modal-header .close:hover {
 background-color: <?php echo $theme_color_1; ?>;
 }
-.logo-header .helpful-links ul li.wishlist .wish span {
-color: #fff;
-background: <?php echo $text_color_2; ?>;
-}
 
 .categories_title {
 background: <?php echo $text_color_1; ?>;
@@ -983,11 +979,6 @@ color: <?php echo $theme_color_1; ?>;
 
 .blog-area .aside .coments {
 border-left: 1px solid <?php echo $theme_color_1; ?>;
-}
-
-.logo-header .helpful-links ul li.my-dropdown .cart .icon span {
-color: #fff;
-background: #3FC600;
 }
 
 .item .item-img .sell-area .sale {
@@ -1784,7 +1775,7 @@ max-width: 50px;
 color:<?= $text_color_1 ?>;
 }
 body.dark-mode .my-dropdown-menu .mt-1{
-color:<?= $text_color_1 ?>;
+color:<?= $text_color_1 ?> !important;
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
@@ -2495,4 +2486,20 @@ body.dark-mode .modal-content {
 }
 body.dark-mode .date-blog{
     color: <?= $text_color_1; ?>;
+}
+.logo-header .helpful-links ul li.wishlist .wish span {
+    color: <?php echo $theme_color_2; ?>;
+    background: <?php echo $text_color_2; ?>;
+}
+body.dark-mode .logo-header .helpful-links ul li.wishlist .wish span {
+    color: <?php echo $text_color_1; ?>;
+    background: <?php echo $theme_color_2; ?>;
+}
+.logo-header .helpful-links ul li.my-dropdown .cart .icon span {
+    color: <?php echo $theme_color_2; ?>;
+    background: <?php echo $text_color_2; ?>;
+}
+body.dark-mode .logo-header .helpful-links ul li.my-dropdown .cart .icon span {
+    color: <?php echo $text_color_1; ?>;
+    background: <?php echo $theme_color_2; ?>;
 }
