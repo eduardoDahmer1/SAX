@@ -1233,7 +1233,7 @@ border: 1px solid <?php echo $theme_color_2; ?>63;
 }
 
 .saxnavigation .submenu-cat .subcat-link:hover .categoryLink {
-color: <?php echo $theme_color_2; ?>;
+color: <?php echo $theme_color_1; ?>;
 }
 .trending {
 background: #F6F6F6;
