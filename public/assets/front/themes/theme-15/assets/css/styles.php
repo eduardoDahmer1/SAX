@@ -969,10 +969,6 @@ background-color: <?php echo $theme_color_2; ?>;
 transition: all .4s;
 }
 
-.hot-and-new-item .categori .item-list li .single-box .right-area .price {
-color: <?php echo $theme_color_1; ?>;
-}
-
 .blog-area .owl-carousel .owl-controls .owl-nav .owl-prev, .blog-area .owl-carousel .owl-controls .owl-nav .owl-next {
 color: <?php echo $theme_color_1; ?>;
 }
@@ -2502,4 +2498,10 @@ body.dark-mode .logo-header .helpful-links ul li.wishlist .wish span {
 body.dark-mode .logo-header .helpful-links ul li.my-dropdown .cart .icon span {
     color: <?php echo $text_color_1; ?>;
     background: <?php echo $theme_color_2; ?>;
+}
+body.dark-mode .hot-and-new-item .categori .item-list li .single-box .right-area .price {
+    color:<?= $theme_color_4; ?>;
+}
+.hot-and-new-item .categori .item-list li .single-box .right-area .price {
+color: <?php echo $theme_color_1; ?>;
 }
