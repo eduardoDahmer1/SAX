@@ -23,6 +23,19 @@ class LanguageController extends Controller
         parent::__construct();
     }
 
+    public function changeLanguage($langId, $currencyId)
+    {
+        $language = Language::findOrFail($langId);
+        session(['locale' => $language->code]);
+
+        app()->setLocale($language->code);
+        
+        // Limpa o cache da página inicial do idioma anterior para evitar exibição incorreta
+        Cache::forget("pagina_inicial_" . $language->code);
+
+        return redirect()->back();
+    }
+
     //*** JSON Request
     public function datatables()
     {
