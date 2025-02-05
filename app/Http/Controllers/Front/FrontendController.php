@@ -137,11 +137,15 @@ class FrontendController extends Controller
 
     // -------------------------------- HOME PAGE SECTION ----------------------------------------
 
-    public function index(Request $request)
+        public function index(Request $request)
     {
-        // if (Cache::has('pagina_inicial')) {
-        //     return Cache::get('pagina_inicial');
-        // }
+        $locale = app()->getLocale(); // Obtém o idioma atual
+        $cacheKey = "pagina_inicial_{$locale}"; // Define a chave única para cada idioma
+
+        // Verifica se a página já está em cache para o idioma atual
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
 
         if (!empty($request->reff)) {
             $affilate_user = User::where('affilate_code', '=', $request->reff)->first();
@@ -155,7 +159,6 @@ class FrontendController extends Controller
         }
 
         $homeSettings = Pagesetting::findOrFail($this->storeSettings->pageSettings->id);
-
         $prepareBanners = Banner::byStore();
 
         if ($homeSettings->random_banners == 1) {
@@ -165,7 +168,6 @@ class FrontendController extends Controller
         }
 
         $banners = $prepareBanners->get();
-
         $top_small_banners = $banners->where('type', '=', 'TopSmall');
 
         $sliders = ($homeSettings->random_banners == 1 ? Slider::byStore()->where('status', 1)->inRandomOrder()->get() : Slider::byStore()->where('status', 1)->orderBy('presentation_position')->orderBy('id')->get());
@@ -196,14 +198,9 @@ class FrontendController extends Controller
         }
 
         $products = $prepareProducts->get();
-
         $feature_products = $products->where('featured', 1)->take(10);
-
         $categories = Category::orderBy('slug')->orderBy('presentation_position')->where('is_featured', 1)->get();
 
-        /**
-         * Extra index - former ajax request
-         */
         $bottom_small_banners = $banners->where('type', '=', 'BottomSmall');
         $search_banners = $banners->where('type', '=', 'BannerSearch');
         $thumbnail_banners = $banners->where('type', '=', 'Thumbnail');
@@ -228,7 +225,7 @@ class FrontendController extends Controller
         $sale_products = $products->where('sale', 1)->take(10);
         $extra_blogs = Blog::orderBy('created_at', 'desc')->limit(5)->get();
 
-        // Cache a saída da função por 20 minutos
+        // Renderiza a página
         $conteudoPagina = view('front.index', compact(
             'sliders',
             'top_small_banners',
@@ -249,10 +246,10 @@ class FrontendController extends Controller
             'discount_products',
             'partners',
             'extra_blogs',
-        )
-        )->render();
+        ))->render();
 
-        Cache::put('pagina_inicial', $conteudoPagina, now()->addMinutes(60));
+        // Armazena no cache para o idioma específico
+        Cache::put($cacheKey, $conteudoPagina, now()->addMinutes(60));
 
         return $conteudoPagina;
     }
