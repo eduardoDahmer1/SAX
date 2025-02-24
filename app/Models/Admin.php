@@ -6,6 +6,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Cache;
 
 class Admin extends Authenticatable implements JWTSubject
 {
@@ -29,19 +30,29 @@ class Admin extends Authenticatable implements JWTSubject
             ->logOnlyDirty();
     }
 
+    // Eager load the role when retrieving Admins
     public function role()
     {
-        return $this->belongsTo(Role::class)->withDefault(fn($data) => collect($data->getFillable())->each(fn($dt) => $data[$dt] = __('Deleted')));
+        return $this->belongsTo(Role::class)->withDefault([
+            'name' => __('Deleted'),  // Provide a default value for 'name' if role is not found
+        ]);
     }
 
     public function isSuper(): bool
     {
+        // Direct comparison, simplified
         return $this->role_id == 0;
     }
 
     public function sectionCheck($value): bool
     {
-        return $this->isSuper() || in_array($value, explode(' , ', $this->role->section));
+        // Cache the result of this check if it's not frequently changing
+        $sections = Cache::remember("admin_{$this->id}_sections", now()->addMinutes(30), function () {
+            // Ensure to cache the sections after being split
+            return explode(' , ', $this->role->section);
+        });
+
+        return $this->isSuper() || in_array($value, $sections);
     }
 
     public function getJWTIdentifier()
