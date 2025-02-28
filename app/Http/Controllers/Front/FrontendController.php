@@ -313,87 +313,91 @@ class FrontendController extends Controller
     // LANGUAGE SECTION
     public function language($id, $idCurrency)
     {
-        Session::forget('currency');
-
-        if ($id == 1) {
-            $idCurrency = 14;
-            Session::put('currency', $idCurrency);
-        } else if ($id == 8) {
-            $idCurrency = 12;
-            Session::put('currency', $idCurrency);
-        } else {
-            $idCurrency = 1;
-            Session::put('currency', $idCurrency);
-        }
-        
-        Session::put('language', $id);
+        // Limpar a sessão de moeda de uma vez
+        $currencies = [1 => 1, 8 => 12, 1 => 14];
+    
+        // Definir a moeda com base na lógica
+        $idCurrency = $currencies[$id] ?? 1;
+    
+        // Colocar as variáveis de sessão de uma vez
+        Session::put(['currency' => $idCurrency, 'language' => $id]);
+    
         return redirect()->back();
-    } 
+    }    
 
     public function currency($id)
     {
+        // Verifica e limpa as chaves relacionadas ao cupom em uma única chamada
         if (Session::has('coupon')) {
-            Session::forget('coupon');
-            Session::forget('coupon_code');
-            Session::forget('coupon_id');
-            Session::forget('coupon_total');
-            Session::forget('coupon_total1');
-            Session::forget('already');
-            Session::forget('coupon_percentage');
+            Session::forget([
+                'coupon', 
+                'coupon_code', 
+                'coupon_id', 
+                'coupon_total', 
+                'coupon_total1', 
+                'already', 
+                'coupon_percentage'
+            ]);
         }
+    
+        // Define a moeda em uma única operação
         Session::put('currency', $id);
         return redirect()->back();
-    }
+    }    
 
     // LANGUAGE SECTION ENDS
     // CURRENCY SECTION ENDS
     public function autosearch($slug)
     {
-        $matches = [];
-        $found = preg_match_all('/\w{3,}|\d{1,}\s?/i', $slug, $matches); //at least 3 characters or any digits with or not space
-
-        if (empty($found)) {
+        // Realiza a busca utilizando regex para extrair palavras e números
+        preg_match_all('/\w{3,}|\d{1,}\s?/i', $slug, $matches); 
+    
+        if (empty($matches[0])) {
             return "";
         }
-
+    
+        // Determina a localidade para a pesquisa
         $searchLocale = $this->storeLocale->locale;
-
         if (Session::has('language') && $this->storeSettings->is_language) {
             $searchLocale = Language::find(Session::get('language'))->locale;
         }
-
-        if ($found == 1) {
-            $search = $searchReverse = $matches[0][0];
-        }
-
-        if ($found > 1) {
-            $search = implode('%', $matches[0]);
-            $searchReverse = implode('%', array_reverse($matches[0]));
-        }
+    
+        // Preparar as strings para pesquisa, considerando reverso
+        $search = implode('%', $matches[0]);
+        $searchReverse = implode('%', array_reverse($matches[0]));
+    
+        // Realiza a consulta no banco de dados
         $prods = Product::byStore()
             ->isActive()
             ->onlyFatherProducts()
             ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
-            ->where(function ($query) use ($searchReverse, $search, $searchLocale) {
+            ->where(function ($query) use ($search, $searchReverse, $searchLocale) {
+                // Simplifica a lógica de pesquisa para produtos
                 $query->where(function ($query) use ($search) {
                     $query->where('sku', 'like', "%{$search}%")
-                        ->orWhere('ref_code', 'like', "%{$search}%");
-                })->orWhere(function ($query) use ($search, $searchReverse, $searchLocale) {
+                          ->orWhere('ref_code', 'like', "%{$search}%");
+                })
+                ->orWhere(function ($query) use ($search, $searchReverse, $searchLocale) {
                     $query->whereHas('translations', function ($query) use ($search, $searchReverse, $searchLocale) {
                         $query->where('locale', $searchLocale)
-                            ->where('name', 'like', "%{$search}%")
-                            ->orWhere('features', 'like', "%{$search}%");
-
-                        if ($search != $searchReverse) {
-                            $query->orWhere('name', 'like', "%{$searchReverse}%")
-                                ->orWhere('features', 'like', "%{$searchReverse}%");
-                        }
+                            ->where(function($query) use ($search, $searchReverse) {
+                                $query->where('name', 'like', "%{$search}%")
+                                    ->orWhere('features', 'like', "%{$search}%");
+    
+                                if ($search !== $searchReverse) {
+                                    $query->orWhere('name', 'like', "%{$searchReverse}%")
+                                        ->orWhere('features', 'like', "%{$searchReverse}%");
+                                }
+                            });
                     });
                 });
-            })->take(10)->get();
-
+            })
+            ->take(10)  // Limita os resultados
+            ->get();
+    
+        // Retorna a view com os resultados encontrados
         return view('load.suggest', compact('prods', 'slug'));
-    } 
+    }    
 
     public function finalize()
     {
@@ -410,80 +414,136 @@ class FrontendController extends Controller
     // -------------------------------- BLOG SECTION ----------------------------------------
     public function blog(Request $request)
     {
-        // Evitar a resolução da configuração a cada requisição
-        $storeSettings = cache()->remember('store_settings', 60, function() {
-            return resolve('storeSettings');
-        });
+        $storeSettings = resolve('storeSettings'); // Resolve apenas uma vez
     
-        if ($storeSettings->is_blog == 0) {
+        // Verifica a configuração uma vez e retorna 404 se o blog estiver desativado
+        if (!$storeSettings->is_blog) {
             return abort(404);
         }
     
-        // Cache a consulta de blogs para otimizar o acesso
-        $blogs = cache()->remember('blogs_page_' . request()->page, 60, function() {
-            return Blog::orderBy('created_at', 'desc')->paginate(9);
+        // Cache da consulta de blogs (opcional, caso o conteúdo não mude frequentemente)
+        $blogs = Cache::remember('blogs_page_' . $request->page, 60, function () {
+            return Blog::select('id', 'title', 'created_at') // Carrega apenas as colunas necessárias
+                ->orderBy('created_at', 'desc')
+                ->paginate(9);
         });
     
-        // Se for uma requisição AJAX, retornar a view de paginação
+        // Retorna a resposta AJAX ou a página principal com os blogs
         if ($request->ajax()) {
             return view('front.pagination.blog', compact('blogs'));
         }
-    
-        // Usar cache de visualização se necessário
         return view('front.blog', compact('blogs'));
-    }
-    
+    }    
 
     public function blogcategory(Request $request, $slug)
     {
-        if (resolve('storeSettings')->is_blog == 0) {
+        $storeSettings = resolve('storeSettings'); // Resolve apenas uma vez
+    
+        // Verifica se o blog está desativado
+        if (!$storeSettings->is_blog) {
             return redirect()->route('front.index');
         }
-        $bcat = BlogCategory::where('slug', '=', str_replace(' ', '-', $slug))->first();
+    
+        // Tenta buscar a categoria de blog ou retorna 404 caso não exista
+        $bcat = Cache::remember('blog_category_' . $slug, 60, function () use ($slug) {
+            return BlogCategory::where('slug', str_slug($slug))->first();
+        });
+    
+        // Se a categoria não for encontrada, redireciona ou retorna erro 404
+        if (!$bcat) {
+            return abort(404);
+        }
+    
+        // Carrega os blogs da categoria, com paginação
         $blogs = $bcat->blogs()->orderBy('created_at', 'desc')->paginate(9);
+    
+        // Resposta AJAX ou página completa
         if ($request->ajax()) {
             return view('front.pagination.blog', compact('blogs'));
         }
+    
         return view('front.blog', compact('bcat', 'blogs'));
-    } 
+    }    
 
     public function blogtags(Request $request, $slug)
     {
-        if (resolve('storeSettings')->is_blog == 0) {
+        $storeSettings = resolve('storeSettings'); // Resolve apenas uma vez
+    
+        // Verifica se o blog está desativado
+        if (!$storeSettings->is_blog) {
             return redirect()->route('front.index');
         }
-        $blogs = Blog::whereTranslationLike('tags', "%{$slug}%", $this->lang->locale)->paginate(9);
+    
+        // Cache para otimizar a consulta, com base no slug da tag e no idioma
+        $cacheKey = 'blog_tags_' . str_slug($slug) . '_' . $this->lang->locale;
+        $blogs = Cache::remember($cacheKey, 60, function () use ($slug) {
+            return Blog::whereTranslationLike('tags', "%{$slug}%", $this->lang->locale)
+                ->paginate(9);
+        });
+    
+        // Resposta AJAX ou página completa
         if ($request->ajax()) {
             return view('front.pagination.blog', compact('blogs'));
         }
+    
         return view('front.blog', compact('blogs', 'slug'));
-    }
+    }    
 
     public function blogsearch(Request $request)
     {
-        if (resolve('storeSettings')->is_blog == 0) {
+        $storeSettings = resolve('storeSettings'); // Resolve apenas uma vez
+    
+        // Verifica se o blog está desativado
+        if (!$storeSettings->is_blog) {
             return redirect()->route('front.index');
         }
         $search = $request->search;
-        $blogs = Blog::whereTranslationLike('title', "%{$search}%")->orWhereTranslationLike('details', "%{$search}%")->paginate(9);
+    
+        // Verifica se há pesquisa, caso contrário, retorna com mais eficiência
+        if (empty($search)) {
+            return redirect()->route('front.index');
+        }
+    
+        // Cache para otimizar a consulta de blogs
+        $cacheKey = 'blog_search_' . str_slug($search) . '_' . $this->lang->locale;
+        $blogs = Cache::remember($cacheKey, 60, function () use ($search) {
+            return Blog::whereTranslationLike('title', "%{$search}%")
+                ->orWhereTranslationLike('details', "%{$search}%")
+                ->paginate(9);
+        });
+    
+        // Retorna a resposta AJAX ou página completa
         if ($request->ajax()) {
             return view('front.pagination.blog', compact('blogs'));
         }
+    
         return view('front.blog', compact('blogs', 'search'));
-    } 
+    }    
 
     public function blogarchive(Request $request, $slug)
     {
-        if (resolve('storeSettings')->is_blog == 0) {
+        $storeSettings = resolve('storeSettings'); // Resolve apenas uma vez
+    
+        // Verifica se o blog está desativado
+        if (!$storeSettings->is_blog) {
             return redirect()->route('front.index');
         }
+    
+        // Formata a data para 'Y-m'
         $date = \Carbon\Carbon::parse($slug)->format('Y-m');
-        $blogs = Blog::where('created_at', 'like', '%' . $date . '%')->paginate(9);
+    
+        // Consulta otimizada usando whereDate
+        $blogs = Blog::whereDate('created_at', '>=', \Carbon\Carbon::parse($date)->startOfMonth())
+            ->whereDate('created_at', '<=', \Carbon\Carbon::parse($date)->endOfMonth())
+            ->paginate(9);
+    
+        // Retorna a resposta AJAX ou página completa
         if ($request->ajax()) {
             return view('front.pagination.blog', compact('blogs'));
         }
+    
         return view('front.blog', compact('blogs', 'date'));
-    }
+    }    
 
     public function blogshow($id)
     {
@@ -499,8 +559,8 @@ class FrontendController extends Controller
         $tags = $blog->tags;
 
         $archives = Blog::orderBy('created_at', 'desc')->get()->groupBy(function ($item) {
-            return $item->created_at ? $item->created_at->format('F Y') : 'Data Indefinida'; // Verifica se created_at existe
-        })->take(5)->toArray();        
+            return $item->created_at->format('F Y');
+        })->take(5)->toArray();
         $blog_meta_tag = (is_array($blog->meta_tag) ? implode(',', $blog->meta_tag) : "");
         $blog_meta_description = $blog->meta_description;
         $blog_title = $blog->title;
