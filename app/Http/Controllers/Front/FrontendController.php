@@ -567,6 +567,7 @@ class FrontendController extends Controller
         return view('front.blogshow', compact('blog', 'bcats', 'tags', 'archives', 'blog_meta_tag', 'blog_meta_description', 'blog_title'));
     }
 
+
     // -------------------------------- BLOG SECTION ENDS----------------------------------------
     // -------------------------------- TEAM SECTION ----------------------------------------
     public function team_member(Request $request)
