@@ -15,7 +15,6 @@ jobs:
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
-
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -28,37 +27,35 @@ jobs:
         draft: false
         prerelease: false
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+        GITHUB_TOKEN: ${{ secrets.PAT }}
+        
     - name: Create Tag
       id: create_tag
-      run: echo "tag=v${{ github.run_number }}" >> $GITHUB_ENV
+      run: echo ::set-output name=tag::v${{ github.run_number }}
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ steps.create_tag.outputs.tag }}
 
   Build:
     runs-on: ubuntu-latest
     needs: Release-Tag
 
     steps:
-    - name: Checkout código
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ env.tag }}
-
-    - name: Configurar PHP
-      uses: shivammathur/setup-php@v2
+    - uses: actions/checkout@v3
       with:
         php-version: '8.1'
-
-    - name: Copiar .env
+    - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-    - name: Instalar dependências
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Instalar dependẽncias e pacotes
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
     - name: Gerar chave artisan
       run: php artisan key:generate
 
-    - name: Ajustar permissões
+    - name: Permissões do diretório
       run: chmod -R 775 storage bootstrap/cache
 
   run_pull:
@@ -67,13 +64,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Conectar ao Servidor e Deploy
+    - name: Executando Conexão SSH com o Servidor
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-        script: |
-          cd ${{ secrets.WORK_DIR }}
-          ./pipeline-sax-producion.sh '${{ env.tag }}'
+        script: cd ${{ secrets.WORK_DIR }} && ./pipeline-sax-producion.sh '${{ github.ref_name }}'
+    - name: Desconectando do servidor
+      run: exit
