@@ -1,42 +1,52 @@
-name: Pipeline Stage Sax
+name: Simple Update Pipeline
 
 on:
-   workflow_dispatch:
-  
+  push:
+    tags:
+      - 'v*'  # Executa quando há push em uma tag (versão)
+  workflow_dispatch:  # Permite executar manualmente a pipeline
+
 jobs:
-  Build:
+  Update-Code:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
       with:
-        php-version: '8.1'
+        fetch-depth: 0  # Garante que o histórico completo seja obtido, importante para tags e releases
 
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Set git config user.name
+      run: |
+        git config user.name "eduardoDahmer1"
+        git config user.email "your-email@example.com"  # Substitua pelo seu e-mail
 
-    - name: Instalar dependẽncias e pacotes
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Set git config for safe directory
+      run: |
+        git config --global --add safe.directory /home/runner/work/sax-fullservice/sax-fullservice
 
-    - name: Gerar chave artisan
-      run: php artisan key:generate
+    - name: Fetch latest code
+      run: git fetch --all
 
-    - name: Permissões do diretório
-      run: chmod -R 775 storage bootstrap/cache
-      
+    - name: Pull latest changes from remote
+      run: git pull origin ${{ github.ref }}  # Faz pull da branch/tag atual
+
   run_pull:
-    needs: Build
-    name: run pull
+    needs: Update-Code
+    name: Pull latest code and deploy to server
     runs-on: ubuntu-latest
 
     steps:
-    - name: Executando Conexão SSH com o Servidor 
+    - name: SSH into the server and pull latest changes
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-        script: cd ${{ secrets.WORK_DIR }} && ./pipeline-sax-stage.sh '${{ github.ref_name }}'
-    - name: Desconectando do servidor
-      run: exit
+        script: |
+          cd /var/www/html/dv-collection && git fetch && git pull
+          cd /var/www/html/majesticresidence && git fetch && git pull
+          cd /var/www/html/sax && git fetch && git pull
+          cd /var/www/html/saxnoivas && git fetch && git pull
+          cd /var/www/html/saxstage && git fetch && git pull
