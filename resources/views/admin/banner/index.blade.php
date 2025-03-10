@@ -4,11 +4,7 @@
     <style>
         .mr-breadcrumb .links .action-list li { display: block; }
         .mr-breadcrumb .links .action-list ul { overflow-y: auto; max-height: 240px; }
-        .mr-breadcrumb .links .action-list .go-dropdown-toggle, .add-btn {     padding: 1em;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    margin: 0 auto; }
+        .mr-breadcrumb .links .action-list .go-dropdown-toggle, .add-btn { padding: 0 30px; margin-bottom: 20px; }
     </style>
 @endsection
 
