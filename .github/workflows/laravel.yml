@@ -3,6 +3,9 @@ name: Pipeline Production Sax
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write  # 🔥 Garante permissão para criar releases
+
 jobs:
   Release-Tag:
     runs-on: ubuntu-latest
@@ -18,7 +21,7 @@ jobs:
 
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: actions/create-release@v1.1.4  # 🔥 Usa a versão mais recente
       with:
         tag_name: v${{ github.run_number }}
         release_name: Release ${{ github.run_number }}
@@ -28,7 +31,7 @@ jobs:
         draft: false
         prerelease: false
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # 🔥 Substitui pelo token PAT
 
     - name: Create Tag
       id: create_tag
