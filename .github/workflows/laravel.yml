@@ -52,7 +52,8 @@ jobs:
         draft: false
         prerelease: false
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Passando o token de autenticação gerado pelo GitHub
+            GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
 
   run_pull:
     needs: Update-Code
@@ -65,7 +66,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}  # Verifique se o segredo está correto
         port: ${{ secrets.PORT }}
         script: |
           cd /var/www/html/dv-collection && git fetch && git pull
@@ -73,3 +74,4 @@ jobs:
           cd /var/www/html/sax && git fetch && git pull
           cd /var/www/html/saxnoivas && git fetch && git pull
           cd /var/www/html/saxstage && git fetch && git pull
+
