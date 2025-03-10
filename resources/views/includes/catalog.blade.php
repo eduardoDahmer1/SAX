@@ -101,7 +101,7 @@
                             </div>
                             @endif
                         </ul>
-                        <button class="btn btn-style-1 filter-style-btn" type="submit">{{ __("Search") }}</button>
+                        <!-- <button class="btn btn-style-1 filter-style-btn" type="submit">{{ __("Search") }}</button> -->
                     </form>
                 </div>
             </div>
