@@ -421,7 +421,12 @@ class FrontendController extends Controller
             return abort(404);
         }
     
-        $blogs = Blog::orderBy('created_at', 'desc')->paginate(9);
+        // Cache da consulta de blogs (opcional, caso o conteúdo não mude frequentemente)
+        $blogs = Cache::remember('blogs_page_' . $request->page, 60, function () {
+            return Blog::select('id', 'title', 'created_at') // Carrega apenas as colunas necessárias
+                ->orderBy('created_at', 'desc')
+                ->paginate(9);
+        });
     
         // Retorna a resposta AJAX ou a página principal com os blogs
         if ($request->ajax()) {
@@ -441,7 +446,7 @@ class FrontendController extends Controller
     
         // Tenta buscar a categoria de blog ou retorna 404 caso não exista
         $bcat = Cache::remember('blog_category_' . $slug, 60, function () use ($slug) {
-            return BlogCategory::where('slug', Str::slug($slug))->first();
+            return BlogCategory::where('slug', str_slug($slug))->first();
         });
     
         // Se a categoria não for encontrada, redireciona ou retorna erro 404
@@ -470,7 +475,7 @@ class FrontendController extends Controller
         }
     
         // Cache para otimizar a consulta, com base no slug da tag e no idioma
-        $cacheKey = 'blog_tags_' . Str::slug($slug) . '_' . $this->lang->locale;
+        $cacheKey = 'blog_tags_' . str_slug($slug) . '_' . $this->lang->locale;
         $blogs = Cache::remember($cacheKey, 60, function () use ($slug) {
             return Blog::whereTranslationLike('tags', "%{$slug}%", $this->lang->locale)
                 ->paginate(9);
@@ -500,7 +505,7 @@ class FrontendController extends Controller
         }
     
         // Cache para otimizar a consulta de blogs
-        $cacheKey = 'blog_search_' . Str::slug($search) . '_' . $this->lang->locale;
+        $cacheKey = 'blog_search_' . str_slug($search) . '_' . $this->lang->locale;
         $blogs = Cache::remember($cacheKey, 60, function () use ($search) {
             return Blog::whereTranslationLike('title', "%{$search}%")
                 ->orWhereTranslationLike('details', "%{$search}%")

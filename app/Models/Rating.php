@@ -1,21 +1,16 @@
 <?php
 
 namespace App\Models;
-
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Rating extends CachedModel
 {
     use LogsActivity;
-
-    protected $fillable = ['user_id', 'product_id', 'review', 'rating', 'review_date'];
+    protected $fillable = ['user_id','product_id','review','rating','review_date'];
     public $timestamps = false;
     protected $dates = ['review_date'];
-
-    // Eager Loading automático para reduzir consultas no banco
-    protected $with = ['product', 'user'];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -23,7 +18,6 @@ class Rating extends CachedModel
             ->logFillable()
             ->logOnlyDirty();
     }
-
     public function product()
     {
         return $this->belongsTo('App\Models\Product')->withDefault(function ($data) {
@@ -32,7 +26,6 @@ class Rating extends CachedModel
             }
         });
     }
-
     public function user()
     {
         return $this->belongsTo('App\Models\User')->withDefault(function ($data) {
@@ -41,14 +34,16 @@ class Rating extends CachedModel
             }
         });
     }
-
-    public static function ratings($productId)
+    public static function ratings($productid)
     {
-        return self::where('product_id', $productId)->avg('rating') * 20;
+        $stars = Rating::where('product_id', $productid)->avg('rating');
+        $ratings = number_format((float)$stars, 1, '.', '')*20;
+        return $ratings;
     }
-
-    public static function rating($productId)
+    public static function rating($productid)
     {
-        return number_format((float) self::where('product_id', $productId)->avg('rating'), 1, '.', '');
+        $stars = Rating::where('product_id', $productid)->avg('rating');
+        $stars = number_format((float)$stars, 1, '.', '');
+        return $stars;
     }
 }
