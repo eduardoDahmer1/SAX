@@ -34,7 +34,7 @@ jobs:
       id: create_tag
       run: echo ::set-output name=tag::v${{ github.run_number }}
 
-    - name: Checkout code
+    - name: Checkout code with new tag
       uses: actions/checkout@v3
       with:
         ref: ${{ steps.create_tag.outputs.tag }}
@@ -44,8 +44,6 @@ jobs:
     needs: Release-Tag
 
     steps:
-    - uses: actions/checkout@v3
-
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -88,7 +86,9 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
-        script: cd ${{ secrets.WORK_DIR }} && ./pipeline-sax-producion.sh '${{ github.ref_name }}'
+        script: |
+          cd ${{ secrets.WORK_DIR }} 
+          ./pipeline-sax-producion.sh '${{ github.ref_name }}'
 
     - name: Desconectando do servidor
       run: exit
