@@ -8,78 +8,96 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Checkout do código
       uses: actions/checkout@v3
 
-    - name: Set up Git
+    - name: Configurar Git
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
         
-    - name: Create Release
+    - name: Criar Release
       id: create_release
       uses: actions/create-release@v1
       with:
         tag_name: v${{ github.run_number }}
         release_name: Release ${{ github.run_number }}
         body: |
-          Changes in this release:
-          - Add your release notes here
+          🚀 Mudanças nesta versão:
+          - Adicione as notas da release aqui.
         draft: false
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
         
-    - name: Create Tag
+    - name: Criar Tag
       id: create_tag
-      run: echo ::set-output name=tag::v${{ github.run_number }}
+      run: echo "tag=v${{ github.run_number }}" >> $GITHUB_ENV
 
-    - name: Checkout code with new tag
+    - name: Checkout do código com a nova tag
       uses: actions/checkout@v3
       with:
-        ref: ${{ steps.create_tag.outputs.tag }}
+        ref: ${{ env.tag }}
 
   Build:
     runs-on: ubuntu-latest
     needs: Release-Tag
 
     steps:
-    - name: Set up PHP
+    - name: Checkout do código
+      uses: actions/checkout@v3
+
+    - name: Configurar PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.1'
 
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Verificar arquivos do projeto
+      run: ls -la
+
+    - name: Copiar .env
+      run: |
+        if [ -f .env.example ]; then
+          cp .env.example .env
+        else
+          echo "⚠️ Arquivo .env.example não encontrado!"
+          exit 1
+        fi
 
     - name: Atualizar dependências com Composer
-      run: composer update --no-ansi --no-interaction --no-progress
+      run: |
+        if [ ! -f composer.json ]; then
+          echo "❌ Arquivo composer.json não encontrado!"
+          exit 1
+        fi
+        composer update --no-ansi --no-interaction --no-progress
 
-    - name: Instalar dependências
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Instalar dependências do projeto
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    - name: Gerar chave artisan
+    - name: Gerar chave do Laravel
       run: php artisan key:generate
 
-    - name: Permissões do diretório
+    - name: Configurar permissões
       run: chmod -R 775 storage bootstrap/cache
 
   run_pull:
     needs: Build
-    name: run pull
+    name: Deploy para Servidor
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up SSH with Debug
+    - name: Configurar SSH
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
         ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        # Teste SSH com debug para verificar a chave
-        ssh -v -i ~/.ssh/id_ed25519 -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
 
-    - name: Executando Conexão SSH com o Servidor
+    - name: Teste de conexão SSH (Debug)
+      run: ssh -v -i ~/.ssh/id_ed25519 -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+
+    - name: Executar Deploy no Servidor
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -89,6 +107,3 @@ jobs:
         script: |
           cd ${{ secrets.WORK_DIR }} 
           ./pipeline-sax-producion.sh '${{ github.ref_name }}'
-
-    - name: Desconectando do servidor
-      run: exit
