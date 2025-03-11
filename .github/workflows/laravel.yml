@@ -70,14 +70,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up SSH with Debug
+    - name: Set up SSH
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
         ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        # Teste SSH com debug para verificar a chave
-        ssh -v -i ~/.ssh/id_ed25519 -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        # Teste para garantir que a chave SSH funcione
+        ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
 
     - name: Executando Conexão SSH com o Servidor
       uses: appleboy/ssh-action@v0.1.10
