@@ -139,30 +139,37 @@ class Product extends LocalizedModel
 
     public static function filterProducts($collection)
     {
-        foreach ($collection as $key => $data) {
-            if ($data->user_id != 0) {
-                if ($data->user->is_vendor != 2) {
-                    unset($collection[$key]);
-                }
-            }
-            if (isset($_GET['max'])) {
-                if ($data->vendorSizePrice() >= $_GET['max']) {
-                    unset($collection[$key]);
-                }
-            }
-            $data->price = $data->vendorSizePrice();
+        $maxPrice = $_GET['max'] ?? null;
+    
+        // Carrega os relacionamentos necessários para evitar múltiplas consultas ao banco
+        if ($collection->isNotEmpty()) {
+            $collection->load('user');
         }
-        return $collection;
-    }
+    
+        return $collection->filter(function ($data) use ($maxPrice) {
+            if ($data->user_id != 0 && optional($data->user)->is_vendor != 2) {
+                return false;
+            }
+    
+            $vendorPrice = $data->vendorSizePrice();
+    
+            if ($maxPrice !== null && $vendorPrice >= $maxPrice) {
+                return false;
+            }
+    
+            $data->price = $vendorPrice;
+    
+            return true;
+        });
+    }    
 
     public function brand()
     {
-        return $this->belongsTo('App\Models\Brand')->withDefault(function ($data) {
-            foreach ($data->getFillable() as $dt) {
-                $data[$dt] = __('Deleted');
-            }
-        });
+        return $this->belongsTo(Brand::class)->withDefault([
+            'name' => __('Deleted')
+        ]);
     }
+    
     public function associatedProductsByColor()
     {
         return $this->associatedProducts()->wherePivot('association_type', AssociationType::Color);
@@ -179,30 +186,24 @@ class Product extends LocalizedModel
     }
     public function category()
     {
-        return $this->belongsTo('App\Models\Category')->withDefault(function ($data) {
-            foreach ($data->getFillable() as $dt) {
-                $data[$dt] = __('Deleted');
-            }
-        });
-    }
+        return $this->belongsTo(Category::class)->withDefault([
+            'name' => __('Deleted')
+        ]);
+    }    
 
     public function subcategory()
     {
-        return $this->belongsTo('App\Models\Subcategory')->withDefault(function ($data) {
-            foreach ($data->getFillable() as $dt) {
-                $data[$dt] = __('Deleted');
-            }
-        });
-    }
+        return $this->belongsTo(Subcategory::class)->withDefault([
+            'name' => __('Deleted')
+        ]);
+    }    
 
     public function childcategory()
     {
-        return $this->belongsTo('App\Models\Childcategory')->withDefault(function ($data) {
-            foreach ($data->getFillable() as $dt) {
-                $data[$dt] = __('Deleted');
-            }
-        });
-    }
+        return $this->belongsTo(Childcategory::class)->withDefault([
+            'name' => __('Deleted')
+        ]);
+    }    
 
     public function galleries()
     {
@@ -234,12 +235,10 @@ class Product extends LocalizedModel
     }
     public function user()
     {
-        return $this->belongsTo('App\Models\User')->withDefault(function ($data) {
-            foreach ($data->getFillable() as $dt) {
-                $data[$dt] = __('Deleted');
-            }
-        });
-    }
+        return $this->belongsTo(User::class)->withDefault([
+            'name' => __('Deleted')
+        ]);
+    }    
     public function associatedProducts(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'associated_products', 'product_id', 'associated_product_id');
@@ -258,10 +257,12 @@ class Product extends LocalizedModel
     }
     public function scopeByStore($query)
     {
-        return $query->whereHas('stores', function ($query) {
-            $query->where('store_id', $this->storeSettings->id);
+        $storeId = $this->storeSettings->id;
+    
+        return $query->whereHas('stores', function ($query) use ($storeId) {
+            $query->where('store_id', $storeId);
         });
-    }
+    }    
     public function scopeIsActive($query)
     {
         return $query->where('products.status', 1);
@@ -273,508 +274,551 @@ class Product extends LocalizedModel
     public function vendorPrice()
     {
         $price = $this->price;
+        $storeSettings = $this->storeSettings;
+    
         if ($this->user_id != 0) {
-            $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+            $price += $storeSettings->fixed_commission + ($price / 100) * $storeSettings->percentage_commission;
         }
-        $price += $price * (($this->storeSettings->product_percent) / 100);
-        return $price;
-    }
+    
+        return $price + ($price * ($storeSettings->product_percent / 100));
+    }    
     protected function image(): Attribute
     {
         return Attribute::make(
-            get: fn () => filter_var($this->photo, FILTER_VALIDATE_URL) 
+            get: fn () => $this->isValidUrl($this->photo) 
                 ? $this->photo 
-                : asset('storage/images/products/' . $this->photo),
+                : asset('storage/images/products/' . $this->photo)
         );
     }
+    
+    protected function isValidUrl($url)
+    {
+        return filter_var($url, FILTER_VALIDATE_URL) !== false;
+    }    
     public function vendorSizePrice()
     {
         $price = $this->price;
+        $storeSettings = $this->storeSettings;
+    
         if ($this->user_id != 0) {
-            $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+            $price += $storeSettings->fixed_commission + ($price / 100) * $storeSettings->percentage_commission;
         }
+    
+        // Size Section
         if (!empty($this->size)) {
             foreach ($this->size as $key => $size) {
                 if ($this->size_qty[$key] > 0) {
                     $price += $this->size_price[$key];
-                    break;
+                    break; // Only add the first available size
                 }
             }
         }
-
+    
+        // Color Section
         if (!empty($this->color)) {
             foreach ($this->color as $key => $color) {
                 if ($this->color_qty[$key] > 0) {
                     $price += $this->color_price[$key];
+                    break; // Only add the first available color
+                }
+            }
+        }
+    
+        // Attribute Section
+        if (!empty($this->attributes["attributes"])) {
+            $attrArr = json_decode($this->attributes["attributes"], true);
+            foreach ($attrArr as $attrVal) {
+                if (isset($attrVal['details_status']) && $attrVal['details_status'] == 1 && !empty($attrVal['values'])) {
+                    $price += $attrVal['prices'][0]; // Add the first price of the attribute
                     break;
                 }
             }
-            //$price += $this->color_price[0];
         }
-
-        // Attribute Section
-        $attributes = $this->attributes["attributes"];
-        if (!empty($attributes)) {
-            $attrArr = json_decode($attributes, true);
-        }
-
-        if (!empty($attrArr)) {
-            foreach ($attrArr as $attrKey => $attrVal) {
-                if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
-                    foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                        $price += $attrVal['prices'][$optionKey];
-                        // only the first price counts
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Attribute Section Ends
-        $price += $price * (($this->storeSettings->product_percent) / 100);
-        return $price;
-    }
-
+    
+        // Add product percentage commission
+        return $price * (1 + ($storeSettings->product_percent / 100));
+    }    
     public function setCurrency()
     {
         if (!$this->storeSettings->show_product_prices || !$this->show_price) {
             return '';
         }
-
+    
         $price = $this->price;
-        if (Session::has('currency') && $this->storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
+        $currencyId = Session::get('currency', $this->storeSettings->currency_id);
+        
+        // Carregar a moeda apenas uma vez
+        $curr = Currency::find($currencyId);
+    
+        // Se a moeda não for encontrada, retornar preço original
+        if (!$curr) {
+            return '';
         }
+    
+        // Calcular o preço com a moeda
         $price = round($price * $curr->value, 2);
-        //Add product_percent on price
-        $price += $price * (($this->storeSettings->product_percent) / 100);
+    
+        // Adicionar a porcentagem do produto no preço
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Formatar o preço conforme as configurações de moeda
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Retornar preço com o símbolo da moeda na posição correta
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
     public function setCurrencyFirst()
     {
-        if (!$this->storeSettings->show_product_prices || !$this->show_price) {
+        if (!$this->storeSettings->show_product_prices || !$this->show_price || $this->storeSettings->currency_id == 1) {
             return '';
         }
-        if ($this->storeSettings->currency_id == 1) {
+    
+        // Buscar a moeda apenas uma vez
+        $curr = Currency::find(1);
+    
+        // Se a moeda não for encontrada, retornar preço original
+        if (!$curr) {
             return '';
         }
-
-        $price = $this->price;
-
-        $curr = Currency::where('id', '=', 1)->first();
-
-        $price = round($price * $curr->value, 2);
-        //Add product_percent on price
-        $price += $price * (($this->storeSettings->product_percent) / 100);
+    
+        // Calcular o preço com a moeda
+        $price = round($this->price * $curr->value, 2);
+    
+        // Adicionar a porcentagem do produto no preço
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Formatar o preço conforme as configurações de moeda
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Retornar preço com o símbolo da moeda na posição correta
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public function firstCurrencyPrice()
     {
         if (!$this->storeSettings->show_product_prices || !$this->show_price) {
             return '';
         }
-            $price = $this->price; 
-
+    
+        // Inicializar preço base
+        $price = $this->price;
+    
+        // Calcular preço com comissão do vendedor, se necessário
         if ($this->user_id != 0) {
-            $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+            $price += $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
         }
-
-        if (!empty($this->size) && isset($this->size_price[0])) {
-            $price += $this->size_price[0];
-        }
-        if (!empty($this->color) && isset($this->color_price[0])) {
-            $price += $this->color_price[0];
-        }
-        if (!empty($this->material) && isset($this->material_price[0])) {
-            $price += $this->material_price[0];
-        }
-
-        // Attribute Section
-        $attributes = $this->attributes["attributes"];
-        if (!empty($attributes)) {
-            $attrArr = json_decode($attributes, true);
-        }
-
-        if (!empty($attrArr)) {
-            foreach ($attrArr as $attrKey => $attrVal) {
+    
+        // Ajustar preço com base no tamanho, cor e material
+        $price += !empty($this->size) && isset($this->size_price[0]) ? $this->size_price[0] : 0;
+        $price += !empty($this->color) && isset($this->color_price[0]) ? $this->color_price[0] : 0;
+        $price += !empty($this->material) && isset($this->material_price[0]) ? $this->material_price[0] : 0;
+    
+        // Ajustar preço com atributos, se necessário
+        if (!empty($this->attributes["attributes"])) {
+            $attrArr = json_decode($this->attributes["attributes"], true);
+            foreach ($attrArr as $attrVal) {
                 if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
-                    foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                        $price += $attrVal['prices'][$optionKey];
-                        break;
-                    }
+                    $price += $attrVal['prices'][0] ?? 0;  // Atribui o primeiro preço válido
+                    break; // Apenas o primeiro preço conta
                 }
             }
         }
-
-        // Attribute Section Ends
-        $curr = Currency::where('id', '=', 1)->first();
-        //Add product_percent on price
-        $price += $price * (($this->storeSettings->product_percent) / 100);
-        $price = round(($price) * $curr->value, 2);
-        $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
- 
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
+    
+        // Buscar a moeda
+        $curr = Currency::find(1); // Utilizando find() para otimizar a consulta ao banco
+        if (!$curr) {
+            return ''; // Se a moeda não for encontrada, retorna vazio
         }
-    }
+    
+        // Calcular preço final com a porcentagem do produto
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Converter o preço para a moeda desejada
+        $price = round($price * $curr->value, 2);
+    
+        // Formatar preço
+        $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
+    
+        // Retornar preço com o símbolo da moeda
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public function showVendorMinPrice()
     {
         $price = $this->vendor_min_price;
-
+    
+        // Calcular preço com comissão do vendedor, se necessário
         if ($this->user_id != 0) {
             $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
         }
-
+    
+        // Ajustar preço com base no tamanho
+        $price += $this->getSizePrice();
+    
+        // Ajustar preço com base na cor
+        $price += $this->getColorPrice();
+    
+        // Ajustar preço com base nos atributos
+        $price += $this->getAttributePrice();
+    
+        // Buscar moeda
+        $curr = $this->getCurrency();
+    
+        // Converter preço para a moeda desejada e aplicar porcentagem de produto
+        $price = round($price * $curr->value, 2);
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Formatar preço
+        $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
+    
+        // Retornar preço com o símbolo da moeda
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }
+    
+    /**
+     * Retorna o preço baseado no tamanho
+     */
+    private function getSizePrice()
+    {
         if (!empty($this->size)) {
             foreach ($this->size as $key => $size) {
                 if ($this->size_qty[$key] > 0) {
-                    $price += $this->size_price[$key];
-                    break;
+                    return $this->size_price[$key];
                 }
             }
         }
+        return 0;
+    }
+    
+    /**
+     * Retorna o preço baseado na cor
+     */
+    private function getColorPrice()
+    {
         if (!empty($this->color)) {
             foreach ($this->color as $key => $color) {
                 if ($this->color_qty[$key] > 0) {
-                    $price += $this->color_price[$key];
-                    break;
+                    return $this->color_price[$key];
                 }
             }
         }
-
-        // Attribute Section
-        $attributes = $this->attributes["attributes"];
-        if (!empty($attributes)) {
-            $attrArr = json_decode($attributes, true);
-        }
-        // dd($attrArr);
-        if (!empty($attrArr)) {
-            foreach ($attrArr as $attrKey => $attrVal) {
-                if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
-                    foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                        $price += $attrVal['prices'][$optionKey];
-                        // only the first price counts
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Attribute Section Ends
-        if (Session::has('currency') && $this->storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
-        }
-
-        $price = round(($price) * $curr->value, 2);
-        //Add product_percent on price
-        $price += $price * (($this->storeSettings->product_percent) / 100);
-        $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
+        return 0;
     }
+    
+    /**
+     * Retorna o preço adicional baseado nos atributos
+     */
+    private function getAttributePrice()
+    {
+        $price = 0;
+        if (!empty($this->attributes["attributes"])) {
+            $attrArr = json_decode($this->attributes["attributes"], true);
+            foreach ($attrArr as $attrVal) {
+                if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
+                    $price += $attrVal['prices'][0] ?? 0; // Apenas o primeiro preço
+                    break; // Apenas o primeiro preço conta
+                }
+            }
+        }
+        return $price;
+    }
+    
+    /**
+     * Retorna a moeda a ser usada
+     */
+    private function getCurrency()
+    {
+        if (Session::has('currency') && $this->storeSettings->is_currency) {
+            return Currency::find(Session::get('currency'));
+        }
+        return Currency::find($this->storeSettings->currency_id);
+    }    
 
     public function showVendorMaxPrice()
     {
+        // Define o preço base
         $price = $this->vendor_max_price;
-
+    
+        // Aplica comissão se o usuário não for admin
         if ($this->user_id != 0) {
             $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
         }
-
-        if (!empty($this->size)) {
-            foreach ($this->size as $key => $size) {
-                if ($this->size_qty[$key] > 0) {
-                    $price += $this->size_price[$key];
-                    break;
-                }
-            }
-        }
-        if (!empty($this->color)) {
-            foreach ($this->color as $key => $color) {
-                if ($this->color_qty[$key] > 0) {
-                    $price += $this->color_price[$key];
-                    break;
-                }
-            }
-        }
-
-        // Attribute Section
-        $attributes = $this->attributes["attributes"];
-        if (!empty($attributes)) {
-            $attrArr = json_decode($attributes, true);
-        }
-        // dd($attrArr);
-        if (!empty($attrArr)) {
-            foreach ($attrArr as $attrKey => $attrVal) {
-                if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
-                    foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                        $price += $attrVal['prices'][$optionKey];
-                        // only the first price counts
-                        break;
+    
+        // Aplica preços adicionais baseados em tamanho, cor e atributos
+        foreach (['size', 'color'] as $type) {
+            if (!empty($this->{$type})) {
+                foreach ($this->{$type} as $key => $item) {
+                    if ($this->{$type . '_qty'}[$key] > 0) {
+                        $price += $this->{$type . '_price'}[$key];
+                        break; // Apenas o primeiro preço conta
                     }
                 }
             }
         }
-
-        // Attribute Section Ends
-
-        if (Session::has('currency') && $this->storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
+    
+        // Aplica preço dos atributos
+        $attributes = $this->attributes["attributes"] ?? null;
+        if (!empty($attributes)) {
+            $attrArr = json_decode($attributes, true);
+            if (!empty($attrArr)) {
+                foreach ($attrArr as $attrVal) {
+                    if (!empty($attrVal['details_status']) && $attrVal['details_status'] == 1) {
+                        foreach ($attrVal['values'] as $key => $value) {
+                            $price += $attrVal['prices'][$key];
+                            break; // Apenas o primeiro preço conta
+                        }
+                    }
+                }
+            }
         }
-
-        $price = round(($price) * $curr->value, 2);
-        //Add product_percent on price
-        $price += $price * (($this->storeSettings->product_percent) / 100);
+    
+        // Obtém a moeda atual
+        $curr = Session::has('currency') && $this->storeSettings->is_currency 
+            ? Currency::find(Session::get('currency')) 
+            : Currency::find($this->storeSettings->currency_id);
+    
+        // Aplica o valor da moeda e da porcentagem do produto
+        $price = round($price * $curr->value, 2);
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Formata o preço final
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Retorna o preço com o símbolo da moeda
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public function showVendorPrice()
     {
+        // Define o preço base
         $price = $this->price;
-
+    
+        // Aplica comissão se o usuário não for admin
         if ($this->user_id != 0) {
-            $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
+            $price += $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
         }
-
-        if (!empty($this->size)) {
-            foreach ($this->size as $key => $size) {
-                if ($this->size_qty[$key] > 0) {
-                    $price += $this->size_price[$key];
-                    break;
-                }
-            }
-        }
-        if (!empty($this->color)) {
-            foreach ($this->color as $key => $color) {
-                if ($this->color_qty[$key] > 0) {
-                    $price += $this->color_price[$key];
-                    break;
-                }
-            }
-        }
-
-        // Attribute Section
-        $attributes = $this->attributes["attributes"];
-        if (!empty($attributes)) {
-            $attrArr = json_decode($attributes, true);
-        }
-        if (!empty($attrArr)) {
-            foreach ($attrArr as $attrKey => $attrVal) {
-                if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
-                    foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                        $price += $attrVal['prices'][$optionKey];
-                        // only the first price counts
-                        break;
+    
+        // Aplica preços adicionais baseados em tamanho, cor e atributos
+        foreach (['size', 'color'] as $type) {
+            if (!empty($this->{$type})) {
+                foreach ($this->{$type} as $key => $item) {
+                    if ($this->{$type . '_qty'}[$key] > 0) {
+                        $price += $this->{$type . '_price'}[$key];
+                        break; // Apenas o primeiro preço conta
                     }
                 }
             }
         }
-
-        // Attribute Section Ends
-
-        if (Session::has('currency') && $this->storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
+    
+        // Aplica preço dos atributos
+        $attributes = $this->attributes["attributes"];
+        if (!empty($attributes)) {
+            $attrArr = json_decode($attributes, true);
+            if (!empty($attrArr)) {
+                foreach ($attrArr as $attrVal) {
+                    if (isset($attrVal['details_status']) && $attrVal['details_status'] == 1) {
+                        foreach ($attrVal['values'] as $key => $value) {
+                            $price += $attrVal['prices'][$key];
+                            break; // Apenas o primeiro preço conta
+                        }
+                    }
+                }
+            }
         }
-
-        $price = round(($price) * $curr->value, 2);
-        $price += $price * (($this->storeSettings->product_percent) / 100);
+    
+        // Obtém a moeda atual
+        $curr = Session::has('currency') && $this->storeSettings->is_currency 
+            ? Currency::find(Session::get('currency')) 
+            : Currency::find($this->storeSettings->currency_id);
+    
+        // Aplica o valor da moeda e da porcentagem do produto
+        $price = round($price * $curr->value, 2);
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Formata o preço final
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Retorna o preço com o símbolo da moeda
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public function showPrice()
     {
+        // Verifica se os preços devem ser exibidos
         if (!$this->storeSettings->show_product_prices || !$this->show_price) {
             return '';
         }
-
-        if ($this->price > $this->promotion_price && $this->promotion_price > 0)  {
+    
+        // Define o preço inicial baseado na promoção, se houver
+        if ($this->price > $this->promotion_price && $this->promotion_price > 0) {
             $price = $this->promotion_price;
-            if ($this->user_id != 0) {
-                $price = $this->promotion_price + $this->storeSettings->fixed_commission + ($this->promotion_price / 100) * $this->storeSettings->percentage_commission;
-            }
-        }else{
-            $price = $this->price; 
-
-            if ($this->user_id != 0) {
-                $price = $this->price + $this->storeSettings->fixed_commission + ($this->price / 100) * $this->storeSettings->percentage_commission;
-            }
+        } else {
+            $price = $this->price;
         }
-
-
-        if (!empty($this->size)) {
-            foreach ($this->size as $key => $size) {
-                if ($this->size_qty[$key] > 0) {
-                    $price += $this->size_price[$key];
-                    break;
-                }
-            }
+    
+        // Aplica comissão se o usuário não for admin
+        if ($this->user_id != 0) {
+            $price += $this->storeSettings->fixed_commission + ($price / 100) * $this->storeSettings->percentage_commission;
         }
-        if (!empty($this->color)) {
-            foreach ($this->color as $key => $color) {
-                if ($this->color_qty[$key] > 0) {
-                    $price += $this->color_price[$key];
-                    break;
-                }
-            }
-        }
-        if (!empty($this->material)) {
-            foreach ($this->material as $key => $material) {
-                if ($this->material_qty[$key] > 0) {
-                    $price += $this->material_price[$key];
-                    break;
-                }
-            }
-        }
-
-        // Attribute Section
-        $attributes = $this->attributes["attributes"];
-        if (!empty($attributes)) {
-            $attrArr = json_decode($attributes, true);
-        }
-        if (!empty($attrArr)) {
-            foreach ($attrArr as $attrKey => $attrVal) {
-                if (is_array($attrVal) && array_key_exists("details_status", $attrVal) && $attrVal['details_status'] == 1) {
-                    foreach ($attrVal['values'] as $optionKey => $optionVal) {
-                        $price += $attrVal['prices'][$optionKey];
-                        // only the first price counts
+    
+        // Aplica preço adicional baseado em tamanho, cor e material
+        foreach (['size', 'color', 'material'] as $type) {
+            if (!empty($this->{$type})) {
+                foreach ($this->{$type} as $key => $item) {
+                    if ($this->{$type . '_qty'}[$key] > 0) {
+                        $price += $this->{$type . '_price'}[$key];
                         break;
                     }
                 }
             }
         }
-        // Attribute Section Ends
-        if (Session::has('currency') && $this->storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
+    
+        // Aplica o preço dos atributos
+        $attributes = $this->attributes["attributes"];
+        if (!empty($attributes)) {
+            $attrArr = json_decode($attributes, true);
+            if (!empty($attrArr)) {
+                foreach ($attrArr as $attrVal) {
+                    if (isset($attrVal['details_status']) && $attrVal['details_status'] == 1) {
+                        foreach ($attrVal['values'] as $key => $value) {
+                            $price += $attrVal['prices'][$key];
+                            break; // Apenas o primeiro preço conta
+                        }
+                    }
+                }
+            }
         }
-
-        $price = round(($price) * $curr->value, 2);
-        //Add product_percent on price
-        $price += $price * (($this->storeSettings->product_percent) / 100);
+    
+        // Obtém a moeda atual
+        $curr = Session::has('currency') && $this->storeSettings->is_currency 
+            ? Currency::find(Session::get('currency')) 
+            : Currency::find($this->storeSettings->currency_id);
+    
+        // Aplica o valor da moeda e da porcentagem do produto
+        $price = round($price * $curr->value, 2);
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Formata o preço final
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-     
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Retorna o preço com o símbolo da moeda
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public function showPreviousPrice()
     {
-        if (!$this->storeSettings->show_product_prices || !$this->show_price) {
+        // Verifica se os preços devem ser exibidos
+        if (!$this->storeSettings->show_product_prices || !$this->show_price || !$this->previous_price) {
             return '';
         }
-
+    
+        // Calcula o preço com comissão do vendedor, se necessário
         $price = $this->previous_price;
-        if (!$price) {
-            return '';
-        }
         if ($this->user_id != 0) {
-            $price = $this->previous_price + $this->storeSettings->fixed_commission + ($this->previous_price / 100) * $this->storeSettings->percentage_commission;
+            $price += $this->storeSettings->fixed_commission + ($price / 100) * $this->storeSettings->percentage_commission;
         }
-
-        if (Session::has('currency') && $this->storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
-        }
+    
+        // Obtém a moeda correta
+        $curr = Session::has('currency') && $this->storeSettings->is_currency 
+            ? Currency::find(Session::get('currency')) 
+            : Currency::find($this->storeSettings->currency_id);
+    
+        // Converte o preço para a moeda e aplica a porcentagem do produto
         $price = round($price * $curr->value, 2);
-        //Add product_percent on price
-        $price += $price * (($this->storeSettings->product_percent) / 100);
+        $price += $price * ($this->storeSettings->product_percent / 100);
+    
+        // Formata o preço
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($this->storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Retorna o preço com o símbolo da moeda
+        return $this->storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public static function signfirstPrice($price)
     {
         $storeSettings = resolve('storeSettings');
+    
+        // Retorna string vazia se a moeda for a padrão
         if ($storeSettings->currency_id == 1) {
             return '';
         }
-        $curr = Currency::where('id', '=', 1)->first();
+    
+        // Obtém a moeda padrão
+        $curr = Currency::find(1);
+    
+        // Formata o preço
         $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Retorna o preço com o símbolo da moeda no formato correto
+        return $storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public static function convertPriceReverse($price)
     {
         $storeSettings = resolve('storeSettings');
-        if (Session::has('currency') && $storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($storeSettings->currency_id);
-        }
-        $first_curr = Currency::where('id', '=', 1)->first();
+    
+        // Obtém a moeda atual ou a padrão
+        $currencyId = Session::has('currency') && $storeSettings->is_currency 
+            ? Session::get('currency') 
+            : $storeSettings->currency_id;
+    
+        $curr = Currency::find($currencyId);
+        $firstCurr = Currency::find(1); // Moeda principal
+    
+        // Converte o preço para a moeda base
         $price = round($price / $curr->value, 2);
-        $price = number_format($price, $first_curr->decimal_digits, $first_curr->decimal_separator, $first_curr->thousands_separator);
-        if ($storeSettings->currency_format == 0) {
-            return $first_curr->sign . $price;
-        } else {
-            return $price . $first_curr->sign;
-        }
-    }
+    
+        // Formata o preço
+        $price = number_format($price, $firstCurr->decimal_digits, $firstCurr->decimal_separator, $firstCurr->thousands_separator);
+    
+        // Retorna o preço com o formato correto
+        return $storeSettings->currency_format == 0 
+            ? $firstCurr->sign . $price 
+            : $price . $firstCurr->sign;
+    }    
 
     public static function convertPrice($price)
     {
         $storeSettings = resolve('storeSettings');
-        if (Session::has('currency') && $storeSettings->is_currency) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($storeSettings->currency_id);
-        }
-        $price = round($price * $curr->value, 2);
-        $price = number_format($price, $curr->decimal_digits, $curr->decimal_separator, $curr->thousands_separator);
-        if ($storeSettings->currency_format == 0) {
-            return $curr->sign . $price;
-        } else {
-            return $price . $curr->sign;
-        }
-    }
+    
+        // Obtém a moeda atual ou a padrão
+        $currencyId = Session::has('currency') && $storeSettings->is_currency 
+            ? Session::get('currency') 
+            : $storeSettings->currency_id;
+    
+        $curr = Currency::find($currencyId);
+    
+        // Converte e formata o preço
+        $price = number_format(
+            round($price * $curr->value, 2), 
+            $curr->decimal_digits, 
+            $curr->decimal_separator, 
+            $curr->thousands_separator
+        );
+    
+        // Retorna o preço no formato correto
+        return $storeSettings->currency_format == 0 
+            ? $curr->sign . $price 
+            : $price . $curr->sign;
+    }    
 
     public static function convertPriceDolar($price)
     {
@@ -835,17 +879,7 @@ class Product extends LocalizedModel
 
     public static function showTags()
     {
-        $tags = null;
-        $tagz = '';
-        $name = Product::where('status', '=', 1)->pluck('tags')->toArray();
-        foreach ($name as $nm) {
-            if (!empty($nm)) {
-                foreach ($nm as $n) {
-                    $tagz .= $n . ',';
-                }
-            }
-        }
-        $tags = array_unique(explode(',', $tagz));
+        $tags = Product::where('status', 1)->pluck('tags')->flatten()->filter()->unique()->values()->toArray();
         return $tags;
     }
 
@@ -1005,80 +1039,86 @@ class Product extends LocalizedModel
 
     public function getPhotoAttribute($value)
     {
-        if (!filter_var($value, FILTER_VALIDATE_URL)) {
-            if (!$value) {
-                if ($this->storeSettings->ftp_folder) {
-                    if ($value) {
-                        return asset('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/' . $value);
-                    }
-                    $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/');
-                    if (File::exists($ftp_path)) {
-                        $files = scandir($ftp_path);
-                        $extensions = array('.jpg', '.jpeg', '.gif', '.png');
-                        foreach ($files as $file) {
-                            $file_extension = strtolower(strrchr($file, '.'));
-                            if (in_array($file_extension, $extensions) === true) {
-                                return asset('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/' . $file);
-                            }
-                        }
-                    }
-                    return asset('assets/images/noimage.png');
-                }
-                return asset('assets/images/noimage.png');
-            }
-            if (File::exists(public_path('storage/images/products/' . $value))) {
-                return $value;
-            }
-            if (!File::exists(public_path('storage/images/products/' . $value))) {
-                if (Auth::guard('admin')->check()) {
-                    Product::where('id', $this->id)->update(['photo' => null]);
-                }
-                return asset('assets/images/noimage.png');
-            }
+        // Se for uma URL válida, retorna direto
+        if (filter_var($value, FILTER_VALIDATE_URL)) {
+            return $value;
         }
-        return $value;
-    }
-
-    public function getThumbnailAttribute($value)
-    {
-        if (!filter_var($value, FILTER_VALIDATE_URL)) {
-            if (!$value) {
-                $ftp_path = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/');
-                if (File::exists($ftp_path)) {
-                    $files = scandir($ftp_path);
-                    $extensions = array('.jpg', '.jpeg', '.gif', '.png');
-                    foreach ($files as $file) {
-                        $file_extension = strtolower(strrchr($file, '.'));
-                        if (in_array($file_extension, $extensions) === true) {
+    
+        // Se não houver valor definido
+        if (!$value) {
+            if ($this->storeSettings->ftp_folder) {
+                $ftpPath = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/');
+                
+                // Se o diretório existir, tenta encontrar uma imagem válida
+                if (File::exists($ftpPath)) {
+                    $extensions = ['.jpg', '.jpeg', '.gif', '.png'];
+                    foreach (scandir($ftpPath) as $file) {
+                        if (in_array(strtolower(strrchr($file, '.')), $extensions)) {
                             return asset('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/' . $file);
                         }
                     }
                 }
-                return asset('assets/images/noimage.png');
             }
-            if (File::exists(public_path('storage/images/thumbnails/' . $value))) {
-                return $value;
-            }
-            if (!File::exists(public_path('storage/images/thumbnails/' . $value))) {
-                if (Auth::guard('admin')->check()) {
-                    Product::where('id', $this->id)->update(['thumbnail' => null]);
-                }
-                return asset('assets/images/noimage.png');
-            }
+            return asset('assets/images/noimage.png');
         }
-        return $value;
+    
+        // Verifica se a imagem existe na pasta de produtos
+        if (File::exists(public_path('storage/images/products/' . $value))) {
+            return $value;
+        }
+    
+        // Se a imagem não existir e o usuário for admin, reseta o campo no banco
+        if (Auth::guard('admin')->check()) {
+            Product::where('id', $this->id)->update(['photo' => null]);
+        }
+    
+        return asset('assets/images/noimage.png');
+    }    
+
+    public function getThumbnailAttribute($value)
+    {
+        // Se for uma URL válida, retorna diretamente
+        if (filter_var($value, FILTER_VALIDATE_URL)) {
+            return $value;
+        }
+    
+        // Se não houver valor definido
+        if (!$value) {
+            $ftpPath = public_path('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/');
+            
+            // Se o diretório FTP existir, busca uma imagem válida
+            if (File::exists($ftpPath)) {
+                $extensions = ['.jpg', '.jpeg', '.gif', '.png'];
+                foreach (scandir($ftpPath) as $file) {
+                    if (in_array(strtolower(strrchr($file, '.')), $extensions)) {
+                        return asset('storage/images/ftp/' . $this->storeSettings->ftp_folder . $this->ref_code_int . '/' . $file);
+                    }
+                }
+            }
+            return asset('assets/images/noimage.png');
+        }
+    
+        // Verifica se a imagem existe na pasta de thumbnails
+        if (File::exists(public_path('storage/images/thumbnails/' . $value))) {
+            return $value;
+        }
+    
+        // Se a imagem não existir e o usuário for admin, reseta o campo no banco
+        if (Auth::guard('admin')->check()) {
+            Product::where('id', $this->id)->update(['thumbnail' => null]);
+        }
+    
+        return asset('assets/images/noimage.png');
     }
+    
+
     public function getDiscountPercentAttribute($value)
     {
-        if ($this->previous_price != null && $this->previous_price > $this->price) {
-            $discount_percent = $this->previous_price -  $this->price;
-            $discount_percent = $discount_percent / $this->previous_price;
-            $discount_percent = $discount_percent * 100;
-            $value = number_format($discount_percent, 0);
-            return $value;
-        } else {
-            return null;
+        if ($this->previous_price && $this->previous_price > $this->price) {
+            $discountPercent = (($this->previous_price - $this->price) / $this->previous_price) * 100;
+            return number_format($discountPercent, 0);
         }
+        return null;
     }
 
     public static function scopeMercadoLivreProducts($query)
@@ -1088,31 +1128,22 @@ class Product extends LocalizedModel
 
     /**
      * @param array $redplayData - Separated Redplay data
-     * @return array $redplayArray - All-in-one Redplay data
+     * @return array|null $redplayArray - All-in-one Redplay data or null if invalid
      */
     public static function sanitizeRedplayData(array $redplayData)
     {
-        if (!isset($redplayData['redplay_login'])) {
-            return null;
-        }
-
-        if (!isset($redplayData['redplay_password'])) {
-            return null;
-        }
-
-        if (!isset($redplayData['redplay_code'])) {
+        if (!isset($redplayData['redplay_login'], $redplayData['redplay_password'], $redplayData['redplay_code'])) {
             return null;
         }
 
         $redPlayArray = [];
 
-        for ($i = 0; $i < sizeof($redplayData['redplay_login']); $i++) {
-            $redplayObject = new stdClass;
-            $redplayObject->login = $redplayData['redplay_login'][$i];
-            $redplayObject->password = $redplayData['redplay_password'][$i];
-            $redplayObject->code = $redplayData['redplay_code'][$i];
-
-            array_push($redPlayArray, (array) $redplayObject);
+        foreach ($redplayData['redplay_login'] as $i => $login) {
+            $redPlayArray[] = [
+                'login'    => $login,
+                'password' => $redplayData['redplay_password'][$i] ?? null,
+                'code'     => $redplayData['redplay_code'][$i] ?? null
+            ];
         }
 
         return $redPlayArray;
@@ -1120,24 +1151,22 @@ class Product extends LocalizedModel
 
     public function applyBulkEditChangePrice(string $action, $newPrice)
     {
-        if (!$newPrice) {
+        if (empty($newPrice)) {
             return $this->price;
         }
-
+    
         $changePriceTypes = [
-            "set_price" => "setFixedPrice",
-            "add_percentage" => "addPricePercentage",
-            "decrease_percentage" => "decreasePricePercentage",
-            "add_price" => "addPriceValue",
-            "decrease_price" => "decreasePriceValue"
+            "set_price"          => "setFixedPrice",
+            "add_percentage"     => "addPricePercentage",
+            "decrease_percentage"=> "decreasePricePercentage",
+            "add_price"          => "addPriceValue",
+            "decrease_price"     => "decreasePriceValue"
         ];
-
-        foreach ($changePriceTypes as $priceTypeAction => $function) {
-            if ($priceTypeAction === $action) {
-                return $this->$function((float) $newPrice);
-            }
-        }
-    }
+    
+        return $changePriceTypes[$action] ?? null 
+            ? $this->{$changePriceTypes[$action]}((float) $newPrice) 
+            : $this->price;
+    }    
 
     private function setFixedPrice(float $newPrice)
     {
@@ -1174,10 +1203,10 @@ class Product extends LocalizedModel
 
     public function scopeOnlyFatherProducts($query)
     {
-        return $query->whereHas('associatedProducts', function (Builder $query) {
-            $query->where('association_type', AssociationType::Size);
-        })->orWhereDoesntHave('fatherProducts', function (Builder $query) {
-            $query->where('association_type', AssociationType::Size);
-        });
-    }
+        return $query->whereHas('associatedProducts', fn (Builder $q) => 
+            $q->where('association_type', AssociationType::Size)
+        )->orWhereDoesntHave('fatherProducts', fn (Builder $q) => 
+            $q->where('association_type', AssociationType::Size)
+        );
+    }    
 }
