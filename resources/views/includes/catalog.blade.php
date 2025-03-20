@@ -14,29 +14,33 @@
                     <form id="catalogForm"
                         action="{{ route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory')]) }}"
                         method="GET">
+
                         @if (!empty(request()->input('search')))
                         <input type="hidden" name="search" value="{{ request()->input('search') }}">
                         @endif
                         @if (!empty(request()->input('sort')))
                         <input type="hidden" name="sort" value="{{ request()->input('sort') }}">
                         @endif
+
                         <div class="price-range-block">
                             <p>{{ __("Price") }}</p>
                             <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
                             <div class="livecount">
-                                <input type="number" min=0 name="min" id="min_price" class="price-range-field" />
+                                <input type="number" min="0" name="min" id="min_price" class="price-range-field" />
                                 <span>{{ __("To") }}</span>
-                                <input type="number" min=0 name="max" id="max_price" class="price-range-field" />
+                                <input type="number" min="0" name="max" id="max_price" class="price-range-field" />
                             </div>
                         </div>
+
+                        <!-- Categories -->
                         <ul class="filter-list">
                             <div class="header-area">
                                 <a data-toggle="collapse" href="#multiCollapseExample1" role="button"
-                                    aria-expanded="false" aria-controls="multiCollapseExample1">
+                                    aria-expanded="false" aria-controls="multiCollapseExample1" class="toggle-btn">
                                     <h4 class="title categories">
                                         {{ __("Categories") }}
-                                        <i class="fas fa-plus"></i>
-                                        <i class="fas fa-minus"></i>
+                                        <i class="fas fa-plus toggle-icon"></i>
+                                        <i class="fas fa-minus toggle-icon d-none"></i>
                                     </h4>
                                 </a>
                             </div>
@@ -44,65 +48,141 @@
                                 @foreach ($categories as $element)
                                 <li>
                                     <div class="content">
-                                        <a href="{{route('front.category', [$element->slug, request()->input('searchHttp')])}}"
+                                        <a href="{{ route('front.category', [$element->slug, request()->input('searchHttp')]) }}"
                                             class="category-link">
-                                            <i class="fas fa-angle-right"></i> {{$element->name}}
+                                            <i class="fas fa-angle-right"></i> {{ $element->name }}
                                         </a>
-                                        @if(!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
-                                        @foreach ($cat->subs as $key => $subelement)
+                                        @if (!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
+                                        @foreach ($cat->subs as $subelement)
                                         <div class="sub-content open">
-                                            <a href="{{route('front.category', [$cat->slug, $subelement->slug, request()->input('searchHttp')])}}"
-                                                class="subcategory-link"><i
-                                                    class="fas fa-angle-right"></i>{{$subelement->name}}</a>
-                                            @if(!empty($subcat) && $subcat->id == $subelement->id &&
+                                            <a href="{{ route('front.category', [$cat->slug, $subelement->slug, request()->input('searchHttp')]) }}"
+                                                class="subcategory-link">
+                                                <i class="fas fa-angle-right"></i> {{ $subelement->name }}
+                                            </a>
+                                            @if (!empty($subcat) && $subcat->id == $subelement->id &&
                                             !empty($subcat->childs))
-                                            @foreach ($subcat->childs as $key => $childcat)
+                                            @foreach ($subcat->childs as $childcat)
                                             <div class="child-content open">
-                                                <a href="{{route('front.category', [$cat->slug, $subcat->slug, $childcat->slug, request()->input('searchHttp')])}}"
-                                                    class="subcategory-link"><i class="fas fa-caret-right"></i>
-                                                    {{$childcat->name}}</a>
+                                                <a href="{{ route('front.category', [$cat->slug, $subcat->slug, $childcat->slug, request()->input('searchHttp')]) }}"
+                                                    class="subcategory-link">
+                                                    <i class="fas fa-caret-right"></i> {{ $childcat->name }}
+                                                </a>
                                             </div>
                                             @endforeach
                                             @endif
                                         </div>
                                         @endforeach
-
                                         @endif
                                     </div>
                                 </li>
                                 @endforeach
                             </div>
-                            @if ($brands && $brands->count())
-                            <div class="header-area">
-                                <a data-toggle="collapse" href="#multiCollapseExample2" role="button"
-                                    aria-expanded="false" aria-controls="multiCollapseExample2">
-                                    <h4 class="title">
-                                        {{ __("Brands") }}
-                                        <i class="fas fa-plus"></i>
-                                        <i class="fas fa-minus"></i>
-                                    </h4>
-                                </a>
-                            </div>
-                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        </ul>
+
+                        <!-- Brands -->
+                        <div class="header-area">
+                            <a data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false"
+                                aria-controls="multiCollapseExample2" class="toggle-btn">
+                                <h4 class="title">
+                                    {{ __("Brands") }}
+                                    <i class="fas fa-plus toggle-icon"></i>
+                                    <i class="fas fa-minus toggle-icon d-none"></i>
+                                </h4>
+                            </a>
+                        </div>
+                        <div class="collapse multi-collapse" id="multiCollapseExample2">
+                            <ul>
                                 <li>
                                     <div class="content">
-                                        <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp')])}}"
-                                            class="category-link"> <i class="fas fa-angle-right"></i>
-                                            {{ __("All Brands")}}</a>
+                                        <a href="{{ route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp')]) }}"
+                                            class="category-link">
+                                            <i class="fas fa-angle-right"></i> {{ __("All Brands") }}
+                                        </a>
+                                    </div>
                                 </li>
                                 @foreach ($brands as $element)
                                 <li>
                                     <div class="content">
-                                        <a href="{{route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp'), 'brand' => $element->slug])}}"
-                                            class="category-link"> <i class="fas fa-angle-right"></i>
-                                            {{$element->name}}</a>
+                                        <a href="{{ route('front.category', [Request::route('category'), Request::route('subcategory'), Request::route('childcategory'), 'searchHttp' => request()->input('searchHttp'), 'brand' => $element->slug]) }}"
+                                            class="category-link">
+                                            <i class="fas fa-angle-right"></i> {{ $element->name }}
+                                        </a>
+                                    </div>
                                 </li>
                                 @endforeach
-                            </div>
-                            @endif
-                        </ul>
+                            </ul>
+                        </div>
+
                         <button class="btn btn-style-1 filter-style-btn" type="submit">{{ __("Search") }}</button>
                     </form>
+
+                    <!-- CSS para ocultar o ícone correto -->
+                    <style>
+                    .toggle-icon {
+                        transition: all 0.3s ease;
+                    }
+                    </style>
+
+                    <!-- Script para alternar os ícones -->
+                    <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        document.querySelectorAll(".toggle-btn").forEach(function(btn) {
+                            btn.addEventListener("click", function() {
+                                let icons = this.querySelectorAll(".toggle-icon");
+                                icons[0].classList.toggle("d-none");
+                                icons[1].classList.toggle("d-none");
+                            });
+                        });
+                    });
+                    </script>
+
+
+                    <!-- Inclua jQuery UI caso ainda não tenha -->
+                    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+                    <script>
+                    $(document).ready(function() {
+                        // Define valores iniciais
+                        let minValue = parseInt("{{ request()->input('min', 100) }}") || 100;
+                        let maxValue = parseInt("{{ request()->input('max', 2000) }}") || 2000;
+
+                        $("#slider-range").slider({
+                            range: true,
+                            min: 0,
+                            max: 5000,
+                            values: [minValue, maxValue], // Usa os valores definidos acima
+                            step: 20, // Incremento
+                            slide: function(event, ui) {
+                                $("#min_price").val(ui.values[0]);
+                                $("#max_price").val(ui.values[1]);
+                            }
+                        });
+
+                        // Atualiza os inputs quando o slider muda
+                        $("#min_price").val($("#slider-range").slider("values", 0));
+                        $("#max_price").val($("#slider-range").slider("values", 1));
+
+                        // Atualiza o slider quando os inputs mudam
+                        $("#min_price, #max_price").on("change", function() {
+                            let minVal = parseInt($("#min_price").val()) || 0;
+                            let maxVal = parseInt($("#max_price").val()) || 10000;
+
+                            // Evita valores fora dos limites
+                            minVal = Math.max(0, Math.min(minVal, 20000));
+                            maxVal = Math.max(0, Math.min(maxVal, 20000));
+
+                            if (minVal > maxVal) minVal =
+                                maxVal; // Garante que min nunca seja maior que max
+
+                            $("#slider-range").slider("values", [minVal, maxVal]);
+                            $("#min_price").val(minVal);
+                            $("#max_price").val(maxVal);
+                        });
+                    });
+                    </script>
+
                 </div>
             </div>
             @if(env("ENABLE_OLD_ATTR_STYLE"))
