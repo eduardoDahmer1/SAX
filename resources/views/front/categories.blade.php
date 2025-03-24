@@ -6,7 +6,8 @@
         'Aurora Consignado', 'Repuestos', 'Zzelectronicos', 'Zzperfumeria', 'Zzvacio2', 
         'Zzropas Masculinas', 'Propaganda', 'Electronicos', 'Cavalo', 'Maquinarias', 'Boss Green',
         'Boss Orange', 'Boss Accesories', 'Boss Smart Casual(Spw)', 'Boss Cdf(Clothing&Dress Furnis',
-        'Boss Athleisure','Boss Men Camel', 'Chocolate', 'Cavalheiro'
+        'Boss Athleisure','Boss Men Camel', 'Chocolate', 'Cavalheiro', 'Hugo', 'Hugo Men Blue',
+        'Hugowomen', 'Relojes'
     ];
 @endphp
 <div class="category-page">
