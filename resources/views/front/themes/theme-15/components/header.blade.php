@@ -215,75 +215,40 @@
                                     </svg></a></li>
                             <div class="submenu-cat">
                                 <ul>
-                                    @php
-                                    // Categorias desejadas
-                                    $desiredCategories = ['Masculino', 'Feminino', 'Casa', 'Infantil'];
-
-                                    // Filtra as categorias desejadas na ordem correta
-                                    $filteredCategories = collect($desiredCategories)->map(function ($name) use
-                                    ($nav_categories) {
-                                    return $nav_categories->firstWhere('name', $name);
-                                    })->filter(); // Remove valores nulos caso alguma categoria não exista
-
-                                    // Filtra as categorias que não estão na lista desejada
-                                    $remainingCategories = $nav_categories->whereNotIn('name', $desiredCategories);
-
-                                    // Garante que haja exatamente 4 categorias exibidas
-                                    $categoriesToDisplay = $filteredCategories->take(4);
-
-                                    if ($categoriesToDisplay->count() < 4) { $categoriesToDisplay=$categoriesToDisplay->
-                                        merge($remainingCategories->take(4 - $categoriesToDisplay->count()));
-                                        }
-                                        @endphp
-
-                                        <!-- Exibe as categorias filtradas desejadas (e outras para completar 4) -->
-                                        @foreach ($categoriesToDisplay->sortBy('presentation_position') as $category)
-                                        <li class="subcat-link">
-                                            <a class="categoryLink text-uppercase"
-                                                href="{{ $category->link ?? route('front.category', $category->slug) }}">
-                                                {{ $category->name }}
-                                            </a>
-
-                                            <div class="boxsubcat">
-                                                <div class="container-lg justify-content-center d-flex">
-                                                    <div class="display-subs">
-                                                        @foreach ($category->subs_order_by as $subcategory)
-                                                        <div @class([ 'px-3'=> count($category->subs_order_by) == 1,
-                                                            'col-lg-6' => count($category->subs_order_by) == 2,
-                                                            'col-lg-4' => count($category->subs_order_by) == 3,
-                                                            'col-lg-3' => count($category->subs_order_by) >= 4
-                                                            ])>
-                                                            <a class="sub-link"
-                                                                href="{{ route('front.subcat', ['slug1' => $subcategory->category->slug, 'slug2' => $subcategory->slug]) }}">
-                                                                {{ $subcategory->name }}
-                                                            </a>
-
-                                                            @foreach ($subcategory->childs_order_by as $childcat)
-                                                            <a class="child-link"
-                                                                href="{{ route('front.childcat', ['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}">
-                                                                <i style="font-size: 10px;"
-                                                                    class="fas fa-angle-right"></i>
-                                                                {{ $childcat->name }}
-                                                            </a>
-                                                            @endforeach
-                                                        </div>
+                                    @foreach ($nav_categories->sortBy('presentation_position')->take(4) as $category)
+                                    <li class="subcat-link">
+                                        <a class="categoryLink text-uppercase"
+                                            href={{ $category->link ?? route('front.category', $category->slug )}}>{{ $category->name }}</a>
+                                        <div class="boxsubcat">
+                                            <div class="container-lg justify-content-center d-flex">
+                                                <div class="display-subs">
+                                                    @foreach ($category->subs_order_by as $subcategory)
+                                                    <div @class([ 'px-3'=> count($category->subs_order_by) == 1,
+                                                        'col-lg-6' => count($category->subs_order_by) == 2,
+                                                        'col-lg-4' => count($category->subs_order_by) == 3,
+                                                        'col-lg-3' => count($category->subs_order_by) >= 4
+                                                        ])>
+                                                        <a class="sub-link"
+                                                            href="{{ route('front.subcat',['slug1' => $subcategory->category->slug, 'slug2' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
+                                                        @foreach ($subcategory->childs_order_by as $childcat)
+                                                        <a class="child-link"
+                                                            href="{{ route('front.childcat',['slug1' => $childcat->subcategory->category->slug, 'slug2' => $childcat->subcategory->slug, 'slug3' => $childcat->slug]) }}"><i
+                                                                style="font-size: 10px;"
+                                                                class="fas fa-angle-right"></i>{{ $childcat->name }}</a>
                                                         @endforeach
-
-                                                        <a class="link-seemore col-12 py-2"
-                                                            href="{{ route('front.category', $category->slug) }}">
-                                                            Ver todos {{ $category->name }}
-                                                        </a>
                                                     </div>
+                                                    @endforeach
+                                                    <a class="link-seemore col-12 py-2"
+                                                        href="{{ route('front.category', $category->slug )}}"> Ver todos
+                                                        {{ $category->name }}</a>
                                                 </div>
                                             </div>
-                                        </li>
-                                        @endforeach
-
-                                        <li><a class="navlink py-2"
-                                                href="{{ route('front.categories') }}">{{ __('See all categories') }}</a>
-                                        </li>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                    <li><a class="navlink py-2"
+                                            href="{{ route('front.categories')}}">{{__('See all categories')}}</a></li>
                                 </ul>
-
                             </div>
                             <li><a class="navlink" href="{{ route('front.brands') }}">{{ __('Brands') }}</a></li>
                             <li><a class="navlink" target="_blank"
