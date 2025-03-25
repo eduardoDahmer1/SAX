@@ -206,13 +206,22 @@ class Product extends LocalizedModel
     //         'name' => __('Deleted')
     //     ]);
     // }   
-
+    
     public function childcategory()
     {
-        return $this->belongsTo(Childcategory::class)->withDefault([
-            'name' => __('Deleted')
-        ]);
-    }    
+        return $this->belongsTo('App\Models\Childcategory')->withDefault(function ($data) {
+            foreach ($data->getFillable() as $dt) {
+                $data[$dt] = __('Deleted');
+            }
+        });
+    }
+
+    // public function childcategory()
+    // {
+    //     return $this->belongsTo(Childcategory::class)->withDefault([
+    //         'name' => __('Deleted')
+    //     ]);
+    // }    
 
     public function galleries()
     {
