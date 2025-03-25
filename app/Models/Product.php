@@ -193,10 +193,19 @@ class Product extends LocalizedModel
 
     public function subcategory()
     {
-        return $this->belongsTo(Subcategory::class)->withDefault([
-            'name' => __('Deleted')
-        ]);
-    }    
+        return $this->belongsTo('App\Models\Subcategory')->withDefault(function ($data) {
+            foreach ($data->getFillable() as $dt) {
+                $data[$dt] = __('Deleted');
+            }
+        });
+    } 
+
+    // public function subcategory()
+    // {
+    //     return $this->belongsTo(Subcategory::class)->withDefault([
+    //         'name' => __('Deleted')
+    //     ]);
+    // }   
 
     public function childcategory()
     {
