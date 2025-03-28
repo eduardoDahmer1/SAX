@@ -1,120 +1,91 @@
-name: Pipeline Production Sax
+name: Deploy Laravel Projects
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
 
 jobs:
-  Release-Tag:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0  # Garantir que o histórico completo está disponível
+      - name: Checkout código
+        uses: actions/checkout@v4
 
-    - name: Set up Git
-      run: |
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor }}@users.noreply.github.com"
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: mbstring, xml, ctype, json, bcmath, gd, fileinfo
+          coverage: none
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      with:
-        tag_name: v${{ github.run_number }}
-        release_name: Release ${{ github.run_number }}
-        body: |
-          Changes in this release:
-          - Add your release notes here
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
+      - name: Configurar dependências Laravel para os projetos
+        run: |
+          for project in sax dv-collection saxstage saxnoivas; do
+            if [ -d "$project" ]; then
+              echo "🚀 Configurando projeto: $project"
+              cd "$project"
 
-    - name: Create Tag
-      id: create_tag
-      run: echo "tag=v${{ github.run_number }}" >> $GITHUB_ENV
+              # Criar .env se não existir
+              if [ -f .env.example ]; then
+                cp .env.example .env
+              else
+                echo "⚠️ Atenção: .env.example não encontrado para $project! Criando um .env vazio."
+                touch .env
+              fi
 
-    - name: Checkout code with new tag
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ env.tag }}
+              # Instalar dependências do Composer
+              if [ -f composer.json ]; then
+                composer install --no-dev --no-interaction --prefer-dist
+              else
+                echo "❌ Erro: composer.json não encontrado em $project!" && exit 1
+              fi
 
-  Build:
-    runs-on: ubuntu-latest
-    needs: Release-Tag
+              cd ..
+            else
+              echo "❌ Diretório $project não encontrado! Pulando..."
+            fi
+          done
 
-    steps:
-    - name: Checkout Código
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      - name: Executar migrations
+        run: |
+          for project in sax dv-collection saxstage saxnoivas; do
+            if [ -d "$project" ]; then
+              echo "🚀 Rodando migrations para: $project"
+              cd "$project"
+              php artisan migrate --force
+              cd ..
+            fi
+          done
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
+      - name: Compilar assets
+        run: |
+          for project in sax dv-collection saxstage saxnoivas; do
+            if [ -d "$project" ]; then
+              echo "🚀 Compilando assets para: $project"
+              cd "$project"
+              npm install && npm run prod
+              cd ..
+            fi
+          done
 
-    - name: Verificar se .env.example existe
-      run: ls -la .env.example || echo "Arquivo .env.example não encontrado!"
-
-    - name: Criar .env se não existir
-      run: |
-        if [ ! -f .env ]; then
-          if [ -f .env.example ]; then
-            cp .env.example .env
-          else
-            touch .env
-            echo "ATENÇÃO: .env.example não encontrado! Um .env vazio foi criado."
-          fi
-        fi
-
-    - name: Verificar se composer.json existe
-      run: ls -la composer.json || echo "Arquivo composer.json não encontrado!"
-
-    - name: Atualizar dependências com Composer
-      run: |
-        if [ -f composer.json ]; then
-          composer update --no-ansi --no-interaction --no-progress
-        else
-          echo "Erro: composer.json não encontrado!" && exit 1
-        fi
-
-    - name: Instalar dependências
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: Gerar chave artisan
-      run: php artisan key:generate
-
-    - name: Definir permissões para storage e cache
-      run: chmod -R 775 storage bootstrap/cache
-
-  run_pull:
-    needs: Build
-    name: run pull
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        # Teste para garantir que a chave SSH funcione
-        ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
-
-    - name: Executando Conexão SSH com o Servidor
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd ${{ secrets.WORK_DIR }} 
-          ./pipeline-sax-producion.sh '${{ env.tag }}'
-
-    - name: Desconectando do servidor
-      run: exit
+      - name: Limpar cache e otimizar Laravel
+        run: |
+          for project in sax dv-collection saxstage saxnoivas; do
+            if [ -d "$project" ]; then
+              echo "🚀 Limpando cache para: $project"
+              cd "$project"
+              php artisan cache:clear
+              php artisan config:clear
+              php artisan route:clear
+              php artisan view:clear
+              php artisan optimize
+              cd ..
+            fi
+          done
