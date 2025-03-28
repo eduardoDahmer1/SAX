@@ -4,88 +4,67 @@ on:
   push:
     branches:
       - main
-      - master
+      - production  # Ajuste conforme sua branch principal
   pull_request:
     branches:
       - main
-      - master
+      - production
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        project: [sax, dv-collection, saxstage, saxnoivas]
+
     steps:
-      - name: Checkout código
+      - name: Checkout do repositório
         uses: actions/checkout@v4
+
+      - name: Verificar estrutura do projeto
+        run: |
+          pwd
+          ls -la
+          cd ${{ matrix.project }} && ls -la
 
       - name: Configurar PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
-          extensions: mbstring, xml, ctype, json, bcmath, gd, fileinfo
-          coverage: none
+          tools: composer:v2
+        env:
+          COMPOSER_PROCESS_TIMEOUT: 0
 
-      - name: Configurar dependências Laravel para os projetos
+      - name: Criar arquivo .env caso não exista
+        working-directory: ${{ matrix.project }}
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Instalar dependências PHP
+        working-directory: ${{ matrix.project }}
+        run: composer install --no-ansi --no-interaction --no-progress --prefer-dist
+
+      - name: Gerar chave da aplicação
+        working-directory: ${{ matrix.project }}
+        run: php artisan key:generate
+
+      - name: Executar migrações e seeders
+        working-directory: ${{ matrix.project }}
+        run: php artisan migrate --force && php artisan db:seed --force
+
+      - name: Limpar cache e otimizar
+        working-directory: ${{ matrix.project }}
         run: |
-          for project in sax dv-collection saxstage saxnoivas; do
-            if [ -d "$project" ]; then
-              echo "🚀 Configurando projeto: $project"
-              cd "$project"
-
-              # Criar .env se não existir
-              if [ -f .env.example ]; then
-                cp .env.example .env
-              else
-                echo "⚠️ Atenção: .env.example não encontrado para $project! Criando um .env vazio."
-                touch .env
-              fi
-
-              # Instalar dependências do Composer
-              if [ -f composer.json ]; then
-                composer install --no-dev --no-interaction --prefer-dist
-              else
-                echo "❌ Erro: composer.json não encontrado em $project!" && exit 1
-              fi
-
-              cd ..
-            else
-              echo "❌ Diretório $project não encontrado! Pulando..."
-            fi
-          done
-
-      - name: Executar migrations
-        run: |
-          for project in sax dv-collection saxstage saxnoivas; do
-            if [ -d "$project" ]; then
-              echo "🚀 Rodando migrations para: $project"
-              cd "$project"
-              php artisan migrate --force
-              cd ..
-            fi
-          done
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan view:clear
+          php artisan route:clear
+          php artisan config:cache
+          php artisan route:cache
 
       - name: Compilar assets
-        run: |
-          for project in sax dv-collection saxstage saxnoivas; do
-            if [ -d "$project" ]; then
-              echo "🚀 Compilando assets para: $project"
-              cd "$project"
-              npm install && npm run prod
-              cd ..
-            fi
-          done
+        working-directory: ${{ matrix.project }}
+        run: npm install && npm run prod
 
-      - name: Limpar cache e otimizar Laravel
-        run: |
-          for project in sax dv-collection saxstage saxnoivas; do
-            if [ -d "$project" ]; then
-              echo "🚀 Limpando cache para: $project"
-              cd "$project"
-              php artisan cache:clear
-              php artisan config:clear
-              php artisan route:clear
-              php artisan view:clear
-              php artisan optimize
-              cd ..
-            fi
-          done
+      - name: Reiniciar o servidor (caso necessário)
+        run: sudo systemctl restart nginx php8.1-fpm
