@@ -10,12 +10,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Garantir que o histórico completo está disponível
 
     - name: Set up Git
       run: |
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor }}@users.noreply.github.com"
-        
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -29,31 +31,55 @@ jobs:
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
-        
+
     - name: Create Tag
       id: create_tag
-      run: echo ::set-output name=tag::v${{ github.run_number }}
+      run: echo "tag=v${{ github.run_number }}" >> $GITHUB_ENV
 
     - name: Checkout code with new tag
       uses: actions/checkout@v3
       with:
-        ref: ${{ steps.create_tag.outputs.tag }}
+        ref: ${{ env.tag }}
 
   Build:
     runs-on: ubuntu-latest
     needs: Release-Tag
 
     steps:
+    - name: Checkout Código
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.1'
 
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Verificar se .env.example existe
+      run: ls -la .env.example || echo "Arquivo .env.example não encontrado!"
+
+    - name: Criar .env se não existir
+      run: |
+        if [ ! -f .env ]; then
+          if [ -f .env.example ]; then
+            cp .env.example .env
+          else
+            touch .env
+            echo "ATENÇÃO: .env.example não encontrado! Um .env vazio foi criado."
+          fi
+        fi
+
+    - name: Verificar se composer.json existe
+      run: ls -la composer.json || echo "Arquivo composer.json não encontrado!"
 
     - name: Atualizar dependências com Composer
-      run: composer update --no-ansi --no-interaction --no-progress
+      run: |
+        if [ -f composer.json ]; then
+          composer update --no-ansi --no-interaction --no-progress
+        else
+          echo "Erro: composer.json não encontrado!" && exit 1
+        fi
 
     - name: Instalar dependências
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -61,7 +87,7 @@ jobs:
     - name: Gerar chave artisan
       run: php artisan key:generate
 
-    - name: Permissões do diretório
+    - name: Definir permissões para storage e cache
       run: chmod -R 775 storage bootstrap/cache
 
   run_pull:
@@ -88,7 +114,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd ${{ secrets.WORK_DIR }} 
-          ./pipeline-sax-producion.sh '${{ github.ref_name }}'
+          ./pipeline-sax-producion.sh '${{ env.tag }}'
 
     - name: Desconectando do servidor
       run: exit
