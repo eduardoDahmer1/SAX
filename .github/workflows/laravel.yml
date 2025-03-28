@@ -1,70 +1,59 @@
-name: Deploy Laravel Projects
+name: Pipeline Production Integration Stores
 
 on:
-  push:
-    branches:
-      - main
-      - production  # Ajuste conforme sua branch principal
-  pull_request:
-    branches:
-      - main
-      - production
+   workflow_dispatch:
 
 jobs:
-  deploy:
+  Build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        project: [sax, dv-collection, saxstage, saxnoivas]
+    steps:
+    - name: 📥 Checkout do código
+      uses: actions/checkout@v3
+
+    - name: 🔧 Configurar PHP e Composer
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+
+    - name: 📄 Criar arquivo .env (se necessário)
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    - name: 📦 Instalar dependências e pacotes
+      run: |
+        cd sax  # 🔴 Verifique se os arquivos estão na pasta correta
+        composer install --no-interaction --no-plugins --no-scripts
+      working-directory: sax
+
+    - name: 🔑 Gerar chave Laravel
+      run: php artisan key:generate
+      working-directory: sax
+
+    - name: 🔥 Limpar cache Laravel
+      run: php artisan config:clear && php artisan cache:clear
+      working-directory: sax
+
+    - name: 🛠️ Ajustar permissões do diretório
+      run: chmod -R 775 storage bootstrap/cache
+      working-directory: sax
+
+  run_pull:
+    needs: Build
+    name: run pull
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
+    - name: 🔌 Conectar ao Servidor via SSH
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.SSH_HOST_LARAVEL9 }}
+        username: ${{ secrets.SSH_USER2 }}
+        key: ${{ secrets.SSH_PRIVATE_KEY_L9 }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd ${{ secrets.WORK_DIR }}
+          git pull origin '${{ github.ref_name }}'
+          ./pipeline-laravel9-production.sh '${{ github.ref_name }}'
 
-      - name: Verificar estrutura do projeto
-        run: |
-          pwd
-          ls -la
-          cd ${{ matrix.project }} && ls -la
-
-      - name: Configurar PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.1
-          tools: composer:v2
-        env:
-          COMPOSER_PROCESS_TIMEOUT: 0
-
-      - name: Criar arquivo .env caso não exista
-        working-directory: ${{ matrix.project }}
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-
-      - name: Instalar dependências PHP
-        working-directory: ${{ matrix.project }}
-        run: composer install --no-ansi --no-interaction --no-progress --prefer-dist
-
-      - name: Gerar chave da aplicação
-        working-directory: ${{ matrix.project }}
-        run: php artisan key:generate
-
-      - name: Executar migrações e seeders
-        working-directory: ${{ matrix.project }}
-        run: php artisan migrate --force && php artisan db:seed --force
-
-      - name: Limpar cache e otimizar
-        working-directory: ${{ matrix.project }}
-        run: |
-          php artisan config:clear
-          php artisan cache:clear
-          php artisan view:clear
-          php artisan route:clear
-          php artisan config:cache
-          php artisan route:cache
-
-      - name: Compilar assets
-        working-directory: ${{ matrix.project }}
-        run: npm install && npm run prod
-
-      - name: Reiniciar o servidor (caso necessário)
-        run: sudo systemctl restart nginx php8.1-fpm
+    - name: 🔌 Desconectar do servidor
+      run: exit
