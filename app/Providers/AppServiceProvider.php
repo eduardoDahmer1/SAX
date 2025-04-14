@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Exception;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Currency;
@@ -16,9 +15,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Blade;
@@ -31,7 +28,9 @@ class AppServiceProvider extends ServiceProvider
         
         if (!app()->runningInConsole()) {
             Paginator::useBootstrap();
+
             $currentUrl = str_replace(['http://', 'https://'], '', url()->current());
+
             $storeSettings = Generalsetting::whereRaw("'{$currentUrl}' LIKE CONCAT(domain,'%')")->first() ?? $this->getStoreSettings();
 
             if (!$storeSettings->id && Schema::hasTable('generalsettings') && Generalsetting::count() > 0) {
@@ -111,7 +110,7 @@ class AppServiceProvider extends ServiceProvider
             $baseFile = lang_path("base/{$data->locale}.json");
 
             if (!file_exists($baseFile)) {
-                throw new Exception("No base file found for {$data->locale}. Please make sure to add the file to /lang/base/{$data->locale}.json.");
+                throw new \Exception("No base file found for {$data->locale}. Please make sure to add the file to /lang/base/{$data->locale}.json.");
             }
 
             if (!file_exists($currentFile)) {

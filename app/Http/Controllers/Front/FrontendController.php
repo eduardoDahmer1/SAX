@@ -163,7 +163,10 @@ class FrontendController extends Controller
         $sliders = $sliders->get();
     
         // Cache dos produtos
-        $prepareProducts = Product::byStore()->onlyFatherProducts();
+        $prepareProducts = Product::byStore()
+    ->onlyFatherProducts()
+    ->with(['brand', 'translations']); // adicionamos brand e traduções se estiverem sendo usadas
+
         if (!$this->storeSettings->show_products_without_stock) {
             $prepareProducts->withStock();
         }
@@ -187,9 +190,23 @@ class FrontendController extends Controller
         }
     
         $products = $prepareProducts->get();
-        $feature_products = $products->where('featured', 1)->take(10);
+        $feature_products = Product::byStore()
+        ->onlyFatherProducts()
+        ->with(['brand', 'user', 'translations'])
+        ->where('featured', 1)
+        ->where('status', 1)
+        ->when(!$this->storeSettings->show_products_without_stock, fn($q) => $q->withStock())
+        ->orderByDesc('id')
+        ->take(10)
+        ->get();
     
-        $categories = Category::orderBy('slug')->orderBy('presentation_position')->where('is_featured', 1)->get();
+        
+    
+        $categories = Category::with('subs_order_by.childs_order_by')
+    ->orderBy('slug')
+    ->orderBy('presentation_position')
+    ->where('is_featured', 1)
+    ->get();
         $reviews = Review::all();
         $partners = Partner::all();
     

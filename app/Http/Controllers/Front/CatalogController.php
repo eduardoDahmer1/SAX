@@ -65,6 +65,11 @@ class CatalogController extends Controller
         $prods = Product::byStore()
       ->where('brand_id', $brand->id)
       ->where('status', '=', 1)
+      ->with([
+        'category:id,name,slug',
+        'brand:id,name,slug',
+        'translations:id,product_id,name,features,locale'
+    ])
       ->orderByRaw("(stock > 0 or stock is null) DESC")
       ->onlyFatherProducts()
       ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
@@ -89,7 +94,9 @@ class CatalogController extends Controller
 
           return $query->orderBy($collumn, $order);
       })
+      ->with(['category:id,name', 'brand:id,name', 'translations'])
       ->paginate(isset($qty) ? $qty : 25);
+      
 
 
         $data['prods'] = $prods;
@@ -177,11 +184,17 @@ class CatalogController extends Controller
         }
         if (config("features.marketplace")) {
             $prods = Product::byStore()
+    ->select(['id', 'name', 'slug', 'price', 'stock', 'brand_id', 'category_id'])
+
                         ->where('status', 1)
                         ->where('being_sold', 1);
         } else {
-            $prods = Product::byStore()->where('status', '=', 1);
+            $prods = Product::byStore()->onlyFatherProducts()->where('status', '=', 1);
+
         }
+
+        $prods = $prods->with(['category', 'brand', 'translations']);
+
 
         $prods->orderByRaw("(stock > 0 or stock is null) DESC");
         $prods->when($cat, function ($query, $cat) {
@@ -341,7 +354,10 @@ class CatalogController extends Controller
             $prods->withStock();
         }
 
-        $prods = $prods->onlyFatherProducts()->paginate(isset($qty) ? $qty : 25);
+        $prods = $prods->onlyFatherProducts()
+        ->with(['category', 'brand', 'translations'])
+        ->paginate(isset($qty) ? $qty : 25);
+
         $data['prods'] = $prods;
         /* Return featured products if there are no products available via Search */
         if ($data['prods']->count() == 0) {
@@ -364,14 +380,29 @@ class CatalogController extends Controller
             $data['banner'] = null;
         }
 
-        $data['categories'] = Category::with('subs_order_by.childs_order_by')->orderBy('slug')->where('status', 1)->get();
+        $data['categories'] = Category::with([
+            'subs_order_by' => function ($query) {
+                $query->orderBy('slug')->with([
+                    'childs_order_by' => function ($childQuery) {
+                        $childQuery->orderBy('slug');
+                    }
+                ]);
+            }
+        ])->orderBy('slug')->where('status', 1)->get();
+        
 
-        $data['brands'] = Brand::where('status', true)->whereHas('products', function ($query) use($cat, $subcat, $childcategory) {
+        $data['brands'] = Brand::withCount(['products as filtered_products_count' => function ($query) use ($cat, $subcat, $childcategory) {
             $query->where('products.status', true);
-            $query->when($cat, fn () => $query->where('category_id', $cat->id));
-            $query->when($subcat, fn () => $query->where('subcategory_id', $subcat->id));
-            $query->when($childcategory, fn () => $query->where('childcategory_id', $childcategory->id));
-        })->orderBy('name')->get();
+            $query->when($cat, fn ($query) => $query->where('category_id', $cat->id));
+            $query->when($subcat, fn ($query) => $query->where('subcategory_id', $subcat->id));
+            $query->when($childcategory, fn ($query) => $query->where('childcategory_id', $childcategory->id));
+        }])
+        ->where('status', true)
+        ->having('filtered_products_count', '>', 0)
+        ->orderBy('name')
+        ->get();
+        
+        
 
         $data['qty'] = $qty;
 
@@ -520,12 +551,11 @@ class CatalogController extends Controller
     public function quick($id)
     {
         $product = Product::findOrFail($id);
-        if (Session::has('currency')) {
-            $curr = Currency::find(Session::get('currency'));
-        } else {
-            $curr = Currency::find($this->storeSettings->currency_id);
-        }
-        $first_curr = Currency::where('id', '=', 1)->first();
+        $currencies = Currency::whereIn('id', [Session::get('currency', $this->storeSettings->currency_id), 1])->get()->keyBy('id');
+
+$curr = $currencies[Session::get('currency', $this->storeSettings->currency_id)] ?? $currencies[$this->storeSettings->currency_id];
+$first_curr = $currencies[1] ?? null;
+
         return view('load.quick', compact('product', 'curr', 'first_curr'));
     }
 
