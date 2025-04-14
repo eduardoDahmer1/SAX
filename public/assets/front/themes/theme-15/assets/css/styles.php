@@ -255,7 +255,6 @@ color: <?php echo $text_color_1; ?>;
 .cartpage .left-area .table tbody tr td.quantity .qty ul li .qtplus:hover,
 .cartpage .right-area .order-box .cupon-box #coupon-form button:hover,
 #freight-form button:hover,
-.cartpage .right-area .order-box .order-btn,
 .blogpagearea .blog-box .blog-images .img .date,
 .blogpagearea .blog-box .details .read-more-btn,
 .blog-details .blog-content .content .tag-social-link .social-links li a,
@@ -689,9 +688,6 @@ border-color: <?php echo $theme_color_2; ?>;
 }
 .radio-design .checkmark::after{
 background: <?php echo $theme_color_2; ?>;
-}
-.order-box .order-btn {
-background: <?php echo $theme_color_1; ?>;
 }
 .page-link {
 color: <?= $text_color_1; ?> !important;
@@ -1894,8 +1890,10 @@ padding: 5px 15px !important;
 background: transparent;
 border: 1px solid <?= $theme_color_4 ?>;
 }
+.order-box .order-btn{
+background: transparent !important;    
+}
 body.dark-mode .cartpage .right-area .order-box .order-btn{
-background: transparent;
 border: 1px solid <?= $theme_color_4 ?>;
 color:<?= $theme_color_4 ?>;
 }
