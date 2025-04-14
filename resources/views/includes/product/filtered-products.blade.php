@@ -1,11 +1,37 @@
 @if (count($prods) > 0)
-    @foreach ($prods as $key => $prod)
+@php
+    $userIsLogged = Auth::guard('web')->check();
+@endphp
+
+@foreach ($prods as $key => $prod)
+@php
+    $refCode = $prod->ref_code ?? '';
+    $features = $prod->features ?? [];
+    $colors = $prod->colors ?? [];
+    $discount = $prod->discount_percent ?? null;
+    $stock = $prod->stock ?? null;
+    $slug = $prod->slug;
+    $showBaw = $gs->show_products_without_stock_baw && !is_null($stock) && $stock == 0;
+@endphp
+@php
+    if ($gs->switch_highlight_currency) {
+        $highlight = $prod->firstCurrencyPrice();
+        $small = $prod->showPrice();
+    } else {
+        $highlight = $prod->showPrice();
+        $small = $prod->firstCurrencyPrice();
+    }
+@endphp
+
+
+
         @if ($prod->user_id == 0)
             <div class="col-lg-3 col-md-3 col-6 remove-padding">
                 <a href="{{ route('front.product', $prod->slug) }}" class="item">
                     @if (!is_null($prod->discount_percent))
                         <span class="badge badge-danger descont-card">
-                            {{ $prod->discount_percent . '%' }} &nbsp;
+                        {{ $discount . '%' }}
+                        &nbsp;
                             <span style="font-weight: lighter">
                                 {{ 'OFF' }}
                             </span>
@@ -18,7 +44,7 @@
                             : '' }}">
                         @if ($admstore->reference_code == 1)
                             <div class="sell-area ref">
-                                <span class="sale">{{ $prod->ref_code }}</span>
+                                <span class="sale">{{ $refCode }}                                </span>
                             </div>
                         @endif
                         @if (!empty($prod->features))
@@ -33,7 +59,9 @@
                             <ul>
                                 <li>
                                     @if (Auth::guard('web')->check())
-                                        <span class="add-to-wish" data-href="{{ route('user-wishlist-add', $prod->id) }}"
+                                    @php $wishUrl = route('user-wishlist-add', $prod->id); @endphp
+<span class="add-to-wish" data-href="{{ $wishUrl }}">
+
                                             data-toggle="tooltip" data-placement="right" title="{{ __('Add To Wishlist') }}"
                                             data-placement="right">
                                             <svg width="25" height="25" viewBox="0 0 30 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -69,11 +97,15 @@
                                 </li>
                             </ul>
                         </div>
-                        <img class="img-fluid"
-                            src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
-                                ? $prod->photo
-                                : asset('storage/images/products/' . $prod->photo) }}"
-                            alt="">
+                        <img class="img-fluid lazyload"
+    width="300" height="300"
+    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDMwMCAzMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNlZWUiIC8+PC9zdmc+"
+    data-src="{{ filter_var($prod->photo, FILTER_VALIDATE_URL)
+        ? $prod->photo
+        : asset('storage/images/products/' . $prod->photo) }}"
+    alt="{{ $prod->showName() }}">
+
+
                         @if ($admstore->reference_code == 1)
                             <span class="badge badge-primary"
                                 style="background-color: {{ $admstore->ref_color }}">{{ $prod->ref_code }}</span>

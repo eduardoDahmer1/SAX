@@ -1,20 +1,36 @@
-@if($ps->featured == 1)<section class="trending">
+@if($ps->featured == 1)
+<section class="trending">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 remove-padding">
                 <div class="section-top text-center">
                     <h2 class="section-title">{{ __("Featured") }}</h2>
-                    <h5 data-aos="fade-in" data-aos-delay="100">{{__("Selected products that represent the best offers and current trends.")}}</h5>
+                    <h5 data-aos="fade-in" data-aos-delay="100">
+                        {{ __("Selected products that represent the best offers and current trends.") }}
+                    </h5>
                 </div>
             </div>
         </div>
+
+        @if(isset($feature_products) && $feature_products->count())
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-10">
-                <div class="trending-item-slider w-100 d-flex justify-content-center align-items-center">@foreach($feature_products as $prod) @include('front.themes.'.env('THEME','theme-15').'.components.slider-product') @endforeach</div>
+                <div class="trending-item-slider w-100 d-flex justify-content-center align-items-center">
+                    @foreach($feature_products as $prod)
+                        @if($prod && $prod->status == 1)
+                            @include('front.themes.'.env('THEME','theme-15').'.components.slider-product', ['prod' => $prod, 'lazy' => true])
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
+        @endif
+
         <div class="row justify-content-center pt-5">
-            <div class="col-md-3" data-aos="fade-in"><a class="btn btn-style-1" href="{{ route('front.category') }}">{{ __('See all')}}</a></div>
+            <div class="col-md-3" data-aos="fade-in">
+                <a class="btn btn-style-1" href="{{ route('front.category') }}">{{ __('See all') }}</a>
+            </div>
         </div>
     </div>
-</section>@endif
+</section>
+@endif

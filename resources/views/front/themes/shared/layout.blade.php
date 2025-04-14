@@ -270,5 +270,6 @@
     @include('front.themes.shared.components.footer-whatsapp-button')
     @include('front.themes.shared.components.modal-simplified-checkout')
     @include('front.themes.shared.components.modal-loading-spinner')
+    @stack('scripts')
 </body>
 </html>
