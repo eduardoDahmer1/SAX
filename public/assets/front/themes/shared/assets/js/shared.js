@@ -1860,12 +1860,13 @@ $(function ($) {
 
 
         //**************************** GLOBAL CAPCHA****************************************
-
         $('.refresh_code').on("click", function () {
-            $.get(mainurl + '/contact/refresh_code', function (data, status) {
-                $('.codeimg1').attr("src", mainurl + "/storage/images/capcha_code.png?time=" + Math.random());
+            $.get(`${mainurl}/contact/refresh_code`, function () {
+                const newSrc = `${mainurl}/storage/images/capcha_code.png?time=${Date.now()}`;
+                $('.codeimg1').attr("src", newSrc);
             });
-        })
+        });
+        
 
         //**************************** GLOBAL CAPCHA ENDS****************************************
 

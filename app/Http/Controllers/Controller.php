@@ -123,33 +123,35 @@ class Controller extends BaseController
         $image = imagecreatetruecolor(200, 50);
         $background_color = imagecolorallocate($image, 255, 255, 255);
         imagefilledrectangle($image, 0, 0, 200, 50, $background_color);
-
+    
         $pixel = imagecolorallocate($image, 150, 50, 255);
         for ($i = 0; $i < 500; $i++) {
             imagesetpixel($image, rand() % 200, rand() % 50, $pixel);
         }
-
+    
         $font = public_path() . '/assets/front/fonts/NotoSans-Bold.ttf';
-        $allowed_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    
+        // Apenas letras minúsculas e “ç”
+        $allowed_letters = 'abcdefghijklmnopqrstuvwxyzç';
         $length = strlen($allowed_letters);
         $word = '';
         $text_color = imagecolorallocate($image, 100, 100, 100);
-        $cap_length = 6;
-
+        $cap_length = 8; // Pode ajustar pra mais ou menos letras, se quiser
+    
         for ($i = 0; $i < $cap_length; $i++) {
             $letter = $allowed_letters[rand(0, $length - 1)];
-            imagettftext($image, 20, random_int(1, 9), 30 + ($i * 25), 35, $text_color, $font, $letter);
+            imagettftext($image, 20, random_int(1, 9), 20 + ($i * 20), 35, $text_color, $font, $letter);
             $word .= $letter;
         }
-
+    
         $pixels = imagecolorallocate($image, 8, 186, 239);
         for ($i = 0; $i < 500; $i++) {
             imagesetpixel($image, rand() % 200, rand() % 50, $pixels);
         }
-
+    
         session(['captcha_string' => $word]);
         imagepng($image, public_path() . "/storage/images/capcha_code.png");
-    }
+    }    
 
     protected function getStoreSettings()
     {
