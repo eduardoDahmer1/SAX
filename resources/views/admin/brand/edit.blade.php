@@ -13,13 +13,7 @@
                         @include('includes.admin.form-error')
                         <form id="geniusformdata" action="{{ route('admin-brand-update', $data->id) }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="input-form">
-                                        <p><small>* {{ __("indicates a required field") }}</small></p>
-                                    </div>
-                                </div>
-                            </div>
+                            <p><small>* {{ __("indicates a required field") }}</small></p>
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="input-form">
@@ -37,7 +31,7 @@
                                                         <div class="deleteImage" onclick="deleteImage({{ $data->id }}, 'image', this)"></div>
                                                     </div>
                                                 @endif
-                                                <label for="image-upload" class="img-label" id="image-label"><i class="icofont-upload-alt"></i>{{ __('Upload Image') }}</label>
+                                                <label for="image-upload" class="img-label"><i class="icofont-upload-alt"></i>{{ __('Upload Image') }}</label>
                                                 <input type="file" name="image" class="img-upload" id="image-upload">
                                             </div>
                                         </div>
@@ -48,7 +42,7 @@
                                         <h4 class="heading">{{ __('Banner') }} *</h4>
                                         <div class="img-upload full-width-img">
                                             <div id="banner-preview" class="img-preview" style="background: url('{{ $data->banner ? asset('storage/images/brands/banners/' . $data->banner) : asset('assets/images/noimage.png') }}');">
-                                                <label for="banner-upload" class="img-label" id="banner-label"><i class="icofont-upload-alt"></i>{{ __('Upload Image') }}</label>
+                                                <label for="banner-upload" class="img-label"><i class="icofont-upload-alt"></i>{{ __('Upload Image') }}</label>
                                                 <input type="file" name="banner" class="img-upload" id="banner-upload">
                                             </div>
                                             <p class="text">{{ __('Preferred Size: (1920x400) or Rectangular Sized Image') }}</p>
@@ -70,11 +64,7 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
     });
 </script>
 @endsection

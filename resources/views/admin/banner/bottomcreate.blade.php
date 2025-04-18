@@ -30,9 +30,7 @@
                                 <div class="col-xl-6">
                                     <div class="input-form">
                                         <h4 class="heading">{{ __('Link') }} * 
-                                            <i class="icofont-question-circle" data-toggle="tooltip" data-placement="top" 
-                                               title="{{ __('Link that will open when the object gets clicked') }}">
-                                            </i>
+                                            <i class="icofont-question-circle" data-toggle="tooltip" data-placement="top" title="{{ __('Link that will open when the object gets clicked') }}"></i>
                                         </h4>
                                         <input type="text" class="input-field" name="link" placeholder="{{ __('Link') }}">
                                     </div>

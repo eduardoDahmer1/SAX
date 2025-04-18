@@ -9,13 +9,7 @@
                         @include('includes.admin.form-error')
                         <form id="geniusformdata" action="{{ route('admin-brand-create') }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="input-form">
-                                        <p><small>* {{ __("indicates a required field") }}</small></p>
-                                    </div>
-                                </div>
-                            </div>
+                            <p><small>* {{ __("indicates a required field") }}</small></p>
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="input-form">
