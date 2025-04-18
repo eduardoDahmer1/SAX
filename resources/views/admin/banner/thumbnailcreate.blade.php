@@ -9,13 +9,7 @@
                         @include('includes.admin.form-error')  
                         <form id="geniusformdata" action="{{ route('admin-sb-store') }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="input-form">
-                                        <p><small>* {{ __("indicates a required field") }}</small></p>
-                                    </div>
-                                </div>
-                            </div>
+                            <p><small>* {{ __("indicates a required field") }}</small></p>
                             <div class="row">
                                 <div class="col-xl-6">
                                     <div class="input-form">
@@ -31,15 +25,15 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="input-form">
-                                        <h4 class="heading">{{ __('Link') }} * <i class="icofont-question-circle" data-toggle="tooltip" data-placement="top" title="{{ __('Link that will open when the object is clicked') }}"></i></h4>
-                                        <input type="text" class="input-field" name="link" placeholder="{{ __('Link') }}" value="">
+                                        <h4 class="heading">{{ __('Link') }} * <i class="icofont-question-circle" data-toggle="tooltip" title="{{ __('Link that will open when the object is clicked') }}"></i></h4>
+                                        <input type="text" class="input-field" name="link" placeholder="{{ __('Link') }}">
                                     </div>
                                     <div class="input-form">
                                         <h4 class="heading">{{ __('Display in Stores') }}* </h4>
                                         @foreach($storesList as $store)
                                             <div class="row justify-content-left">
                                                 <div class="col-lg-12 d-flex justify-content-between">
-                                                    <label class="control-label" for="store{{$store->id}}">{{$store->title}} | {{$store->domain}}</label>
+                                                    <label for="store{{$store->id}}">{{$store->title}} | {{$store->domain}}</label>
                                                     <label class="switch">
                                                         <input type="checkbox" name="stores[]" id="store{{$store->id}}" value="{{$store->id}}" checked>
                                                         <span class="slider round"></span>

@@ -36,18 +36,14 @@
         </div>
     </div>
 </div>
-{{-- ADD / EDIT MODAL --}}
+{{-- MODALS --}}
 <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="submit-loader">
-                <img src="{{ $admstore->adminLoaderUrl }}" alt="">
-            </div>
+            <div class="submit-loader"><img src="{{ $admstore->adminLoaderUrl }}" alt=""></div>
             <div class="modal-header">
                 <h5 class="modal-title"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body"></div>
             <div class="modal-footer">
@@ -56,16 +52,12 @@
         </div>
     </div>
 </div>
-{{-- ADD / EDIT MODAL ENDS --}}
-{{-- DELETE MODAL --}}
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header d-block text-center">
                 <h4 class="modal-title d-inline-block">{{ __('Confirm Delete') }}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <p class="text-center">{{ __('You are about to delete this Post.') }}</p>
@@ -78,16 +70,12 @@
         </div>
     </div>
 </div>
-{{-- DELETE MODAL ENDS --}}
 @endsection
+
 @section('scripts')
 <script type="text/javascript">
     var table = $('#geniustable').DataTable({
-        stateSave: true,
-        stateDuration: -1,
-        ordering: false,
-        processing: true,
-        serverSide: true,
+        stateSave: true, stateDuration: -1, ordering: false, processing: true, serverSide: true,
         ajax: '{{ route('admin-blog-datatables') }}',
         columns: [
             { data: 'action', searchable: false, orderable: false },
@@ -99,33 +87,18 @@
             url: '{{ $datatable_translation }}',
             processing: '<img src="{{ $admstore->adminLoaderUrl }}">'
         },
-        drawCallback: function(settings) {
-            $(this).find('.select').niceSelect();
-        },
-        initComplete: function(settings, json) {
-            $(".btn-area").append('<div class="col-sm-4 table-contents">' +
-                '<a class="add-btn" data-href="{{ route('admin-blog-create') }}" data-header="{{ __('Add New Post') }}" id="add-data" data-toggle="modal" data-target="#modal1">' +
-                '<i class="fas fa-plus"></i> {{ __('Add New Post') }}' +
-                '</a>' +
-                '</div>'
-            );
-            $("#geniustable").on('page.dt', function() {
-                sessionStorage.setItem("CurrentPage", table.page());
-            });
+        drawCallback: function() { $(this).find('.select').niceSelect(); },
+        initComplete: function() {
+            $(".btn-area").append('<div class="col-sm-4 table-contents"><a class="add-btn" data-href="{{ route('admin-blog-create') }}" data-header="{{ __('Add New Post') }}" id="add-data" data-toggle="modal" data-target="#modal1"><i class="fas fa-plus"></i> {{ __('Add New Post') }}</a></div>');
+            $("#geniustable").on('page.dt', function() { sessionStorage.setItem("CurrentPage", table.page()); });
         }
     });
+
     $(document).ready(function() {
-        if (sessionStorage.getItem("CurrentPage") == undefined) {
-            sessionStorage.setItem("CurrentPage", 0);
-        }
-        $(document).on('click', 'a', function(e) {
-            var link = jQuery(this);
-            var x = '{{ Request::route()->getPrefix() }}';
-            y = x.split("/");
-            if (link.attr("href").indexOf("blog/category") > -1) {
-                sessionStorage.setItem("CurrentPage", 0);
-                table.state.clear();
-            }
+        if (!sessionStorage.getItem("CurrentPage")) sessionStorage.setItem("CurrentPage", 0);
+        $(document).on('click', 'a', function() {
+            var link = jQuery(this), x = '{{ Request::route()->getPrefix() }}', y = x.split("/");
+            if (link.attr("href").indexOf("blog/category") > -1) sessionStorage.setItem("CurrentPage", 0), table.state.clear();
             if (!(link.attr("data-href") || link.attr("href").indexOf("#") > -1 || link.attr("href").indexOf("javascript") > -1 || link.attr("href").indexOf(y[1]) > -1)) {
                 sessionStorage.setItem("CurrentPage", 0);
                 table.state.clear();

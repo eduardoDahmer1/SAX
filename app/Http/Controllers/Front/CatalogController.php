@@ -65,11 +65,6 @@ class CatalogController extends Controller
         $prods = Product::byStore()
       ->where('brand_id', $brand->id)
       ->where('status', '=', 1)
-      ->with([
-        'category:id,name,slug',
-        'brand:id,name,slug',
-        'translations:id,product_id,name,features,locale'
-    ])
       ->orderByRaw("(stock > 0 or stock is null) DESC")
       ->onlyFatherProducts()
       ->when(!$this->storeSettings->show_products_without_stock, fn($query) => $query->withStock())
@@ -94,7 +89,6 @@ class CatalogController extends Controller
 
           return $query->orderBy($collumn, $order);
       })
-      ->with(['category:id,name', 'brand:id,name', 'translations'])
       ->paginate(isset($qty) ? $qty : 25);
       
 

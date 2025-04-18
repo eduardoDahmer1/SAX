@@ -1,4 +1,5 @@
 @extends('layouts.load')
+
 @section('content')
 <div class="content-area">
     <div class="add-product-content">
@@ -10,11 +11,7 @@
                         <form id="geniusformdata" action="{{ route('admin-sb-store') }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="input-form">
-                                        <p><small>* {{ __("indicates a required field") }}</small></p>
-                                    </div>
-                                </div>
+                                <div class="col-xl-12"><div class="input-form"><p><small>* {{ __("indicates a required field") }}</small></p></div></div>
                             </div>
                             <div class="row">
                                 <div class="col-xl-6">
@@ -31,11 +28,11 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="input-form">
-                                        <h4 class="heading">{{ __('Link') }} *<i class="icofont-question-circle" data-toggle="tooltip" title="{{ __('Link that will open when the object get clicked') }}"></i></h4>
-                                        <input type="text" class="input-field" name="link" placeholder="{{ __('Link') }}" value="">
+                                        <h4 class="heading">{{ __('Link') }} *</h4>
+                                        <input type="text" class="input-field" name="link" placeholder="{{ __('Link') }}">
                                     </div>
                                     <div class="input-form">
-                                        <h4 class="heading">{{ __('Display in Stores') }}* </h4>
+                                        <h4 class="heading">{{ __('Display in Stores') }}*</h4>
                                         @foreach($storesList as $store)
                                             <div class="row justify-content-left">
                                                 <div class="col-lg-12 d-flex justify-content-between">
