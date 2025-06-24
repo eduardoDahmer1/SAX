@@ -366,9 +366,13 @@ class CartController extends Controller
         if (!$cartError) {
             $cart->totalPrice = 0;
             foreach ($cart->items as $item) {
-                if ($item['promotion_price'] > 0) {
+                if (isset($item['promotion_price']) && $item['promotion_price'] > 0) {
                     $item['price'] = $item['promotion_price'];
                 }
+                // if ($item['promotion_price'] > 0) {
+                //     $item['price'] = $item['promotion_price'];
+                // }
+                
                 $cart->totalPrice += $item['price'];
             }
             Session::put('cart', $cart);
