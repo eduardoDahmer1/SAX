@@ -44,37 +44,50 @@
                                     </h4>
                                 </a>
                             </div>
+                            @php
+                                $excludedCategories = [
+                                    'Sector Rh', 'Patrimonio', 'Material Operacional', 'Servicos', 'Audio Phone Consignado',
+                                    'Aurora Consignado', 'Repuestos', 'Zzelectronicos', 'Zzperfumeria', 'Zzvacio2', 
+                                    'Zzropas Masculinas', 'Propaganda', 'Electronicos', 'Cavalo', 'Maquinarias', 'Boss Green',
+                                    'Boss Orange', 'Boss Accesories', 'Boss Smart Casual(Spw)', 'Boss Cdf(Clothing&Dress Furnis',
+                                    'Boss Athleisure','Boss Men Camel', 'Chocolate', 'Cavalheiro', 'Hugo', 'Hugo Men Blue',
+                                    'Hugowomen', 'Relojes', 'Boss Hugo Men', 'Boss Men Business', 'Boss Women Orange', 'Hugo Women Blue',
+                                    'Hugo Women Red','Boss Women', 'Gift Cards'
+                                ];
+                            @endphp
+
                             <div class="collapse multi-collapse" id="multiCollapseExample1">
                                 @foreach ($categories as $element)
-                                <li>
-                                    <div class="content">
-                                        <a href="{{ route('front.category', [$element->slug, request()->input('searchHttp')]) }}"
-                                            class="category-link">
-                                            <i class="fas fa-angle-right"></i> {{ $element->name }}
-                                        </a>
-                                        @if (!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
-                                        @foreach ($cat->subs as $subelement)
-                                        <div class="sub-content open">
-                                            <a href="{{ route('front.category', [$cat->slug, $subelement->slug, request()->input('searchHttp')]) }}"
-                                                class="subcategory-link">
-                                                <i class="fas fa-angle-right"></i> {{ $subelement->name }}
+                                    @if (!in_array($element->name, $excludedCategories))
+                                    <li>
+                                        <div class="content">
+                                            <a href="{{ route('front.category', [$element->slug, request()->input('searchHttp')]) }}"
+                                                class="category-link">
+                                                <i class="fas fa-angle-right"></i> {{ $element->name }}
                                             </a>
-                                            @if (!empty($subcat) && $subcat->id == $subelement->id &&
-                                            !empty($subcat->childs))
-                                            @foreach ($subcat->childs as $childcat)
-                                            <div class="child-content open">
-                                                <a href="{{ route('front.category', [$cat->slug, $subcat->slug, $childcat->slug, request()->input('searchHttp')]) }}"
-                                                    class="subcategory-link">
-                                                    <i class="fas fa-caret-right"></i> {{ $childcat->name }}
-                                                </a>
-                                            </div>
-                                            @endforeach
+                                            @if (!empty($cat) && $cat->id == $element->id && !empty($cat->subs))
+                                                @foreach ($cat->subs as $subelement)
+                                                <div class="sub-content open">
+                                                    <a href="{{ route('front.category', [$cat->slug, $subelement->slug, request()->input('searchHttp')]) }}"
+                                                        class="subcategory-link">
+                                                        <i class="fas fa-angle-right"></i> {{ $subelement->name }}
+                                                    </a>
+                                                    @if (!empty($subcat) && $subcat->id == $subelement->id && !empty($subcat->childs))
+                                                        @foreach ($subcat->childs as $childcat)
+                                                        <div class="child-content open">
+                                                            <a href="{{ route('front.category', [$cat->slug, $subcat->slug, $childcat->slug, request()->input('searchHttp')]) }}"
+                                                                class="subcategory-link">
+                                                                <i class="fas fa-caret-right"></i> {{ $childcat->name }}
+                                                            </a>
+                                                        </div>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                                @endforeach
                                             @endif
                                         </div>
-                                        @endforeach
-                                        @endif
-                                    </div>
-                                </li>
+                                    </li>
+                                    @endif
                                 @endforeach
                             </div>
                         </ul>
