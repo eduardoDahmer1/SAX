@@ -468,17 +468,39 @@ class Cart extends CachedModel
 
     public function removeItem($id)
     {
+        // Verifica se o array de itens está ok
+        if (!is_array($this->items) || !isset($this->items[$id])) {
+            \Log::warning("Remoção de item falhou: item ID {$id} não encontrado no carrinho. Possível cache ou sessão corrompida.");
+            return;
+        }
+    
+        // Verifica se os campos necessários existem e são válidos
+        if (
+            !isset($this->items[$id]['qty'], $this->items[$id]['price']) ||
+            !is_numeric($this->items[$id]['qty']) ||
+            !is_numeric($this->items[$id]['price'])
+        ) {
+            \Log::warning("Remoção de item falhou: dados inválidos para item ID {$id} no carrinho.", [
+                'item' => $this->items[$id] ?? null
+            ]);
+            unset($this->items[$id]); // Limpa o item problemático
+            return;
+        }
+    
+        // Operação normal de remoção
         $this->totalQty -= $this->items[$id]['qty'];
         $this->totalPrice -= $this->items[$id]['price'];
         unset($this->items[$id]);
+    
+        // Remove desconto associado, se existir
         if (Session::has('current_discount')) {
             $data = Session::get('current_discount');
-            if (array_key_exists($id, $data)) {
+            if (is_array($data) && array_key_exists($id, $data)) {
                 unset($data[$id]);
                 Session::put('current_discount', $data);
             }
         }
-    }
+    }    
 
     /**
      * @return array object
