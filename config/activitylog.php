@@ -5,13 +5,13 @@ return [
     /*
      * If set to false, no activities will be saved to the database.
      */
-    'enabled' => env('ACTIVITY_LOGGER_ENABLED', true),
+    'enabled' => env('ACTIVITY_LOGGER_ENABLED', false),
 
     /*
      * When the clean-command is executed, all recording activities older than
      * the number of days specified here will be deleted.
      */
-    'delete_records_older_than_days' => 365,
+    'delete_records_older_than_days' => 7,
 
     /*
      * If no log name is passed to the activity() helper
