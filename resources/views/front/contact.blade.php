@@ -6,6 +6,12 @@
     .contact-us { padding: 60px 0; background-color: #fff; font-family: 'Poppins', sans-serif; }
     .contact-us h3 { font-weight: 300; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
     .contact-us .lead { font-size: 16px; color: #666; margin-bottom: 50px; }
+    .contact-us .contact-form .submit-btn{
+            text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    }
 
     /* Inputs e Formulário */
     .form-input { position: relative; margin-bottom: 20px; }
